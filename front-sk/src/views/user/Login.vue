@@ -101,13 +101,15 @@
         },
         methods: {
             checkForm(){
-                
+                this.email = this.email.toLowerCase(); // 소문자로 변경
+                // console.log(this.email) 
+
                 if (this.email.length > 0 && !EmailValidator.validate(this.email))
                     this.error.email = "이메일 형식이 아닙니다."
                 else this.error.email = false;
 
                 if (this.password.length > 0 && !this.passwordSchema.validate(this.password))
-                    this.error.password = '영문,숫자 포함 8 자리이상이어야 합니다.'
+                    this.error.password = '영문,숫자,특수문자 포함 8 자리이상이어야 합니다.'
                 else
                     this.error.password = false;
 
@@ -126,7 +128,6 @@
                     let {email,password} = this;
                     let data = {
                         email,password
-
                     }
                     //요청 후에는 버튼 비활성화
                     this.isSubmit = false;
