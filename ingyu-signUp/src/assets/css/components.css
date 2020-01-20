@@ -1,0 +1,387 @@
+/* COLOR */
+/* FONT */
+/*25px*/
+/*20px*/
+/*18px*/
+/*14px*/
+/*12px*/
+/*12px*/
+@keyframes shine-lines {
+  0% {
+    background-position: -100px; }
+  40%, 100% {
+    background-position: 140px; } }
+@keyframes shine-avatar {
+  0% {
+    background-position: -32px; }
+  40%, 100% {
+    background-position: 208px; } }
+.components-page {
+  padding-top: 50px;
+  padding-bottom: 100px; }
+  .components-page h1 {
+    text-align: center;
+    font-weight: 600;
+    transform: rotate(0.1deg); }
+  .components-page h2 {
+    width: 100%;
+    float: left;
+    font-weight: 600;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: #3893A8; }
+  .components-page .input-with-label {
+    width: 100%;
+    float: left;
+    position: relative;
+    margin-bottom: 10px; }
+    .components-page .input-with-label input[type="text"],
+    .components-page .input-with-label input[type="password"] {
+      width: 100%;
+      float: left;
+      height: 50px;
+      line-height: 1em;
+      padding: 0 15px 0 105px;
+      box-sizing: border-box;
+      color: #000;
+      border: 1px solid #000;
+      border-radius: 3px; }
+      .components-page .input-with-label input[type="text"]:hover, .components-page .input-with-label input[type="text"]:focus,
+      .components-page .input-with-label input[type="password"]:hover,
+      .components-page .input-with-label input[type="password"]:focus {
+        border: 2px solid #000; }
+      .components-page .input-with-label input[type="text"].error,
+      .components-page .input-with-label input[type="password"].error {
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid #EE4B55; }
+      .components-page .input-with-label input[type="text"].complete,
+      .components-page .input-with-label input[type="password"].complete {
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid #3893A8; }
+      .components-page .input-with-label input[type="text"].disabled,
+      .components-page .input-with-label input[type="password"].disabled {
+        background: #eee;
+        color: #333;
+        font-weight: 600; }
+        .components-page .input-with-label input[type="text"].disabled:hover, .components-page .input-with-label input[type="text"].disabled:focus,
+        .components-page .input-with-label input[type="password"].disabled:hover,
+        .components-page .input-with-label input[type="password"].disabled:focus {
+          border: 1px solid #000; }
+    .components-page .input-with-label input[type="password"] {
+      padding-right: 50px; }
+    .components-page .input-with-label label {
+      position: absolute;
+      left: 15px;
+      top: 19px;
+      color: #000;
+      font-weight: 600;
+      font-size: 0.857em; }
+    .components-page .input-with-label h4 {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      word-wrap: normal; }
+    .components-page .input-with-label .error-text {
+      width: 100%;
+      float: left;
+      color: #EE4B55;
+      margin-top: 3px; }
+    .components-page .input-with-label .eyes-icon {
+      position: absolute;
+      font-size: 1em;
+      right: 10px;
+      top: 15px; }
+      .components-page .input-with-label .eyes-icon .fa-eye {
+        font-size: 20px;
+        width: auto;
+        color: rgba(0, 0, 0, 0.3); }
+      .components-page .input-with-label .eyes-icon.active .fa-eye {
+        color: #3893A8; }
+  .components-page .textarea-wrap {
+    width: 100%;
+    float: left;
+    position: relative;
+    border: 1px solid #000;
+    padding: 15px 15px 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 3px; }
+    .components-page .textarea-wrap h4 {
+      float: left;
+      font-weight: 600;
+      color: #666; }
+      .components-page .textarea-wrap h4 + span {
+        float: right;
+        font-size: 0.857em;
+        margin-top: 4px;
+        color: #707070; }
+    .components-page .textarea-wrap textarea {
+      width: 100%;
+      float: left;
+      margin-top: 10px;
+      height: 120px;
+      outline: none; }
+  .components-page .btn-default {
+    width: 100%;
+    float: left;
+    height: 50px;
+    line-height: 50px;
+    box-sizing: border-box;
+    color: #fff;
+    background: #444;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    transform: rotate(0.1deg); }
+    .components-page .btn-default.noneBackground {
+      background: #fff;
+      color: #000;
+      border: 1px solid #000; }
+  .components-page .btn-small {
+    width: 70px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 30px;
+    color: #fff;
+    background: #444;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-weight: 600;
+    transform: rotate(0.1deg);
+    font-size: 0.857em; }
+    .components-page .btn-small.noneBackground {
+      background: #fff;
+      color: #000;
+      border: 1px solid #000; }
+  .components-page .btns-half {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px; }
+    .components-page .btns-half button {
+      width: 50%;
+      float: left;
+      height: 50px;
+      line-height: 50px;
+      border: 1px solid #444;
+      border-radius: 3px 0 0 3px;
+      font-weight: 600; }
+      .components-page .btns-half button:last-of-type {
+        margin-left: -1px;
+        border-radius: 0 3px 3px 0; }
+      .components-page .btns-half button.highlight {
+        background: #444;
+        color: #fff; }
+  .components-page .select-component {
+    -webkit-appearance: none;
+    background-color: #fff;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    height: 50px;
+    border-radius: 3px;
+    padding: 0 40px 0 20px;
+    background-image: url("../../assets/images/select-arrow.png");
+    background-repeat: no-repeat;
+    background-size: 13px;
+    background-position: 95%;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+    margin-bottom: 10px; }
+  .components-page .switch-component {
+    width: 40px;
+    height: 18px;
+    border-radius: 30px;
+    background: #999;
+    float: left;
+    position: relative;
+    font-size: 0.857em;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0 8px;
+    margin-bottom: 50px; }
+    .components-page .switch-component:before {
+      content: "";
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 26px;
+      background: #eee;
+      left: -2px;
+      top: -4px;
+      box-sizing: border-box;
+      transition: .2s; }
+    .components-page .switch-component.active {
+      background: rgba(56, 147, 168, 0.5);
+      color: #fff;
+      text-align: right; }
+      .components-page .switch-component.active:before {
+        background: #3893A8;
+        left: 15px; }
+  .components-page .header-default {
+    padding: 10px;
+    width: calc(100% - 20px);
+    float: left;
+    border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 10px; }
+    .components-page .header-default .title {
+      margin-top: 6px;
+      float: left;
+      width: calc(100% - 100px);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      word-wrap: normal; }
+    .components-page .header-default .menu {
+      width: 30px;
+      height: 30px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url("../../assets/images/profile_default.png");
+      border-radius: 100%;
+      float: left;
+      margin-right: 10px; }
+    .components-page .header-default .back {
+      float: left;
+      margin-right: 10px;
+      padding: 6px 6px 0; }
+      .components-page .header-default .back .fa-chevron-left {
+        width: auto;
+        font-size: 17px; }
+    .components-page .header-default .right-text {
+      float: right;
+      color: #3893A8;
+      font-weight: 600;
+      transform: rotate(0.1deg);
+      padding-top: 6px; }
+      .components-page .header-default .right-text.disabled {
+        color: #444; }
+    .components-page .header-default .btn-search {
+      float: right;
+      color: #333;
+      margin-top: 5px; }
+      .components-page .header-default .btn-search .fa-search {
+        font-size: 1.3738461538em; }
+  .components-page .tab-component {
+    width: 33.333%;
+    float: left;
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+    transition: .2s;
+    text-align: center;
+    background: #eee;
+    color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #707070;
+    margin-left: -1px;
+    box-sizing: border-box; }
+    .components-page .tab-component:hover {
+      color: #000;
+      background: #fff; }
+    .components-page .tab-component.active {
+      background: #fff;
+      color: #000;
+      border-bottom: 2px solid #000; }
+    .components-page .tab-component .count {
+      color: #3893A8; }
+  .components-page .keyword-del {
+    width: 100%;
+    float: left;
+    position: relative;
+    background: #eee;
+    border-radius: 3px;
+    padding: 18px 20px;
+    box-sizing: border-box;
+    margin-bottom: 5px; }
+    .components-page .keyword-del .title {
+      font-size: 1em;
+      font-weight: 600;
+      line-height: 1em;
+      color: #787878; }
+    .components-page .keyword-del button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 18px 20px 16px;
+      color: #EE4B55; }
+  .components-page .keyword-add {
+    width: 100%;
+    float: left;
+    position: relative; }
+    .components-page .keyword-add input {
+      width: 100%;
+      float: left;
+      border: 1px solid #000;
+      border-radius: 3px;
+      padding-right: 50px;
+      padding-left: 20px; }
+    .components-page .keyword-add button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 17px 20px;
+      color: #3893A8; }
+  .components-page .curation-component {
+    padding: 15px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    transition: .2s; }
+    .components-page .curation-component.selected {
+      background: #3893A8;
+      cursor: pointer; }
+      .components-page .curation-component.selected .title {
+        color: #fff; }
+    .components-page .curation-component .title {
+      float: left;
+      font-weight: 600;
+      transform: rotate(0.1deg);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      word-wrap: normal;
+      width: calc(100% - 100px); }
+    .components-page .curation-component .btns {
+      float: right; }
+      .components-page .curation-component .btns button {
+        float: right;
+        font-size: 0.857em;
+        color: #3893A8;
+        font-weight: 600;
+        transform: rotate(0.1deg);
+        padding: 3px 0; }
+        .components-page .curation-component .btns button:first-of-type {
+          margin-left: 20px; }
+    .components-page .curation-component .select-text {
+      float: right;
+      font-size: 0.857em;
+      font-weight: 600;
+      transform: rotate(0.1deg);
+      color: #fff;
+      padding: 3px 0; }
+  .components-page .toast-component {
+    width: 100%;
+    float: left;
+    background: #333;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    margin-bottom: 10px; }
+    .components-page .toast-component.error {
+      background: #EE4B55; }
+    .components-page .toast-component h5 {
+      color: #fff;
+      font-weight: 600;
+      transform: rotate(0.1deg);
+      width: calc(100% - 50px);
+      float: left; }
+    .components-page .toast-component button {
+      float: right;
+      font-size: 0.857em;
+      color: #EE4B55;
+      padding: 1px 0; }
+
+/*# sourceMappingURL=components.css.map */

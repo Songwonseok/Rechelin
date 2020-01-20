@@ -1,0 +1,73 @@
+{
+  "name": "saffy_vue",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test": "jest",
+    "test:unit": "jest --no-cache"
+  },
+  "dependencies": {
+    "axios": "^0.19.1",
+    "babel-eslint": "^10.0.3",
+    "babel-preset-env": "^1.7.0",
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.2.2",
+    "core-js": "^3.4.3",
+    "email-validator": "^2.0.4",
+    "local-lib": "^0.1.0",
+    "node-sass": "^4.13.0",
+    "password-validator": "^5.0.3",
+    "sass-loader": "^8.0.0",
+    "v-slim-dialog": "0.0.9",
+    "vee-validate": "^3.2.1",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.3",
+    "vuex": "^3.1.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.7.6",
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "@vue/test-utils": "^1.0.0-beta.30",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.9.0",
+    "babel-preset-jest": "^25.0.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "jest": "^24.9.0",
+    "jest-transform-stub": "^2.0.0",
+    "vue-jest": "^3.0.5",
+    "vue-template-compiler": "^2.6.10",
+    "vue-test-utils": "^1.0.0-beta.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true,
+      "jest": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {
+      "no-console": "off",
+      "no-unused-vars": "off"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

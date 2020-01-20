@@ -1,0 +1,144 @@
+@charset "UTF-8";
+/* COLOR */
+/* FONT */
+/*25px*/
+/*20px*/
+/*18px*/
+/*14px*/
+/*12px*/
+/*12px*/
+@keyframes shine-lines {
+  0% {
+    background-position: -100px; }
+  40%, 100% {
+    background-position: 140px; } }
+@keyframes shine-avatar {
+  0% {
+    background-position: -32px; }
+  40%, 100% {
+    background-position: 208px; } }
+.user {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  box-sizing: border-box;
+  /*로그인*/ }
+  .user h1 {
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 30px; }
+  .user#login {
+    margin-top: 50px; }
+    .user#login h1 {
+      margin-bottom: 30px;
+      color: #000; }
+    .user#login .btn--login {
+      margin-top: 5px; }
+    .user#login .text {
+      width: 100%;
+      float: left; }
+      .user#login .text p {
+        color: #787878;
+        float: left;
+        font-size: 0.857em;
+        margin-right: 10px; }
+      .user#login .text .bar {
+        height: 1px;
+        background-color: #CCCCCC;
+        float: right;
+        margin-top: 9px;
+        margin-bottom: 20px; }
+    .user#login .sns-login {
+      margin: 20px 0;
+      text-align: right; }
+      .user#login .sns-login .bar {
+        width: calc(100% - 100px); }
+      .user#login .sns-login .btn--naver, .user#login .sns-login #kakao-login, .user#login .sns-login .google-login {
+        display: inline-block; }
+      .user#login .sns-login #kakao-login {
+        margin: 0 10px; }
+      .user#login .sns-login #naverIdLogin_loginButton img {
+        width: 55px;
+        height: 55px;
+        border-radius: 55px; }
+    .user#login .add-option .bar {
+      width: calc(100% - 40px); }
+    .user#login .add-option .wrap {
+      margin-bottom: 10px; }
+    .user#login .add-option p {
+      float: left; }
+    .user#login .add-option a {
+      float: right;
+      color: #000;
+      font-weight: 600; }
+  .user.join .form-wrap {
+    width: 100%;
+    float: left;
+    margin-bottom: 15px; }
+    .user.join .form-wrap span {
+      font-size: 1em;
+      position: absolute;
+      right: 10px;
+      top: 15px; }
+      .user.join .form-wrap span .fa-eye {
+        font-size: 20px;
+        width: auto;
+        color: rgba(0, 0, 0, 0.3); }
+      .user.join .form-wrap span.active .fa-eye {
+        color: #3893A8; }
+  .user.join .go-term {
+    float: right;
+    color: #000;
+    font-weight: 600;
+    margin-top: 5px;
+    font-size: 0.857em; }
+  .user.join input[type=password] {
+    padding-right: 50px; }
+  .user.changePassword .form-wrap {
+    width: 100%;
+    float: left;
+    margin-top: 40px; }
+    .user.changePassword .form-wrap span {
+      font-size: 1em;
+      position: absolute;
+      right: 10px;
+      top: 15px; }
+      .user.changePassword .form-wrap span .fa-eye {
+        font-size: 20px;
+        width: auto;
+        color: rgba(0, 0, 0, 0.3); }
+      .user.changePassword .form-wrap span.active .fa-eye {
+        color: #3893A8; }
+    .user.changePassword .form-wrap input[type=password] {
+      padding-right: 50px; }
+  .user.secession .terms {
+    color: #333;
+    font-weight: 600; }
+    .user.secession .terms a {
+      color: #3893A8; }
+  .user.creator h5 {
+    color: #787878;
+    margin-bottom: 20px;
+    font-weight: 600; }
+  .user #terms {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background: #fff;
+    z-index: 99;
+    padding-top: 50px;
+    box-sizing: border-box;
+    overflow: auto;
+    padding-bottom: 90px; }
+
+@media (max-height: 650px) {
+  .user.join .btn-bottom {
+    position: inherit;
+    width: 100%;
+    float: left;
+    margin-top: 60px;
+    margin-bottom: 20px; } }
+
+/*# sourceMappingURL=user.css.map */
