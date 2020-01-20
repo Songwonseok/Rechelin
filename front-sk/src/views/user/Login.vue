@@ -41,6 +41,7 @@
                     <div class="bar"></div>
                 </div>
 
+                <!-- 소셜 로그인 -->
                 <!--<img src='../../assets/images/naver_login.PNG'/> -->
                 <!--<a :href=naverLoginURL><img src='../../assets/images/naver_login.PNG'/></a>-->
                 <kakaoLogin :component="component" v-on:click="NaverLogin"/>
