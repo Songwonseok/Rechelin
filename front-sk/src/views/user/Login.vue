@@ -41,7 +41,9 @@
                     <div class="bar"></div>
                 </div>
 
-                <kakaoLogin :component="component"/>
+                <!--<img src='../../assets/images/naver_login.PNG'/> -->
+                <!--<a :href=naverLoginURL><img src='../../assets/images/naver_login.PNG'/></a>-->
+                <kakaoLogin :component="component" v-on:click="NaverLogin"/>
                 <GoogleLogin :component="component"/>
 
             </div>
@@ -101,13 +103,15 @@
         },
         methods: {
             checkForm(){
-                
+                this.email = this.email.toLowerCase(); // 소문자로 변경
+                // console.log(this.email) 
+
                 if (this.email.length > 0 && !EmailValidator.validate(this.email))
                     this.error.email = "이메일 형식이 아닙니다."
                 else this.error.email = false;
 
                 if (this.password.length > 0 && !this.passwordSchema.validate(this.password))
-                    this.error.password = '영문,숫자 포함 8 자리이상이어야 합니다.'
+                    this.error.password = '영문,숫자,특수문자 포함 8 자리이상이어야 합니다.'
                 else
                     this.error.password = false;
 
@@ -126,7 +130,6 @@
                     let {email,password} = this;
                     let data = {
                         email,password
-
                     }
                     //요청 후에는 버튼 비활성화
                     this.isSubmit = false;
@@ -150,6 +153,13 @@
                     console.log('로그인 끝')
 
                 }
+            },
+            NaverLogin(){
+                //////////////////////// 카카오 버튼을 누르면 네이버로 로그인 -- 기능되나 테스트만
+                let {email,password} = this;
+                    let data = {
+                        email,password
+                }
             }
         },
         data: () => {
@@ -162,7 +172,9 @@
                     passowrd: false
                 },
                 isSubmit: false,
-                component: this
+                component: this,
+                CLIENT_ID: 'yW3gT9TqzIgQqklEfEBF',
+                naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
             }
         }
 
