@@ -1,1 +1,2 @@
-front-sk/node_modules
+node_modules
+*.json
