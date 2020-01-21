@@ -4,7 +4,7 @@ import FindPW from './views/user/FindPW.vue'
 import JoinDone from './views/user/JoinDone.vue'
 import PageNotFound from './views/PageNotFound.vue'
 import Components from './views/Components.vue'
-
+import signUpForm from './views/user/signUpForm.vue';
 export default [
     // ERROR PAGE
     // 404 PAGE
@@ -41,5 +41,10 @@ export default [
         path: '/components',
         name: 'Components',
         component: Components
-    }
+    },
+    {
+        path : '/signUpForm',
+        name : 'signUpForm',
+        component : signUpForm,
+    },
 ]
