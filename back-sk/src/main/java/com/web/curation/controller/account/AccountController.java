@@ -67,6 +67,7 @@ public class AccountController{
         
     	JSONObject dummyUser = new JSONObject();
 
+    	
         dummyUser.put("uid","test_uid");
         dummyUser.put("email","test@test.com");
         dummyUser.put("nickname","test_nickname");
