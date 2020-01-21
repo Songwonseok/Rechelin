@@ -21,20 +21,20 @@
       />
 
 
-                     <ValidationObserver v-slot="{ passes }">
+                     <ValidationObserver ref="form" v-slot="{ passes }">
                         <form @submit.prevent="passes(onSubmit)">
                    
-                            <TextInput rules="required" label="First Name" type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                            <TextInput rules="required|max:5" label="First Name" type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
                         
                         
-                            <TextInput rules="required|email" label="Email Address" name="email" type="email" class="form-input" id="email" placeholder="Your Email"/>
+                            <TextInput rules="required|email" label="Email Address" name="email"  type="email" class="form-input" id="email" placeholder="Your Email"/>
                        
                        
-                            <TextInput v-model="password" type="password"  :rules="{ required: true,  regex: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/, confirmed:'confirmation'}" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <TextInput v-model="password" type="password" vid = "pass" :rules="{ required: true,  min:8, regex: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/, confirmed:'confirmation'}" class="form-input" name="password" id="password" placeholder="Password"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         
                        
-                            <TextInput  v-model="confirmation" type="password" vid="confirmation" rules="required"  class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
+                            <TextInput  v-model="confirmation" type="password" vid="confirmation" rules="required|confirmed:pass"  class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
                         
                         
                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { ValidationObserver } from "vee-validate";
+import { ValidationProvider, ValidationObserver } from "vee-validate";
 import TextInput from "../../components/common/TextInput.vue";
 import { extend } from 'vee-validate';
 import KakaoLogin from 'vue-kakao-login'
@@ -125,6 +125,7 @@ export default {
   components: {
     TextInput,
     ValidationObserver,
+    ValidationProvider, 
     KakaoLogin,
       NaverLogin
   },

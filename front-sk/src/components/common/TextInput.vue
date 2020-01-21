@@ -31,6 +31,7 @@
       class="block text-red-600 text-xs absolute bottom-0 left-0"
       v-bind="ariaMsg"
       v-if="errors[0]"
+      style ="color:red"
     >{{ errors[0] }}</span>
   </ValidationProvider>
 </template>

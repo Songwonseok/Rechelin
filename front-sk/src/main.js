@@ -16,7 +16,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // app.js
-
+import "./vee-validate";
 
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);
