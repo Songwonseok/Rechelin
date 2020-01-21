@@ -66,12 +66,10 @@ public class AccountController{
     	System.out.println(request.getEmail()+" "+request.getNickname()+" "+request.getPassword());
         
     	JSONObject dummyUser = new JSONObject();
-
-    	
         dummyUser.put("uid","test_uid");
         dummyUser.put("email","test@test.com");
         dummyUser.put("nickname","test_nickname");
-         
+        
     	final BasicResponse result = new BasicResponse();
         result.status = true;
         result.data = "success";
