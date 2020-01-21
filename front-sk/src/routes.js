@@ -5,7 +5,7 @@ import JoinDone from './views/user/JoinDone.vue'
 import PageNotFound from './views/PageNotFound.vue'
 import Components from './views/Components.vue'
 import Infopage from './views/user/page/Infopage'
-import Editpage from './views/user/page/EditPage'
+import Editpage from './views/user/page/Editpage'
 
 export default [
     // ERROR PAGE

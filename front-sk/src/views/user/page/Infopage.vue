@@ -5,7 +5,12 @@
         <img :src="allUsers[0].picture" :alt="allUsers[0].name">
         <h2>name: {{allUsers[0].name}}</h2>
         <h2>email: {{allUsers[0].email}}</h2>
-        <button router :to="{name: 'Editpage'}" exact>수정</button>
+        <button>
+        <router-link :to="{name: 'Editpage', params: {
+            user: allUsers[0]
+        }}" exact>수정</router-link>
+        </button>
+
         </div>
         
     </div>
