@@ -46,25 +46,24 @@ public class AccountController{
     NaverLogin naver;
     
     
-    @GetMapping("/tmp")
+    @GetMapping("/naverlogin")
     @ApiOperation(value = "로그인")
-    public Object test2(
+    public Object naverlogin(
             @RequestParam(value = "code") String code,
             @RequestParam(value = "state") String state
     ) throws Exception {
-        System.out.println("##########socail login");
-    	String clientId = "yW3gT9TqzIgQqklEfEBF";//애플리케이션 클라이언트 아이디값";
-        String naverClientSecret = "whK5eQJhow";
-
+    	System.out.println("##########socail login"+ naver.ClientId);
+    	
         String apiURL;
         apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-        apiURL += "client_id=" + clientId;
-		apiURL += "&client_secret=" + naverClientSecret;
+        apiURL += "client_id=" + naver.ClientId;
+		apiURL += "&client_secret=" + naver.ClientSecret;
         apiURL += "&code=" + code;
         apiURL += "&state=" + state;
         String access_token = "";
         String refresh_token = "";
         
+        final BasicResponse result = new BasicResponse();
         try {
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -81,44 +80,46 @@ public class AccountController{
             String inputLine;
             StringBuffer res = new StringBuffer();
             while ((inputLine = br.readLine()) != null) {
+            	
                 res.append(inputLine);
             }
             br.close();
             if(responseCode==200) { // 성공적으로 토큰을 가져온다면
-//            	System.out.println(res);
-                int id;
-                String nickName, email, tmp;
+            	System.out.println(res.toString());
+                
                 JsonParser parser = new JsonParser();
                 JsonElement accessElement = parser.parse(res.toString());
                 access_token = accessElement.getAsJsonObject().get("access_token").getAsString();
-
-                tmp = naver.getUserInfo(access_token);
-                JsonElement userInfoElement = parser.parse(tmp);
-                System.out.println("****************");
-                System.out.println(userInfoElement);
                 
-                id = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("id").getAsInt();
-                nickName = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("nickname").getAsString();
-                email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
+                String tmp = NaverLogin.getUserInfo(access_token);
+                JsonElement userInfoElement = parser.parse(tmp);
+                
+                String email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
+                System.out.println(email);
 
-                access_token = naver.createJWTToken(id, nickName, email);
+                parser = new JsonParser();
+                
+                
+                JSONObject dummyUser = new JSONObject();
+                
+//                dummyUser.put("uid","test_uid");
+                dummyUser.put("email",email);
+//                dummyUser.put("nickname","test_nickname");
+                
+                result.status = true;
+                result.data = "success";
+                result.object = dummyUser.toMap();
+                
+                
+                //// DB에서 존재하는 이메일인지 체크
+                //// 			없으면 DB 에저장
+                //// ===> login으로 바로 이동
+                
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        JSONObject dummyUser = new JSONObject();
-
-        dummyUser.put("uid","test_uid");
-        dummyUser.put("email","test@test.com");
-        dummyUser.put("nickname","test_nickname");
-        
-        System.out.println(dummyUser);
-        final BasicResponse result = new BasicResponse();
-        result.status = true;
-        result.data = "success";
-        result.object = dummyUser.toMap();
         return new ResponseEntity<>(result, HttpStatus.OK);
-//        return "redirect:http://localhost:8080/agreement?token=" + access_token;
     }
 
     @PostMapping("/account/login")

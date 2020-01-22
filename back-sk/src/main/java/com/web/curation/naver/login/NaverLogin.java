@@ -10,9 +10,10 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 public class NaverLogin {
-	private String naverClientSecret = "whK5eQJhow";
+	static public String ClientId = "yW3gT9TqzIgQqklEfEBF";
+	static public String ClientSecret = "whK5eQJhow";
 	
-	public String getUserInfo(String access_token) {
+	static public String getUserInfo(String access_token) {
         String header = "Bearer " + access_token; // Bearer 다음에 공백 추가
         try {
             String apiURL = "https://openapi.naver.com/v1/nid/me";

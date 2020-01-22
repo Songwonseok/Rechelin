@@ -1,7 +1,4 @@
 front-sk/node_modules
-<<<<<<< HEAD
-*.json
-=======
 
 node_modules
 npm-debug.log
@@ -169,4 +166,3 @@ npm-debug.log
 yarn-error.log
 
 # End of https://www.gitignore.io/api/vue,node,java,vuejs,java-web
->>>>>>> 76b95a2825fb5b2d10804432df5d9868b5819df6
