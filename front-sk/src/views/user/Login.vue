@@ -42,7 +42,9 @@
                 </div>
 
                 <!-- 소셜 로그인 -->
-                <!--<img src='../../assets/images/naver_login.PNG'/>-->
+                <NaverLogin :component="component" />
+                <button v-on:click="NaverLogin"></button>
+
                 <a :href=naverLoginURL>네이버로 로그인</a>
                 <kakaoLogin :component="component" v-on:click="NaverLogin"/>
                 <GoogleLogin :component="component"/>
@@ -75,12 +77,14 @@
     import * as EmailValidator from 'email-validator';
     import KakaoLogin from '../../components/user/snsLogin/Kakao.vue'
     import GoogleLogin from '../../components/user/snsLogin/Google.vue'
+    import NaverLogin from '../../components/user/snsLogin/Naver.vue'
     import UserApi from '../../apis/UserApi'
 
     export default {
         components: {
             KakaoLogin,
             GoogleLogin,
+            NaverLogin,
         },
         created(){
 
@@ -163,7 +167,7 @@
             },
             NaverLogin(){
                 //////////////////////// 카카오 버튼을 누르면 네이버로 로그인 -- 기능되나 테스트만
-                
+                console.log('HELLO')
             }
         },
         data: () => {
