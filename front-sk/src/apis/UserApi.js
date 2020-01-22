@@ -47,9 +47,29 @@ const requestJoin = (data, callback, errorCallback) => {
 
 }
 
+const requestEdit = (data, callback, errorCallback) => {
+    const params = {
+        "email": data.email,
+        "nickname": data.nickName,
+        "password": data.password,
+        "picture": data.picture
+    }
+    console.log(params)
+
+    // 회원정보 수정 url로 보내기
+    Axios.post('http://localhost:8080/account/edit', params)
+        .then(response => {
+            callback(response.data.object);
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp);
+            console.log('실패')
+        })
+}
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
-    requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback)
+    requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
+    requestEdit: (data, callback, errorCallback) => requestEdit(data, callback, errorCallback),
 }
 
 export default UserApi
