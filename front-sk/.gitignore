@@ -1,2 +1,4 @@
-node_modules
+./front-sk/node_modules
+./node_modules/
+*.json
 package-lock.json
