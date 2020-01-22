@@ -29,8 +29,9 @@
         핸드폰 번호 변경: <input v-model="phone" 
         type="text" id="phone" :placeholder="EditUser.phone">
         </div>
-        <button type="submit" style="margin-top: 10px;" @click="edit" >변경</button>
-        
+           <v-btn class="ma-2" tile outlined color="success">
+            <v-icon>{{ icons.mdiPencil }}</v-icon> EDIT
+            </v-btn>
         
 
     </div>
@@ -75,6 +76,7 @@ export default {
         EditUser() {
             return this.$route.params.info
         }
+        // 해당 회원이 자기 자신인지 아닌지 확인하는 함수 만들기 : button에 v-if!만들기
     },
     methods: {
         checkForm() {
