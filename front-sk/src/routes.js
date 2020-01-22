@@ -4,8 +4,8 @@ import FindPW from './views/user/FindPW.vue'
 import JoinDone from './views/user/JoinDone.vue'
 import PageNotFound from './views/PageNotFound.vue'
 import Components from './views/Components.vue'
-import Infopage from './views/user/page/Infopage'
-import Editpage from './views/user/page/Editpage'
+import Userpage from './views/user/page/Userpage'
+
 
 export default [
     // ERROR PAGE
@@ -40,15 +40,15 @@ export default [
         component: JoinDone
     },
     {
-        path: '/infopage/:id',
+        path: '/userpage/:id',
         name: 'infopage',
-        component: Infopage,
+        component: Userpage,
         
     },
     {
-        path: '/infopage/edit',
+        path: '/userpage/edit',
         name: 'Editpage',
-        component: Editpage
+        component: Userpage
     },
     {
         path: '/components',
