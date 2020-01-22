@@ -29,9 +29,10 @@
         핸드폰 번호 변경: <input v-model="phone" 
         type="text" id="phone" :placeholder="EditUser.phone">
         </div>
-           <v-btn class="ma-2" tile outlined color="success">
-            <v-icon>{{ icons.mdiPencil }}</v-icon> EDIT
-            </v-btn>
+         <v-btn class="ma-2" tile outlined color="success" @click="edit">
+          <v-icon left>{{ svgPath }}</v-icon>
+            EDIT
+        </v-btn>
         
 
     </div>
@@ -41,6 +42,7 @@
 import PV from 'password-validator'
 import UserApi from '../../apis/UserApi'
 import router from '../../routes.js'
+import { mdiPencil } from '@mdi/js'
 
 export default {
     data() {
@@ -55,6 +57,7 @@ export default {
                 confirmPW: false
             },
             isSubmit: false,
+            svgPath: mdiPencil
 
         }
     },
