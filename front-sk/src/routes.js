@@ -4,7 +4,8 @@ import FindPW from './views/user/FindPW.vue'
 import JoinDone from './views/user/JoinDone.vue'
 import PageNotFound from './views/PageNotFound.vue'
 import Components from './views/Components.vue'
-import Userpage from './views/user/page/Userpage'
+import UserPage from './views/userpage/UserPage.vue'
+import UserEdit from './views/userpage/UserEdit.vue'
 
 
 export default [
@@ -35,20 +36,19 @@ export default [
         component: FindPW
     },
     {
-        path: '/user/join/done',
-        name: 'JoinDone',
-        component: JoinDone
-    },
-    {
         path: '/userpage/:id',
-        name: 'infopage',
-        component: Userpage,
-        
+        name: 'UserPage',
+        component: UserPage
     },
     {
         path: '/userpage/edit',
-        name: 'Editpage',
-        component: Userpage
+        name: "UserEdit",
+        component: UserEdit
+    },
+    {
+        path: '/user/join/done',
+        name: 'JoinDone',
+        component: JoinDone
     },
     {
         path: '/components',
