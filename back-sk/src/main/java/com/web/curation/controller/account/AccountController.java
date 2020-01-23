@@ -128,11 +128,14 @@ public class AccountController{
                         @RequestParam(required = true) final String password){
     	System.out.println("&&&&&&&&&&&&&&&login");
         System.out.println(email+"=========="+password);
+        
+        User tmp = userDao.findUserByEmailAndPw(email,password);
+        
+        
         JSONObject dummyUser = new JSONObject();
 
-        dummyUser.put("uid","test_uid");
-        dummyUser.put("email","test@test.com");
-        dummyUser.put("nickname","test_nickname");
+        dummyUser.put("email",email);
+        dummyUser.put("nickname",tmp.getNickname());
         
         System.out.println(dummyUser);
         final BasicResponse result = new BasicResponse();
