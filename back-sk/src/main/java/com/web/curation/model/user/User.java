@@ -1,35 +1,40 @@
 // 디비 셋팅 주석 
  package com.web.curation.model.user;
 
- import lombok.AllArgsConstructor;
- import lombok.Data;
- import lombok.NoArgsConstructor;
-
- import javax.persistence.Column;
  import javax.persistence.Entity;
- import javax.persistence.GeneratedValue;
- import javax.persistence.GenerationType;
- import javax.persistence.Id;
+import javax.persistence.Id;
 
- import com.fasterxml.jackson.annotation.JsonIgnore;
-
- import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
  @Entity
- @Data
  @NoArgsConstructor
  @AllArgsConstructor
  public class User {
      @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private int uid;
-    
-     @JsonIgnore
-     private String password;
      private String email;
+     private String pw;
      private String nickname;
+     private String phone;
+     
+     private String profile;
 
-     @Column(insertable = false, updatable = false)
-     private LocalDateTime createDate;
-    
+	public String getEmail() {
+		return email;
+	}
+	public String getPw() {
+		return pw;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
  }
