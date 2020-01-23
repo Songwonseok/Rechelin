@@ -1,0 +1,190 @@
+@charset "utf-8";
+@import './common';
+
+.user {
+    @include wrap;
+    min-height: 100%;
+    box-sizing: border-box;
+    h1 {
+        color:#000;
+        font-weight: $f600;
+        margin-bottom: 30px;
+    }
+
+    /*로그인*/
+    &#login {
+        margin-top:50px;
+        h1 {
+            margin-bottom: 30px;
+            color:#000;
+        }
+        .btn--login {
+            margin-top: 5px;
+        }
+        .text {
+            @include wrap;
+            p {
+                color: #787878;
+                float: left;
+                font-size: $font-size__5;
+                margin-right: 10px;
+            }
+            .bar {
+                height: 1px;
+                background-color: $grey;
+                float: right;
+                margin-top: 9px;
+                margin-bottom: 20px;
+            }
+        }
+        .sns-login {
+            margin: 20px 0;
+            text-align: right;
+            .bar {
+                width: calc(100% - 100px);
+            }
+            .btn--naver, #kakao-login, .google-login {
+                display: inline-block;
+            }
+            #kakao-login {
+                margin: 0 10px;
+            }
+            #naverIdLogin_loginButton {
+                img {
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 55px;
+                }
+            }
+        }
+        .add-option {
+            .bar {
+                width: calc(100% - 40px);
+            }
+            .wrap {
+                margin-bottom: 10px;
+            }
+            p {
+                float: left;
+            }
+            a {
+                float: right;
+                color:#000;
+                font-weight: $f600;
+            }
+        }
+    }
+
+    //회원가입
+    &.join {
+        .form-wrap {
+            @include wrap;
+            margin-bottom: 15px;
+            span {
+                font-size: 1em;
+                position: absolute;
+                right:10px;
+                top:15px;
+                .fa-eye {
+                    font-size: 20px;
+                    width: auto;
+                    color:rgba(0, 0, 0, .3);
+
+                }
+                &.active {
+                    .fa-eye {
+                        color:$ssafy;
+                    }
+                }
+            }
+        }
+        .go-term {
+            float:right;
+            color:#000;
+            font-weight:$f600;
+            margin-top: 5px;
+            font-size: $font-size__5;
+        }
+        input[type=password] {
+            padding-right: 50px;
+        }
+    }
+
+    // 비밀번호 변경
+    &.changePassword {
+        .form-wrap {
+            @include wrap;
+            margin-top: 40px;
+            span {
+                font-size: 1em;
+                position: absolute;
+                right:10px;
+                top:15px;
+                .fa-eye {
+                    font-size: 20px;
+                    width: auto;
+                    color:rgba(0, 0, 0, .3);
+
+                }
+                &.active {
+                    .fa-eye {
+                        color:$ssafy;
+                    }
+                }
+            }
+            input[type=password] {
+                padding-right: 50px;
+            }
+        }
+    }
+
+    // 탈퇴
+    &.secession {
+        .terms {
+            color:#333;
+            font-weight: $f600;
+            a {
+                color:$ssafy;
+            }
+        }
+        .complete-secession {
+
+        }
+    }
+
+    // 만든이
+    &.creator {
+        h5 {
+            color:#787878;
+            margin-bottom: 20px;
+            font-weight: $f600;
+        }
+    }
+
+    // 약관
+    #terms {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        left: 0;
+        top:0;
+        background: #fff;
+        z-index: 99;
+        padding-top: 50px;
+        box-sizing: border-box;
+        overflow: auto;
+        padding-bottom: 90px;
+    }
+}
+
+// 하단 버튼 absolute 해제
+@media (max-height: 650px) {
+    .user {
+        //회원가입
+        &.join {
+            .btn-bottom {
+                position: inherit; @include wrap; margin-top: 60px; margin-bottom: 20px;
+            }
+        }
+    }
+}
