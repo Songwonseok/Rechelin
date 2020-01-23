@@ -183,7 +183,7 @@
                 component: this,
                 CLIENT_ID: 'yW3gT9TqzIgQqklEfEBF',
                 naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
-                redirectURI: 'http://localhost:8080/naverlogin',
+                redirectURI: 'http://localhost:8080/account/naverlogin',
                 state: 123
             }
         }
