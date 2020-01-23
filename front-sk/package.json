@@ -10,6 +10,8 @@
         "test:unit": "jest --no-cache"
     },
     "dependencies": {
+        "aws-amplify": "^2.2.2",
+        "aws-amplify-vue": "^0.2.12-beta.0",
         "axios": "^0.19.1",
         "babel-eslint": "^10.0.3",
         "babel-preset-env": "^1.7.0",

@@ -17,6 +17,14 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // app.js
 import "./vee-validate";
+//aws 
+import Amplify, * as AmplifyModules from 'aws-amplify'
+import { AmplifyPlugin } from 'aws-amplify-vue'
+import awsconfig from './aws-exports'
+Amplify.configure(awsconfig)
+
+Vue.use(AmplifyPlugin, AmplifyModules)
+//
 
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);

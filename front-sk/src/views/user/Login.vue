@@ -141,7 +141,7 @@ this.$router.push({ path: '/signUpForm' });
                     UserApi.requestLogin( data,res=>{
                         //통신을 통해 전달받은 값 콘솔에 출력
                         console.log(res);
-                        if(res == "success")
+                        if(res == "success")    
                             this.$router.push({ path: '/signUpForm' });
                         else
                             this.$router.push({ path: '/signUpForm' });
