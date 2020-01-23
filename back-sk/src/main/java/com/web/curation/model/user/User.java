@@ -1,19 +1,12 @@
 // 디비 셋팅 주석 
  package com.web.curation.model.user;
 
- import lombok.AllArgsConstructor;
- import lombok.Data;
- import lombok.NoArgsConstructor;
-
- import javax.persistence.Column;
  import javax.persistence.Entity;
- import javax.persistence.GeneratedValue;
- import javax.persistence.GenerationType;
- import javax.persistence.Id;
+import javax.persistence.Id;
 
- import com.fasterxml.jackson.annotation.JsonIgnore;
-
- import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
  @Entity
  @Data
@@ -21,15 +14,59 @@
  @AllArgsConstructor
  public class User {
      @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private int uid;
-    
-     @JsonIgnore
-     private String password;
      private String email;
+     
+     private String pw;
      private String nickname;
+     private String phone;
+     private String profile;
+     
+     
+	public User(String email) {
+		super();
+		this.email = email;
+	}
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public User(String email, String pw, String nickname, String phone, String profile) {
+		super();
+		this.email = email;
+		this.pw = pw;
+		this.nickname = nickname;
+		this.phone = phone;
+		this.profile = profile;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-     @Column(insertable = false, updatable = false)
-     private LocalDateTime createDate;
-    
  }
