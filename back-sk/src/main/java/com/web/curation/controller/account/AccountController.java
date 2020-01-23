@@ -23,6 +23,7 @@ import com.google.gson.JsonParser;
 import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.user.SignupRequest;
+import com.web.curation.model.user.User;
 import com.web.curation.naver.login.NaverLogin;
 
 import io.swagger.annotations.ApiOperation;
@@ -43,85 +44,8 @@ public class AccountController{
     @Autowired
     UserDao userDao;
     
-    NaverLogin naver;
+   
     
-    
-    @GetMapping("/naverlogin")
-    @ApiOperation(value = "로그인")
-    public Object naverlogin(
-            @RequestParam(value = "code") String code,
-            @RequestParam(value = "state") String state
-    ) throws Exception {
-    	System.out.println("##########socail login"+ naver.ClientId);
-    	
-        String apiURL;
-        apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-        apiURL += "client_id=" + naver.ClientId;
-		apiURL += "&client_secret=" + naver.ClientSecret;
-        apiURL += "&code=" + code;
-        apiURL += "&state=" + state;
-        String access_token = "";
-        String refresh_token = "";
-        
-        final BasicResponse result = new BasicResponse();
-        try {
-            URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
-            System.out.println(con);
-            int responseCode = con.getResponseCode();
-            BufferedReader br;
-
-            if(responseCode==200) { // 정상 호출
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {  // 에러 발생
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-            }
-            String inputLine;
-            StringBuffer res = new StringBuffer();
-            while ((inputLine = br.readLine()) != null) {
-            	
-                res.append(inputLine);
-            }
-            br.close();
-            if(responseCode==200) { // 성공적으로 토큰을 가져온다면
-            	System.out.println(res.toString());
-                
-                JsonParser parser = new JsonParser();
-                JsonElement accessElement = parser.parse(res.toString());
-                access_token = accessElement.getAsJsonObject().get("access_token").getAsString();
-                
-                String tmp = NaverLogin.getUserInfo(access_token);
-                JsonElement userInfoElement = parser.parse(tmp);
-                
-                String email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
-                System.out.println(email);
-
-                parser = new JsonParser();
-                
-                
-                JSONObject dummyUser = new JSONObject();
-                
-//                dummyUser.put("uid","test_uid");
-                dummyUser.put("email",email);
-//                dummyUser.put("nickname","test_nickname");
-                
-                result.status = true;
-                result.data = "success";
-                result.object = dummyUser.toMap();
-                
-                
-                //// DB에서 존재하는 이메일인지 체크
-                //// 			없으면 DB 에저장
-                //// ===> login으로 바로 이동
-                
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
     @PostMapping("/account/login")
     @ApiOperation(value = "로그인")
     public Object login(@RequestParam(required = true) final String email,
@@ -129,20 +53,34 @@ public class AccountController{
     	System.out.println("&&&&&&&&&&&&&&&login");
         System.out.println(email+"=========="+password);
         
-        User tmp = userDao.findUserByEmailAndPw(email,password);
-        
-        
+        final BasicResponse result = new BasicResponse();
         JSONObject dummyUser = new JSONObject();
 
-        dummyUser.put("email",email);
-        dummyUser.put("nickname",tmp.getNickname());
-        
-        System.out.println(dummyUser);
-        final BasicResponse result = new BasicResponse();
-        result.status = true;
-        result.data = "success";
-        result.object = dummyUser.toMap();
+        User tmp = userDao.getUserByEmail(email);
+        // 1. DB 에 값이 존재하는지 판단
+        if(tmp == null) {
+        	System.out.println("X");
+        	result.status = false;
+            result.data = "email이 존재하지않습니다";
+            
+        }else {
+        	// 2. email과 pw일치하는지 판단
+        	if(password.equals(tmp.getPw())) {
+        		result.status = true;
+        		result.data = "success";        		
+        	}else {
+        		result.status = false;
+        		result.data = "비밀번호가 일치하지 않습니다";
+        	}
+        	
+        	dummyUser.put("email",email);
+        	dummyUser.put("nickname",tmp.getNickname());
+        	result.object = dummyUser.toMap();
+        	
+        }
+
         return new ResponseEntity<>(result, HttpStatus.OK);
+        
     }
 
     @PostMapping("/account/signup")
