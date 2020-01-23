@@ -6,7 +6,9 @@ import PageNotFound from './views/PageNotFound.vue'
 import Components from './views/Components.vue'
 import UserPage from './views/userpage/UserPage.vue'
 import UserEdit from './views/userpage/UserEdit.vue'
-
+import Fans from './views/follow/Fans'
+import Stars from './views/follow/Stars'
+import UserReviews from './views/userpage/UserReviews'
 
 export default [
     // ERROR PAGE
@@ -35,10 +37,27 @@ export default [
         name: 'FindPW',
         component: FindPW
     },
-    {
+    { // 유저페이지
         path: '/userpage/:id',
         name: 'UserPage',
-        component: UserPage
+        component: UserPage,
+        children: [
+            {
+                path: 'fans',
+                name: 'Fans',
+                component: Fans
+            },
+            {
+                path: 'stars',
+                name: 'Stars',
+                component: Stars
+            },
+            {
+                path: 'reviews',
+                name: 'UserReviews',
+                component: UserReviews
+            }
+        ]
     },
     {
         path: '/userpage/edit',

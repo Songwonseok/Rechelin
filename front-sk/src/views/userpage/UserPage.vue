@@ -3,6 +3,13 @@
     <div style="text-align: center;">
         <div style="margin-bottom: 10px;">
             <h1>유저 페이지</h1>
+            <hr>
+            <!-- 앞에 url에 아이디가 받아져 있으면, 뒤에 파람즈로 보내주지 않아도 됨 -->
+            <v-btn
+              @click="UserFan">팔로우: {{UserInfo.fans.length}} </v-btn>
+            <v-btn
+              @click="UserStar">팔로잉: {{UserInfo.stars.length}} </v-btn>
+            <hr>
             <img :src="UserInfo.picture" :alt="UserInfo.name" style="width:300px; height:300px;">
             <h3>name: {{UserInfo.name}}</h3>
             <h3>email: {{UserInfo.email}}</h3>
@@ -14,36 +21,8 @@
             <v-icon left>{{ svgPath }}</v-icon>EDIT
         </v-btn>
         </div>
-
         <hr>
-        <h2>{{UserInfo.name}}님이 남기신 리뷰</h2>
-        <br>
-        <v-layout row>
-    <v-flex xs12 sm6 offset-sm3 >
-      <v-card v-for="(store, index) in UserInfo.stores" :key="index"  style="margin-bottom: 30px;">
-        <img :src="store.picture" :alt="index" height="200px" style="margin-top:10px;">
-        <v-card-title primary-title style="text-align: center;">
-          <div style="text-align: center;">
-            <div class="headline">{{store.name}}</div>
-            <span class="grey--text">{{store.address}}</span>
-            <p class="grey--text">{{store.phone}}</p>
-            <span class="pink" v-for="hash in store.hashtag" :key="hash" style="padding-right:10px;"># {{hash}}</span>
-          </div>
-        </v-card-title>
-        <v-card-actions>
-          <v-btn flat>Share</v-btn>
-          <v-btn flat color="purple">Explore</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-        <v-slide-y-transition>
-          <v-card-text v-show="show">
-            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-          </v-card-text>
-        </v-slide-y-transition>
-      </v-card>
-    </v-flex>
-  </v-layout>
-        
+        <router-view></router-view>
     </div>
     
 
@@ -66,8 +45,23 @@ export default {
         },
         UserBookMark() {
             return this.allUsers
-        },
+        }
 
+    },
+    methods: {
+      UserStar() {
+        this.$router.push({name: 'Stars', query: { stars: this.UserInfo.stars}}).catch(err =>{})
+      },
+      UserFan() {
+        this.$router.push({name:'Fans', query: { fans : this.UserInfo.fans}}).catch(err =>{});
+      }
+    },
+    created() {
+    
+        this.$router.push({name: 'UserReviews', query: {
+          info: this.UserInfo.stores
+        }})
+      
     }
 }
 
