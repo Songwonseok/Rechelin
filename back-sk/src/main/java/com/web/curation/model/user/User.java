@@ -20,6 +20,9 @@ import lombok.NoArgsConstructor;
      
      private String profile;
 
+	public User() {
+		super();
+	}
 	public User(String email) {
 		this.email = email;
 	}
