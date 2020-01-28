@@ -20,19 +20,15 @@ public class AcountService implements AcountServiceImpl {
 	
 	public Object login(String email, String password) {
         JSONObject dummyUser = new JSONObject();
-        
         final BasicResponse result = new BasicResponse();
         result.status = true;
         result.data = "success";
         result.object = dummyUser.toMap();
         return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-
-	
 	
 	public Object signup(User request) {
 		final BasicResponse result = new BasicResponse();
-        //이메일, 닉네임 중복처리 필수
     	
     	if(userDao.findByEmail(request.getEmail()) !=null) {
     		result.status = false;
@@ -44,7 +40,6 @@ public class AcountService implements AcountServiceImpl {
             result.data = "생성 실패(닉네임 중복)";
             return new ResponseEntity<>(result, HttpStatus.OK);
     	}
-        //회원가입단을 생성해 보세요.
         userDao.save(request);
         result.status = true;
         result.data = "회원 가입 성공";
@@ -55,7 +50,6 @@ public class AcountService implements AcountServiceImpl {
 
 	public Object delete(String email) {
     	User user = userDao.getOne(email);
-    	
         userDao.delete(user);
     	final BasicResponse result = new BasicResponse();
         result.status = true;
@@ -65,7 +59,6 @@ public class AcountService implements AcountServiceImpl {
 	}
 
 	public Object update(User request) {
-		
 //		userDao.updateUserInfo(request);
 		final BasicResponse result = new BasicResponse();
 		
