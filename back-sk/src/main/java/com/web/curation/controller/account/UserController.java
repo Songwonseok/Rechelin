@@ -81,7 +81,7 @@ public class UserController {
 				System.out.println(email);
 
 				// DB 에 존재하는지 확인
-				User user = userDao.getUserByEmail(email);
+				User user = userDao.findByEmail(email);
 				if (user == null) {
 					// DB에 계정 저장
 					System.out.println("XXXX");
@@ -89,12 +89,6 @@ public class UserController {
 				}
 				System.out.println(user);
 
-//				result.status = true;
-//				result.data = "success";
-//				dummyUser.put("email", email);
-//				result.object = dummyUser.toMap();
-
-				
 				//// DB에서 존재하는 이메일인지 체크
 				//// 없으면 DB 에저장
 				//// ===> login으로 바로 이동
@@ -102,6 +96,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			System.out.println(e);
+
 			// 로그인 실패
 			return "redirect:http://localhost:3000/404";
 		}
