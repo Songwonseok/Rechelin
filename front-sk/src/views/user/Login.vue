@@ -148,7 +148,6 @@ this.$router.push({ path: '/signUpForm' });
                         //요청이 끝나면 버튼 활성화
                         this.isSubmit = true;
                     },error=>{  
-                        //요청이 끝나면 버튼 활성화
                         this.isSubmit = true;
                     })
                 }

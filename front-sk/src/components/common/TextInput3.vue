@@ -9,7 +9,6 @@
   >
     <input
       class="w-full py-2 px-3 leading-normal bg-transparent border-b"
-
       :class="{ 'border-gray-700': !errors[0], 'border-red-600': errors[0], 'has-value': hasValue }"
       :id="name"
       :type="type"
@@ -18,6 +17,8 @@
       v-model="innerValue"
       v-bind="ariaInput"
     >
+    <button class="btn1"  v-on:click="emailFunction">인증</button>
+    
     <p></p>
     <label
       class="absolute block inset-0 w-full px-2 py-2 leading-normal"
@@ -40,9 +41,9 @@
 <script>
 
 import { ValidationProvider } from "vee-validate";
-
+import UserApi from '../../apis/UserApi';
 export default {
-  name: "TextInput",
+  name: "NameBtn",
   components: {
     ValidationProvider
   },
@@ -109,6 +110,18 @@ export default {
     if (this.value) {
       this.innerValue = this.value;
     }
+  },
+  methods:{
+    emailFunction(){
+      // let data ={innerValue},
+      let data = this.innerValue;
+      
+      UserApi.requestEmail(data, res=>{
+           console.log(res.status);
+           this.$emit('statusEmail', res.status); 
+      })
+      
+    } 
   }
 };
 
@@ -159,5 +172,27 @@ export default {
     margin-bottom: 10px;
     text-align: center;
 }
-
+.btn1 {
+        background-color: aliceblue;
+    border: none;
+    color: white;
+    padding: 1px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    color: cornflowerblue;
+    height: 40px;
+    margin-top: 10px;
+}
+.pl-3, .px-3 {
+    padding-left: 1rem !important;
+    width: 80%;
+}
+.TextInput[data-v-1107631a] {
+    padding-bottom: 18px;
+    margin-bottom: 15px;
+}
 </style>

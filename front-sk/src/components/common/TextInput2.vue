@@ -9,7 +9,6 @@
   >
     <input
       class="w-full py-2 px-3 leading-normal bg-transparent border-b"
-
       :class="{ 'border-gray-700': !errors[0], 'border-red-600': errors[0], 'has-value': hasValue }"
       :id="name"
       :type="type"
@@ -18,6 +17,8 @@
       v-model="innerValue"
       v-bind="ariaInput"
     >
+    <button class="btn1" v-on:click="nameFunction" >인증</button>
+    
     <p></p>
     <label
       class="absolute block inset-0 w-full px-2 py-2 leading-normal"
@@ -40,9 +41,9 @@
 <script>
 
 import { ValidationProvider } from "vee-validate";
-
+import UserApi from '../../apis/UserApi';
 export default {
-  name: "TextInput",
+  name: "TextInput2",
   components: {
     ValidationProvider
   },
@@ -88,7 +89,7 @@ export default {
     }
   },
   data: () => ({
-    innerValue: ""
+    innerValue: "",
   }),
   computed: {
     hasValue() {
@@ -109,7 +110,20 @@ export default {
     if (this.value) {
       this.innerValue = this.value;
     }
+  },
+  methods:{
+    nameFunction(){
+      // let data ={innerValue},
+      let data = this.innerValue;
+      
+      UserApi.requestName(data, res=>{
+          console.log(res.status);
+          this.$emit('statusName', res.status); 
+      })
+      
+    } 
   }
+
 };
 
 </script>
@@ -159,5 +173,27 @@ export default {
     margin-bottom: 10px;
     text-align: center;
 }
-
+.btn1 {
+        background-color: aliceblue;
+    border: none;
+    color: white;
+    padding: 1px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    color: cornflowerblue;
+    height: 40px;
+    margin-top: 10px;
+}
+.pl-3, .px-3 {
+    padding-left: 1rem !important;
+    width: 80%;
+}
+.TextInput[data-v-10f94b99] {
+    padding-bottom: 18px;
+    margin-bottom: 15px;
+}
 </style>
