@@ -10,6 +10,8 @@ import Fans from './views/follow/Fans'
 import Stars from './views/follow/Stars'
 import UserReviews from './views/userpage/UserReviews'
 
+
+
 export default [
     // ERROR PAGE
     // 404 PAGE
@@ -57,6 +59,7 @@ export default [
                 name: 'UserReviews',
                 component: UserReviews
             }
+
         ]
     },
     {

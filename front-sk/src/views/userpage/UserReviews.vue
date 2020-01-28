@@ -1,45 +1,36 @@
 <template>
     <div>
-    <v-layout row>
-    <v-flex xs12 sm6 offset-sm3 >
-    <v-card v-for="(store, index) in UserStores" :key="index"  style="margin-bottom: 30px;">
-        <img :src="store.picture" :alt="index" height="200px" style="margin-top:10px;">
-        <v-card-title primary-title style="text-align: center;">
-        <div style="text-align: center;">
-            <div class="headline">{{store.name}}</div>
-            <span class="grey--text">{{store.address}}</span>
-            <p class="grey--text">{{store.phone}}</p>
-            <span class="pink" v-for="hash in store.hashtag" :key="hash" style="padding-right:10px;"># {{hash}}</span>
-        </div>
-        </v-card-title>
-        <v-card-actions>
-        <v-btn flat>Share</v-btn>
-        <v-btn flat color="purple">Explore</v-btn>
-        <v-spacer></v-spacer>
-        </v-card-actions>
-        <v-slide-y-transition>
-        <v-card-text v-show="show">
-            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-        </v-card-text>
-        </v-slide-y-transition>
-    </v-card>
-    </v-flex>
-</v-layout>
-    
+        <carousel-3d>
+            <slide v-for="(bookmark, index) in UserBookmarks" :key="key-`${index}`" :index="index" >
+                <img :src="bookmark.picture">
+            </slide>
+        </carousel-3d>
 
-    </div>
+        <carousel-3d>
+            <slide v-for="(review, index) in UserReviews" :key="key-`${index}`" :index="index" >
+                <img :src="review.picture">
+            </slide>
+        </carousel-3d>
+      </div>
 </template>
 
 <script>
+import { Carousel3d, Slide } from 'vue-carousel-3d';
 
 export default {
+    components: {
+        Carousel3d,
+        Slide
+    },
     computed : {
-        UserStores () {
-            return this.$route.params.info
+        UserBookmarks() {
+            return this.$route.params.bookmarks
+        },
+        UserReviews () {
+            return this.$route.params.reviews
         }
     },
     created() {
-
     }
 }
 

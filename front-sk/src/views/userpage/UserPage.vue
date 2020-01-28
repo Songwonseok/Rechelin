@@ -63,7 +63,8 @@ export default {
     created() {
     
         this.$router.push({name: 'UserReviews', params: {
-          info: this.UserInfo.stores
+          bookmarks: this.UserInfo.stores,
+          reviews : this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
         }})
       
     }
