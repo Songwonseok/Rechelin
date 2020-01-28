@@ -41,8 +41,11 @@
                     <div class="bar"></div>
                 </div>
 
-                <!--<img src='../../assets/images/naver_login.PNG'/> -->
-                <!--<a :href=naverLoginURL><img src='../../assets/images/naver_login.PNG'/></a>-->
+                <!-- 소셜 로그인 -->
+                <NaverLogin :component="component" />
+                <button v-on:click="NaverLogin"></button>
+
+                <a :href=naverLoginURL>네이버로 로그인</a>
                 <kakaoLogin :component="component" v-on:click="NaverLogin"/>
                 <GoogleLogin :component="component"/>
 
@@ -74,14 +77,22 @@
     import * as EmailValidator from 'email-validator';
     import KakaoLogin from '../../components/user/snsLogin/Kakao.vue'
     import GoogleLogin from '../../components/user/snsLogin/Google.vue'
+    import NaverLogin from '../../components/user/snsLogin/Naver.vue'
     import UserApi from '../../apis/UserApi'
 
     export default {
         components: {
             KakaoLogin,
             GoogleLogin,
+            NaverLogin,
         },
         created(){
+
+            this.naverLoginURL += '&client_id=' + this.CLIENT_ID
+            this.naverLoginURL += '&redirect_uri=' + this.redirectURI
+            this.naverLoginURL += '&state=' + this.state
+
+            console.log(this.naverLoginURL)
             this.component = this;
 
 
@@ -156,10 +167,7 @@
             },
             NaverLogin(){
                 //////////////////////// 카카오 버튼을 누르면 네이버로 로그인 -- 기능되나 테스트만
-                let {email,password} = this;
-                    let data = {
-                        email,password
-                }
+                console.log('HELLO')
             }
         },
         data: () => {
@@ -174,7 +182,9 @@
                 isSubmit: false,
                 component: this,
                 CLIENT_ID: 'yW3gT9TqzIgQqklEfEBF',
-                naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
+                naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
+                redirectURI: 'http://localhost:8080/account/naverlogin',
+                state: 123
             }
         }
 
