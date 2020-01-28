@@ -116,7 +116,7 @@ export default {
                     "nickname": nickname,
                     "pw": pw1, 
                     "phone": phone, 
-                    "image" : image
+                    "profile" : image
                 }
                 this.isSubmit = false;
                 UserApi.requestEdit(data, res => {
