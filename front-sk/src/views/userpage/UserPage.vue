@@ -28,7 +28,6 @@
    <h4>Design by 싸피 4조 쏘아올리조</h4>
 </footer>
   </div>
-    
 
 </template>
 
