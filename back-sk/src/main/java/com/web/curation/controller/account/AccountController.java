@@ -24,88 +24,84 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-	@ApiResponses(value = {
-    @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
-    @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
-    @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
-    @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class)})
+@ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
+		@ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
+		@ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
+		@ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
-@CrossOrigin(origins = {"*"}, maxAge = 6000)
-@RestController 
-public class AccountController{
-		
+@CrossOrigin(origins = { "*" }, maxAge = 6000)
+@RestController
+public class AccountController {
+
 	@Autowired
 	AcountServiceImpl service;
 
-    @Autowired
-    UserDao userDao;
+	@Autowired
+	UserDao userDao;
 
-    @PostMapping("/account/login")
-    @ApiOperation(value = "로그인")
-    public Object login(@RequestParam(required = true) final String email,
-                        @RequestParam(required = true) final String password){
+	@PostMapping("/account/login")
+	@ApiOperation(value = "로그인")
+	public Object login(@RequestParam(required = true) final String email,
+			@RequestParam(required = true) final String password) {
 
-    	System.out.println("&&&&&&&&&&&&&&&login");
-        System.out.println(email+"=========="+password);
-        
-        final BasicResponse result = new BasicResponse();
-        JSONObject dummyUser = new JSONObject();
+		System.out.println("&&&&&&&&&&&&&&&login");
+		System.out.println(email + "==========" + password);
 
-        User tmp = userDao.findByEmail(email);
-        // 1. DB 에 값이 존재하는지 판단
-        if(tmp == null) {
-        	System.out.println("X");
-        	result.status = false;
-            result.data = "email이 존재하지않습니다";
-            
-        }else {
-        	// 2. email과 pw일치하는지 판단
-        	if(password.equals(tmp.getPw())) {
-        		result.status = true;
-        		result.data = "success";        		
-        	}else {
-        		result.status = false;
-        		result.data = "비밀번호가 일치하지 않습니다";
-        	}
-        	
-        	dummyUser.put("email",email);
-        	dummyUser.put("nickname",tmp.getNickname());
-        	result.object = dummyUser.toMap();
-        	
-        }
+		final BasicResponse result = new BasicResponse();
+		JSONObject dummyUser = new JSONObject();
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+		User tmp = userDao.findByEmail(email);
+		// 1. DB 에 값이 존재하는지 판단
+		if (tmp == null) {
+			System.out.println("X");
+			result.status = false;
+			result.data = "email이 존재하지않습니다";
 
-    
-    @PostMapping("/account/signup")
-    @ApiOperation(value = "가입하기")
-    public Object signup(@RequestBody User request) {
-    	
-    	return service.signup(request);
-    }
-    
-    @DeleteMapping("/account/delete")
-    @ApiOperation(value = "삭제하기")
-    public Object delete(@RequestParam(required = true) final String email) {
-        //이메일, 닉네임 중복처리 필수
-        //회원가입단을 생성해 보세요.
-    	return service.delete(email);
-    }
-    
-    @PutMapping("/account/update")
-    @ApiOperation(value = "수정하기")
-    public Object update(@RequestBody User request) {
-    	return service.update(request);
-    }
-    
-    @GetMapping("/account/list")
-    @ApiOperation(value = "유저보기")
-    public Object selectAll() {
-    	
-        return service.selectAll();
-    }
-    
-    
-    
+		} else {
+			// 2. email과 pw일치하는지 판단
+			if (password.equals(tmp.getPw())) {
+				result.status = true;
+				result.data = "success";
+			} else {
+				result.status = false;
+				result.data = "비밀번호가 일치하지 않습니다";
+			}
+
+			dummyUser.put("email", email);
+			dummyUser.put("nickname", tmp.getNickname());
+			result.object = dummyUser.toMap();
+
+		}
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@PostMapping("/account/signup")
+	@ApiOperation(value = "가입하기")
+	public Object signup(@RequestBody User request) {
+
+		return service.signup(request);
+	}
+
+	@DeleteMapping("/account/delete")
+	@ApiOperation(value = "삭제하기")
+	public Object delete(@RequestParam(required = true) final String email) {
+		// 이메일, 닉네임 중복처리 필수
+		// 회원가입단을 생성해 보세요.
+		return service.delete(email);
+	}
+
+	@PutMapping("/account/update")
+	@ApiOperation(value = "수정하기")
+	public Object update(@RequestBody User request) {
+		return service.update(request);
+	}
+
+	@GetMapping("/account/list")
+	@ApiOperation(value = "유저보기")
+	public Object selectAll() {
+
+		return service.selectAll();
+	}
+
 }
