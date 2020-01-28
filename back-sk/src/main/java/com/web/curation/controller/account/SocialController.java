@@ -16,7 +16,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.user.User;
-import com.web.curation.naver.login.NaverLogin;
+import com.web.curation.sosial.NaverLogin;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -78,16 +78,17 @@ public class UserController {
 				System.out.println(userInfoElement);
 
 				email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
-				System.out.println(email);
-
+				String nickname = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
+				
 				// DB 에 존재하는지 확인
 				User user = userDao.findByEmail(email);
 				if (user == null) {
 					// DB에 계정 저장
 					System.out.println("XXXX");
-					userDao.save(new User(email));
+					user = new User(email, nickname);
+					userDao.save(user);
 				}
-				System.out.println(user);
+				System.out.println(user.toString());
 
 				//// DB에서 존재하는 이메일인지 체크
 				//// 없으면 DB 에저장
@@ -98,7 +99,7 @@ public class UserController {
 			System.out.println(e);
 
 			// 로그인 실패
-			return "redirect:http://localhost:3000/404";
+			return "redirect:http://localhost:3000/#/404";
 		}
 		// 로그인 성공페이지
 		return "redirect:http://localhost:3000/#/";

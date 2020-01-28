@@ -23,14 +23,24 @@ import lombok.NoArgsConstructor;
 	public User() {
 		super();
 	}
-	public User(String email) {
+	public User(String email, String nickname) {
+		this.email = email;
+		this.nickname = nickname;
+	}
+	public void setEmail(String email) {
 		this.email = email;
 	}
 	public String getEmail() {
 		return email;
 	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
 	public String getPw() {
 		return pw;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getNickname() {
 		return nickname;
@@ -42,6 +52,11 @@ import lombok.NoArgsConstructor;
 
 	public String getProfile() {
 		return profile;
+	}
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", pw=" + pw + ", nickname=" + nickname + ", phone=" + phone + ", profile="
+				+ profile + "]";
 	}
 
 
