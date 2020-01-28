@@ -83,7 +83,7 @@ public class UserController {
 				System.out.println(email);
 
 				// DB 에 존재하는지 확인
-				User user = userDao.getUserByEmail(email);
+				User user = userDao.findByEmail(email);
 				if (user == null) {
 					// DB에 계정 저장
 					System.out.println("XXXX");

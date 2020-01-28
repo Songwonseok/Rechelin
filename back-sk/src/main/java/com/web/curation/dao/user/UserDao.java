@@ -8,15 +8,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-<<<<<<< HEAD
 import com.web.curation.model.user.User;
-=======
-public interface UserDao extends JpaRepository<User, String> {
-	User getUserByEmail(String email);
-	User findUserByEmailAndPw(String email, String pw);
->>>>>>> 186f4052a9825acc36d67a3b31add9bf6284b14d
+
 
 public interface UserDao extends JpaRepository<User, String> {
+	User findUserByEmailAndPw(String email, String pw);
 	User findByNickname(String nickname);
 	User findByEmail(String email);
 	
