@@ -12,7 +12,7 @@
 export default {
     computed: {
         Stars() {
-            return this.$route.query.stars
+            return this.$route.params.stars
         }
     },
     created () {

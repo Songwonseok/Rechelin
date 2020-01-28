@@ -4,7 +4,10 @@
         <h1 style="margin-top: 20px; margin-bottom: 20px;">회원정보 수정 페이지</h1>
     
         <div>
-        <img :src="EditUser.picture" :alt="EditUser.name" style="height: 300px; width:300px;">
+        <img :src="image" :alt="EditUser.name" style="height: 300px; width:300px;">
+        <input type="file" @change="load" accept=".jpg, .jpeg, .png, .gif">
+        
+                
         </div>
 
         <div style="margin-top: 10px;">
@@ -51,6 +54,7 @@ export default {
             pw1: '',
             pw2: '',
             phone: '',
+            image: this.$route.params.info.picture,
             passwordSchema: new PV(),
             error : {
                 pw1: false,
@@ -103,9 +107,9 @@ export default {
         },
         edit() {
             if (this.isSubmit) {
-                let {nickname, pw1, phone} = this;
+                let {nickname, pw1, phone, image} = this;
                 let data = {
-                    nickname, pw1, phone
+                    nickname, pw1, phone, image
                 }
                 this.isSubmit = false;
                 UserApi.requestEdit(data, res => {
@@ -113,12 +117,30 @@ export default {
                     console.log(this.EditUser.email);
                     this.$router.push(`userpage/${this.EditUser.email}`)
                 })
+                // axios 보낸는 장소
             }
-        }
+        },
+        // 프로필 이미지 변경
+        load(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            console.log(e.target.files[0])
+            if (!files.length) return;
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+                let image = new Image();
+                let reader = new FileReader();
+
+                reader.onload = (e) => {
+                    console.log(this.EditUser.picture)
+                    this.EditUser.picture = e.target.result;
+                    this.image = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
         
     },
     created() {
-        console.log(this.$route);
         this.passwordSchema // 비밀번호 형식 체크
             .is().min(8)
             .is().max(100)

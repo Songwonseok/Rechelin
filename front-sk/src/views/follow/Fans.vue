@@ -14,7 +14,7 @@ export default {
     computed : {
        UserFans() {
            console.log(this.$route)
-           return this.$route.query.fans 
+           return this.$route.params.fans 
        },
     },
     created () {

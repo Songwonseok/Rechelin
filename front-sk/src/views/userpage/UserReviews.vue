@@ -1,6 +1,5 @@
 <template>
     <div>
-
     <v-layout row>
     <v-flex xs12 sm6 offset-sm3 >
     <v-card v-for="(store, index) in UserStores" :key="index"  style="margin-bottom: 30px;">
@@ -36,11 +35,11 @@
 export default {
     computed : {
         UserStores () {
-            return this.$route.query.info
+            return this.$route.params.info
         }
     },
     created() {
-        console.log(this.$route)
+
     }
 }
 

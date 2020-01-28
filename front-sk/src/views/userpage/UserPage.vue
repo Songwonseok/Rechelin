@@ -35,7 +35,9 @@ import { mdiPencil } from '@mdi/js'
 export default {
     data() {
         return {
-            svgPath: mdiPencil
+            svgPath: mdiPencil,
+
+           
         }
     },
     computed: {
@@ -45,20 +47,22 @@ export default {
         },
         UserBookMark() {
             return this.allUsers
-        }
+        },
+
 
     },
     methods: {
       UserStar() {
-        this.$router.push({name: 'Stars', query: { stars: this.UserInfo.stars}}).catch(err =>{})
+        this.$router.push({name: 'Stars', params: { stars: this.UserInfo.stars}}).catch(err =>{})
       },
       UserFan() {
-        this.$router.push({name:'Fans', query: { fans : this.UserInfo.fans}}).catch(err =>{});
-      }
+        this.$router.push({name:'Fans', params: { fans : this.UserInfo.fans}}).catch(err =>{});
+      },
+
     },
     created() {
     
-        this.$router.push({name: 'UserReviews', query: {
+        this.$router.push({name: 'UserReviews', params: {
           info: this.UserInfo.stores
         }})
       
