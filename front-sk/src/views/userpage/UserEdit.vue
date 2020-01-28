@@ -50,17 +50,19 @@ import { mdiPencil } from '@mdi/js'
 export default {
     data() {
         return {
-            nickname: '',
-            pw1: '',
-            pw2: '',
-            phone: '',
+            email : this.$route.params.info.email,
+            nickname: this.$route.params.info.name,
+            pw1: this.$route.params.info.pw1,
+            pw2: this.$route.params.info.pw1,
+            phone: this.$route.params.info.phone,
             image: this.$route.params.info.picture,
             passwordSchema: new PV(),
             error : {
                 pw1: false,
                 confirmPW: false
             },
-            isSubmit: false,
+
+            isSubmit: true,
             svgPath: mdiPencil
 
         }
@@ -106,17 +108,29 @@ export default {
 
         },
         edit() {
+
             if (this.isSubmit) {
-                let {nickname, pw1, phone, image} = this;
+                let {email, nickname, pw1, phone, image} = this;
                 let data = {
-                    nickname, pw1, phone, image
+                    "email":email, 
+                    "nickname": nickname,
+                    "pw": pw1, 
+                    "phone": phone, 
+                    "image" : image
                 }
                 this.isSubmit = false;
                 UserApi.requestEdit(data, res => {
-                    console.log('회원 정보 수정에 성공');
-                    console.log(this.EditUser.email);
-                    this.$router.push(`userpage/${this.EditUser.email}`)
-                })
+                    
+                    alert('회원 정보 수정에 성공');
+                    this.$router.push({name: `UserPage`})
+                }, error=>{  
+                    
+                        console.log("회원 정보 수정 실패 !!!");
+                        alert('회원 정보 수정 실패 !!')
+                        // 로그인 실패시 버튼 비활성화
+                        this.isSubmit = false;
+                    }
+)
                 // axios 보낸는 장소
             }
         },

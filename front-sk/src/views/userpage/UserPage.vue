@@ -7,16 +7,18 @@
         <img class="avatar" :src="UserInfo.picture" :alt="UserInfo.name"/>
            </div>
           <button>Follow</button>
+          
           <div class="user-profile-data">
             <h1>{{UserInfo.name}}</h1>
             <p>{{UserInfo.email}}</p>
+          <router-link :to="{name: 'UserEdit', params: { info: UserInfo}}"><strong> Edit</strong></router-link>
           </div> 
 
        <ul class="data-user">
         <li><router-link :to="{name: 'UserReviews', params: {
           bookmarks: this.UserInfo.stores,
           reviews : this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
-        }}"><strong>{{UserInfo.stores.length+ UserInfo.stores.length}}</strong><span>Posts</span></router-link></li>
+        }}"><strong>{{UserInfo.stores.length+UserInfo.stores.length}}</strong><span>Posts</span></router-link></li>
         <li><router-link :to="{name:'Fans', params: { fans : this.UserInfo.fans}}"><strong>{{UserInfo.fans.length}}</strong><span>Followers</span></router-link></li>
         <li><router-link :to="{name: 'Stars', params: { stars: this.UserInfo.stars}}"><strong> {{UserInfo.stars.length}}</strong><span>Following</span></router-link></li>
        </ul>
