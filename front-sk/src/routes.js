@@ -11,10 +11,14 @@ import Stars from './views/follow/Stars'
 import UserReviews from './views/userpage/UserReviews'
 import Main from './views/Main'
 
+import signUpForm from './views/user/signUpForm.vue';
+import signUpConfirm from './views/user/signUpConfirm.vue';
+import searchPassword from './views/user/searchPw.vue';
 
 export default [
     // ERROR PAGE
     // 404 PAGE
+   
 
     {
         path: '*',
@@ -81,5 +85,21 @@ export default [
         path: '/main',
         nam: 'Main',
         component: Main
-    }
+    },
+    {
+        path : '/signUpForm',
+        name : 'signUpForm',
+        component : signUpForm,
+    },
+    {
+        path : '/signUpConfirm',
+        name : 'signUpConfirm',
+        component : signUpConfirm,
+    },
+    {
+        path : '/searchPassword',
+        name : 'searchPassword',
+        component : searchPassword,
+        }
+    
 ]
