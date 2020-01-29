@@ -28,6 +28,7 @@ import com.web.curation.model.BasicResponse;
 import com.web.curation.model.FileInfo;
 import com.web.curation.model.user.User;
 import com.web.curation.service.AcountService;
+import com.web.curation.service.JwtService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -49,7 +50,7 @@ public class AccountController {
 	UserDao userDao;
 
 	@Autowired
-//	private JwtService jwtService;
+	private JwtService jwtService;
  
 
     @DeleteMapping("/account/delete")
@@ -135,8 +136,7 @@ public class AccountController {
 		final BasicResponse result = new BasicResponse();
 		
 		try {
-			int status = 0; 
-//			= jwtService.checkJwt(token);
+			int status = jwtService.checkJwt(token);
 			switch (status) {
 			case 0:
 				result.status = true;
@@ -190,7 +190,7 @@ public class AccountController {
 			} else {
 				result.status = true;
 				result.data = "success";
-//				dummyToken.put("token", jwtService.makeJwt(tmp));
+				dummyToken.put("token", jwtService.makeJwt(tmp));
 				dummyToken.put("user", dummyUser);
 
 				result.object = dummyToken.toMap();
