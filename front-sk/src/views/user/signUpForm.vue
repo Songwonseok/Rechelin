@@ -30,6 +30,7 @@
                     name="name"
                     id="name"
                     @statusName="changeName"
+                    v-bind:propsdata ="disabledName"
                     placeholder="닉네임을 적어 주세요."
                   />
                   <span>
@@ -41,6 +42,8 @@
                       type="email"
                       class="form-input"
                       id="email"
+                      :disabled = "disabledEmail"
+                      v-bind:propsdata ="disabledEmail"
                       @statusEmail ="changeEmail"
                       placeholder="e-mail을 적어 주세요."
                     />
@@ -110,7 +113,7 @@
     margin-bottom: 10px;
 "
                     name="radio-sub-component"
-                    required
+                    required data-errormessage-value-missing="Please, pick one"
                   >
                     <b-form-radio name="some-radios" value="A">약관 동의</b-form-radio>
                     <b-form-radio name="some-radios2" value="B">약관 동의하지 않음</b-form-radio>
@@ -211,6 +214,8 @@ export default {
     return {
       isNameOk : '',
       isEmailOk : '',
+      disabledName : true,
+      disabledEmail : true,
     }
   },
   computed: {
@@ -237,12 +242,20 @@ export default {
       set(value) {
         this.$store.commit("updatePassword", value);
       },
-     phone : {
+    phone: {
+      get() {
+        return this.$store.state.phone;
+      },
+      set(value) {
+        this.$store.commit("updatePhone", value);
+      }
+      },
+     isSubmit : {
        get(){
-         return this.$store.state.phone;
+         return this.$store.state.isSubmit;
        },
        set(value){
-         this.$store.commit("updatePhone",value);
+         this.$store.commit("updateIsSubmit",value);
        }
      }
     }
@@ -262,14 +275,20 @@ export default {
     },
     changeName(status){
         this.isNameOk = status;
-        if(this.isNameOk === false && this.$store.state.name.length<6) alert('사용할 수 있는 name 입니다.');
+        if(this.isNameOk === false && this.$store.state.name.length<6 &&this.$store.state.name.length>0 ){ alert('사용할 수 있는 name 입니다.');
+          this.disabledName = false;
+        }
         else alert('이미 사용하고 있는 name 이거나 글자수 5글자를 초과했습니다.');
     },
     changeEmail(status){
       this.isEmailOk = status;
-    
-      if(this.isNameOk === false && EmailValidator.validate(this.$store.state.email) ) alert('사용할 수 있는 email 입니다.');
-      else alert('이미 사용하고 있는 email 입니다.');
+      let exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+      if(this.isEmailOk == false && exptext.test(this.$store.state.email)==true) {
+        alert('사용할 수 있는 email 입니다.');
+        this.disabledEmail = false;
+      }
+      else alert('이미 사용하고 있는 email 이거나 이메일 형식에 맞지 않습니다.');
+      
     },
     submit() {
       if(this.isEmailOk===false && this.isNameOk===false){

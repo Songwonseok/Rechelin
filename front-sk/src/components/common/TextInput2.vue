@@ -17,8 +17,10 @@
       v-model="innerValue"
       v-bind="ariaInput"
     >
-    <button class="btn1" v-on:click="nameFunction" >인증</button>
-    
+
+    <span class="spa" v-if="propsdata" v-on:click="nameFunction" >인증</span>
+    <span class="spa2" :disabled="propsdata" v-else> 인증 되셨습니다.</span>
+
     <p></p>
     <label
       class="absolute block inset-0 w-full px-2 py-2 leading-normal"
@@ -43,11 +45,14 @@
 import { ValidationProvider } from "vee-validate";
 import UserApi from '../../apis/UserApi';
 export default {
+ 
   name: "TextInput2",
   components: {
     ValidationProvider
   },
+  
   props: {
+    propsdata : Boolean,
     vid: {
       type: String,
       default: undefined
@@ -173,11 +178,11 @@ export default {
     margin-bottom: 10px;
     text-align: center;
 }
-.btn1 {
+.spa {
         background-color: aliceblue;
     border: none;
     color: white;
-    padding: 1px 50px;
+    padding: 7px 50px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -187,6 +192,23 @@ export default {
     color: cornflowerblue;
     height: 40px;
     margin-top: 10px;
+    width : 20%;
+}
+.spa2 {
+      background-color: aliceblue;
+    border: none;
+    color: white;
+    padding: 7px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    color: cornflowerblue;
+    height: 40px;
+    margin-top: 10px;
+    idth : 20%;
 }
 .pl-3, .px-3 {
     padding-left: 1rem !important;

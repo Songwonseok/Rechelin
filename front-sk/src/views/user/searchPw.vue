@@ -7,11 +7,25 @@
         <!-- <img src="images/signup-bg.jpg" alt=""> -->
         <div class="container">
           <div class="signup-content">
-            
-          <h2>Confirm Sign Up</h2>
-          
+            <h2>Search Password</h2>
+              <text-input3
+                      v-model="email"
+                      rules="required|email"
+                      label="Email Address"
+                      name="email"
+                      type="email"
+                      class="form-input"
+                      id="email"
+                      :disabled = "disabledEmail"
+                      v-bind:propsdata ="disabledEmail"
+                      @statusEmail ="changeEmail"
+                      placeholder="e-mail을 적어 주세요."
+                    />
+                <b-button variant="outline-primary"   @click="send">Send</b-button>
+        
+
            <text-input v-model="code"  class="form-input" type="text"  name ="code" rules="required|min:6" placeholder="Code" />
-          <b-button variant="outline-primary"   @click="confirm">Submit</b-button>
+          <b-button variant="outline-primary"   @click="confirm">Confirm</b-button>
             
          <p class="loginhere">
               Have already an account ?
@@ -29,12 +43,22 @@
 <script>
 import { Auth } from "aws-amplify";
 import UserApi from '../../apis/UserApi';
+import TextInput3 from "../../components/common/TextInput3.vue";
 import TextInput from "../../components/common/TextInput.vue";
 
 export default {
   name: "App",
+ data: () => {
+            return {
+                email : '',
+                code : '',
+                number : '',
+                disabledEmail : true,
+               }
+ },
   components: {
     TextInput,
+    TextInput3,
 
   },
   computed: {
@@ -49,31 +73,32 @@ export default {
 
   },
   methods: {
+    send() {
+       this.number = String(Math.random());
+       Auth.signUp({
+        username: this.number,
+        password: "temp123!",
+        attributes: {
+          email: this.email // optional
+          // Other custom attributes...
+        },
+        validationData: [] // optional
+      })
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
+    },
     confirm() {
       // After retrieveing the confirmation code from the user
-      
-      Auth.confirmSignUp(this.$store.state.randomNumber, this.code, {
+      if(this.code,length<6) alert('email을 확인해주세요.')
+      Auth.confirmSignUp(this.number, this.code, {
         // Optional. Force user confirmation irrespective of existing alias. By default set to True.
         forceAliasCreation: true
       })
         .then(
           data => {
-          this.$store.state.user = data.user,
-          this.$store.state.info.nickname = this.$store.state.name,
-          this.$store.state.info.email = this.$store.state.email,
-          this.$store.state.info.pw = this.$store.state.password,
-        //   this.$store.state.info.profile = '',
-          this.$store.state.info.phone = this.$store.state.phone,
-        //   this.$store.state.info.code = this.$store.state.code,
-        //   this.$store.state.info.randomNumber = this.$store.state.randomNumber,
           alert("인증에 성공하셨습니다.");
           this.$router.push({ path: '/' })
-          console.log(this.$store.state.info)
           
-         UserApi.requestsignUp(this.$store.state.info, res=>{
-              console.log(res);
-          });
-
           }
           //this.$router.push("/")
         )

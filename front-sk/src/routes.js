@@ -6,9 +6,12 @@ import PageNotFound from './views/PageNotFound.vue'
 import Components from './views/Components.vue'
 import signUpForm from './views/user/signUpForm.vue';
 import signUpConfirm from './views/user/signUpConfirm.vue';
+import searchPassword from './views/user/searchPw.vue';
+
 export default [
     // ERROR PAGE
     // 404 PAGE
+   
 
     {
         path: '*',
@@ -52,5 +55,11 @@ export default [
         path : '/signUpConfirm',
         name : 'signUpConfirm',
         component : signUpConfirm,
-    }
+    },
+    {
+        path : '/searchPassword',
+        name : 'searchPassword',
+        component : searchPassword,
+        }
+    
 ]

@@ -19,5 +19,8 @@ export default {
     },
     updatePhone(state,phone){
         state.phone = phone;
+    },
+    updateIsSubmit(state,submit){
+        state.phone = submit;
     }
 }

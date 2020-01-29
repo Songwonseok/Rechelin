@@ -10,7 +10,14 @@ import ar from "vee-validate/dist/locale/ar.json";
 extend("required", required);
 
 // Install email rule.
-extend("email", email);
+extend("email", {
+  ...email,  
+  validate: function(value, args) {
+    // 체크 로직
+    this.$store.state.isSubmit = true;
+    return true;
+  }
+});
 
 // Install min rule.
 extend("min", min);
@@ -53,6 +60,10 @@ localize({
       regex : "000-0000-0000 로 입력해주세요.",
       min : "최소 13자리 입니다. (-) 를 포함해주세요.",
       required : "phone number는 공백으로 둘 수 없습니다."
+    },
+    code : {
+      required : "code 는 공백으로 둘 수 없습니다.",
+      min : 'code는 6자리 입니다.'
     }
       
     }
