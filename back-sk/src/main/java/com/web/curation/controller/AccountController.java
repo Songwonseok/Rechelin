@@ -1,4 +1,4 @@
-package com.web.curation.controller.account;
+package com.web.curation.controller;
 
 
 import java.io.File;
@@ -131,7 +131,7 @@ public class AccountController {
 	
 
 	@GetMapping("/token")
-	@ApiOperation(value = "로그인")
+	@ApiOperation(value = "토큰값 확인")
 	public Object token(@RequestParam String token) {
 		final BasicResponse result = new BasicResponse();
 		
@@ -212,12 +212,10 @@ public class AccountController {
 		if (tmp.getEmail().equals("")) {
 			result.status = false;
 			result.data = "생성 실패(이메일 중복)";
-			return new ResponseEntity<>(result, HttpStatus.OK);
 
 		} else if (tmp.getNickname().equals("")) {
 			result.status = false;
 			result.data = "생성 실패(닉네임 중복)";
-			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
 		
 		result.status = true;

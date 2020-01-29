@@ -1,4 +1,4 @@
-package com.web.curation.controller.account;
+package com.web.curation.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,7 +17,7 @@ import com.google.gson.JsonParser;
 import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.user.User;
 import com.web.curation.service.JwtService;
-import com.web.curation.sosial.NaverLogin;
+import com.web.curation.service.NaverLogin;
 
 import io.swagger.annotations.ApiOperation;
 
