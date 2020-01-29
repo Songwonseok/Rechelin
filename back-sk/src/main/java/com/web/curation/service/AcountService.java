@@ -9,12 +9,12 @@ public interface AcountService {
 	public User login(String email,String password);
 	public User signup(User request); 
 	public Object delete(String email);
-	public Object update(User request);
+	public void update(User request);
 	public Object selectAll();
-	public Object selectEmail(String email);
+	public User selectEmail(String email);
 	public Object selectName(String nickname);
 	public Object uploadImage(FileInfo fileInfo,boolean check);
 	public InputStream getProfile(String email);
-
+	public String EncodePW(String Pw) ;
 	 
 }

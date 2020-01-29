@@ -36,17 +36,11 @@ public class AcountServiceImpl implements AcountService {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	public Object update(User request) {
-		final BasicResponse result = new BasicResponse();
+	public void update(User request) {
+		
 		User user = userDao.findByEmail(request.getEmail());
 		user.updateUser(request);
 		userDao.save(user);
-
-		result.status = true;
-		result.data = "업데이트 성공";
-		result.object = new JSONObject(user).toMap();
-		
-		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	public User login(String email, String password) {
@@ -77,7 +71,7 @@ public class AcountServiceImpl implements AcountService {
 			request.setNickname("");
 		}
 		
-		request.setPw(passwordEncoder.encode(request.getPw())); // 암호화
+		request.setPw(EncodePW(request.getPw())); // 암호화
 		userDao.save(request);
 		
 		return request;
@@ -95,19 +89,10 @@ public class AcountServiceImpl implements AcountService {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	public Object selectEmail(String email) {
+	public User selectEmail(String email) {
 		User user = userDao.findByEmail(email);
-		final BasicResponse result = new BasicResponse();
-		if (user != null) {
-			result.status = true;
-			result.data = "성공";
-			result.object = new JSONObject(user).toMap();
-		} else {
-			result.status = false;
-			result.data = "유저가 없습니다.";
-		}
-
-		return new ResponseEntity<>(result, HttpStatus.OK);
+		return user;
+		
 	}
 
 	public Object selectName(String nickname) {
@@ -145,6 +130,11 @@ public class AcountServiceImpl implements AcountService {
 		// 사진이 없으면 defalut 이미지 경로 넣음
 		// if(....)
 		return in;
+	}
+
+	@Override
+	public String EncodePW(String Pw) {
+		return passwordEncoder.encode(Pw);
 	}
 
 }

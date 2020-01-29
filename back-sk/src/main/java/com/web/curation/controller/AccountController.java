@@ -46,12 +46,33 @@ public class AccountController {
 	@Autowired
 	AcountService service;
 
-	@Autowired
-	UserDao userDao;
 
 	@Autowired
 	private JwtService jwtService;
  
+	@PostMapping("/account/changePW")
+	@ApiOperation(value = "비밀번호 변경")
+	public Object changePW(@RequestParam(required = true) final String email,
+			@RequestParam(required = true) String password) {
+		final BasicResponse result = new BasicResponse();
+		User user = service.selectEmail(email);
+		if(user!=null) {
+			// 비밀번호를 암호화해서 저장
+			password = service.EncodePW(password);
+			// update 호출
+			user.setPw(password);
+			service.update(user);
+			
+			result.status = true;
+			result.data = "비밀번호바꾸기 성공";
+			result.object = new JSONObject(user).toMap();
+		}else {
+			result.status = false;
+			result.data = "존재하지않는 email입니다";
+		}
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 
     @DeleteMapping("/account/delete")
     @ApiOperation(value = "삭제하기")
@@ -62,14 +83,13 @@ public class AccountController {
     @PutMapping("/account/update")
     @ApiOperation(value = "수정하기")
     public Object update(@RequestBody User request) {
-    	System.out.println("update!!!");
-    	System.out.println(request.getEmail());
-    	System.out.println(request.getPw());
-    	System.out.println(request.getNickname());
-    	System.out.println(request.getPhone());
-    	System.out.println(request.getProfile());
+    	final BasicResponse result = new BasicResponse();
     	
-    	return service.update(request);
+    	result.status = true;
+		result.data = "업데이트 성공";
+		result.object = new JSONObject(request).toMap();
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
     @GetMapping("/account/list")
@@ -81,8 +101,18 @@ public class AccountController {
     @PostMapping("/account/selectEmail")
     @ApiOperation(value = "이메일로 유저찾기")
     public Object selectEmail(@RequestParam(required = true) final String email) {
-    	System.out.println(email);
-        return service.selectEmail(email);
+    	User user = service.selectEmail(email);
+    	final BasicResponse result = new BasicResponse();
+    	
+		if (user != null) {
+			result.status = true;
+			result.data = "성공";
+			result.object = new JSONObject(user).toMap();
+		} else {
+			result.status = false;
+			result.data = "유저가 없습니다.";
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
     @PostMapping("/account/selectName")
