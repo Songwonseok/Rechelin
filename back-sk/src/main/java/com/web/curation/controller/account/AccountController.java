@@ -2,11 +2,8 @@ package com.web.curation.controller.account;
 
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import javax.xml.ws.spi.http.HttpContext;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
@@ -36,66 +33,25 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
+		@ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
+		@ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
+		@ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
-	@ApiResponses(value = {
-    @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
-    @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
-    @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
-    @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class)})
+@CrossOrigin(origins = { "*" }, maxAge = 6000)
+@RestController
+public class AccountController {
 
-@CrossOrigin(origins = {"*"}, maxAge = 6000)
-@RestController 
-public class AccountController{
-		
 	@Autowired
 	AcountService service;
 
-    @Autowired
-    UserDao userDao;
+	@Autowired
+	UserDao userDao;
 
-    @PostMapping("/account/login")
-    @ApiOperation(value = "로그인")
-    public Object login(@RequestParam(required = true) final String email,
-                        @RequestParam(required = true) final String password){
+	@Autowired
+//	private JwtService jwtService;
+ 
 
-    	System.out.println("&&&&&&&&&&&&&&&login");
-        System.out.println(email+"=========="+password);
-        
-        final BasicResponse result = new BasicResponse();
-        JSONObject dummyUser = new JSONObject();
-
-        User tmp = userDao.findByEmail(email);
-        // 1. DB 에 값이 존재하는지 판단
-        if(tmp == null) {
-        	System.out.println("X");
-        	result.status = false;
-            result.data = "email이 존재하지않습니다";
-            
-        }else {
-        	// 2. email과 pw일치하는지 판단
-        	if(password.equals(tmp.getPw())) {
-        		result.status = true;
-        		result.data = "success";        		
-        	}else {
-        		result.status = false;
-        		result.data = "비밀번호가 일치하지 않습니다";
-        	}
-        	
-        	dummyUser.put("email",email);
-        	dummyUser.put("nickname",tmp.getNickname());
-        	result.object = dummyUser.toMap();
-        }
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    
-    @PostMapping("/account/signup")
-    @ApiOperation(value = "가입하기")
-    public Object signup(@RequestBody User request) {
-    	System.out.println("signUp");
-    	return service.signup(request);
-    }
-    
     @DeleteMapping("/account/delete")
     @ApiOperation(value = "삭제하기")
     public Object delete(@RequestParam(required = true) final String email) {
@@ -171,4 +127,107 @@ public class AccountController{
 	}
     
     
+	
+
+	@GetMapping("/token")
+	@ApiOperation(value = "로그인")
+	public Object token(@RequestParam String token) {
+		final BasicResponse result = new BasicResponse();
+		
+		try {
+			int status = 0; 
+//			= jwtService.checkJwt(token);
+			switch (status) {
+			case 0:
+				result.status = true;
+				result.data = "토큰이 유효합니다";
+				break;
+
+			case 1:
+				result.status = false;
+				result.data = "토큰 만료";
+				break;
+			case 2:
+				result.status = false;
+				result.data = "토큰 변조";
+				break;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	@PostMapping("/account/login")
+	@ApiOperation(value = "로그인")
+	public Object login(@RequestParam(required = true) final String email,
+			@RequestParam(required = true) final String password) {
+
+		System.out.println("&&&&&&&&&&&&&&&login");
+		System.out.println(email + "==========" + password);
+
+		final BasicResponse result = new BasicResponse();
+		JSONObject dummyToken = new JSONObject();
+		JSONObject dummyUser = new JSONObject();
+
+		User tmp = service.login(email, password);
+
+		// 1. DB 에 값이 존재하는지 판단
+		if (tmp == null) {
+			System.out.println("X");
+			result.status = false;
+			result.data = "email이 존재하지않습니다";
+
+		} else {
+			// 2. email과 pw일치하는지 판단
+			dummyUser.put("email", email);
+			dummyUser.put("nickname", tmp.getNickname());
+
+			if (tmp.getPw() == "") {
+				result.status = false;
+				result.data = "비밀번호가 일치하지 않습니다";
+				result.object = dummyUser.toMap();
+			} else {
+				result.status = true;
+				result.data = "success";
+//				dummyToken.put("token", jwtService.makeJwt(tmp));
+				dummyToken.put("user", dummyUser);
+
+				result.object = dummyToken.toMap();
+			}
+
+		}
+		System.out.println(result);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@PostMapping("/account/signup")
+	@ApiOperation(value = "가입하기")
+	public Object signup(@RequestBody User request) {
+
+		final BasicResponse result = new BasicResponse();
+		System.out.println("###########가입하기"+request.toString());
+		User tmp = service.signup(request);
+		
+		if (tmp.getEmail().equals("")) {
+			result.status = false;
+			result.data = "생성 실패(이메일 중복)";
+			return new ResponseEntity<>(result, HttpStatus.OK);
+
+		} else if (tmp.getNickname().equals("")) {
+			result.status = false;
+			result.data = "생성 실패(닉네임 중복)";
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
+		
+		result.status = true;
+		result.data = "회원 가입 성공";
+		result.object = new JSONObject(request).toMap();
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+
+	}
+
+	
+	
 }
