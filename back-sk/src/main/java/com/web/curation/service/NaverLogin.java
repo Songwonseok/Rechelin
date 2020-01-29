@@ -1,4 +1,4 @@
-package com.web.curation.sosial;
+package com.web.curation.service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
