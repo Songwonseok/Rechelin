@@ -118,13 +118,10 @@ const requestEdit = async(data, callback, errorCallback) => {
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
-<<<<<<< HEAD
     requestEdit: (data, callback, errorCallback) => requestEdit(data, callback, errorCallback),
-=======
     requestName: (data, callback, errorCallback) => requestName(data, callback, errorCallback),
     requestEmail: (data, callback, errorCallback) => requestEmail(data, callback, errorCallback),
     requestsignUp : (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
->>>>>>> 684155e800f4e6f2eab68ccf3a231e21163b69c1
 }
 
 export default UserApi 
