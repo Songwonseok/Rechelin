@@ -3,6 +3,7 @@ front-sk/node_modules
 .settings
 .classpath
 .project
+.factorypath
 
 node_modules
 npm-debug.log
