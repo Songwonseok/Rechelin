@@ -32,7 +32,7 @@ export default {
         }
     },
     created() {
-        console.log(this.$route.params.reviews)
+        console.log(this.$route.params.bookmarks)
     }
 }
 
