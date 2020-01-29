@@ -48,6 +48,7 @@ export default {
     computed: {
         ...mapState(['allUsers']),
         UserInfo(){
+          console.log(this.allUsers)
             return this.allUsers[0]
         },
         UserBookMark() {

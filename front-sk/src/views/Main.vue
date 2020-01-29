@@ -274,7 +274,7 @@ export default {
   position: absolute;
   width: 100%;
   background-color: orange;
-  left: 0px;
+  left: 0px; 
   color: white;
   text-align: center;
 }

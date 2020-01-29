@@ -18,8 +18,6 @@ import searchPassword from './views/user/searchPw.vue';
 export default [
     // ERROR PAGE
     // 404 PAGE
-   
-
     {
         path: '*',
         redirect: '/404'
@@ -32,16 +30,6 @@ export default [
         path: '/',
         name: 'Login',
         component: Login
-    },
-    {
-        path: '/user/join',
-        name: 'Join',
-        component: Join
-    },
-    {
-        path: '/user/findpw',
-        name: 'FindPW',
-        component: FindPW
     },
     { // 유저페이지
         path: '/userpage/:id',
@@ -70,11 +58,6 @@ export default [
         path: '/userpage/edit',
         name: "UserEdit",
         component: UserEdit
-    },
-    {
-        path: '/user/join/done',
-        name: 'JoinDone',
-        component: JoinDone
     },
     {
         path: '/components',

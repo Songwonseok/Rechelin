@@ -6,8 +6,26 @@ import mutations from './mutations'
 
 Vue.use(Vuex)
 
-const state = {
-    isUser: false,
+
+export default new Vuex.Store({
+    state : { 
+        name : '',
+        email : '',
+        password  : '',
+        user : '',
+        phone : '010',
+        code  : '',
+        isSubmit : false,
+        info : {
+            nickname : "",
+            email : "",
+            pw : "",
+            profile : null,
+            phone : '010',
+        },
+        confirmation : '',
+        randomNumber : '',
+        isUser: false,
     allUsers: [
         {email: "ascv@yahoo.com", name: "펭수", picture: "https://i.pinimg.com/564x/8c/b3/95/8cb3958ee0f6bb3d06515c4f25daacf2.jpg", phone: "010-2345-1231", pw1:"asdf1234",
         stores: [
@@ -38,60 +56,7 @@ const state = {
         name: '스타벅스', address: '멀캠 맞은 편', hashtag: ['노맛', '혼자', '시끄러운'], phone: '12313', picture: 'https://ww.namu.la/s/b9ae6fd83019ce31055107c03aaff8743d43aa5d90fa22e77e54c12c5e9cb12364bfd31c34e2b00001708cc5b0e12800f6c8ea63683c97ec8b5a534cd2546c5b5f94b6a88e9d226e34e400aab5c22fdad72e053f92e787c2350c4e1d947d2028558171b8e8d89dabc60b75210b14ad1b'
     }
     ],
-    
-}
 
-export default new Vuex.Store({
-    state : { 
-        name : '',
-        email : '',
-        password  : '',
-        user : '',
-        phone : '010',
-        code  : '',
-        isSubmit : false,
-        info : {
-            nickname : "",
-            email : "",
-            pw : "",
-            profile : null,
-            phone : '010',
-            // code : '',
-            // randomNumber : '',
-        },
-        confirmation : '',
-        randomNumber : '',
-    // },
-    // computed : {
-    //     ...mapState({
-    //         name : state =>state.name,
-    //         email : state =>state.email,
-    //         password : state =>state.password,
-    //         user : state =>state.user,
-    //         code : state =>state.code,
-    //         info : state =>state.info,
-    //         confirmation : state =>state.confirmation,
-    //     })
-    // },
-    // methods : {
-    //     updateName (e) {
-    //         this.$store.commit('updateName', e.target.value)
-    //       },
-    //     updateEmail(e){
-    //         this.$store.commit('updateEmail', e.target.value);
-    //     },
-    //     updatePassword (e) {
-    //         this.$store.commit('updatePassword', e.target.value)
-    //       },
-    //     updateUser(e){
-    //         this.$store.commit('updateUser', e.target.value);
-    //     },
-    //     updateCode(e){
-    //         this.$store.commit('updateCode', e.target.value);
-    //     },
-    //     updateInfo(e){
-    //         this.$store.commit('updateInfo', e.target.value);
-    //     },
      },
     mutations,
     getters,
