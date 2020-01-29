@@ -18,7 +18,7 @@ const requestLogin = (data, callback, errorCallback) => {
     // });
     Axios.post('http://localhost:8080/account/login', params)
         .then(response => {
-            callback(response.data.object);
+            callback(response.data);
             console.log('성공')
         }).catch(exp => {
             errorCallback(exp);
