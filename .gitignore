@@ -1,9 +1,10 @@
 front-sk/node_modules
-.mvn
-.settings
-.classpath
-.project
-.factorypath
+back-sk/.mvn
+back-sk/.settings
+back-sk/.classpath
+back-sk/.project
+back-sk/.factorypath
+back-sk/bin
 
 node_modules
 npm-debug.log
