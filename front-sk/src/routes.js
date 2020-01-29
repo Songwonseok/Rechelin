@@ -9,7 +9,7 @@ import UserEdit from './views/userpage/UserEdit.vue'
 import Fans from './views/follow/Fans'
 import Stars from './views/follow/Stars'
 import UserReviews from './views/userpage/UserReviews'
-
+import Main from './views/Main'
 
 
 export default [
@@ -76,5 +76,10 @@ export default [
         path: '/components',
         name: 'Components',
         component: Components
+    },
+    {
+        path: '/main',
+        nam: 'Main',
+        component: Main
     }
 ]
