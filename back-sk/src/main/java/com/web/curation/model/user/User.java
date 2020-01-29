@@ -19,7 +19,9 @@ import lombok.NoArgsConstructor;
      private String phone;
      
      private String profile;
-
+     
+    public User() { }
+     
 	public User(String email) {
 		this.email = email;
 	}
@@ -40,6 +42,13 @@ import lombok.NoArgsConstructor;
 	public String getProfile() {
 		return profile;
 	}
-
+	
+	public void updateUser(User a) {
+		this.pw = a.getPw();
+		this.nickname = a.getNickname();
+		this.phone = a.getPhone();
+		this.profile = a.getProfile();
+	}
+	
 
  }
