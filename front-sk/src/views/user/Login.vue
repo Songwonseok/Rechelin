@@ -49,7 +49,13 @@
                     <div class="bar"></div>
                 </div>
 
-                <kakaoLogin :component="component"/>
+
+                <!-- 소셜 로그인 -->
+                <NaverLogin :component="component" />
+                <button v-on:click="NaverLogin"></button>
+
+                <a :href=naverLoginURL>네이버로 로그인</a>
+                <kakaoLogin :component="component" v-on:click="NaverLogin"/>
                 <GoogleLogin :component="component"/>
 
             </div>
@@ -80,6 +86,7 @@
     import * as EmailValidator from 'email-validator';
     import KakaoLogin from '../../components/user/snsLogin/Kakao.vue'
     import GoogleLogin from '../../components/user/snsLogin/Google.vue'
+    import NaverLogin from '../../components/user/snsLogin/Naver.vue'
     import UserApi from '../../apis/UserApi'
     import JoinPage from './Join.vue';
     
@@ -88,8 +95,15 @@
             KakaoLogin,
             GoogleLogin,
             JoinPage,
+            NaverLogin,
         },
         created(){
+
+            this.naverLoginURL += '&client_id=' + this.CLIENT_ID
+            this.naverLoginURL += '&redirect_uri=' + this.redirectURI
+            this.naverLoginURL += '&state=' + this.state
+
+            console.log(this.naverLoginURL)
             this.component = this;
 
 
@@ -137,7 +151,7 @@
 
                     //요청 후에는 버튼 비활성화
                     this.isSubmit = false;
-this.$router.push({ path: '/signUpForm' });
+                    this.$router.push({ path: '/signUpForm' });
                     UserApi.requestLogin( data,res=>{
                         //통신을 통해 전달받은 값 콘솔에 출력
                         console.log(res);
@@ -151,6 +165,13 @@ this.$router.push({ path: '/signUpForm' });
                         this.isSubmit = true;
                     })
                 }
+
+                    console.log('로그인 끝')
+
+            },
+            NaverLogin(){
+                //////////////////////// 카카오 버튼을 누르면 네이버로 로그인 -- 기능되나 테스트만
+                console.log('HELLO')
             }
         },
         data: () => {
@@ -163,7 +184,11 @@ this.$router.push({ path: '/signUpForm' });
                     passowrd: false,
                 },
                 isSubmit: false,
-                component: this
+                component: this,
+                CLIENT_ID: 'yW3gT9TqzIgQqklEfEBF',
+                naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
+                redirectURI: 'http://localhost:8080/account/naverlogin',
+                state: 123
             }
         }
     }
