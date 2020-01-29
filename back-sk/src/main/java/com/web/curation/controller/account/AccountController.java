@@ -47,6 +47,34 @@ public class AccountController {
 	@Autowired
 	private JwtService jwtService;
 
+	@GetMapping("/token")
+	@ApiOperation(value = "로그인")
+	public Object token(@RequestParam String token) {
+		final BasicResponse result = new BasicResponse();
+		
+		try {
+			int status = jwtService.checkJwt(token);
+			switch (status) {
+			case 0:
+				result.status = true;
+				result.data = "토큰이 유효합니다";
+				break;
+
+			case 1:
+				result.status = false;
+				result.data = "토큰 만료";
+				break;
+			case 2:
+				result.status = false;
+				result.data = "토큰 변조";
+				break;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 	@PostMapping("/account/login")
 	@ApiOperation(value = "로그인")
 	public Object login(@RequestParam(required = true) final String email,
@@ -86,7 +114,7 @@ public class AccountController {
 			}
 
 		}
-
+		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 

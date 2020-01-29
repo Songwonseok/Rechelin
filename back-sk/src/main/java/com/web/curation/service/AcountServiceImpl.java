@@ -2,7 +2,6 @@ package com.web.curation.service;
 
 import java.util.List;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +26,7 @@ public class AcountServiceImpl implements AcountService {
 		User tmp = userDao.findByEmail(email);
 		if(tmp!=null) {
 			// 비밀번호 일치 X
+			
 			System.out.println(password+" "+tmp.getPw());
 			if(!passwordEncoder.matches(password, tmp.getPw())) {
 				System.out.println("비밀번호 틀림");

@@ -41,7 +41,7 @@ public class JwtServiceImpl implements JwtService {
 		
 		Map<String,Object> map = new HashMap<>();
 		map.put("email", user.getEmail());
-//		map.put("username", user.getUsername());
+		map.put("nickname", user.getNickname());
 		
 		JwtBuilder builder = Jwts.builder().setHeader(headerMap)
 				.setClaims(map)
@@ -52,19 +52,23 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	@Override
-	public boolean checkJwt(String jwt) throws Exception {
+	public int checkJwt(String jwt) throws Exception {
 		try {
 			@SuppressWarnings("unused")
 			Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SECRETKEY))
 					.parseClaimsJws(jwt).getBody(); //수행 되면 정상
-			return true;
+			System.out.println("checkJWT!!");
+			System.out.println(claims.toString());
+			return 0;
 		} catch (ExpiredJwtException exception) {
+			System.out.println("토큰만료 !");
 			//토큰 만료
-			return false;
+			return 1;
 		} catch (JwtException exception) {
+			System.out.println("토큰변조!");
 			//토큰 변조
-			return false;
-		} 
+			return 2;
+		}
 	}
 
 }

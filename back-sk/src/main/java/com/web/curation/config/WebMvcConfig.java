@@ -23,6 +23,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(authenticationInterceptor())
 //				.addPathPatterns("/**")
 //                .excludePathPatterns("/login", "/regist", "/photo/**");
-//                //로그인 쪽은 예외처리를 한다.
+//                //로그인 쪽은 예외처리를 한다. --- 필터역할
 //    }
 }

@@ -17,18 +17,20 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	@Autowired 
 	private JwtService jwtService;
 	
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		try {
-	    	String token = request.getHeader("token");
-			if (!jwtService.checkJwt(token)) { 
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				return false;
-			}
-			return true;
-		} catch (Exception e) { 
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			return false;
-		}
-    }
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//		try {
+//			// request가 어떻게 오는지 확인 !!!
+//	    	String token = request.getHeader("token"); // token값을 가져오기
+//			if (!jwtService.checkJwt(token)) { 
+//				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//				return false;
+//			}
+//			return true;
+//		} catch (Exception e) { 
+//			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//			return false;
+//		}
+//    }
+    
 }

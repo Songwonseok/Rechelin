@@ -16,18 +16,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.user.User;
+import com.web.curation.service.JwtService;
 import com.web.curation.sosial.NaverLogin;
 
 import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @Controller
-public class UserController {
+public class SocialController {
 	@Autowired
 	UserDao userDao;
-
+	
 	NaverLogin naver;
 
+	
 	@GetMapping("account/naverlogin")
 	@ApiOperation(value = "로그인")
 	public String naverlogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state)

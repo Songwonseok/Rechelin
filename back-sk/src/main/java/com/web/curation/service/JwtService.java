@@ -5,5 +5,5 @@ import com.web.curation.model.user.User;
 public interface JwtService {
 	String makeJwt(User user);
 
-	boolean checkJwt(String jwt) throws Exception;
+	int checkJwt(String jwt) throws Exception;
 }
