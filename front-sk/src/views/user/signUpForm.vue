@@ -195,21 +195,6 @@ export default {
     KakaoLogin,
     NaverLogin
   },
-  // data: () => {
-  // //   {
-  // //   pass: null,
-  // //   confirmedPass: null
-  // // }
-
-  //     return {
-  //       name : '',
-  //       email : '',
-  //       password : '',
-  //       user : '',
-  //       code : '',
-  //     }
-
-  // },
   data: () =>{
     return {
       isNameOk : '',

@@ -4,7 +4,11 @@
         <h1 style="margin-top: 20px; margin-bottom: 20px;">회원정보 수정 페이지</h1>
     
         <div>
-        <img :src="image" :alt="EditUser.name" style="height: 300px; width:300px;">
+        <img 
+            :src="image" 
+            :alt="EditUser.name" 
+            style="height: 300px; width:300px;"
+        >
         <input type="file" @change="load" accept=".jpg, .jpeg, .png, .gif">
         
                 
