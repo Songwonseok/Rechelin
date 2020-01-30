@@ -44,7 +44,7 @@ import io.swagger.annotations.ApiResponses;
 public class AccountController {
 
 	@Autowired
-	AcountService service;
+	private AcountService service;
 
 
 	@Autowired
@@ -141,10 +141,11 @@ public class AccountController {
 			result.status = false;
 			result.data = "생성 실패(닉네임 중복)";
 		}
-		
-		result.status = true;
-		result.data = "회원 가입 성공";
-		result.object = new JSONObject(request).toMap();
+		else {
+			result.status = true;
+			result.data = "회원 가입 성공";
+			result.object = new JSONObject(request).toMap();
+		}
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 
@@ -228,39 +229,46 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
-    @PostMapping(value = "/account/upload", headers = ("content-type=multipart/*"))
-	public Object upload(@RequestParam("file") MultipartFile inputFile) {
-		FileInfo fileInfo = new FileInfo();
-		HttpHeaders headers = new HttpHeaders();
-		if (!inputFile.isEmpty()) {
-			try {
-				String oriFileNm = inputFile.getOriginalFilename();
-				System.out.println("11213");
-				File destinationFile = new File(fileInfo.getDir() + File.separator + oriFileNm);
-				System.out.println(destinationFile);
-				inputFile.transferTo(destinationFile);
-				fileInfo.setFileName(destinationFile.getPath());
-				fileInfo.setFileSize(inputFile.getSize());
-				
-				return service.uploadImage(fileInfo, true); 
-			} catch (Exception e) {
-				return service.uploadImage(fileInfo, false); 
-			}
-		} else {
-			
-			/*
-			 * 이미지 경로 : default 이미지로 변경하고 upload
-			 * 
-			 */
-			return service.uploadImage(fileInfo, true); 
-		}
+    @PostMapping(value = "/account/uploadProfile")
+	public Object upload(@RequestParam(required = true) final String email,
+			@RequestParam(required = true) String profile) {
+    	final BasicResponse result = new BasicResponse();
+    	JSONObject dummyUser = new JSONObject();
+    	
+    	if(service.uploadProfile(email, profile)) {
+    		result.status = true;
+    		result.data = "프로필 등록 성공";
+    		dummyUser.put("email", email);
+    		dummyUser.put("profile", profile);
+    		result.object = dummyUser.toMap();
+    	}else {
+    		result.status = false;
+    		result.data = "프로필 등록 실패 ! - 존재하지않는 유저";
+    	}
+    	return new ResponseEntity<>(result, HttpStatus.OK);
 	}
     
-	@GetMapping(value = "/account/getProfile", produces = MediaType.IMAGE_JPEG_VALUE)
-	public @ResponseBody byte[] getFile(@RequestParam(required = true) final String email) throws IOException {
+	@PostMapping(value = "/account/getProfile")
+	public Object getFile(@RequestParam(required = true) final String email) {
+		final BasicResponse result = new BasicResponse();
 		
-		InputStream in = service.getProfile(email);
-		return IOUtils.toByteArray(in);
+		User user = service.getProfile(email);
+		if(user!=null) {
+			// profile 이 없음
+			if(user.getProfile()==null) {
+				result.status = true;
+				result.data = "profile 존재 X";
+			}else {
+				result.status = true;
+				result.data = "profile 가져오기 성공";
+				result.object = user;
+			}
+		}else {
+			// 존재하지 않는 유저
+			result.status = false;
+			result.data = "email 존재 X";
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
     
 	
