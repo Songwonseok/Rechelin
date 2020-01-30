@@ -17,5 +17,5 @@ public interface AcountService {
 	public Object uploadImage(FileInfo fileInfo,boolean check);
 	public InputStream getProfile(String email);
 	public String EncodePW(String Pw) ;
-	 
+	public boolean NaverLogin(String code, String state);
 }

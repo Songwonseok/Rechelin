@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.FileInfo;
 import com.web.curation.model.user.User;
@@ -51,6 +50,37 @@ public class AccountController {
 	@Autowired
 	private JwtService jwtService;
  
+	@DeleteMapping("/account/delete")
+    @ApiOperation(value = "삭제하기")
+    public Object delete(@RequestParam(required = true) final String email) {
+    	final BasicResponse result = new BasicResponse();
+    	if(service.delete(email)) {
+    		result.status = true;
+    		result.data = "삭제 성공";    		
+    	}else {
+    		result.status = false;
+    		result.data = "email이 존재하지 않습니다.";
+    	}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+	
+	@PutMapping("/account/update")
+    @ApiOperation(value = "수정하기")
+    public Object update(@RequestBody User request) {
+    	final BasicResponse result = new BasicResponse();
+    	
+    	if(service.update(request)) {
+    		result.status = true;
+    		result.data = "업데이트 성공";
+    		result.object = new JSONObject(request).toMap();    		
+    	}else {
+    		result.status = false;
+    		result.data = "email이 존재하지않아요";    		
+    	}
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+	
 	@PostMapping("/account/login")
 	@ApiOperation(value = "로그인")
 	public Object login(@RequestParam(required = true) final String email,
@@ -119,36 +149,9 @@ public class AccountController {
 
 	}
 
-	@DeleteMapping("/account/delete")
-    @ApiOperation(value = "삭제하기")
-    public Object delete(@RequestParam(required = true) final String email) {
-    	final BasicResponse result = new BasicResponse();
-    	if(service.delete(email)) {
-    		result.status = true;
-    		result.data = "삭제 성공";    		
-    	}else {
-    		result.status = false;
-    		result.data = "email이 존재하지 않습니다.";
-    	}
-		return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+	
     
-    @PutMapping("/account/update")
-    @ApiOperation(value = "수정하기")
-    public Object update(@RequestBody User request) {
-    	final BasicResponse result = new BasicResponse();
-    	
-    	if(service.update(request)) {
-    		result.status = true;
-    		result.data = "업데이트 성공";
-    		result.object = new JSONObject(request).toMap();    		
-    	}else {
-    		result.status = false;
-    		result.data = "email이 존재하지않아요";    		
-    	}
-		
-		return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+    
     
     @GetMapping("/account/list")
     @ApiOperation(value = "유저보기")
@@ -161,6 +164,36 @@ public class AccountController {
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    
+    @GetMapping("/token")
+	@ApiOperation(value = "토큰값 확인")
+	public Object token(@RequestParam String token) {
+		final BasicResponse result = new BasicResponse();
+		
+		try {
+			int status = jwtService.checkJwt(token);
+			switch (status) {
+			case 0:
+				result.status = true;
+				result.data = "토큰이 유효합니다";
+				break;
+
+			case 1:
+				result.status = false;
+				result.data = "토큰 만료";
+				break;
+			case 2:
+				result.status = false;
+				result.data = "토큰 변조";
+				break;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
     
     @PostMapping("/account/selectEmail")
     @ApiOperation(value = "이메일로 유저찾기")
@@ -238,6 +271,7 @@ public class AccountController {
 	public Object changePW(@RequestParam(required = true) final String email,
 			@RequestParam(required = true) String password) {
 		final BasicResponse result = new BasicResponse();
+		System.out.println("비밀번호 변경 !!!!!!!!!!!!!");
 		User user = service.selectEmail(email);
 		if(user!=null) {
 			// 비밀번호를 암호화해서 저장
@@ -253,43 +287,20 @@ public class AccountController {
 			result.status = false;
 			result.data = "존재하지않는 email입니다";
 		}
-		
+		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-    
-    
-	
-
-	@GetMapping("/token")
-	@ApiOperation(value = "토큰값 확인")
-	public Object token(@RequestParam String token) {
-		final BasicResponse result = new BasicResponse();
-		
-		try {
-			int status = jwtService.checkJwt(token);
-			switch (status) {
-			case 0:
-				result.status = true;
-				result.data = "토큰이 유효합니다";
-				break;
-
-			case 1:
-				result.status = false;
-				result.data = "토큰 만료";
-				break;
-			case 2:
-				result.status = false;
-				result.data = "토큰 변조";
-				break;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
+	@GetMapping("account/naverlogin")
+	@ApiOperation(value = "로그인")
+	public String naverlogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state){
+		if(service.NaverLogin(code, state)) {
+			// 로그인 성공페이지
+			return "redirect:http://localhost:3000/#/";			
+		}else {
+			// 로그인 실패
+			return "redirect:http://localhost:3000/#/404";
 		}
-		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
-	
-	
+
 }
