@@ -1,26 +1,36 @@
 package com.web.curation.model.user;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class Alarm {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 	
 	@NonNull
+	@Column(name="fan")
 	private String fan;
 	
 	@NonNull
+	@Column(name="star")
 	private String star;
 	
-	private boolean check;
+	@Column(name="checking")
+	private int checking;
+	
+	public Alarm() {}
+	
+	public Alarm(String fan, String star) {
+		this.fan = fan;
+		this.star = star;
+	}
 	
 	public long getNum() {
 		return num;
@@ -34,12 +44,12 @@ public class Alarm {
 		return star;
 	}
 	
-	public boolean getCheck() {
-		return check;
+	public int getChecking() {
+		return checking;
 	}
 	
 	public void updateCheck() {
-		this.check = true;
+		this.checking = 1;
 	}
 	
 }

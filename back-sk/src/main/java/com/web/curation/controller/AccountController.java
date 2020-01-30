@@ -126,9 +126,6 @@ public class AccountController {
 		InputStream in = service.getProfile(email);
 		return IOUtils.toByteArray(in);
 	}
-    
-    
-	
 
 	@GetMapping("/token")
 	@ApiOperation(value = "토큰값 확인")

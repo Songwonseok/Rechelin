@@ -2,6 +2,8 @@ package com.web.curation.model.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,6 +17,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class Subreview {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 	
 	@NonNull
@@ -26,7 +29,7 @@ public class Subreview {
 	private String useremail;
 	
 //	@Temporal(TemporalType.TIMESTAMP)
-	private String date;
+	private String wdate;
 	
 	private String content;
 
@@ -42,8 +45,8 @@ public class Subreview {
 		return useremail;
 	}
 
-	public String getDate() {
-		return date;
+	public String getWdate() {
+		return wdate;
 	}
 
 	public String getContent() {

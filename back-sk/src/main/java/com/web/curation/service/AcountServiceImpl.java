@@ -1,6 +1,5 @@
 package com.web.curation.service;
 
-
 import java.io.InputStream;
 import java.util.List;
 
@@ -19,13 +18,12 @@ import com.web.curation.model.user.User;
 @Service
 public class AcountServiceImpl implements AcountService {
 
-
 	@Autowired
 	UserDao userDao;
 
 	@Autowired
 	PasswordEncoder passwordEncoder; // 비밀번호 암호화
-	
+
 	public Object delete(String email) {
 		User user = userDao.findByEmail(email);
 		userDao.delete(user);
@@ -45,29 +43,29 @@ public class AcountServiceImpl implements AcountService {
 		result.status = true;
 		result.data = "업데이트 성공";
 		result.object = new JSONObject(user).toMap();
-		
+
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
+
 	public User login(String email, String password) {
-		
+
 		User tmp = userDao.findByEmail(email);
-		if(tmp!=null) {
+		if (tmp != null) {
 			// 비밀번호 일치 X
-			
-			System.out.println(password+" "+tmp.getPw());
-			if(!passwordEncoder.matches(password, tmp.getPw())) {
+
+			System.out.println(password + " " + tmp.getPw());
+			if (!passwordEncoder.matches(password, tmp.getPw())) {
 				System.out.println("비밀번호 틀림");
-				tmp.setPw("");		
+				tmp.setPw("");
 			}
-			return tmp;	
+			return tmp;
 		}
 		System.out.println("유저 존재X");
 		// DB에 존재 X
 		return null;
-		
+
 	}
-	
+
 	public User signup(User request) {
 		if( userDao.findByEmail(request.getEmail()) !=null) {
 			// 이메일 중복
@@ -76,14 +74,12 @@ public class AcountServiceImpl implements AcountService {
 			// 닉네임 중복
 			request.setNickname("");
 		}
-		
+
 		request.setPw(passwordEncoder.encode(request.getPw())); // 암호화
 		userDao.save(request);
-		
+
 		return request;
 	}
-
-	
 
 	public Object selectAll() {
 		List<User> ulist = userDao.findAll();
@@ -127,11 +123,11 @@ public class AcountServiceImpl implements AcountService {
 
 	public Object uploadImage(FileInfo fileInfo, boolean check) {
 		final BasicResponse result = new BasicResponse();
-		if(check) {
+		if (check) {
 			result.status = true;
 			result.data = "업로드 성공";
 			result.object = new JSONObject(fileInfo).toMap();
-		}else {
+		} else {
 			result.status = false;
 			result.data = "업로드 실패";
 		}

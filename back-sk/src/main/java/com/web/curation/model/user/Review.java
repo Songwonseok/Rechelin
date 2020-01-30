@@ -1,6 +1,8 @@
 package com.web.curation.model.user;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class Review {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long review_num;
 	
 	private long store_num;
@@ -24,12 +27,12 @@ public class Review {
 	private String title;
 	private String hashtag;
 	
-	private int like;
-	private int unlike;
-	private int view;
+	private int likes;
+	private int unlikes;
+	private int views;
 	
 //	@Temporal(TemporalType.TIMESTAMP)
-	private String date;
+	private String wdate;
 	
 	private int score_tatal;
 	private int score_taste;
@@ -60,17 +63,17 @@ public class Review {
 	public String getHashtag() {
 		return hashtag;
 	}
-	public int getLike() {
-		return like;
+	public int getLikes() {
+		return likes;
 	}
-	public int getUnlike() {
-		return unlike;
+	public int getUnlikes() {
+		return unlikes;
 	}
-	public int getView() {
-		return view;
+	public int getViews() {
+		return views;
 	}
-	public String getDate() {
-		return date;
+	public String getWdate() {
+		return wdate;
 	}
 	public int getScore_tatal() {
 		return score_tatal;
