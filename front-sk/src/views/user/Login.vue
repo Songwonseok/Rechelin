@@ -51,10 +51,7 @@
 
 
                 <!-- 소셜 로그인 -->
-                <NaverLogin :component="component" />
-                <button v-on:click="NaverLogin"></button>
-
-                <a :href=naverLoginURL>네이버로 로그인</a>
+                <NaverLogin :component="component" />       
                 <kakaoLogin :component="component" v-on:click="NaverLogin"/>
                 <GoogleLogin :component="component"/>
 
@@ -99,11 +96,6 @@
         },
         created(){
 
-            this.naverLoginURL += '&client_id=' + this.CLIENT_ID
-            this.naverLoginURL += '&redirect_uri=' + this.redirectURI
-            this.naverLoginURL += '&state=' + this.state
-
-            console.log(this.naverLoginURL)
             this.component = this;
 
 
@@ -166,13 +158,10 @@
                     })
                 }
 
-                    console.log('로그인 끝')
+                console.log('로그인 끝')
 
             },
-            NaverLogin(){
-                //////////////////////// 카카오 버튼을 누르면 네이버로 로그인 -- 기능되나 테스트만
-                console.log('HELLO')
-            }
+            
         },
         data: () => {
             return {
@@ -185,10 +174,6 @@
                 },
                 isSubmit: false,
                 component: this,
-                CLIENT_ID: 'yW3gT9TqzIgQqklEfEBF',
-                naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
-                redirectURI: 'http://localhost:8080/account/naverlogin',
-                state: 123
             }
         }
     }
