@@ -17,6 +17,7 @@
         <v-icon>{{icons.AccountCircle}}</v-icon>
       </v-btn>
 <!-- 로그인/로그아웃/signup 표시 -->
+      <!-- <v-btn @click="UserLogout">로그아웃</v-btn> -->
       <v-btn icon>
         <v-icon>{{icons.Magnify}}</v-icon>
       </v-btn>
@@ -29,8 +30,9 @@
 </template>
 <script>
 
-    import { mdiMagnify, mdiAccountCircle,mdiForum, mdiCrown } from '@mdi/js'
+    import { mdiMagnify, mdiAccountCircle, mdiForum, mdiCrown } from '@mdi/js'
     import SignUp from "./views/user/signUpForm.vue";
+
     export default {
         name: 'app',
         components : {
@@ -40,12 +42,18 @@
         data() {
             return {
                 icons: {
-                Magnify: mdiMagnify,
+                // Magnify: mdiMagnify,
                 AccountCircle: mdiAccountCircle,
                 Forum: mdiForum,
                 Crown: mdiCrown
             },
             }
+        },
+        methods : {
+          UserLogout() {
+            console.log('로그아웃')
+            this.$store.dispatch('logout')
+          }
         }
     };
 </script>

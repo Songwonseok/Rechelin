@@ -22,5 +22,18 @@ export default {
     },
     updateIsSubmit(state,submit){
         state.phone = submit;
+    },
+    //로그인, 로그아웃
+    logout(state){
+        state.accessToken = null
+        state.userEmail = null
+        state.userNickname = null
+        sessionStorage.removeItem("userInfo")
+    },
+    login(state, payload) {
+        state.userEmail = payload.useremail
+        state.userNickname = payload.usernickname
+        state.accessToken = payload.token
+
     }
 }

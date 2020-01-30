@@ -56,8 +56,15 @@ export default new Vuex.Store({
         name: '스타벅스', address: '멀캠 맞은 편', hashtag: ['노맛', '혼자', '시끄러운'], phone: '12313', picture: 'https://ww.namu.la/s/b9ae6fd83019ce31055107c03aaff8743d43aa5d90fa22e77e54c12c5e9cb12364bfd31c34e2b00001708cc5b0e12800f6c8ea63683c97ec8b5a534cd2546c5b5f94b6a88e9d226e34e400aab5c22fdad72e053f92e787c2350c4e1d947d2028558171b8e8d89dabc60b75210b14ad1b'
     }
     ],
-
+    // 로그인 상태 관리 파트 && 유저 email과 닉네임
+    accessToken:  '',
+    userEmail: '',
+    userNickname: '',
      },
+
+
+
+    // state가 아닌 부분
     mutations,
     getters,
     actions

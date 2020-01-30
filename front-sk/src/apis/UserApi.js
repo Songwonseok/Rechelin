@@ -1,4 +1,5 @@
 import Axios from "axios"
+import store from "../vuex/store"
 
 /*
  User API 예시
@@ -48,6 +49,7 @@ const requestEmail = (data, callback, errorCallback) => {
             console.log(response);
             callback(response.data);
             console.log('성공')
+
         }).catch(exp => {
             errorCallback(exp);
             console.log('실패')
@@ -66,11 +68,24 @@ const requestLogin = (data, callback, errorCallback) => {
     //     url: 'http://localhost:8080/account/login',
     //     data: params
     // });
-    Axios.post('http://localhost:8080/account/login', params)
+    Axios.post('http://70.12.246.51:8080/account/login', params)
         .then(response => {
             callback(response.data);
-            console.log('성공')
+            sessionStorage.setItem("userToken", JSON.stringify({
+                userToken: response.data.object.token,
+                info:response.data.object.user
+            }))
+            sessionStorage.setItem("userToken", response.data.object.token)
+            sessionStorage.setItem("userEmail", response.data.object.user.email)
+            sessionStorage.setItem("userNickname", response.data.object.user.nickname)
+        let payload = {
+            useremail: sessionStorage.getItem("userEmail"),
+            usernickname: sessionStorage.getItem("userNickname"),
+            token: sessionStorage.getItem("userToken")
+        } 
+        store.dispatch('login', payload)
         }).catch(exp => {
+            console.log(exp)
             errorCallback(exp);
             console.log('실패')
         })

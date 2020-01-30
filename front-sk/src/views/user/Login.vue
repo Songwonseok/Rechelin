@@ -151,12 +151,11 @@
 
                     //요청 후에는 버튼 비활성화
                     this.isSubmit = false;
-                    this.$router.push({ path: '/signUpForm' });
                     UserApi.requestLogin( data,res=>{
                         //통신을 통해 전달받은 값 콘솔에 출력
                         console.log(res);
-                        if(res == "success")    
-                            this.$router.push({ path: '/signUpForm' });
+                        if(res.data == "success")    
+                            this.$router.push({ name: "Main" });
                         else
                             this.$router.push({ path: '/signUpForm' });
                         //요청이 끝나면 버튼 활성화
@@ -166,7 +165,6 @@
                     })
                 }
 
-                    console.log('로그인 끝')
 
             },
             NaverLogin(){

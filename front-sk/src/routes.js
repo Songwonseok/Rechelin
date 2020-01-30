@@ -66,7 +66,7 @@ export default [
     },
     {
         path: '/main',
-        nam: 'Main',
+        name: 'Main',
         component: Main
     },
     {
