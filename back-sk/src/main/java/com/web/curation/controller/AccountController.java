@@ -166,7 +166,7 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
-    @GetMapping("/token")
+    @GetMapping("account/token")
 	@ApiOperation(value = "토큰값 확인")
 	public Object token(@RequestParam String token) {
 		final BasicResponse result = new BasicResponse();
@@ -275,10 +275,7 @@ public class AccountController {
 		System.out.println("비밀번호 변경 !!!!!!!!!!!!!");
 		User user = service.selectEmail(email);
 		if(user!=null) {
-			// 비밀번호를 암호화해서 저장
-			password = service.EncodePW(password);
 			// update 호출
-			user.setPw(password);
 			service.update(user);
 			
 			result.status = true;
@@ -295,9 +292,10 @@ public class AccountController {
 	@GetMapping("account/naverlogin")
 	@ApiOperation(value = "로그인")
 	public String naverlogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state){
-		if(service.NaverLogin(code, state)) {
+		User user = service.NaverLogin(code, state);
+		if(user!=null) {
 			// 로그인 성공페이지
-			return "redirect:http://localhost:3000/#/";			
+			return "redirect:http://localhost:3000/#/token?="+jwtService.makeJwt(user);			
 		}else {
 			// 로그인 실패
 			return "redirect:http://localhost:3000/#/404";

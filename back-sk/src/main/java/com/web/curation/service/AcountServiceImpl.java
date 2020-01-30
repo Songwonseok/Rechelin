@@ -32,7 +32,6 @@ public class AcountServiceImpl implements AcountService {
 	@Autowired
 	PasswordEncoder passwordEncoder; // 비밀번호 암호화
 
-	@Autowired
 	NaverLogin naver;
 	
 	public User login(String email, String password) {
@@ -81,6 +80,7 @@ public class AcountServiceImpl implements AcountService {
 	public boolean update(User request) {
 		User user = userDao.findByEmail(request.getEmail());
 		if(user!=null) {
+			request.setPw(passwordEncoder.encode(request.getPw()));
 			user.updateUser(request);
 			userDao.save(user);
 			return true;
@@ -129,7 +129,7 @@ public class AcountServiceImpl implements AcountService {
 	}
 
 	@Override
-	public boolean NaverLogin(String code, String state) {
+	public User NaverLogin(String code, String state) {
 		String apiURL;
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 		apiURL += "client_id=" + naver.ClientId;
@@ -190,12 +190,12 @@ public class AcountServiceImpl implements AcountService {
 				//// 없으면 DB 에저장
 				//// ===> login으로 바로 이동
 				
-				return true;
+				return user;
 			}
-			return false;
+			return null;
 			
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 		
 	}
