@@ -41,6 +41,7 @@ Vue.use(Router)
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+
 const router = new Router({
     mode:'history',
     base: process.env.BASE_URL,
@@ -54,4 +55,5 @@ new Vue({
     render: h => h(App),
 }).$mount('#app');
 
+export default router
 

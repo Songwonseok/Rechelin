@@ -6,7 +6,7 @@
     >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>싸피 4조</v-toolbar-title>
+      <v-toolbar-title @click="mainGo">싸피 4조</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -14,7 +14,7 @@
         <v-icon>{{icons.Forum}}</v-icon>
       </v-btn>
        <v-btn icon>
-        <v-icon>{{icons.AccountCircle}}</v-icon>
+        <v-icon @click="userpageGo">{{icons.AccountCircle}}</v-icon>
       </v-btn>
 <!-- 로그인/로그아웃/signup 표시 -->
       <v-btn icon>
@@ -53,7 +53,19 @@
           UserLogout() {
             this.$store.dispatch('logout')
             this.$router.push({name: "Login"})
+          },
+          userpageGo() {
+              this.$store.dispatch('userpageGo', this.$store.state.userEmail)
+          },
+          mainGo() {
+            this.$router.push({name:"Main"})
           }
         }
     };
 </script>
+
+<style scoped>
+.v-toolbar-title{
+  
+}
+</style>

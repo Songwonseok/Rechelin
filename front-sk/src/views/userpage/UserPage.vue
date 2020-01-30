@@ -7,11 +7,11 @@
         <img class="avatar" :src="UserInfo.picture" :alt="UserInfo.name"/>
            </div>
           <button>Follow</button>
-          
+         
           <div class="user-profile-data">
-            <h1>{{UserInfo.name}}</h1>
-            <p>{{UserInfo.email}}</p>
-          <router-link :to="{name: 'UserEdit', params: { info: UserInfo}}"><strong> Edit</strong></router-link>
+            <h1>{{userInfo.nickname}}</h1>
+            <p>{{userInfo.email}}</p>
+          <router-link :to="{name: 'UserEdit', params: {info: userInfo}}"><strong> Edit</strong></router-link>
           </div> 
 
        <ul class="data-user">
@@ -19,8 +19,8 @@
           bookmarks: this.UserInfo.stores,
           reviews : this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
         }}"><strong>{{UserInfo.stores.length+UserInfo.stores.length}}</strong><span>Posts</span></router-link></li>
-        <li><router-link :to="{name:'Fans', params: { fans : this.UserInfo.fans}}"><strong>{{UserInfo.fans.length}}</strong><span>Followers</span></router-link></li>
-        <li><router-link :to="{name: 'Stars', params: { stars: this.UserInfo.stars}}"><strong> {{UserInfo.stars.length}}</strong><span>Following</span></router-link></li>
+        <li><router-link :to="{name:'Fans', params: { fans : this.userInfo.fans}}"><strong>{{userInfo.fans.length}}</strong><span>Followers</span></router-link></li>
+        <li><router-link :to="{name: 'Stars', params: { stars: this.userInfo.stars}}"><strong> {{userInfo.stars.length}}</strong><span>Following</span></router-link></li>
        </ul>
       </div>
         <router-view></router-view>
@@ -46,16 +46,16 @@ export default {
         }
     },
     computed: {
-        ...mapState(['allUsers']),
+        ...mapState(['allUsers', 'userPageInfo']),
         UserInfo(){
-          console.log(this.allUsers)
             return this.allUsers[0]
+        },
+        userInfo() {
+          return this.userPageInfo
         },
         UserBookMark() {
             return this.allUsers
         },
-
-
     },
     methods: {
 
@@ -65,16 +65,25 @@ export default {
 
     },
     created() {
-    
+      console.log(this.userInfo)
         this.$router.push({name: 'UserReviews', params: {
           bookmarks: this.UserInfo.stores,
           reviews : this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
         }})
+    },
+    beforeCreate() {
+      // 닉네임 저장
+      this.$store.state.userPageInfo.nickname = this.$route.query.userInfo.nickname
+      this.$store.state.userPageInfo.email = this.$route.query.userInfo.email
+      // fans 찾기
+      this.$store.dispatch('userFans', this.$route.params.id)
+
+      // stars 찾기
+      this.$store.dispatch('userStars', this.$route.params.id)
       
-      
+
     }
 }
-
 
 </script> 
 

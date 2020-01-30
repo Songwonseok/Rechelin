@@ -130,6 +130,21 @@ const requestEdit = async(data, callback, errorCallback) => {
         })
     
 }
+
+const requestUserpage = (data, callback, errorCallback) => {
+
+    Axios.post('http://70.12.246.51:8080/account/selectEamil',data)
+    .then(response => {
+        callback(response.data.object);
+        console.log('성공')
+    }).catch(exp => {
+        errorCallback(exp);
+        console.log('실패')
+    })
+    
+}
+
+
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
@@ -137,6 +152,7 @@ const UserApi = {
     requestName: (data, callback, errorCallback) => requestName(data, callback, errorCallback),
     requestEmail: (data, callback, errorCallback) => requestEmail(data, callback, errorCallback),
     requestsignUp : (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
+    requestUserpage : (data, callback, errorCallback) => requestUserpage(data, callback, errorCallback),
 }
 
 export default UserApi 

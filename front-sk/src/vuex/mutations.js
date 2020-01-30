@@ -1,3 +1,6 @@
+import Axios from "axios"
+import router from '../main'
+
 export default {
     updateName(state, name) {
         state.name = name;
@@ -31,12 +34,47 @@ export default {
         sessionStorage.removeItem("userToken")
         sessionStorage.removeItem("userEmail")
         sessionStorage.removeItem("userNickname")
-        console.log("되고 있는걸까....")
     },
     login(state, payload) {
-        state.userEmail = payload.useremail
-        state.userNickname = payload.usernickname
-        state.accessToken = payload.token
-
+        this.state.userEmail = payload.useremail
+        this.state.userNickname = payload.usernickname
+        this.state.accessToken = payload.token
+    },
+    userpageGo(state, payload) {
+        const params = new URLSearchParams();
+        params.append('email', payload);
+        Axios.post('http://70.12.246.51:8080/account/selectEmail', params)
+        .then(response => {
+            router.push({name: "UserPage", params: {
+                id: payload,
+            }, query: {
+                userInfo: response.data.object
+            }})
+        }).catch(exp => {
+            console.log('실패')
+        })
+    },
+    userStars(state, payload) {
+        const params = new URLSearchParams();
+        params.append('email', payload);
+        Axios.post('http://70.12.246.51:8080/follow/starList', params)
+        .then(response => {
+        this.state.userPageInfo.stars.push(response.data.object)
+        console.log(this.state.userPageInfo.stars, '스타스타스타')
+        }).catch(exp => {
+            console.log('실패')
+        })
+        
+    },
+    userFans(state, payload) {
+        const params = new URLSearchParams();
+        params.append('email', payload);
+        Axios.post('http://70.12.246.51:8080/follow/fanList', params)
+        .then(response => {
+           this.state.userPageInfo.fans.push(response.data.object)
+        }).catch(exp => {
+            console.log('실패')
+        })
     }
+   
 }

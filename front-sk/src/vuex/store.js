@@ -3,6 +3,7 @@ import Vuex, { mapState } from 'vuex'
 import getters from './getters'
 import actions from './actions'
 import mutations from './mutations'
+import UserApi from '../apis/UserApi'
 
 Vue.use(Vuex)
 
@@ -57,9 +58,19 @@ export default new Vuex.Store({
     }
     ],
     // 로그인 상태 관리 파트 && 유저 email과 닉네임
-    accessToken:  '',
-    userEmail: '',
-    userNickname: '',
+    accessToken:  sessionStorage.getItem("userToken"),
+    userEmail: sessionStorage.getItem("userEmail"),
+    userNickname: sessionStorage.getItem("userNickname"),
+    // 유저페이지에서 갈때 정보
+    userPageInfo: {
+        nickname: '',
+        email: '',
+        fans: [],
+        stars: [],
+        reviews: [],
+        bookmarks:[]
+
+    }
      },
 
 
