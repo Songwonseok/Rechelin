@@ -28,7 +28,10 @@ export default {
         state.accessToken = null
         state.userEmail = null
         state.userNickname = null
-        sessionStorage.removeItem("userInfo")
+        sessionStorage.removeItem("userToken")
+        sessionStorage.removeItem("userEmail")
+        sessionStorage.removeItem("userNickname")
+        console.log("되고 있는걸까....")
     },
     login(state, payload) {
         state.userEmail = payload.useremail
