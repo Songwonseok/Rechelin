@@ -1,17 +1,11 @@
 package com.web.curation.controller;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,12 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.FileInfo;
 import com.web.curation.model.user.User;
 import com.web.curation.service.AcountService;
 import com.web.curation.service.JwtService;
@@ -249,9 +240,9 @@ public class AccountController {
 	}
     
 	@PostMapping(value = "/account/getProfile")
-	public Object getFile(@RequestParam(required = true) final String email) {
+	public Object getProfile(@RequestParam(required = true) final String email) {
 		final BasicResponse result = new BasicResponse();
-		
+		System.out.println("프로필 가져오기 !!!!!!!!!");
 		User user = service.getProfile(email);
 		if(user!=null) {
 			// profile 이 없음

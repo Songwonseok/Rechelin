@@ -5,6 +5,28 @@
         <div class="wrapC" style="
     text-align: center;
 ">
+
+            <h3>이미지 가져오기 테스트</h3>
+            <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
+            <template v-if="this.profile != ''">
+            사진있아요 
+            <!-- {{this.profile}} -->
+               <img :src="profile">
+
+            </template>
+            <template v-else>
+                사진없어요
+            </template>
+
+
+            <h3>사진업로드 테스트</h3>
+            <div class="uploadProfile">
+                <input type="file" name="fileToUpload" id="fileToUpload" accept=".gif, .jpg, .png"
+                    @change="uploadProfile($event)">
+                <input type="button" value="제출" @click="uploadProfile">
+            </div>
+
+
             <h1 >로그인 해주세요! <br>오늘도 즐겁게 🤣</h1>
 
 
@@ -52,8 +74,8 @@
 
                 <!-- 소셜 로그인 -->
                 <NaverLogin :component="component" />       
-                <kakaoLogin :component="component" v-on:click="NaverLogin"/>
-                <GoogleLogin :component="component"/>
+                <!-- <kakaoLogin :component="component"/> -->
+                <!-- <GoogleLogin :component="component"/> -->
 
             </div>
             <div class="add-option">
@@ -104,8 +126,8 @@
                 .is().max(100)
                 .has().digits()
                 .has().letters();
-
-
+                
+            this.getProfile();
         },
         watch: {
             password: function (v) {
@@ -161,6 +183,30 @@
                 console.log('로그인 끝')
 
             },
+            getProfile(){
+                // Axios로 사진 가져오기
+                // console.log('프로필 가져오기!!!')
+
+                let email = "ssafy@naver.com";
+                let data = {
+                        email
+                    }
+                UserApi.requestProfile( email,res=>{
+                    // console.log(res)
+                    this.profile = res.object.profile
+                    // console.log(this.profile);
+                    // console.log('프로필 가져오기 성공')
+                        
+                    },error=>{  
+                        // console.log('프로필 가져오기 실패')
+                    })
+            },
+            uploadProfile(event){
+                console.log('이미지 업로드 @@')
+                console.log(event.target.files)
+                this.path = event.target.files[0]
+                console.log(this.path)
+            }
             
         },
         data: () => {
@@ -174,6 +220,8 @@
                 },
                 isSubmit: false,
                 component: this,
+                profile: '',
+                path: ''
             }
         }
     }
