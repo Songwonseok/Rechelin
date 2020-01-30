@@ -32,11 +32,10 @@ public class AcountServiceImpl implements AcountService {
 	@Autowired
 	PasswordEncoder passwordEncoder; // 비밀번호 암호화
 
-	@Autowired
 	NaverLogin naver;
 	
 	public User login(String email, String password) {
-
+		
 		User tmp = userDao.findByEmail(email);
 		if (tmp != null) {
 			// 비밀번호 일치 X
