@@ -151,9 +151,6 @@ public class AccountController {
 	}
 
 	
-    
-    
-    
     @GetMapping("/account/list")
     @ApiOperation(value = "유저보기")
     public Object selectAll() {
