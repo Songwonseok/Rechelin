@@ -26,9 +26,12 @@
       </v-btn>
       <b-popover target="popover-target-1" triggers="hover" placement="bottom">
         <template v-slot:title>팔로우 요청</template>
-        <b-list-group-item v-for="(alarm, index) in alarms" :key="index">{{alarm.fan}}
+      
+        <b-list-group-item v-for="(alarm, index) in alarms" :key="index">{{alarm.nickname}}
+          <div>
           <v-btn @click="followAccept(alarm.fan, index)">accept</v-btn>
           <v-btn @click="followDecline(alarm.fan, index)">decline</v-btn>
+          </div>
         </b-list-group-item>
       </b-popover>
     </v-app-bar>

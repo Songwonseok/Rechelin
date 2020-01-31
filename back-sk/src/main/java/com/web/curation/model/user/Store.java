@@ -1,6 +1,8 @@
 package com.web.curation.model.user;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -11,14 +13,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Store {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 
-	private String name;
+	private String sname;
 	private String address;
 	private String phone;
 
 	public void update(Store s) {
-		this.name = s.getName();
+		this.sname = s.getSname();
 		this.address = s.getAddress();
 		this.phone = s.getPhone();
 	}
@@ -27,8 +30,8 @@ public class Store {
 		return num;
 	}
 
-	public String getName() {
-		return name;
+	public String getSname() {
+		return sname;
 	}
 
 	public String getAddress() {

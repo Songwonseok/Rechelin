@@ -1,20 +1,17 @@
 import Axios from "axios"
 import store from "../vuex/store"
 
-/*
- User API 예시
- */
 const requestsignUp = async(data, callback, errorCallback) => {
     // const params = new URLSearchParams();
     // params.append('request', data);   
     // console.log(params);
     let options = {
-        headers: { 'Content-Type': 'application/json' }
-        , url: 'http://70.12.246.51:8080/account/signup'
-        , method: 'post'
-        , data: JSON.stringify(data)
+        headers: { 'Content-Type': 'application/json' },
+        url: 'http://70.12.246.51:8080/account/signup',
+        method: 'post',
+        data: JSON.stringify(data)
     }
-    
+
     let response = await Axios(options)
         .then(response => {
             console.log(response)
@@ -28,7 +25,7 @@ const requestsignUp = async(data, callback, errorCallback) => {
 
 const requestName = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
-    params.append('nickname', data);    
+    params.append('nickname', data);
     Axios.post('http://70.12.246.51:8080/account/selectName', params)
         .then(response => {
             console.log(response)
@@ -43,7 +40,7 @@ const requestName = (data, callback, errorCallback) => {
 const requestEmail = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append('email', data);
-    
+
     Axios.post('http://70.12.246.51:8080/account/selectEmail', params)
         .then(response => {
             console.log(response);
@@ -112,6 +109,22 @@ const requestJoin = (data, callback, errorCallback) => {
 
 }
 
+const requestProfile = (data, callback, errorCallback) => {
+    const params = new URLSearchParams();
+    params.append("email", data);
+
+    Axios.post('http://localhost:8080/account/getProfile', params)
+        .then(response => {
+            callback(response.data);
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp);
+            console.log('fdsdfasasdf실패')
+        })
+
+}
+
+
 const requestEdit = async(data, callback, errorCallback) => {
 
     let options = {
@@ -128,9 +141,26 @@ const requestEdit = async(data, callback, errorCallback) => {
             errorCallback(exp);
             console.log('실패')
         })
-    
+
 }
 
+const requestUpload = (email, profile, callback, errorCallback) => {
+    // data - eamil, photoUrl 
+    console.log('프로필 업로드!!!!!!!!!')
+    const params = new URLSearchParams();
+    params.append("email", email);
+    params.append("profile", profile);
+
+    Axios.post('http://localhost:8080/account/uploadProfile', params)
+        .then(response => {
+            callback(response.data);
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp);
+        })
+}
+
+<<<<<<< HEAD
 const requestUserpage = (data, callback, errorCallback) => {
 
     Axios.post('http://70.12.246.51:8080/account/selectEamil',data)
@@ -144,6 +174,8 @@ const requestUserpage = (data, callback, errorCallback) => {
     
 }
 
+=======
+>>>>>>> bcfa6db3e8bf4b05a898477021f7e78d42218be3
 
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -151,8 +183,14 @@ const UserApi = {
     requestEdit: (data, callback, errorCallback) => requestEdit(data, callback, errorCallback),
     requestName: (data, callback, errorCallback) => requestName(data, callback, errorCallback),
     requestEmail: (data, callback, errorCallback) => requestEmail(data, callback, errorCallback),
+<<<<<<< HEAD
     requestsignUp : (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
     requestUserpage : (data, callback, errorCallback) => requestUserpage(data, callback, errorCallback),
+=======
+    requestsignUp: (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
+    requestProfile: (data, callback, errorCallback) => requestProfile(data, callback, errorCallback),
+    requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback)
+>>>>>>> bcfa6db3e8bf4b05a898477021f7e78d42218be3
 }
 
-export default UserApi 
+export default UserApi

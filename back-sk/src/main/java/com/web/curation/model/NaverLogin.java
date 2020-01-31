@@ -1,4 +1,4 @@
-package com.web.curation.service;
+package com.web.curation.model;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

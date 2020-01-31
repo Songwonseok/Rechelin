@@ -8,7 +8,7 @@ public interface StoreService {
 	public Object update(Store request);
 	public Object selectAll();
 	public Object selectOne(long num);
-	public Object searchName(String name);
+	public Object searchName(String sname);
 	 
 	 
 }

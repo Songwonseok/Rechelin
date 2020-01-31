@@ -10,7 +10,7 @@ import com.web.curation.model.user.Store;
 
 public interface StoreDao extends JpaRepository<Store, Long> {
 	Store findByNum(long num);
-	Store findByName(String name);
-	List<Store> findAllByNameLike(String name);
+	Store findBySname(String sname);
+	List<Store> findAllBySnameLike(String sname);
 	
 }

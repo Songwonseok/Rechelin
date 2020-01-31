@@ -1,6 +1,6 @@
 <template>
   <div class="btn--naver">
-    <button>
+    <button v-on:click="NaverLogin">
       <svg
         id="svg"
         version="1.1"
@@ -53,5 +53,26 @@
 </template>
 
 <script>
-export default {};
+export default {
+  created(){
+    this.naverLoginURL += '&client_id=' + this.CLIENT_ID
+    this.naverLoginURL += '&redirect_uri=' + this.redirectURI
+    this.naverLoginURL += '&state=' + this.state
+
+
+  },
+  methods:{
+    NaverLogin(){
+      window.location.replace(this.naverLoginURL);  
+    }
+  },
+  data: () =>{
+    return {
+      CLIENT_ID: 'yW3gT9TqzIgQqklEfEBF',
+                naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
+                redirectURI: 'http://localhost:8080/account/naverlogin',
+                state: 123
+    }
+  }
+};
 </script>

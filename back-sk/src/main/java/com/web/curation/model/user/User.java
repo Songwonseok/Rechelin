@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
      private String phone;
      
      private String profile;
-
+     
 
 	public User() {
 		super();
@@ -51,6 +51,9 @@ import lombok.NoArgsConstructor;
 		return phone;
 	}
 
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	public String getProfile() {
 		return profile;
 	}

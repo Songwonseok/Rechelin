@@ -81,8 +81,8 @@ public class StoreServiceImpl implements StoreService {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	public Object searchName(String name) {
-		List<Store> list = storeDao.findAllByNameLike(name);
+	public Object searchName(String sname) {
+		List<Store> list = storeDao.findAllBySnameLike(sname);
 		final BasicResponse result = new BasicResponse();
 		if(list != null) {
 			result.status = true;
