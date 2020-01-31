@@ -179,8 +179,6 @@
                     })
                 }
 
-<<<<<<< HEAD
-=======
                 console.log('로그인 끝')
 
             },
@@ -206,7 +204,6 @@
                 console.log('이미지 업로드 @@')
                 // console.log(this.selectedImage)
 
->>>>>>> bcfa6db3e8bf4b05a898477021f7e78d42218be3
 
                 ImgurApi.uploadProfile(this.selectedImage, res =>{
                     // img url - res.link에 저장
