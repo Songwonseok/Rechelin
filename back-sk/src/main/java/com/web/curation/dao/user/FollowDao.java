@@ -10,4 +10,5 @@ public interface FollowDao extends JpaRepository<Follow, Long> {
 	List<Follow> findAllByFan(String fan);
 	List<Follow> findAllByStar(String star);
 	Follow findByFanAndStar(String fan, String star);
+	
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.user.Alarm;
-import com.web.curation.model.user.Follow;
+import com.web.curation.model.user.User;
 import com.web.curation.service.FollowService;
 
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +45,13 @@ public class FollowController {
 		} else {
 			result.status = false;
 			result.data = "추가 실패";
+		}
+		if (service.declineFollow(fan, star)) {
+			result.status = true;
+			result.data = "알림 삭제 성공";
+		} else {
+			result.status = false;
+			result.data = "알림 삭제 실패";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 
@@ -88,7 +95,7 @@ public class FollowController {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";
-		List<Follow> list = service.starList(email);
+		List<User> list = service.starList(email);
 		result.object = list;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
@@ -99,7 +106,7 @@ public class FollowController {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";
-		List<Follow> list = service.fanList(email);
+		List<User> list = service.fanList(email);
 		result.object = list;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
@@ -110,7 +117,7 @@ public class FollowController {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";
-		List<Alarm> list = service.alarmList(email);
+		List<User> list = service.alarmList(email);
 		result.object = list;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}

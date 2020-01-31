@@ -13,7 +13,7 @@
 export default {
     methods:{
         login(){
-            this.$router.push("/");
+            this.$router.push({name: "Main"});
         },
         mail(){
             // 이메일 입력화면 -- 아직 구현안함

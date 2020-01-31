@@ -1,10 +1,31 @@
-<style lang="scss">
-</style>
+
 <template>
     <div class="user" style=" display: flex;" id="login" >
         <div class="wrapC" style="
     text-align: center;
 ">
+
+            <h3>이미지 가져오기 테스트</h3>
+            <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
+            <template v-if="this.profile != ''">
+            사진있어요 
+            <!-- {{this.profile}} -->
+               <img :src="profile" style="max-width:30%" >
+
+            </template>
+            <template v-else>
+                사진없어요
+            </template>
+
+
+            <h3>사진업로드 테스트</h3>
+            <div class="uploadProfile">
+                <input type="file" name="fileToUpload" id="fileToUpload" accept=".gif, .jpg, .png"
+                    @change="getProfileForm"> <!--change을 통해서 파일의 변화를 감지 -->
+                <button @click="upload">제출</button>
+            </div>
+
+
             <h1 >로그인 해주세요! <br>오늘도 즐겁게 🤣</h1>
 
 
@@ -52,8 +73,8 @@
 
                 <!-- 소셜 로그인 -->
                 <NaverLogin :component="component" />       
-                <kakaoLogin :component="component" v-on:click="NaverLogin"/>
-                <GoogleLogin :component="component"/>
+                <!-- <kakaoLogin :component="component"/> -->
+                <!-- <GoogleLogin :component="component"/> -->
 
             </div>
             <div class="add-option">
@@ -86,7 +107,8 @@
     import NaverLogin from '../../components/user/snsLogin/Naver.vue'
     import UserApi from '../../apis/UserApi'
     import JoinPage from './Join.vue';
-    
+    import ImgurApi from '../../apis/ImgurApi'
+
     export default {
         components: {
             KakaoLogin,
@@ -104,8 +126,8 @@
                 .is().max(100)
                 .has().digits()
                 .has().letters();
-
-
+                
+            this.getProfile();
         },
         watch: {
             password: function (v) {
@@ -143,12 +165,11 @@
 
                     //요청 후에는 버튼 비활성화
                     this.isSubmit = false;
-                    this.$router.push({ path: '/signUpForm' });
                     UserApi.requestLogin( data,res=>{
                         //통신을 통해 전달받은 값 콘솔에 출력
                         console.log(res);
-                        if(res == "success")    
-                            this.$router.push({ path: '/signUpForm' });
+                        if(res.data == "success")    
+                            this.$router.push({ name: "Main" });
                         else
                             this.$router.push({ path: '/signUpForm' });
                         //요청이 끝나면 버튼 활성화
@@ -158,9 +179,63 @@
                     })
                 }
 
+<<<<<<< HEAD
+=======
                 console.log('로그인 끝')
 
             },
+            getProfile(){
+                // Axios로 사진 가져오기
+                // console.log('프로필 가져오기!!!')
+
+                let email = "ssafy@naver.com";
+                let data = {
+                        email
+                    }
+                UserApi.requestProfile( email,res=>{
+                    // console.log(res)
+                    this.profile = res.object.profile
+                    // console.log(this.profile);
+                    // console.log('프로필 가져오기 성공')
+                        
+                    },error=>{  
+                        // console.log('프로필 가져오기 실패')
+                    })
+            },
+            upload(){
+                console.log('이미지 업로드 @@')
+                // console.log(this.selectedImage)
+
+>>>>>>> bcfa6db3e8bf4b05a898477021f7e78d42218be3
+
+                ImgurApi.uploadProfile(this.selectedImage, res =>{
+                    // img url - res.link에 저장
+                     // 2) Imgur에 저장된 사진 링크를 가져오기
+                    
+                    // this.imageUrl = res.data.link
+                    this.imageUrl = "https://i.imgur.com/91WnlBF.png" // ######TEST 용
+                    // console.log(this.imageUrl)
+                    this.email = "ssafy@naver.com" // ######TEST 용
+                    
+                    
+                    // 3) 사진링크를 User의 profile 링크로 수정하기
+                    UserApi.requestUpload(this.email, this.imageUrl, res =>{
+                        // status로 판단
+                        console.log(res)
+                        if(res.status == true)
+                            console.log('프로필 업로드 성공!')
+                    }, error =>{
+                        alert('프로필 업로드 실패')
+                    })
+
+                }, error =>{
+                    alert('Imgur 업로드 실패!')
+                })
+                
+            },
+            getProfileForm(event){
+                this.selectedImage = event.target.files[0];
+            }
             
         },
         data: () => {
@@ -174,6 +249,9 @@
                 },
                 isSubmit: false,
                 component: this,
+                profile: '',
+                imageUrl: '',
+                selectedImage: ''
             }
         }
     }
@@ -213,7 +291,7 @@
     font-weight: 600;
 }
 .btn--back{
-    borderradius: 3px;
+    border-radius: 3px;
     padding: 3px 25px;
     font-size: 20px;
     cursor: pointer;
