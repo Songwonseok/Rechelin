@@ -1,0 +1,42 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amplify-project-node-135511-authRole",
+            "UnauthRoleArn": "arn:aws:iam::189910944250:role/amplify-amplify-project-node-135511-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::189910944250:role/amplify-amplify-project-node-135511-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "amplify-amplify-project-node-135511-deployment",
+            "UnauthRoleName": "amplify-amplify-project-node-135511-unauthRole",
+            "StackName": "amplify-amplify-project-node-135511",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:189910944250:stack/amplify-amplify-project-node-135511/4f154d10-3d9c-11ea-bb0c-06191eeb3fae",
+            "AmplifyAppId": "d3vh7jekjgp64q"
+        },
+        "categories": {
+            "auth": {
+                "amplifyproject4681ef34": {}
+            }
+        }
+    },
+    "auth": {
+        "amplifyproject4681ef34": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [],
+            "customAuth": false,
+            "output": {
+                "AppClientSecret": "73r92mc41q35vu5k61g3njnhtr6oi2qosloffc54vp0fb7268a9",
+                "UserPoolId": "ap-northeast-2_i6OUrM2I5",
+                "AppClientIDWeb": "njngb6essgo8plep969pq7l05",
+                "AppClientID": "4ae7m6bfjgrtuk61j0pggp2rgg",
+                "IdentityPoolId": "ap-northeast-2:f7196548-0cd6-4416-8e29-a32e4d2a3100",
+                "IdentityPoolName": "amplifyproject4681ef34_identitypool_4681ef34__node",
+                "UserPoolName": "amplifyproject4681ef34_userpool_4681ef34"
+            },
+            "lastPushTimeStamp": "2020-01-30T02:07:01.145Z",
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-project-node-135511-deployment/amplify-cfn-templates/auth/amplifyproject4681ef34-cloudformation-template.yml",
+                "logicalId": "authamplifyproject4681ef34"
+            }
+        }
+    }
+}
