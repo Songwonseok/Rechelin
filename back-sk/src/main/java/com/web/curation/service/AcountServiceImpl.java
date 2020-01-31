@@ -2,7 +2,6 @@ package com.web.curation.service;
 
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -10,16 +9,12 @@ import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.web.curation.dao.user.UserDao;
-import com.web.curation.model.BasicResponse;
-import com.web.curation.model.FileInfo;
 import com.web.curation.model.NaverLogin;
 import com.web.curation.model.user.User;
 
@@ -62,6 +57,7 @@ public class AcountServiceImpl implements AcountService {
 			request.setNickname("");
 		}
 		request.setPw(EncodePW(request.getPw())); // 암호화
+		request.setProfile(null); // 처음 프로필을 만들어주지 않는다
 		userDao.save(request);
 
 		return request;
@@ -79,6 +75,7 @@ public class AcountServiceImpl implements AcountService {
 	public boolean update(User request) {
 		User user = userDao.findByEmail(request.getEmail());
 		if(user!=null) {
+			request.setPw(passwordEncoder.encode(request.getPw()));
 			user.updateUser(request);
 			userDao.save(user);
 			return true;
@@ -99,26 +96,24 @@ public class AcountServiceImpl implements AcountService {
 		return userDao.findByNickname(nickname);
 	}
 
-	public Object uploadImage(FileInfo fileInfo, boolean check) {
-		final BasicResponse result = new BasicResponse();
-		if (check) {
-			result.status = true;
-			result.data = "업로드 성공";
-			result.object = new JSONObject(fileInfo).toMap();
-		} else {
-			result.status = false;
-			result.data = "업로드 실패";
+	public boolean uploadProfile(String email,String profile) {
+		// 1) email 로  유저 찾기
+		User user = userDao.findByEmail(email);
+		
+		if(user!=null) {
+			// 2) User정보 업데이트
+			user.setProfile(profile);
+			// 3) userDao.save()
+			userDao.save(user);
+			System.out.println(user.toString());
+			return true;
 		}
-		return new ResponseEntity<>(result, HttpStatus.OK);
+		return false;
 	}
 
 	@Override
-	public InputStream getProfile(String email) {
-		User user = userDao.findByEmail(email);
-		InputStream in = getClass().getResourceAsStream(user.getProfile());
-		// 사진이 없으면 defalut 이미지 경로 넣음
-		// if(....)
-		return in;
+	public User getProfile(String email) {
+		return userDao.findByEmail(email);
 	}
 
 	@Override
@@ -127,7 +122,7 @@ public class AcountServiceImpl implements AcountService {
 	}
 
 	@Override
-	public boolean NaverLogin(String code, String state) {
+	public User NaverLogin(String code, String state) {
 		String apiURL;
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 		apiURL += "client_id=" + naver.ClientId;
@@ -188,12 +183,12 @@ public class AcountServiceImpl implements AcountService {
 				//// 없으면 DB 에저장
 				//// ===> login으로 바로 이동
 				
-				return true;
+				return user;
 			}
-			return false;
+			return null;
 			
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 		
 	}
