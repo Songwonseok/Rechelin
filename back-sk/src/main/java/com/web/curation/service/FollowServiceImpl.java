@@ -1,24 +1,26 @@
 package com.web.curation.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.web.curation.dao.user.AlarmDao;
 import com.web.curation.dao.user.FollowDao;
-import com.web.curation.model.BasicResponse;
+import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.user.Alarm;
 import com.web.curation.model.user.Follow;
+import com.web.curation.model.user.User;
 
 @Service
 public class FollowServiceImpl implements FollowService {
 
 	@Autowired
 	FollowDao followDao;
+	
+	@Autowired
+	UserDao userDao;
 
 	@Autowired
 	AlarmDao alarmDao;
@@ -55,17 +57,41 @@ public class FollowServiceImpl implements FollowService {
 		}
 	}
 
-	public List<Follow> starList(String email) {
-
-		return followDao.findAllByFan(email);
+	public List<User> starList(String email) {
+		List<Follow> flist = followDao.findAllByFan(email);
+		List<User> ulist = new ArrayList<>();
+		System.out.println(flist.size());
+		for(Follow f : flist) {
+			User u = userDao.findByEmail(f.getStar());
+			System.out.println(f.getStar());
+			ulist.add(u);
+		}
+		System.out.println(ulist.size());
+		return ulist;
 	}
 
-	public List<Follow> fanList(String email) {
-		return followDao.findAllByStar(email);
+	public List<User> fanList(String email) {
+		List<Follow> flist = followDao.findAllByStar(email);
+		System.out.println(flist.size());
+		List<User> ulist = new ArrayList<>();
+		
+		for(Follow f : flist) {
+			User u = userDao.findByEmail(f.getFan());
+			System.out.println(f.getStar());
+			ulist.add(u);
+		}
+		System.out.println(ulist.size());
+		return ulist;
 	}
 
-	public List<Alarm> alarmList(String email) {
-		return alarmDao.findAllByStar(email);
+	public List<User> alarmList(String email) {
+		List<Alarm> alist = alarmDao.findAllByStar(email);
+		List<User> ulist = new ArrayList<>();
+		for(Alarm a : alist) {
+			User u = userDao.findByEmail(a.getFan());
+			ulist.add(u);
+		}
+		return ulist;
 	}
 
 	@Override

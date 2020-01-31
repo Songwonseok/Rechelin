@@ -61,7 +61,6 @@ public class AcountServiceImpl implements AcountService {
 			// 닉네임 중복
 			request.setNickname("");
 		}
-
 		request.setPw(EncodePW(request.getPw())); // 암호화
 		userDao.save(request);
 

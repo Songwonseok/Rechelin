@@ -200,6 +200,7 @@ public class AccountController {
     @ApiOperation(value = "이메일로 유저찾기")
     public Object selectEmail(@RequestParam(required = true) final String email) {
     	User user = service.selectEmail(email);
+    	System.out.println(email);
     	final BasicResponse result = new BasicResponse();
     	
 		if (user != null) {

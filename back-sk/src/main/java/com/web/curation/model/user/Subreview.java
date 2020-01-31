@@ -28,7 +28,7 @@ public class Subreview {
 	@Column(name="user_email")
 	private String useremail;
 	
-//	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private String wdate;
 	
 	private String content;

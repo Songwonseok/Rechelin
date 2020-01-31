@@ -1,5 +1,6 @@
 package com.web.curation.model.user;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class Review {
 	private int unlikes;
 	private int views;
 	
-//	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private String wdate;
 	
 	private int score_tatal;
