@@ -10,10 +10,11 @@ import Fans from './views/follow/Fans'
 import Stars from './views/follow/Stars'
 import UserReviews from './views/userpage/UserReviews'
 import Main from './views/Main'
-
 import signUpForm from './views/user/signUpForm.vue';
 import signUpConfirm from './views/user/signUpConfirm.vue';
 import searchPassword from './views/user/searchPw.vue';
+import userSearch from './components/common/userSearch.vue';
+
 
 export default [
     // ERROR PAGE
@@ -83,6 +84,11 @@ export default [
         path : '/searchPassword',
         name : 'searchPassword',
         component : searchPassword,
-        }
+    },
+    {
+        path : '/userSearch',
+        name : 'userSearch',
+        component : userSearch,
+    }
     
 ]

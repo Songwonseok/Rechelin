@@ -22,5 +22,14 @@ export default {
     },
     updateIsSubmit(state,submit){
         state.phone = submit;
+    },
+    SET_USER(state, searchUser){
+        state.searchUser.nickname = searchUser;
+    },
+    SET_EMAIL(state, searchEmail){
+        state.searchUser.email = searchEmail;
+    },
+    SET_RECENTUSER(state, recentUser){
+        state.recentUser = recentUser;
     }
 }
