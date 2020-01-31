@@ -1,15 +1,43 @@
 
 <template>
-    <div class="user" id="login" >
-        <div class="wrapC">
-            <h1 >로그인을 하고 나면 <br>좋은 일만 있을 거예요.</h1>
+    <div class="user" style=" display: flex;" id="login" >
+        <div class="wrapC" style="
+    text-align: center;
+">
+
+            <h3>이미지 가져오기 테스트</h3>
+            <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
+            <template v-if="this.profile != ''">
+            사진있어요 
+            <!-- {{this.profile}} -->
+               <img :src="profile" style="max-width:30%" >
+
+            </template>
+            <template v-else>
+                사진없어요
+            </template>
+
+
+            <h3>사진업로드 테스트</h3>
+            <div class="uploadProfile">
+                <input type="file" name="fileToUpload" id="fileToUpload" accept=".gif, .jpg, .png"
+                    @change="getProfileForm"> <!--change을 통해서 파일의 변화를 감지 -->
+                <button @click="upload">제출</button>
+            </div>
+
+
+            <h1 >로그인 해주세요! <br>오늘도 즐겁게 🤣</h1>
 
 
             <div class="input-with-label">
                 <input v-model="email" v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
                        @keyup.enter="login"
                        id="email" placeholder="이메일을 입력하세요."
-                       type="text"/>
+                       type="text" style="
+            background-color: white;
+            color: black;
+            border: 2px solid #008Cy
+            BA;"/>
                 <label for="email">이메일</label>
                 <div class="error-text" v-if="error.email">
                     {{error.email}}
@@ -21,7 +49,7 @@
                        v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
                        id="password"
                        @keyup.enter="login"
-                       placeholder="비밀번호를 입력하세요."/>
+                       placeholder="비밀번호를 입력하세요." style="background-color: white; color: black; border: 2px solid rgb(0, 140, 186);"/>
                 <label for="password">비밀번호</label>
                 <div class="error-text" v-if="error.password">
                     {{error.password}}
@@ -35,30 +63,32 @@
             </button>
 
 
-            <div class="sns-login">
+            <div class="sns-login" style="
+    text-align: center;">
                 <div class="text">
                     <p>SNS 간편 로그인</p>
                     <div class="bar"></div>
                 </div>
 
-                <!--<img src='../../assets/images/naver_login.PNG'/> -->
-                <!--<a :href=naverLoginURL><img src='../../assets/images/naver_login.PNG'/></a>-->
-                <kakaoLogin :component="component" v-on:click="NaverLogin"/>
-                <GoogleLogin :component="component"/>
+
+                <!-- 소셜 로그인 -->
+                <NaverLogin :component="component" />       
+                <!-- <kakaoLogin :component="component"/> -->
+                <!-- <GoogleLogin :component="component"/> -->
 
             </div>
             <div class="add-option">
                 <div class="text">
-                    <p>혹시</p>
+                    
                     <div class="bar"></div>
                 </div>
                 <div class="wrap">
-                    <p>비밀번호를 잊으셨나요?</p>
-                    <router-link v-bind:to="{name:'FindPW'}" class="btn--text">비밀번호 찾기</router-link>
+                    <p>비밀번호를 잊으셨나요? </p>
+                    <router-link v-bind:to="{name:'searchPassword'}" class="btn--text">👉비밀번호 찾기</router-link>
                 </div>
                 <div class="wrap">
-                    <p>아직 회원이 아니신가요?</p>
-                    <router-link v-bind:to="{name:'Join'}" class="btn--text">가입하기</router-link>
+                    <p>아직 회원이 아니신가요? </p>
+                    <router-link v-bind:to="{name:'signUpForm'}" class="btn--text">👉가입하기</router-link>
                 </div>
             </div>
         </div>
@@ -67,21 +97,27 @@
 </template>
 
 <script>
-
+     /*eslint-disable*/
     import '../../assets/css/style.scss'
     import '../../assets/css/user.scss'
     import PV from 'password-validator'
     import * as EmailValidator from 'email-validator';
     import KakaoLogin from '../../components/user/snsLogin/Kakao.vue'
     import GoogleLogin from '../../components/user/snsLogin/Google.vue'
+    import NaverLogin from '../../components/user/snsLogin/Naver.vue'
     import UserApi from '../../apis/UserApi'
+    import JoinPage from './Join.vue';
+    import ImgurApi from '../../apis/ImgurApi'
 
     export default {
         components: {
             KakaoLogin,
             GoogleLogin,
+            JoinPage,
+            NaverLogin,
         },
         created(){
+
             this.component = this;
 
 
@@ -90,8 +126,8 @@
                 .is().max(100)
                 .has().digits()
                 .has().letters();
-
-
+                
+            this.getProfile();
         },
         watch: {
             password: function (v) {
@@ -103,64 +139,101 @@
         },
         methods: {
             checkForm(){
-                this.email = this.email.toLowerCase(); // 소문자로 변경
-                // console.log(this.email) 
-
-                if (this.email.length > 0 && !EmailValidator.validate(this.email))
+                if (this.email.length >= 0 && !EmailValidator.validate(this.email))
                     this.error.email = "이메일 형식이 아닙니다."
                 else this.error.email = false;
 
-                if (this.password.length > 0 && !this.passwordSchema.validate(this.password))
-                    this.error.password = '영문,숫자,특수문자 포함 8 자리이상이어야 합니다.'
+                if (this.password.length >= 0 && !this.passwordSchema.validate(this.password))
+                    this.error.password = '영문,숫자 포함 8 자리이상이어야 합니다.'
                 else
                     this.error.password = false;
 
-                console.log(this.error)
 
                 let isSubmit = true;
                 Object.values(this.error).map(v => {
                     if (v) isSubmit = false;
                 })
                 this.isSubmit = isSubmit;
-
-
             }
-            , login(){
-                if (this.isSubmit) {
+            ,login(){
+
+                if (this.isSubmit) {    
                     let {email,password} = this;
                     let data = {
                         email,password
                     }
+
                     //요청 후에는 버튼 비활성화
                     this.isSubmit = false;
-
-                    UserApi.requestLogin(data,res=>{
+                    UserApi.requestLogin( data,res=>{
                         //통신을 통해 전달받은 값 콘솔에 출력
-                        console.log('로그인에 성공하였습니다!!')
-                       console.log(res);
-
+                        console.log(res);
+                        if(res.data == "success")    
+                            this.$router.push({ name: "Main" });
+                        else
+                            this.$router.push({ path: '/signUpForm' });
                         //요청이 끝나면 버튼 활성화
                         this.isSubmit = true;
                     },error=>{  
-                        console.log("로그인 실패 !!!");
-                        alert('로그인 실패 !!')
-                        // 비밀번호 초기화
-                        this.password = '';
-                        // 버튼 비활성화
-                        this.isSubmit = false;
+                        this.isSubmit = true;
+                    })
+                }
+
+                console.log('로그인 끝')
+
+            },
+            getProfile(){
+                // Axios로 사진 가져오기
+                // console.log('프로필 가져오기!!!')
+
+                let email = "ssafy@naver.com";
+                let data = {
+                        email
+                    }
+                UserApi.requestProfile( email,res=>{
+                    // console.log(res)
+                    this.profile = res.object.profile
+                    // console.log(this.profile);
+                    // console.log('프로필 가져오기 성공')
+                        
+                    },error=>{  
+                        // console.log('프로필 가져오기 실패')
+                    })
+            },
+            upload(){
+                console.log('이미지 업로드 @@')
+                // console.log(this.selectedImage)
+
+
+                ImgurApi.uploadProfile(this.selectedImage, res =>{
+                    // img url - res.link에 저장
+                     // 2) Imgur에 저장된 사진 링크를 가져오기
+                    
+                    // this.imageUrl = res.data.link
+                    this.imageUrl = "https://i.imgur.com/91WnlBF.png" // ######TEST 용
+                    // console.log(this.imageUrl)
+                    this.email = "ssafy@naver.com" // ######TEST 용
+                    
+                    
+                    // 3) 사진링크를 User의 profile 링크로 수정하기
+                    UserApi.requestUpload(this.email, this.imageUrl, res =>{
+                        // status로 판단
+                        console.log(res)
+                        if(res.status == true)
+                            console.log('프로필 업로드 성공!')
+                    }, error =>{
+                        alert('프로필 업로드 실패')
                     })
 
-                    console.log('로그인 끝')
-
-                }
+                }, error =>{
+                    alert('Imgur 업로드 실패!')
+                })
+                
             },
-            NaverLogin(){
-                //////////////////////// 카카오 버튼을 누르면 네이버로 로그인 -- 기능되나 테스트만
-                let {email,password} = this;
-                    let data = {
-                        email,password
-                }
+            getProfileForm(event){
+                this.selectedImage = event.target.files[0];
             }
+            
         },
         data: () => {
             return {
@@ -169,17 +242,62 @@
                 passwordSchema: new PV(),
                 error: {
                     email: false,
-                    passowrd: false
+                    passowrd: false,
                 },
                 isSubmit: false,
                 component: this,
-                CLIENT_ID: 'yW3gT9TqzIgQqklEfEBF',
-                naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
+                profile: '',
+                imageUrl: '',
+                selectedImage: ''
             }
         }
-
     }
-
 </script>
 
+<style scoped>
+.btn.disabled {
+    /* background: #ccc; */
+    /* display: inline-block; */
+    padding: 3px 25px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #FF9800;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 9px #999;
+}
 
+.user#login .text .bar {
+    height: 1px;
+    background-color: #238bde;
+    float: right;
+    margin-top: 9px;
+    margin-bottom: 20px;
+}
+.user#login .add-option p {
+    float: initial;
+}
+
+.user#login .add-option a {
+    color: #000;
+    float: unset;
+    font-weight: 600;
+}
+.btn--back{
+    border-radius: 3px;
+    padding: 3px 25px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #238bde;
+    border: none;
+    border-radius: 20px;
+}
+</style>
