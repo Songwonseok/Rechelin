@@ -226,6 +226,7 @@ public class AccountController {
     	final BasicResponse result = new BasicResponse();
     	JSONObject dummyUser = new JSONObject();
     	
+    	System.out.println(email+" "+profile);
     	if(service.uploadProfile(email, profile)) {
     		result.status = true;
     		result.data = "프로필 등록 성공";
@@ -242,7 +243,7 @@ public class AccountController {
 	@PostMapping(value = "/account/getProfile")
 	public Object getProfile(@RequestParam(required = true) final String email) {
 		final BasicResponse result = new BasicResponse();
-		System.out.println("프로필 가져오기 !!!!!!!!!");
+//		System.out.println("프로필 가져오기 !!!!!!!!!");
 		User user = service.getProfile(email);
 		if(user!=null) {
 			// profile 이 없음

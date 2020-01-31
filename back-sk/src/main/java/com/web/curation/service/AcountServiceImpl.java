@@ -106,6 +106,7 @@ public class AcountServiceImpl implements AcountService {
 			user.setProfile(profile);
 			// 3) userDao.save()
 			userDao.save(user);
+			System.out.println(user.toString());
 			return true;
 		}
 		return false;

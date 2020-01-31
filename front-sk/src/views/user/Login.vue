@@ -9,9 +9,9 @@
             <h3>이미지 가져오기 테스트</h3>
             <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
             <template v-if="this.profile != ''">
-            사진있아요 
+            사진있어요 
             <!-- {{this.profile}} -->
-               <img :src="profile">
+               <img :src="profile" style="max-width:30%" >
 
             </template>
             <template v-else>
@@ -22,8 +22,8 @@
             <h3>사진업로드 테스트</h3>
             <div class="uploadProfile">
                 <input type="file" name="fileToUpload" id="fileToUpload" accept=".gif, .jpg, .png"
-                    @change="uploadProfile($event)">
-                <input type="button" value="제출" @click="uploadProfile">
+                    @change="getProfileForm"> <!--change을 통해서 파일의 변화를 감지 -->
+                <button @click="upload">제출</button>
             </div>
 
 
@@ -108,7 +108,8 @@
     import NaverLogin from '../../components/user/snsLogin/Naver.vue'
     import UserApi from '../../apis/UserApi'
     import JoinPage from './Join.vue';
-    
+    import ImgurApi from '../../apis/ImgurApi'
+
     export default {
         components: {
             KakaoLogin,
@@ -201,11 +202,38 @@
                         // console.log('프로필 가져오기 실패')
                     })
             },
-            uploadProfile(event){
+            upload(){
                 console.log('이미지 업로드 @@')
-                console.log(event.target.files)
-                this.path = event.target.files[0]
-                console.log(this.path)
+                // console.log(this.selectedImage)
+
+
+                ImgurApi.uploadProfile(this.selectedImage, res =>{
+                    // img url - res.link에 저장
+                     // 2) Imgur에 저장된 사진 링크를 가져오기
+                    
+                    // this.imageUrl = res.data.link
+                    this.imageUrl = "https://i.imgur.com/91WnlBF.png" // ######TEST 용
+                    // console.log(this.imageUrl)
+                    this.email = "ssafy@naver.com" // ######TEST 용
+                    
+                    
+                    // 3) 사진링크를 User의 profile 링크로 수정하기
+                    UserApi.requestUpload(this.email, this.imageUrl, res =>{
+                        // status로 판단
+                        console.log(res)
+                        if(res.status == true)
+                            console.log('프로필 업로드 성공!')
+                    }, error =>{
+                        alert('프로필 업로드 실패')
+                    })
+
+                }, error =>{
+                    alert('Imgur 업로드 실패!')
+                })
+                
+            },
+            getProfileForm(event){
+                this.selectedImage = event.target.files[0];
             }
             
         },
@@ -221,7 +249,8 @@
                 isSubmit: false,
                 component: this,
                 profile: '',
-                path: ''
+                imageUrl: '',
+                selectedImage: ''
             }
         }
     }

@@ -1,8 +1,5 @@
 import Axios from "axios"
 
-/*
- User API 예시
- */
 const requestsignUp = async(data, callback, errorCallback) => {
     // const params = new URLSearchParams();
     // params.append('request', data);   
@@ -132,6 +129,22 @@ const requestEdit = async(data, callback, errorCallback) => {
 
 }
 
+const requestUpload = (email, profile, callback, errorCallback) => {
+    // data - eamil, photoUrl 
+    console.log('프로필 업로드!!!!!!!!!')
+    const params = new URLSearchParams();
+    params.append("email", email);
+    params.append("profile", profile);
+
+    Axios.post('http://localhost:8080/account/uploadProfile', params)
+        .then(response => {
+            callback(response.data);
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp);
+        })
+}
+
 
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -140,7 +153,8 @@ const UserApi = {
     requestName: (data, callback, errorCallback) => requestName(data, callback, errorCallback),
     requestEmail: (data, callback, errorCallback) => requestEmail(data, callback, errorCallback),
     requestsignUp: (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
-    requestProfile: (data, callback, errorCallback) => requestProfile(data, callback, errorCallback)
+    requestProfile: (data, callback, errorCallback) => requestProfile(data, callback, errorCallback),
+    requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback)
 }
 
 export default UserApi
