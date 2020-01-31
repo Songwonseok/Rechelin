@@ -4,9 +4,6 @@
  import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -54,6 +51,9 @@ import lombok.NoArgsConstructor;
 		return phone;
 	}
 
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	public String getProfile() {
 		return profile;
 	}
