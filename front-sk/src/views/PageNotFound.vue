@@ -1,13 +1,13 @@
 <template>
   <div>
-      <router-link v-bind:to="{name:'Login'}" class="btn--text">로그인 화면으로 이동</router-link>
+    <router-link v-bind:to="{name:'Login'}" class="btn--text">로그인 화면으로 이동</router-link>
   </div>
 </template>
 
 <script>
-export default {
+  export default {
 
-}
+  }
 </script>
 
 <style>

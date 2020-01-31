@@ -1,5 +1,4 @@
-<style lang="scss">
-</style>
+
 <template>
     <div class="user" style=" display: flex;" id="login" >
         <div class="wrapC" style="
@@ -226,7 +225,7 @@
     font-weight: 600;
 }
 .btn--back{
-    borderradius: 3px;
+    border-radius: 3px;
     padding: 3px 25px;
     font-size: 20px;
     cursor: pointer;

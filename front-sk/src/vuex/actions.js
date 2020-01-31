@@ -13,6 +13,18 @@ export default {
     },
     userStars({commit}, payload) {
         commit('userStars', payload)
-    }
+    },
+    notificationGet({commit}, payload){
+        commit('notificationGet', payload)
+    },
+    followRequest({commit}, payload) {
+        commit('followRequest', payload)
+    },
+    followAccept({commit}, payload) {
+        commit('followAccept', payload)
+    },
+    followDecline({commit}, payload) {
+        commit('followDecline', payload)
+    },
 
 }
