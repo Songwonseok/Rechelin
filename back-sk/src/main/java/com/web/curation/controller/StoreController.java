@@ -48,30 +48,32 @@ public class StoreController{
     	return service.delete(num);
     }
     
-    @PutMapping("/store/update")
-    @ApiOperation(value = "수정하기")
-    public Object update(@RequestBody Store request) {
-    	return service.update(request);
-    }
-    
     @GetMapping("/store/list")
     @ApiOperation(value = "식당리스트")
     public Object selectAll() {
         return service.selectAll();
     }
     
-    @GetMapping("/store/searchName")
+    @PostMapping("/store/searchName")
     @ApiOperation(value = "이름으로 검색")
     public Object searchName(@RequestParam(required = true) final String name) {
 		return service.searchName(name);
 
     }
-    
-    @GetMapping("/store/selectOne")
+    @PostMapping("/store/selectOne")
     @ApiOperation(value = "식당정보")
     public Object selectOne(@RequestParam(required = true) final long num) {
 		return service.selectOne(num);
     }
+    
+    @PostMapping("/store/tags")
+    @ApiOperation(value = "태그정보")
+    public Object tags(@RequestParam(required = true) final long num) {
+    	
+    	
+		return service.selectOne(num);
+    }
+    
     
     
     

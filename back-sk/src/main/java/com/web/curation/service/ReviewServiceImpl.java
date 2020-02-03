@@ -15,16 +15,13 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewDao dao;
 	
 	@Autowired
-	private LikecheckDao checkdao;
+	private LikecheckDao likedao;
 	
-	@Autowired
-	private UserDao userdao;
 	
 	@Override
 	public boolean register(Review review) {
-		long snum = review.getSnum();
-		String email = review.getEmail();
-		Review list = dao.findAllBySnumAndEmail(snum, email);
+		
+		Review list = dao.findAllByStoreAndUser(review.getStore(), review.getUser());
 		if(list == null) {
 			review.setViews(0);
 			dao.save(review);
@@ -72,28 +69,35 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public int useful(Likecheck check) {
-		long rnum = check.getRnum();
-		String email = check.getEmail();
-		
-		// rnum이 존재하는지 체크
-		if(dao.findByRnum(rnum)!=null) {
-			// email이 존재하는지 체크
-			if(userdao.findByEmail(email)!=null) {
-				Likecheck befo = checkdao.findByRnumAndEmail(check.getRnum(), check.getEmail());
+		Likecheck tmp = likedao.findByReview(check.getReview());
+		if(tmp!=null) {
+			
+			tmp = likedao.findByUser(check.getUser());
+			if(tmp!=null) {
 				
-				if(befo!=null){
-					befo.setStatus(check.getStatus());					
-					checkdao.save(befo); //  업데이트
-					return 3;
-				}else{
-					checkdao.save(check);// 생성
-					return 2;
-				}
 			}
-			return 1; // email 존재 X
+			return 1; // 유저 존재 X
 		}else {
-			return 0; // rnum 존재 X
+			return 0; // 리뷰 존재 X
 		}
+//		if(likedao.findByReview(check.getReview()!=null) {
+//			// email이 존재하는지 체크
+//			if(dao.findByEmail(email)!=null) {
+//				Likecheck befo = checkdao.findByRnumAndEmail(check.getRnum(), check.getEmail());
+//				
+//				if(befo!=null){
+//					befo.setStatus(check.getStatus());					
+//					checkdao.save(befo); //  업데이트
+//					return 3;
+//				}else{
+//					checkdao.save(check);// 생성
+//					return 2;
+//				}
+//			}
+//			return 1; // email 존재 X
+//		}else {
+//			return 0; 
+//		}
 		
 	}
 

@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -19,15 +21,21 @@ public class Review {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long rnum;
 	
-	@Column(name="store_num")
-	private long snum;
-	@Column(name="user_email")
-	private String email;
+	@ManyToOne
+	@JoinColumn(name= "store_num")
+	private Store store;
+	
+	@ManyToOne
+	@JoinColumn(name= "user_email")
+	private User user;
+	
 	private String str;
 	private String weak;
 	private String picture;
 	private String title;
 	private String hashtag;
+
+	
 	private int views;
 	
 	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -42,47 +50,14 @@ public class Review {
 	@Column(name="score_kindness")
 	private int kindness;
 	
-	public Review() {
-		
-	}
-	
-	public Review(long snum, String email, String str, String weak, String picture,
-			String title, String hashtag, int views, int total, int taste, int price,
-			int kindness) {
-		super();
-		this.snum = snum;
-		this.email = email;
-		this.str = str;
-		this.weak = weak;
-		this.picture = picture;
-		this.title = title;
-		this.setHashtag(hashtag);
-		this.views = views;
-		this.total = total;
-		this.taste = taste;
-		this.price = price;
-		this.kindness = kindness;
-	}
-
-
-	public void setViews(int views) {
-		this.views = views;
-	}
-
-
 	public long getRnum() {
 		return rnum;
 	}
-	public int getViews() {
-		return views;
+	public Store getStore() {
+		return store;
 	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public long getSnum() {
-		return snum;
+	public User getUser() {
+		return user;
 	}
 
 
@@ -110,9 +85,26 @@ public class Review {
 		return hashtag;
 	}
 
-
-	public void setHashtag(String hashtag) {
-		this.hashtag = hashtag;
+	public int getViews() {
+		return views;
+	}
+	public String getWdate() {
+		return wdate;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public int getTaste() {
+		return taste;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public int getKindness() {
+		return kindness;
+	}
+	public void setViews(int views) {
+		this.views = views;
 	}
 	
 	

@@ -117,8 +117,7 @@ public class FollowController {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";
-		List<User> list = service.alarmList(email);
-		result.object = list;
+		result.object = service.alarmList(email);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
