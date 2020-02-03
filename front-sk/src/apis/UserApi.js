@@ -173,6 +173,52 @@ const requestUserpage = (data, callback, errorCallback) => {
     
 }
 
+function requestfetchUserList(){
+    //return axios.get(config.baseUrl+'news/1.json');
+    return Axios.post(`http://70.12.246.51:8080/account/list`);
+}
+
+const searchUserHistory = async(data, callback, errorCallback) => {
+
+    const params = new URLSearchParams();
+    params.append('email', data.email);
+    params.append('searchname', data.nickname);
+    Axios.post('http://70.12.246.51:8080/search/user/', params)
+        .then(response => {
+            console.log(response);
+            callback(response); //return type true/false 
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp)
+            console.log('실패')
+        })
+}
+
+function requestFetchUserData({commit}, email){
+    //코딩컨벤션
+    const params = new URLSearchParams();
+    params.append('email', email);
+    
+    Axios.post('http://70.12.246.51:8080/search/recentUser', params)
+    .then(response => {
+        console.log('dd')
+        console.log(response);
+      
+                var jcAry = new Array();
+                for(var i =0; i<response.data.object.length; i++){ 
+                    jcAry[i] = response.data.object[i].searchname;
+                    console.log(jcAry[i]);
+                   
+                }
+                commit('SET_RECENTUSER', jcAry);
+        console.log('성공')
+    }).catch(exp => {
+       
+        console.log('실패')
+    })
+   
+}
+
 
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -183,7 +229,10 @@ const UserApi = {
     requestsignUp : (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
     requestUserpage : (data, callback, errorCallback) => requestUserpage(data, callback, errorCallback),
     requestProfile: (data, callback, errorCallback) => requestProfile(data, callback, errorCallback),
-    requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback)
+    requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
+    searchUserHistory : (data,callback, errorCallback) => searchUserHistory(data,callback,errorCallback),
+    requestfetchUserList,
+    requestFetchUserData,
 }
 
 export default UserApi
