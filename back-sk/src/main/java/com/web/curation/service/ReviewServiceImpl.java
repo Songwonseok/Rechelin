@@ -1,11 +1,12 @@
 package com.web.curation.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.curation.dao.user.LikecheckDao;
 import com.web.curation.dao.user.ReviewDao;
-import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.user.Likecheck;
 import com.web.curation.model.user.Review;
 
@@ -68,18 +69,25 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int useful(Likecheck check) {
-		Likecheck tmp = likedao.findByReview(check.getReview());
-		if(tmp!=null) {
-			
-			tmp = likedao.findByUser(check.getUser());
-			if(tmp!=null) {
-				
-			}
-			return 1; // 유저 존재 X
+	public boolean useful(Likecheck check) {
+		
+		//////////////////////#### 수정 삽입 아직 안함
+		if(likedao.findAllByReviewAndUser(check.getReview(), check.getUser())!=null) {
+			return true;
 		}else {
-			return 0; // 리뷰 존재 X
+			return false;
 		}
+//		List<Likecheck> tmp = likedao.findByReview(check.getReview());
+//		if(tmp!=null) {
+//			
+//			tmp = likedao.findByUser(check.getUser());
+//			if(tmp!=null) {
+//				//// 
+//			}
+//			return 1; // 유저 존재 X
+//		}else {
+//			return 0; // 리뷰 존재 X
+//		}
 //		if(likedao.findByReview(check.getReview()!=null) {
 //			// email이 존재하는지 체크
 //			if(dao.findByEmail(email)!=null) {

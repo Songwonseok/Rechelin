@@ -103,28 +103,36 @@ public class ReviewController {
 	public Object like(@RequestBody Likecheck check) {
 		final BasicResponse result = new BasicResponse();
 		
-		int state = service.useful(check);
-		
-		switch (state) {
-		case 0:
-			result.status = false;
-    		result.data = "도움 조회 실패 - 존재하지않는 리뷰";
-			break;
-		case 1:
-			result.status = false;
-    		result.data = "도움 조회 실패 - 존재하지않는 유저";
-			break;
-		case 2:
+		if(service.useful(check)) {
 			result.status = true;
     		result.data = "도움 작성 성공";
     		result.object = check;
-			break;
-		case 3:
-			result.status = true;
-    		result.data = "도움 수정 성공";
-    		result.object = check;
-			break;
+		}else {
+			result.status = false;
+    		result.data = "도움 조회 실패 - 존재하지않는 리뷰";
 		}
+//		int state = service.useful(check);
+//		
+//		switch (state) {
+//		case 0:
+//			result.status = false;
+//    		result.data = "도움 조회 실패 - 존재하지않는 리뷰";
+//			break;
+//		case 1:
+//			result.status = false;
+//    		result.data = "도움 조회 실패 - 존재하지않는 유저";
+//			break;
+//		case 2:
+//			result.status = true;
+//    		result.data = "도움 작성 성공";
+//    		result.object = check;
+//			break;
+//		case 3:
+//			result.status = true;
+//    		result.data = "도움 수정 성공";
+//    		result.object = check;
+//			break;
+//		}
 		
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);

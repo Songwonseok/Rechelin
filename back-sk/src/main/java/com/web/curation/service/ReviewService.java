@@ -8,5 +8,5 @@ public interface ReviewService {
 	public boolean update(Review review);
 	public boolean delete(long rnum);
 	public Review detail(long rnum);
-	public int useful(Likecheck like);
+	public boolean useful(Likecheck like);
 }
