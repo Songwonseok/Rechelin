@@ -20,22 +20,39 @@ public class Likecheck {
 	
 	@NonNull
 	@Column(name="review_num")
-	private long reviewnum;
+	private long rnum;
 	
 	@NonNull
 	@Column(name="user_email")
-	private String useremail;
-
-	public long getNum() {
-		return num;
+	private String email;
+	
+	private int status;
+	
+	public Likecheck() {
+	}
+	
+	public Likecheck(long rnum, String email, int status) {
+		this.rnum = rnum;
+		this.email = email;
+		this.status = status;
 	}
 
-	public long getReviewnum() {
-		return reviewnum;
+	public long getRnum() {
+		return rnum;
 	}
 
-	public String getUser_email() {
-		return useremail;
+	public String getEmail() {
+		return email;
 	}
+	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+		
+	}
+	
 
 }

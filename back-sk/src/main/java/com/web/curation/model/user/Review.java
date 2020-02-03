@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -17,77 +15,106 @@ import lombok.NoArgsConstructor;
 public class Review {
 
 	@Id
+	@Column(name="review_num")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long review_num;
+	private long rnum;
 	
-	private long store_num;
-	private String user_email;
+	@Column(name="store_num")
+	private long snum;
+	@Column(name="user_email")
+	private String email;
 	private String str;
 	private String weak;
 	private String picture;
 	private String title;
 	private String hashtag;
-	
-	private int likes;
-	private int unlikes;
 	private int views;
 	
 	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private String wdate;
 	
-	private int score_tatal;
-	private int score_taste;
-	private int score_price;
-	private int score_kindness;
+	@Column(name="score_total")
+	private int total;
+	@Column(name="score_taste")
+	private int taste;
+	@Column(name="score_price")
+	private int price;
+	@Column(name="score_kindness")
+	private int kindness;
 	
-	public long getReview_num() {
-		return review_num;
+	public Review() {
+		
 	}
-	public long getStore_num() {
-		return store_num;
+	
+	public Review(long snum, String email, String str, String weak, String picture,
+			String title, String hashtag, int views, int total, int taste, int price,
+			int kindness) {
+		super();
+		this.snum = snum;
+		this.email = email;
+		this.str = str;
+		this.weak = weak;
+		this.picture = picture;
+		this.title = title;
+		this.setHashtag(hashtag);
+		this.views = views;
+		this.total = total;
+		this.taste = taste;
+		this.price = price;
+		this.kindness = kindness;
 	}
-	public String getUser_email() {
-		return user_email;
+
+
+	public void setViews(int views) {
+		this.views = views;
 	}
-	public String getStr() {
-		return str;
-	}
-	public String getWeak() {
-		return weak;
-	}
-	public String getPicture() {
-		return picture;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public String getHashtag() {
-		return hashtag;
-	}
-	public int getLikes() {
-		return likes;
-	}
-	public int getUnlikes() {
-		return unlikes;
+
+
+	public long getRnum() {
+		return rnum;
 	}
 	public int getViews() {
 		return views;
 	}
-	public String getWdate() {
-		return wdate;
+
+	public String getEmail() {
+		return email;
 	}
-	public int getScore_tatal() {
-		return score_tatal;
+
+	public long getSnum() {
+		return snum;
 	}
-	public int getScore_taste() {
-		return score_taste;
+
+
+	public String getStr() {
+		return str;
 	}
-	public int getScore_price() {
-		return score_price;
+
+
+	public String getWeak() {
+		return weak;
 	}
-	public int getScore_kindness() {
-		return score_kindness;
+
+
+	public String getPicture() {
+		return picture;
 	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public String getHashtag() {
+		return hashtag;
+	}
+
+
+	public void setHashtag(String hashtag) {
+		this.hashtag = hashtag;
+	}
+	
 	
 	
 }
