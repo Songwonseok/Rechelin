@@ -1,4 +1,4 @@
-package com.web.curation.model.user;
+ package com.web.curation.model.user;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +26,7 @@ public class Hashtag {
 	public long getNum() {
 		return num;
 	}
-
+	
 	public String getKeyword() {
 		return keyword;
 	}

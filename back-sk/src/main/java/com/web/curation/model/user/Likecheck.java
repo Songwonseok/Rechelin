@@ -1,14 +1,14 @@
 package com.web.curation.model.user;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Entity
 @NoArgsConstructor
@@ -18,24 +18,25 @@ public class Likecheck {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 	
-	@NonNull
-	@Column(name="review_num")
-	private long reviewnum;
+	@ManyToOne
+	@JoinColumn(name= "review_num")
+	private Review review;
 	
-	@NonNull
-	@Column(name="user_email")
-	private String useremail;
+	@ManyToOne
+	@JoinColumn(name= "user_email")
+	private User user;
 
 	public long getNum() {
 		return num;
 	}
 
-	public long getReviewnum() {
-		return reviewnum;
+	public Review getReview() {
+		return review;
 	}
 
-	public String getUser_email() {
-		return useremail;
+	public User getUser() {
+		return user;
 	}
+
 
 }

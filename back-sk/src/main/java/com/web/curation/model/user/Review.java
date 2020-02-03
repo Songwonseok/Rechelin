@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -20,16 +20,20 @@ public class Review {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long review_num;
 	
-	private long store_num;
-	private String user_email;
+	@ManyToOne
+	@JoinColumn(name= "store_num")
+	private Store store;
+	
+	@ManyToOne
+	@JoinColumn(name= "user_email")
+	private User user;
+	
 	private String str;
 	private String weak;
 	private String picture;
 	private String title;
 	private String hashtag;
 	
-	private int likes;
-	private int unlikes;
 	private int views;
 	
 	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -39,15 +43,14 @@ public class Review {
 	private int score_taste;
 	private int score_price;
 	private int score_kindness;
-	
 	public long getReview_num() {
 		return review_num;
 	}
-	public long getStore_num() {
-		return store_num;
+	public Store getStore() {
+		return store;
 	}
-	public String getUser_email() {
-		return user_email;
+	public User getUser() {
+		return user;
 	}
 	public String getStr() {
 		return str;
@@ -63,12 +66,6 @@ public class Review {
 	}
 	public String getHashtag() {
 		return hashtag;
-	}
-	public int getLikes() {
-		return likes;
-	}
-	public int getUnlikes() {
-		return unlikes;
 	}
 	public int getViews() {
 		return views;
@@ -88,6 +85,7 @@ public class Review {
 	public int getScore_kindness() {
 		return score_kindness;
 	}
+	
 	
 	
 }

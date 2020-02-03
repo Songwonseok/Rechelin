@@ -14,7 +14,7 @@ public interface FollowService {
 
 	public List<User> fanList(String email);
 
-	public List<User> alarmList(String email);
+	public List<Alarm> alarmList(String email);
 
 	public boolean declineFollow(String fan, String star);
 

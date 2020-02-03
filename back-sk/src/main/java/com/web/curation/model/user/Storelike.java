@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -18,24 +20,24 @@ public class Storelike {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 	
-	@NonNull
-	@Column(name="store_num")
-	private long storenum;
+	@ManyToOne
+	@JoinColumn(name= "store_num")
+	private Store store;
 	
-	@NonNull
-	@Column(name="user_email")
-	private String useremail;
+	@ManyToOne
+	@JoinColumn(name= "user_email")
+	private User user;
 
 	public long getNum() {
 		return num;
 	}
 
-	public long getStorenum() {
-		return storenum;
+	public Store getStore() {
+		return store;
 	}
 
-	public String getUseremail() {
-		return useremail;
+	public User getUser() {
+		return user;
 	}
 
 }

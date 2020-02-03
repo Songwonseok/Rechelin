@@ -1,14 +1,14 @@
 package com.web.curation.model.user;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Entity
 @NoArgsConstructor
@@ -18,25 +18,24 @@ public class Storetags {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 	
-	@NonNull
-	@Column(name="hashtag_num")
-	private long hashtagnum;
+	@ManyToOne
+	@JoinColumn(name= "hashtag_num")
+	private Hashtag hashtag;
 	
-	@NonNull
-	@Column(name="review_num")
-	private long reviewnum;
+	@ManyToOne
+	@JoinColumn(name= "review_num")
+	private Review review;
 
 	public long getNum() {
 		return num;
 	}
 
-	public long getHashtagnum() {
-		return hashtagnum;
+	public Hashtag getHashtag() {
+		return hashtag;
 	}
 
-	public long getReviewnum() {
-		return reviewnum;
+	public Review getReview() {
+		return review;
 	}
 
-	
 }

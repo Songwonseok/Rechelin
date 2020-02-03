@@ -45,17 +45,6 @@ public class StoreServiceImpl implements StoreService {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	public Object update(Store request) {
-		Store store = storeDao.findByNum(request.getNum());
-		store.update(request);
-		storeDao.save(store);
-				
-		final BasicResponse result = new BasicResponse();
-		result.status = true;
-		result.data = "업데이트 성공";
-		result.object = new JSONObject(store).toMap();
-		return new ResponseEntity<>(result, HttpStatus.OK);		
-	}
 
 	public Object selectAll() {
 		List<Store> list = storeDao.findAll();
