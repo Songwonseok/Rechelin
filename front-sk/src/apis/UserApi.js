@@ -113,7 +113,7 @@ const requestProfile = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append("email", data);
 
-    Axios.post('http://localhost:8080/account/getProfile', params)
+    Axios.post('http://70.12.246.51:8080/account/getProfile', params)
         .then(response => {
             callback(response.data);
             console.log('성공')
@@ -151,7 +151,7 @@ const requestUpload = (email, profile, callback, errorCallback) => {
     params.append("email", email);
     params.append("profile", profile);
 
-    Axios.post('http://localhost:8080/account/uploadProfile', params)
+    Axios.post('http://70.12.246.51:8080/account/uploadProfile', params)
         .then(response => {
             callback(response.data);
             console.log('성공')
@@ -219,7 +219,9 @@ function requestFetchUserData({commit}, email){
    
 }
 
-
+function requestFetchAdrData({commit}){
+    //Axios.get()
+}
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),

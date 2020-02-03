@@ -33,6 +33,15 @@ export default {
                 console.log(error);
             })
     },
+    FETCH_ADR({commit}){ //google 에서부터 음식점 주소를 FETCH 해옴
+        Userapi.requestFetchAdrData({commit}).then(
+            response => {
+                
+            }).catch(error=>{
+
+            })
+        
+    },
     logout({commit}) {
         commit('logout')
     },
