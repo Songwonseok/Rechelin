@@ -1,6 +1,7 @@
 import Axios from "axios"
 import router from '../main'
 
+
 export default {
     updateName(state, name) {
         state.name = name;
@@ -130,6 +131,37 @@ export default {
         params.append('fan', payload.fan)
         params.append('star', payload.star)
         Axios.post('http://70.12.246.51:8080/follow/decline', params)
+            .then(res => {
+                console.log('요청 성공')
+            }).catch(exp => {
+                console.log('실패')
+            })
+    },
+    storeinfoGet(state, payload){
+        const params = new URLSearchParams();
+        params.append('id', payload.id)
+        Axios.post('http://70.12.246.51:8080/store/selectOne', params)
+            .then(res => {
+                console.log('요청 성공')
+            }).catch(exp => {
+                console.log('실패')
+            })
+
+    },
+    tagsGet(state, payload) {
+        const params = new URLSearchParams();
+        params.append('id', payload.id) // store id로 store에 걸린 tag 검색
+        Axios.post('', params)
+            .then(res => {
+                console.log('요청 성공')
+            }).catch(exp => {
+                console.log('실패')
+            })
+    },
+    reviewsGet(state, payload) {
+        const params = new URLSearchParams();
+        params.append('id', payload.id) // store id로 store에 걸린 reivew 검색
+        Axios.post('', params)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {

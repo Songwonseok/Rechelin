@@ -65,5 +65,14 @@ export default {
     followDecline({commit}, payload) {
         commit('followDecline', payload)
     },
+    storeinfoGet({commit}, payload) {
+        commit('storeinfoGet', payload)
+    },
+    tagsGet({commit}, payload) {
+        commit('tagsGet', payload)
+    },
+    reviewsGet({commit}, payload){
+        commit('reviewsGet', payload)
+    }
 
 }

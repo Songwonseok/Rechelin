@@ -26,7 +26,7 @@ import awsconfig from './aws-exports'
 Amplify.configure(awsconfig)
 
 Vue.use(AmplifyPlugin, AmplifyModules)
-//
+
 
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);

@@ -70,11 +70,12 @@ export default new Vuex.Store({
         tempStores: [{
                 name: '카페 413 프로젝트',
                 address: '서울 강남구 논현로 97길 19-11',
+                gps: [33.523, 156.234],
                 hashtag: [
                     '친구와', '강남', '아늑한', '분위기좋은'
                 ],
                 phone: '070-7798-0544',
-                picture: 'https://mp-seoul-image-production-s3.mangoplate.com/67078_1497540642492532.jpg'
+                image: 'https://mp-seoul-image-production-s3.mangoplate.com/67078_1497540642492532.jpg'
             },
             {
                 name: '바나프레소 역삼점',
@@ -82,8 +83,9 @@ export default new Vuex.Store({
                 hashtag: [
                     '친구와', '혼자', '강남', '역삼'
                 ],
+                gps: { lat: 37.49861012989273, lng: 127.0534505298927},
                 phone: '',
-                picture: 'https://mblogthumb-phinf.pstatic.net/MjAxODA2MDVfMjU3/MDAxNTI4MTg4MDAwMzg1.2IvQiB0gDBR12GUqwBKs2H6VH5V1rjSXrSalF_09FQIg.89DIbuCipP_5FGOyPu8Z8rgre0r-c-IHimIYPwP3iq4g.JPEG.yhyang_hae/image_3952403311528187975089.jpg?type=w800'
+                image: 'https://mblogthumb-phinf.pstatic.net/MjAxODA2MDVfMjU3/MDAxNTI4MTg4MDAwMzg1.2IvQiB0gDBR12GUqwBKs2H6VH5V1rjSXrSalF_09FQIg.89DIbuCipP_5FGOyPu8Z8rgre0r-c-IHimIYPwP3iq4g.JPEG.yhyang_hae/image_3952403311528187975089.jpg?type=w800'
             },
             {
                 name: '양자강',
@@ -98,7 +100,19 @@ export default new Vuex.Store({
                 hashtag: ['노맛', '혼자', '시끄러운'],
                 phone: '12313',
                 picture: 'https://ww.namu.la/s/b9ae6fd83019ce31055107c03aaff8743d43aa5d90fa22e77e54c12c5e9cb12364bfd31c34e2b00001708cc5b0e12800f6c8ea63683c97ec8b5a534cd2546c5b5f94b6a88e9d226e34e400aab5c22fdad72e053f92e787c2350c4e1d947d2028558171b8e8d89dabc60b75210b14ad1b'
-            }
+        }
+        ],
+        fakeReviews: [
+            {
+                nickname: 'hj',
+                content: '맛은 그저 그렇지만 빨리나와요',
+                like: 3,
+                dislike: 1,
+                hashtags: [
+                     '친구와', '혼자', '강남', '역삼'
+                ]
+            },
+
         ],
         // 로그인 상태 관리 파트 && 유저 email과 닉네임
         accessToken: sessionStorage.getItem("userToken"),
@@ -116,8 +130,22 @@ export default new Vuex.Store({
         },
         // 알람 관리
         notifications: [],
-    },
+        // 식당 정보
+        dining: {
+            name: '',
+            image:'',
+            address: '',
+            phone: '',
+            gps: null, // 값이 리스트로 올 것
+            tags: { // 따로 axios
 
+            },
+            reviews: [ // 따로 axios
+
+            ],
+            ratings : null, //리스트로 올것
+        }
+    },
     // state가 아닌 부분
     mutations,
     getters,
