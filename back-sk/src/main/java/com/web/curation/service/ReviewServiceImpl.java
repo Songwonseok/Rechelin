@@ -1,7 +1,5 @@
 package com.web.curation.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +24,8 @@ public class ReviewServiceImpl implements ReviewService {
 	public boolean register(Review review) {
 		long snum = review.getSnum();
 		String email = review.getEmail();
-		List<Review> list = dao.findAllBySnumAndEmail(snum, email);
-		if(list.size() == 0) {
+		Review list = dao.findAllBySnumAndEmail(snum, email);
+		if(list == null) {
 			review.setViews(0);
 			dao.save(review);
 			return true;
