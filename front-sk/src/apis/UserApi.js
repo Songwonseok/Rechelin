@@ -1,6 +1,13 @@
 import Axios from "axios"
 import store from "../vuex/store"
-
+import Vue from 'vue';
+import AxiosPlugin from 'vue-axios-cors';
+ 
+Vue.use(AxiosPlugin)
+//header('Access-Control-Allow-Origin', 'http://localhost:3000')
+const config = {
+    baseUrl : 'https://maps.googleapis.com/maps/api/place/textsearch/json?input='
+}
 const requestsignUp = async(data, callback, errorCallback) => {
     // const params = new URLSearchParams();
     // params.append('request', data);   
@@ -219,8 +226,11 @@ function requestFetchUserData({commit}, email){
    
 }
 
-function requestFetchAdrData({commit}){
+function requestFetchAdrData({commit}, address){
     //Axios.get()
+     let mykey = 'AIzaSyC2cMGa_VgNLaFR_9HlQxCZzr1-t_Iggoc'
+     
+    return Axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?input=${address}&inputtype=textquery&region=kr&language=ko&fields=formatted_addres,name,geometry&key=${mykey}`);   
 }
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -235,6 +245,7 @@ const UserApi = {
     searchUserHistory : (data,callback, errorCallback) => searchUserHistory(data,callback,errorCallback),
     requestfetchUserList,
     requestFetchUserData,
+    requestFetchAdrData,
 }
 
 export default UserApi

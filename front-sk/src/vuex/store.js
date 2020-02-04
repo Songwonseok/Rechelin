@@ -116,6 +116,10 @@ export default new Vuex.Store({
         },
         // 알람 관리
         notifications: [],
+        // 음식점 위치 정보
+        googleStorePlace :[
+            
+        ],
     },
 
     // state가 아닌 부분

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": ".",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017"
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules",
+    "index.js"
+  ],
+  "include": [
+    "src"
+  ],
+  "types": [
+    "node"
+  ]
+}

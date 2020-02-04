@@ -77,7 +77,7 @@
             <template v-if="this.profile != ''">
               <!-- {{this.profile}}  -->
                
-               <img :src="profile" style="max-width:30%" >
+            <img :src="profile" style="max-width:30%" >
             </template>
             <template v-else>
                 사진없어요
@@ -96,13 +96,25 @@
             <b-button id="show-btn"
                     style="width: 50%;height: 15%;color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
                     @click="$bvModal.show('bv-modal-example_adr')">음식점 주소 등록하기</b-button>
-                  <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example_adr" hide-footer>
+                  <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example_adr" class="modalStore" hide-footer>
                     <template v-slot:modal-title>음식점 주소 등록하기</template>
                     <div class="d-block text-center">
                       <!--Main Modal Page-->
-                      <b-form-input id="address_search" @keyup ="fetchAdr" type="text"  v-model="address" list="maps"></b-form-input>
-                        <b-table striped hover :items="maps" :tbody-tr-class="test"></b-table>
+                      <div v-if="eye">
+                          
+                        <b-form-input id="address_search" @keyup ="fetchAdr" type="text"  v-model="address"   ></b-form-input>
+                        <b-table striped hover :items="map"  @row-clicked="clickEvent"></b-table>
+                      </div>
+                      
+                      <div v-else>
+                          
+                        <b-form-input id="address_search2" @keyup ="fetchAdr" type="text"  v-model="address" ></b-form-input>
+                        <b-table striped hover :items="map"  @row-clicked="clickEvent">
+                            
+                        </b-table> 
+                      </div>
                     </div>
+                    
                     <b-button
                       style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
                       class="mt-3" block @click="$bvModal.hide('bv-modal-example_adr')">닫기</b-button>
@@ -137,6 +149,7 @@ import UserApi from '../../apis/UserApi'
 
 import ImgurApi from '../../apis/ImgurApi'
 import StarRating from 'vue-star-rating'
+import Vue from 'vue'
 
 export default {
     created() {
@@ -225,13 +238,23 @@ export default {
              },
              fetchAdr(){
                
+               //검색시
                 this
                 .$store
-                .dispatch('FETCH_ADR');
+                .dispatch('FETCH_ADR', this.address)
                 
-             },test(){
-                 console.log('hi')
-             }
+                this.map = this.$store.state.googleStorePlace
+                console.log(this.map);
+                         if(this.eye == false) this.eye = true;
+                else this.eye = false
+
+                //값 init
+                
+                this.map = this.$store.status.googleStorePlace
+                 
+                //Q : 리뷰 항목을 다 건네줘야 하는건지?
+             },
+            
     },
     data : () =>({
          fixArea : ['강남','종로','잠실','이태원'],
@@ -250,12 +273,10 @@ export default {
          price : '',
          kindness : '',
          maps :[
-          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ], //Unit test
+         ],
          address : '',
+         eye : false,
+      
     })
 }
 </script>
