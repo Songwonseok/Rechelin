@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.web.curation.model.BasicResponse;
+import com.web.curation.model.user.Comments;
 import com.web.curation.model.user.Likecheck;
 import com.web.curation.model.user.Review;
 import com.web.curation.service.ReviewService;
@@ -88,7 +89,7 @@ public class ReviewController {
 	@ApiOperation(value = "리뷰 조회")
 	public Object detail(@PathVariable long rnum) {
 		final BasicResponse result = new BasicResponse();
-		
+		System.out.println(rnum);
 		Review review = service.detail(rnum);
 		if(review!=null) {
 			result.status = true;
@@ -122,9 +123,42 @@ public class ReviewController {
 			break;
 		}
 		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 	
-//				
+	@PostMapping("/review/comment")
+	@ApiOperation(value = "댓글 등록")
+	public Object addComment(@RequestBody Comments com) {
+		final BasicResponse result = new BasicResponse();
+		service.addComment(com);
+		result.status = true;
+		result.data = "댓글 등록 성공";
+		result.object = com;
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/review/comment/{num}")
+	@ApiOperation(value = "댓글 삭제")
+	public Object deleteComment(@PathVariable long num) {
+		final BasicResponse result = new BasicResponse();
+		service.deleteComment(num);
+		result.status = true;
+		result.data = "댓글 삭제 성공";
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping("/review/comment/{rnum}")
+	@ApiOperation(value = "모든 댓글 가져오기")
+	public Object getComment(@PathVariable long rnum) {
+		final BasicResponse result = new BasicResponse();
+		
+		result.status = true;
+		result.data = "모든 댓글 조회 성공";
+		result.object = service.getComment(rnum);
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	
+	
 }

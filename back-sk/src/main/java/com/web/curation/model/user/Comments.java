@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Subreview {
+public class Comments {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
