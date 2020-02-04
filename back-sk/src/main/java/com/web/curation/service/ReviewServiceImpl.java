@@ -5,12 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.curation.dao.user.BookmarkDao;
 import com.web.curation.dao.user.CommentDao;
 import com.web.curation.dao.user.LikecheckDao;
 import com.web.curation.dao.user.ReviewDao;
+import com.web.curation.dao.user.UserDao;
+import com.web.curation.model.user.Bookmark;
 import com.web.curation.model.user.Comments;
 import com.web.curation.model.user.Likecheck;
 import com.web.curation.model.user.Review;
+import com.web.curation.model.user.User;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -20,6 +24,10 @@ public class ReviewServiceImpl implements ReviewService {
 	private LikecheckDao likedao;
 	@Autowired
 	private CommentDao comdao;
+	@Autowired
+	private BookmarkDao bookdao;
+	@Autowired
+	private UserDao userdao;
 	
 	@Override
 	public void register(Review review) {
@@ -103,6 +111,30 @@ public class ReviewServiceImpl implements ReviewService {
 		List<Comments> list = comdao.findAllByReview(review);
 		// 해당되는 모든 댓글들을 불러온다
 		return list;
+	}
+
+	@Override
+	public List<Bookmark> getBookmark(String email) {
+		// email을 통해 User를 찾는다
+		User user = userdao.findByEmail(email);
+		List<Bookmark> list = bookdao.findAllByUser(user);
+		
+		return list;
+		
+	}
+
+	@Override
+	public boolean clickBookmark(Bookmark book) {
+		Bookmark tmp = bookdao.findByUserAndReview(book.getUser(), book.getReview());
+		if(tmp == null) {
+			// 없으니까 새로 추가
+			bookdao.save(book);
+			return true;
+		}else {
+			// 있는데 다시 눌렀으니까 취소
+			bookdao.delete(tmp);
+			return false;
+		}
 	}
 
 }

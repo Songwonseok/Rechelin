@@ -1,6 +1,5 @@
 package com.web.curation.model.user;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +9,6 @@ import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Entity
 @NoArgsConstructor
@@ -25,8 +23,8 @@ public class Bookmark {
 	private User user;
 	
 	@ManyToOne
-	@JoinColumn(name= "store_num")
-	private Store store;
+	@JoinColumn(name= "review_num")
+	private Review review;
 
 	public long getNum() {
 		return num;
@@ -36,8 +34,8 @@ public class Bookmark {
 		return user;
 	}
 
-	public Store getStore() {
-		return store;
+	public Review getReview() {
+		return review;
 	}
 
 

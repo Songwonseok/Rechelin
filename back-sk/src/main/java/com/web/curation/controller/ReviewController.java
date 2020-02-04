@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.web.curation.model.BasicResponse;
+import com.web.curation.model.user.Bookmark;
 import com.web.curation.model.user.Comments;
 import com.web.curation.model.user.Likecheck;
 import com.web.curation.model.user.Review;
@@ -153,12 +154,39 @@ public class ReviewController {
 		final BasicResponse result = new BasicResponse();
 		
 		result.status = true;
-		result.data = "모든 댓글 조회 성공";
+		result.data = "모든 댓글 리스트 조회 성공";
 		result.object = service.getComment(rnum);
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
+	@PostMapping("/review/bookmark")
+	@ApiOperation(value = "북마크 추가 / 삭제")
+	public Object addComment(@RequestBody Bookmark book) {
+		final BasicResponse result = new BasicResponse();
+		result.status = true;
+		result.object = book;
+
+		if(service.clickBookmark(book)) {
+			result.data = "북마크 등록 성공";
+		}else {
+			result.data = "북마크 삭제 성공";
+		}
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping("/review/bookmark/{email}")
+	@ApiOperation(value = "북마크 리스트 가져오기")
+	public Object getBookmark(@PathVariable String email) {
+		final BasicResponse result = new BasicResponse();
+		
+		result.status = true;
+		result.data = "유저의 모든 북마크 리스트 조회 성공";
+		result.object = service.getBookmark(email);
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 	
 	
 }
