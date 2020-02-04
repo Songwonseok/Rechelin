@@ -27,6 +27,9 @@ Amplify.configure(awsconfig)
 
 Vue.use(AmplifyPlugin, AmplifyModules)
 
+// infinite scroll
+var infiniteScroll =  require('vue-infinite-scroll');
+Vue.use(infiniteScroll)
 
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);

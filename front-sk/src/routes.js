@@ -15,6 +15,12 @@ import signUpConfirm from './views/user/signUpConfirm.vue';
 import searchPassword from './views/user/searchPw.vue';
 import userSearch from './components/common/userSearch.vue';
 import storeDetail from './views/stores/storeDetail'
+import storeReviews from './views/stores/storeReviews'
+
+
+
+
+
 
 export default [
     // ERROR PAGE
@@ -93,7 +99,14 @@ export default [
     {
         path: '/storeDetail/:id',
         name: 'storeDetail',
-        component: storeDetail
+        component: storeDetail,
+        children: [
+            {
+                path: 'reviews',
+                name: 'storeReviews',
+                component: storeReviews
+            }
+        ]
     }
     
 ]

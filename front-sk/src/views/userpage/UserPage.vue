@@ -90,7 +90,7 @@
 
     },
     created() {
-       this.$store.dispatch('userFans', this.$route.params.id)
+      this.$store.dispatch('userFans', this.$route.params.id)
 
       // stars 찾기
       this.$store.dispatch('userStars', this.$route.params.id)
