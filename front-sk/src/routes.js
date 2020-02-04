@@ -16,11 +16,7 @@ import searchPassword from './views/user/searchPw.vue';
 import userSearch from './components/common/userSearch.vue';
 import storeDetail from './views/stores/storeDetail'
 import storeReviews from './views/stores/storeReviews'
-
-
-
-
-
+import createReview from './views/stores/createReview'
 
 export default [
     // ERROR PAGE
@@ -96,7 +92,7 @@ export default [
         name : 'userSearch',
         component : userSearch,
     },
-    {
+    { // 음식점 상세페이지
         path: '/storeDetail/:id',
         name: 'storeDetail',
         component: storeDetail,
@@ -104,7 +100,15 @@ export default [
             {
                 path: 'reviews',
                 name: 'storeReviews',
-                component: storeReviews
+                component: storeReviews,
+                children: [
+                    {
+                        path: 'createReview',
+                        name: 'createReview',
+                        component: createReview,
+                    }
+                ]
+               
             }
         ]
     }

@@ -110,7 +110,8 @@ export default new Vuex.Store({
                 dislike: 1,
                 hashtags: [
                      '친구와', '혼자', '강남', '역삼'
-                ]
+                ],
+                test: false,
             },
 
         ],
