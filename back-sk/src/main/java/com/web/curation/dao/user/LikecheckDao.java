@@ -9,5 +9,9 @@ import com.web.curation.model.user.Review;
 import com.web.curation.model.user.User;
 
 public interface LikecheckDao extends JpaRepository<Likecheck, Long> {
-	List<Likecheck> findAllByReviewAndUser(Review review, User user);
+	Likecheck findByReviewAndUser(Review review, User user);
+
+	List<Likecheck> findByReview(Review review);
+	List<Likecheck> findByUser(User user);
+	
 }

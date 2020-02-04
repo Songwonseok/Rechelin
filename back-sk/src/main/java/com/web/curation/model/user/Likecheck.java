@@ -28,7 +28,6 @@ public class Likecheck {
 	@JoinColumn(name= "user_email")
 	private User user;
 	
-	@Column(name="score_total")
 	private int status;
 		
 	public int getStatus() {

@@ -50,6 +50,9 @@ public class Review {
 	@Column(name="score_kindness")
 	private int kindness;
 	
+//	public Review(long snum, String email, ) {
+//		
+//	}
 	public long getRnum() {
 		return rnum;
 	}

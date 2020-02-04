@@ -38,15 +38,18 @@ public class ReviewController {
 	@ApiOperation(value = "리뷰 등록")
 	public Object register(@RequestBody Review review) {
 		final BasicResponse result = new BasicResponse();
-		
-		if(service.register(review)) {
-			result.status = true;
-    		result.data = "리뷰 등록 성공";
-    		result.object = review;
-		}else {
-			result.status = false;
-    		result.data = "리뷰 등록 실패 - 유저가 이미 음식점을 등록함";
-		}
+		service.register(review);
+		result.status = true;
+		result.data = "리뷰 등록 성공";
+		result.object = review;
+//		if(service.register(review)) {
+//			result.status = true;
+//		result.data = "리뷰 등록 성공";
+//		result.object = review;
+//		}else {
+//			result.status = false;
+//    		result.data = "리뷰 등록 실패 - 유저가 이미 음식점을 등록함";
+//		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
@@ -101,39 +104,26 @@ public class ReviewController {
 	@PostMapping("/review/like")
 	@ApiOperation(value = "리뷰 도움돼요 / 안돼요")
 	public Object like(@RequestBody Likecheck check) {
+		////// 1 - 도움 돼요 0 - 안돼요
 		final BasicResponse result = new BasicResponse();
+		int rs = service.useful(check);
+		result.status = true;
+		result.object = check;
 		
-		if(service.useful(check)) {
-			result.status = true;
-    		result.data = "도움 작성 성공";
-    		result.object = check;
-		}else {
-			result.status = false;
-    		result.data = "도움 조회 실패 - 존재하지않는 리뷰";
+		switch (rs) {
+		case 0:
+			result.data = "도움 버튼 삭제 완료";
+			break;
+		case 1:
+			result.data = "도움 버튼 수정 완료";
+			break;
+		case 2:
+			result.data = "도움 버튼 등록 완료";
+			break;
 		}
-//		int state = service.useful(check);
-//		
-//		switch (state) {
-//		case 0:
-//			result.status = false;
-//    		result.data = "도움 조회 실패 - 존재하지않는 리뷰";
-//			break;
-//		case 1:
-//			result.status = false;
-//    		result.data = "도움 조회 실패 - 존재하지않는 유저";
-//			break;
-//		case 2:
-//			result.status = true;
-//    		result.data = "도움 작성 성공";
-//    		result.object = check;
-//			break;
-//		case 3:
-//			result.status = true;
-//    		result.data = "도움 수정 성공";
-//    		result.object = check;
-//			break;
-//		}
 		
+	
+//				
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}

@@ -20,17 +20,11 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	
 	@Override
-	public boolean register(Review review) {
+	public void register(Review review) {
+		review.setViews(0);
 		
-		Review list = dao.findAllByStoreAndUser(review.getStore(), review.getUser());
-		if(list == null) {
-			review.setViews(0);
-			dao.save(review);
-			return true;
-		}else {
-			// 이미 등록된 리뷰
-			return false;
-		}
+		
+		dao.save(review);
 	}
 
 	@Override
@@ -58,6 +52,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public Review detail(long rnum) {
 		Review tmp = dao.findByRnum(rnum);
+		System.out.println(tmp);
 		if(tmp!=null) {
 			// 조회수 1증가
 			int view = tmp.getViews();
@@ -69,44 +64,25 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public boolean useful(Likecheck check) {
+	public int useful(Likecheck check) {
 		
-		//////////////////////#### 수정 삽입 아직 안함
-		if(likedao.findAllByReviewAndUser(check.getReview(), check.getUser())!=null) {
-			return true;
+		Likecheck tmp = likedao.findByReviewAndUser(check.getReview(), check.getUser());
+		if(tmp!=null) {
+			// 똑같은 값이 들어오면 - 버튼 취소
+			if(check.getStatus() == tmp.getStatus()) {
+				likedao.delete(tmp);
+				return 0;
+			}else {				
+				// 이미 있다는거니까 - 수정
+				tmp.setStatus(check.getStatus());
+				likedao.save(tmp);
+				return 1;
+			}
 		}else {
-			return false;
+			likedao.save(check);
+			return 2;
 		}
-//		List<Likecheck> tmp = likedao.findByReview(check.getReview());
-//		if(tmp!=null) {
-//			
-//			tmp = likedao.findByUser(check.getUser());
-//			if(tmp!=null) {
-//				//// 
-//			}
-//			return 1; // 유저 존재 X
-//		}else {
-//			return 0; // 리뷰 존재 X
-//		}
-//		if(likedao.findByReview(check.getReview()!=null) {
-//			// email이 존재하는지 체크
-//			if(dao.findByEmail(email)!=null) {
-//				Likecheck befo = checkdao.findByRnumAndEmail(check.getRnum(), check.getEmail());
-//				
-//				if(befo!=null){
-//					befo.setStatus(check.getStatus());					
-//					checkdao.save(befo); //  업데이트
-//					return 3;
-//				}else{
-//					checkdao.save(check);// 생성
-//					return 2;
-//				}
-//			}
-//			return 1; // email 존재 X
-//		}else {
-//			return 0; 
-//		}
-		
+				
 	}
 
 }
