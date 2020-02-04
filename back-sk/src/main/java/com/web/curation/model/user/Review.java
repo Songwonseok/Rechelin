@@ -39,10 +39,18 @@ public class Review {
 	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private String wdate;
 	
-	private int score_tatal;
-	private int score_taste;
-	private int score_price;
-	private int score_kindness;
+	@Column(name = "score_total")
+	private int scoretotal;
+	
+	@Column(name = "score_taste")
+	private int scoretaste;
+	
+	@Column(name = "score_price")
+	private int scoreprice;
+	
+	@Column(name = "score_kindness")
+	private int scorekindness;
+	
 	public long getReview_num() {
 		return review_num;
 	}
@@ -73,17 +81,17 @@ public class Review {
 	public String getWdate() {
 		return wdate;
 	}
-	public int getScore_tatal() {
-		return score_tatal;
+	public int getScoretotal() {
+		return scoretotal;
 	}
-	public int getScore_taste() {
-		return score_taste;
+	public int getScoretaste() {
+		return scoretaste;
 	}
-	public int getScore_price() {
-		return score_price;
+	public int getScoreprice() {
+		return scoreprice;
 	}
-	public int getScore_kindness() {
-		return score_kindness;
+	public int getScorekindness() {
+		return scorekindness;
 	}
 	
 	
