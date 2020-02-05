@@ -88,7 +88,7 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/review/detail/{rnum}")
-	@ApiOperation(value = "리뷰 조회")
+	@ApiOperation(value = "리뷰 상세 조회")
 	public Object detail(@PathVariable long rnum) {
 		final BasicResponse result = new BasicResponse();
 		System.out.println(rnum);
@@ -202,5 +202,16 @@ public class ReviewController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
+	@GetMapping("/review/{snum}")
+	@ApiOperation(value = "식당의 모든 리뷰 가져오기")
+	public Object getReview(@PathVariable long snum) {
+		final BasicResponse result = new BasicResponse();
+		
+		result.status = true;
+		result.data = "식당의 모든 리뷰 리스트 조회 성공";
+		result.object = service.getReview(snum);
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 	
 }

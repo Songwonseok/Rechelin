@@ -9,11 +9,13 @@ import com.web.curation.dao.user.BookmarkDao;
 import com.web.curation.dao.user.CommentDao;
 import com.web.curation.dao.user.LikecheckDao;
 import com.web.curation.dao.user.ReviewDao;
+import com.web.curation.dao.user.StoreDao;
 import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.user.Bookmark;
 import com.web.curation.model.user.Comments;
 import com.web.curation.model.user.Likecheck;
 import com.web.curation.model.user.Review;
+import com.web.curation.model.user.Store;
 import com.web.curation.model.user.User;
 
 @Service
@@ -28,6 +30,8 @@ public class ReviewServiceImpl implements ReviewService {
 	private BookmarkDao bookdao;
 	@Autowired
 	private UserDao userdao;
+	@Autowired
+	private StoreDao storedao;
 	
 	@Override
 	public void register(Review review) {
@@ -149,6 +153,14 @@ public class ReviewServiceImpl implements ReviewService {
 			System.out.println(review.toString());
 		}
 		// start리스트의 게시물을 최근 순으로 가져온다
+		return list;
+	}
+
+	@Override
+	public List<Review> getReview(long snum) {
+		// store의 num으로 통해서 리뷰들을 가져온다
+		Store store = storedao.findByNum(snum);
+		List<Review> list = dao.findAllByStore(store);
 		return list;
 	}
 

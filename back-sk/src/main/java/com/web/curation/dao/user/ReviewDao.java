@@ -12,5 +12,5 @@ import com.web.curation.model.user.User;
 public interface ReviewDao extends JpaRepository<Review, Long>, CustomRepository {
 	Review findByRnum(long rnum);
 	Review findAllByStoreAndUser(Store store, User user);
-//	List<Review> findAllByUserOrderByNumDesc(User user);
+	List<Review> findAllByStore(Store store);
 }

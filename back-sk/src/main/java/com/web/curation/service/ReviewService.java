@@ -6,12 +6,14 @@ import com.web.curation.model.user.Bookmark;
 import com.web.curation.model.user.Comments;
 import com.web.curation.model.user.Likecheck;
 import com.web.curation.model.user.Review;
+import com.web.curation.model.user.Store;
 
 public interface ReviewService {
 	public void register(Review review);
 	public boolean update(Review review);
 	public boolean delete(long rnum);
 	public Review detail(long rnum);
+	public List<Review> getReview(long snum);
 	public int useful(Likecheck like);
 	public void addComment(Comments com);
 	public void deleteComment(long num);
