@@ -109,6 +109,12 @@ public class Review {
 	public void setViews(int views) {
 		this.views = views;
 	}
+	@Override
+	public String toString() {
+		return "Review [rnum=" + rnum + ", store=" + store + ", user=" + user + ", str=" + str + ", weak=" + weak
+				+ ", picture=" + picture + ", title=" + title + ", hashtag=" + hashtag + ", views=" + views + ", wdate="
+				+ wdate + ", total=" + total + ", taste=" + taste + ", price=" + price + ", kindness=" + kindness + "]";
+	}
 	
 	
 	

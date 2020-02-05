@@ -18,4 +18,5 @@ public interface ReviewService {
 	public List<Comments> getComment(long rnum);
 	public boolean clickBookmark(Bookmark book);
 	public List<Bookmark> getBookmark(String email);
+	public List<Review> getcurrentFeed(String email);
 }
