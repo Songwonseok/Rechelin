@@ -1,5 +1,7 @@
 import {requestfetchUserList} from '../apis/index.js';
 import Userapi from '../apis/UserApi.js';
+import Axios from "axios"
+import router from '../main.js';
 
 export default {
     LOADING_USERDATA(context){
@@ -66,15 +68,40 @@ export default {
     tagsGet({commit}, payload) {
         commit('tagsGet', payload)
     },
-    reviewsGet({commit}, payload){
-        commit('reviewsGet', payload)
+    likeStore({commit}, payload) {
+        commit('addBookmark', payload)
     },
+    // 리뷰 관련
+    reviewsGet({commit}, payload){
+        Axios.get(`http://70.12.246.134:8080/review/${payload}`)
+            .then(res => {
+                commit('reviewsGet', res.data.object);
+                router.push({name: 'reviewsOfstore',
+                    query: {
+                        reviewsOfstore: res.data.object
+                    }})
+            }).catch(exp => {
+                console.log('실패')
+            })
+    },
+    // 리뷰의 댓글 관련
     commentsOfreview({commit}, payload) {
-        commit('commentsOfreview', payload)
+        //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
+        console.log(payload)
+        Axios.post(`http://70.12.246.134:8080/review/comment/${payload}`)
+            .then(res => {
+                console.log(res)
+                commit('commentsOfreview', payload)
+                console.log('요청 성공')
+            }).catch(exp => {
+                console.log('실패')
+            })
+       
     },
     createComment({commit}, payload) {
         commit('createComment', payload)
-    }
-
+    },
+  
+    
 
 }

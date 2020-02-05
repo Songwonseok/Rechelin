@@ -102,19 +102,6 @@ export default new Vuex.Store({
                 picture: 'https://ww.namu.la/s/b9ae6fd83019ce31055107c03aaff8743d43aa5d90fa22e77e54c12c5e9cb12364bfd31c34e2b00001708cc5b0e12800f6c8ea63683c97ec8b5a534cd2546c5b5f94b6a88e9d226e34e400aab5c22fdad72e053f92e787c2350c4e1d947d2028558171b8e8d89dabc60b75210b14ad1b'
         }
         ],
-        fakeReviews: [
-            {
-                nickname: 'hj',
-                content: '맛은 그저 그렇지만 빨리나와요',
-                like: 3,
-                dislike: 1,
-                hashtags: [
-                     '친구와', '혼자', '강남', '역삼'
-                ],
-                test: false,
-            },
-
-        ],
         // 로그인 상태 관리 파트 && 유저 email과 닉네임
         accessToken: sessionStorage.getItem("userToken"),
         userEmail: sessionStorage.getItem("userEmail"),
@@ -147,7 +134,8 @@ export default new Vuex.Store({
             ratings : null, //리스트로 올것
         },
         // commets of REVIEWS
-        comments: null, // 아마 리스트로 올 것
+        commentsOfreview: null, // 아마 리스트로 올 것
+        reviewsOfstore: null,
     },
     // state가 아닌 부분
     mutations,

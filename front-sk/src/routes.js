@@ -99,7 +99,7 @@ export default [
         children: [
             {
                 path: 'reviews',
-                name: 'storeReviews',
+                name: 'reviewsOfstore',
                 component: storeReviews,
                 children: [
                     {

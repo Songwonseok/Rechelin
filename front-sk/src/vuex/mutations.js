@@ -137,6 +137,7 @@ export default {
                 console.log('실패')
             })
     },
+    // 스토어 관련
     storeinfoGet(state, payload){
         const params = new URLSearchParams();
         params.append('id', payload.id)
@@ -148,6 +149,15 @@ export default {
             })
 
     },
+    likeStore(state, payload) {
+         
+        Axios.post("http://70.12.246.51:8080/review/bookmark", payload)
+        .then(res => {
+           console.log('요청 성공')
+       }).catch(exp => {
+           console.log('실패')
+       })
+    },
     tagsGet(state, payload) {
         const params = new URLSearchParams();
         params.append('id', payload.id) // store id로 store에 걸린 tag 검색
@@ -158,28 +168,26 @@ export default {
                 console.log('실패')
             })
     },
-    commentsOfreview(state, payload) {
+    // 리뷰의 댓글관련
+   async commentsOfreview(state, payload) {
         const params = new URLSearchParams();
         //리뷰 아이디 집어 넣으면, 리뷰의 댓글들 목록이 올 것.
-        params.append('id', payload.id)
-        Axios.post('', params)
+        let response = await Axios.get(`http://70.12.246.134:8080/review/comment/${payload}`)
             .then(res => {
-                console.log('요청 성공')
-                state.comments = ''
+                console.log('리뷰의 댓글들 가져오기 성공')
+                console.log(res.data.object)
             }).catch(exp => {
                 console.log('실패')
             })
+        console.log(response)
     },
      createComment(state, payload) {
-        const params = new URLSearchParams();
-        //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글이 생성될 것
-        params.append('id', payload.id)
-        Axios.post('', params)
-            .then(res => {
-                console.log('요청 성공')
-            }).catch(exp => {
-                console.log('실패')
-            })
+        state.commentsOfreview = payload
+     },
+     // 리뷰 관련
+    reviewsGet(state, payload) {
+        state.reviewsOfstore = payload
      }
+
 
 }

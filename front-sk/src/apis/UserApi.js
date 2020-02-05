@@ -219,6 +219,25 @@ function requestFetchUserData({commit}, email){
    
 }
 
+function reviewsGet({commit}, payload) {
+    const params = new URLSearchParams();
+    params.append('snum', payload)
+    
+    Axios.get(`http://70.12.246.134:8080/review/${payload}`)
+    .then(res => {
+        console.log(res.data.object, '성공')
+        commit('reviewsGet', res.data.object);
+     
+    }).catch(exp => {
+        console.log('실패')
+    })
+
+ }
+
+
+
+
+
 
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -233,6 +252,7 @@ const UserApi = {
     searchUserHistory : (data,callback, errorCallback) => searchUserHistory(data,callback,errorCallback),
     requestfetchUserList,
     requestFetchUserData,
+    reviewsGet
 }
 
 export default UserApi

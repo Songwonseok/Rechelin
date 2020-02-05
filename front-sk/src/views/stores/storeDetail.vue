@@ -30,7 +30,7 @@
               <v-icon>{{icons.pencilOutline}}</v-icon>
             </v-btn>
             |
-            <v-btn class="ma-2" outlined fab color="indigo">
+            <v-btn class="ma-2" outlined fab color="indigo" @click="likeStore">
               <v-icon>{{icons.bookmark}}</v-icon>
             </v-btn>
           </div>
@@ -76,7 +76,15 @@
         icons: {
           bookmark: mdiBookmark,
           pencilOutline: mdiPencilOutline
-        }
+        },
+        storeDetails: {
+          num: '',
+          name: '',
+          address: '',
+          img:'',
+          lat:'',
+          lng: '',
+        },
 
       }
     },
@@ -88,16 +96,24 @@
 
     },
     methods: {
-
+      likeStore() {
+        var payload = {
+          user: this.$store.state.userEmail,
+          // store: '스토어id',
+        }
+        // this.$store.dispatch('likeStore', payload)
+      },
     },
     created() {
-      this.$router.push({
-        name: 'storeReviews',
-        params: {
 
-        }
-      })
-    }
+            
+      
+    },
+    mounted() {
+        this.$store.dispatch('reviewsGet', 1)
+   
+      
+    },
 
   }
 </script>

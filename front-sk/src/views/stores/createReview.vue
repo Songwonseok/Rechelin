@@ -48,6 +48,7 @@ mdiCheckOutline
             submitComment() {
                 var payload = {
                     id: 'review.id',
+                    user: this.$store.state.userEmail,
                     contents: this.newComment
                 }
                 this.$store.dispatch('createComment', payload)
