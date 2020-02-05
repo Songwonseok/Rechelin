@@ -4,18 +4,22 @@
       <div class="profile-user-page card">
         <div class="img-user-profile">
           <img class="profile-bgHome" src="" />
-          <img class="avatar" :src="profile" :alt="UserInfo.name" />
+          <img class="avatar" :src="UserInfo.profile" :alt="UserInfo.name" />
         </div>
         <!--TODO : 자기 자신이면 button 숨기기 -->
         <button @click="followRequest">Follow</button>
 
         <div class="user-profile-data">
-          <h1>{{userInfo.nickname}}</h1>
-          <p>{{userInfo.email}}</p>
+          
+          <h1>{{UserInfo.nickname}}</h1>
+          <p>{{UserInfo.email}}</p>
           <!-- TODO : 자기 자신일때만 보여주기-->
           <router-link :to="{name: 'UserEdit', params: {info: userInfo}}"><strong> Edit</strong></router-link>
         </div>
 
+
+
+          <!--
         <ul class="data-user">
           <li>
             <router-link :to="{name: 'UserReviews', params: {
@@ -32,6 +36,7 @@
                 {{userInfo.stars.length}}</strong><span>Following</span></router-link>
           </li>
         </ul>
+        -->
       </div>
       <router-view></router-view>
     </div>
@@ -58,14 +63,22 @@
       return {
         svgPath: mdiPencil,
         accountIcon: mdiAccountCircle,
-        profile: ''
+        id : this.$route.params.id,
+        profile: '',
+        UserInfo:{
+          email:'',
+          nickname:'',
+          phone:'',
+          profile:''
+        },
+        state : true,
       }
     },
     computed: {
       ...mapState(['allUsers', 'userPageInfo']),
-      UserInfo() {
-        return this.allUsers[0]
-      },
+      // UserInfo() {
+      //   return this.allUsers[0]
+      // },
       userInfo() {
         return this.userPageInfo
       },
@@ -90,18 +103,32 @@
         }
         this.$store.dispatch('followRequest', payload)
       },getProfile(){
-        let email = this.$store.state.userEmail;
-        let data = {
-          email
+        // UserApi.requestProfile(this.id ,res=>{
+        //   this.profile = res.object.profile
+        //   console.log(this.profile);
+        //   console.log('프로필 가져오기 성공')              
+        //   },error=>{  
+        //     console.log('프로필 가져오기 실패')
+        //   })
         }
-        console.log(email)
-        UserApi.requestProfile( email,res=>{
-          this.profile = res.object.profile
-          console.log(this.profile);
-          console.log('프로필 가져오기 성공')              
-          },error=>{  
-            console.log('프로필 가져오기 실패')
+        ,getUser(){
+          UserApi.requestEmail( this.id,res=>{
+            console.log('*********')
+            console.log(res)
+            this.UserInfo.email = res.object.email;
+            this.UserInfo.nickname = res.object.nickname;
+            this.UserInfo.phone = res.object.phone;
+            this.UserInfo.profile = res.object.profile;
+            if(this.state==true) this.state=false;
+            else this.state=true;
+            console.log(this.state)
+            // this.getProfile();
+          },error =>{
+            alert('정보 가져오기 실패 !');
           })
+
+          console.log('USER!!!!!!!!!!!!!!!')
+          console.log(this.UserInfo)
         }
 
     },
@@ -119,7 +146,7 @@
         }
       })
 
-      this.getProfile();
+      this.getUser();
     },
 
   }

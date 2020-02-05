@@ -199,6 +199,7 @@ public class AccountController {
 		} else {
 			result.status = false;
 			result.data = "유저가 없습니다.";
+			result.object = email;
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }

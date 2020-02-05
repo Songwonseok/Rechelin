@@ -180,8 +180,6 @@
             console.log(email)
             UserApi.requestEmail( email,res=>{
                 this.nickname = res.object.nickname
-                this.pw1 = res.object.pw
-                this.pw2 = res.object.pw
                 this.phone = res.object.phone
                 console.log('유저정보 가져오기 성공')              
             },error=>{  
