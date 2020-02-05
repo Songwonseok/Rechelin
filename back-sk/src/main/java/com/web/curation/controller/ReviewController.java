@@ -163,7 +163,7 @@ public class ReviewController {
 	
 	@PostMapping("/review/bookmark")
 	@ApiOperation(value = "북마크 추가 / 삭제")
-	public Object addComment(@RequestBody Bookmark book) {
+	public Object addBookMark(@RequestBody Bookmark book) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.object = book;
@@ -177,7 +177,7 @@ public class ReviewController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@PostMapping("/review/bookmark")
+	@PostMapping("/review/bookmark/getList")
 	@ApiOperation(value = "북마크 리스트 가져오기")
 	public Object getBookmark(@RequestParam String email) {
 		final BasicResponse result = new BasicResponse();
