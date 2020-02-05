@@ -3,7 +3,10 @@
       <div class="input-with-label">
       
       <!-- 리뷰 제목 -->
-      <input id="reviewTitle" placeholder="리뷰 제목을 작성해주세요."
+      <input
+            v-model="reviewTitle" 
+            id="reviewTitle" 
+            placeholder="리뷰 제목을 작성해주세요."
                        type="text" style="
             background-color: white;
             color: black;
@@ -101,13 +104,13 @@
                     <div class="d-block text-center">
                       <!--Main Modal Page-->
                       <div v-if="eye">
-                          
+                          검색 완료한 후 enter를 눌러주세요!
                         <b-form-input id="address_search" @keyup ="fetchAdr" type="text"  v-model="address"   ></b-form-input>
                         <b-table striped hover :items="map"  @row-clicked="clickEvent"></b-table>
                       </div>
                       
                       <div v-else>
-                          
+                          검색 완료한 후 enter를 눌러주세요!
                         <b-form-input id="address_search2" @keyup ="fetchAdr" type="text"  v-model="address" ></b-form-input>
                         <b-table striped hover :items="map"  @row-clicked="clickEvent">
                             
@@ -135,7 +138,9 @@
              맛 : <star-rating v-model="flavor"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating> <br>
              가격 : <star-rating v-model="price"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating> <br>
              친절함 : <star-rating v-model="kindness"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating> <br>
-             <input type="submit" name="submit" id="submit" class="form-submit" value="review 등록" />
+             <input type="submit" name="submit" id="submit" 
+              v-on:click="review"
+              class="form-submit" value="review 등록" />
             
       </div>
   </div>
@@ -150,7 +155,6 @@ import UserApi from '../../apis/UserApi'
 import ImgurApi from '../../apis/ImgurApi'
 import StarRating from 'vue-star-rating'
 import Vue from 'vue'
-
 export default {
     created() {
       this.getProfile();
@@ -243,18 +247,33 @@ export default {
                 .$store
                 .dispatch('FETCH_ADR', this.address)
                 
-                this.map = this.$store.state.googleStorePlace
-                console.log(this.map);
+               
+               
                          if(this.eye == false) this.eye = true;
                 else this.eye = false
 
                 //값 init
                 
-                this.map = this.$store.status.googleStorePlace
-                 
-                //Q : 리뷰 항목을 다 건네줘야 하는건지?
+                this.map = this.$store.state.googleStorePlaceView
+                console.log(this.$store.state.googleStorePlace);
+               
+               
              },
+            review (){
+                if(this.isSubmit){
+                    console.log('');
+                }
+            },
+            clickEvent(record, index) {
+            // 'record' will be the row data from items
+            // `index` will be the visible row number (available in the v-model 'shownItems')
             
+            console.log(this.$store.state.googleStorePlace[index]);
+             //Q : 리뷰 항목을 다 건네줘야 하는건지?
+                 UserApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
+                     console.log("hi"+res);
+                 })
+            },
     },
     data : () =>({
          fixArea : ['강남','종로','잠실','이태원'],
@@ -276,7 +295,9 @@ export default {
          ],
          address : '',
          eye : false,
-      
+         isSubmit : '', //form 완료시 toggle
+         reviewTitle : '',
+         store_num : '',
     })
 }
 </script>

@@ -118,7 +118,10 @@ export default new Vuex.Store({
         notifications: [],
         // 음식점 위치 정보
         googleStorePlace :[
-            
+
+        ],
+        googleStorePlaceView : [
+
         ],
     },
 

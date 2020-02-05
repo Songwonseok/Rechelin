@@ -136,23 +136,10 @@ export default {
                 console.log('실패')
             })
     },
-    SET_ADR(state,adr){
-        state.googleStorePlace.formattedAddress = adr;
-    },
-    SET_LOCX(state,locx){
-        state.googleStorePlace.locationLat = locx;
-    },
-    SET_LOCY(state,locy){
-        state.googleStorePlace.locationLng = locy;
-    },
-    SET_NAME(state,name){
-        state.googleStorePlace.name = name;
-    },
-    SET_PHOTOR(state,photo){
-        state.googleStorePlace.photoReference = photo;
-        
+    SET_GOOGLEMAP_TOTAL(state,googlemap_total){
+        state.googleStorePlace = googlemap_total;
     },
     SET_GOOGLEMAP(state,googlemap){
-        state.googleStorePlace = googlemap;
+        state.googleStorePlaceView = googlemap;
     }
 }

@@ -37,67 +37,43 @@ export default {
     FETCH_ADR({commit}, address){ //google 에서부터 음식점 주소를 FETCH 해옴
         Userapi.requestFetchAdrData({commit},address).then(
             response => {
-                // formattedAddress : [],
-                // locationIat : [],
-                // locationIng : [],
-                // name : [],
-                // photeReference :[],
                 
-                console.log(response);
-                console.log(response.data.results.length);
-                var jadrAry = new Array();
-                var jloclatAry = new Array();
-                var jloclngAry = new Array();
-                var jnaAry = new Array();
-                var jphoReAry = new Array();
+              
                 
 
-                var aJsonArray = new Array();
-                var aJson = new Object();
-
+                var aJsonArray = new Array(); //선택된 데이터만 
+           
+                var aJsonArray2 = new Array(); //전체 데이터 
+                
 
                 for(var i =0; i<response.data.results.length; i++){
-                    //aJson.formatted_address[i] = response.data.results[i].formatted_address;
-                    jadrAry[i] = response.data.results[i].formatted_address;
                     var item = {};
+                    var item2 = {};
                     item['주소']= response.data.results[i].formatted_address;
-                
-                    //jloclatAry[i] = response.data.results[i].geometry.location.lat;
+                    item2['address'] = response.data.results[i].formatted_address;
+                    item2['lat'] = response.data.results[i].geometry.location.lat;
+                    item2['lng'] = response.data.results[i].geometry.location.lng;
+                    item2['sname'] = response.data.results[i].name;
+                    item['지점명']= response.data.results[i].name;
                     
-                    //item['lat']= response.data.results[i].geometry.location.lat;
-                    jloclngAry[i] = response.data.results[i].geometry.location.lng;
-                    //item['lng']= response.data.results[i].geometry.location.lng;
-                    
-                    jnaAry[i] = response.data.results[i].name;
-                    item['지역명']= response.data.results[i].name;
-                    
-                    let e = null;
                     if(response.data.results[i].hasOwnProperty('photos')){
-                        //item['photo_reference']= response.data.results[i].photos[0].photo_reference
-                        jphoReAry[i] = response.data.results[i].photos.photo_reference
-                    }else
-                        jphoReAry[i] = 'photo 값이 없습니다.';
-                        //item['photo_reference']= 'photo 값이 없습니다.';
-                    
-                    //jphoReAry[i] = response.data.results[i].photos.photo_reference;
+                        item2['img'] = response.data.results[i].photos[0].photo_reference
+                    }else{
+                        item2['img'] = null;
+                    }
                     JSON.stringify(item);
+                    JSON.stringify(item2);
                     aJsonArray.push(item);
-
-                    console.log(item);
-
+                    aJsonArray2.push(item2); 
                 }
-               
-                 commit('SET_ADR',jadrAry);
-                 commit('SET_LOCX',jloclatAry);
-                 commit('SET_LOCY',jloclngAry);
-                 commit('SET_NAME',jnaAry);
-                 commit('SET_PHOTOR',jphoReAry);
+                 commit('SET_GOOGLEMAP_TOTAL',aJsonArray2);
                  commit('SET_GOOGLEMAP',aJsonArray);
             }).catch(error=>{
                 console.log(error);
             })
         
     },
+    
     logout({commit}) {
         commit('logout')
     },
