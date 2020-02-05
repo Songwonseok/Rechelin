@@ -18,7 +18,7 @@ public class Likecheck {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
-	
+
 
 	@ManyToOne
 	@JoinColumn(name= "review_num")
