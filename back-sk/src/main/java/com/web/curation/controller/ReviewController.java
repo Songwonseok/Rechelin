@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.user.Bookmark;
@@ -176,14 +177,27 @@ public class ReviewController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@GetMapping("/review/bookmark/{email}")
+	@PostMapping("/review/bookmark")
 	@ApiOperation(value = "북마크 리스트 가져오기")
-	public Object getBookmark(@PathVariable String email) {
+	public Object getBookmark(@RequestParam String email) {
 		final BasicResponse result = new BasicResponse();
 		
 		result.status = true;
 		result.data = "유저의 모든 북마크 리스트 조회 성공";
 		result.object = service.getBookmark(email);
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@PostMapping("/review/feed")
+	@ApiOperation(value = "피드 최근 리스트 가져오기")
+	public Object getcurrentFeed(@RequestParam String email) {
+		final BasicResponse result = new BasicResponse();
+		
+		System.out.println("CONTROLLER"+email);
+		result.status = true;
+		result.data = "유저의 모든 북마크 리스트 조회 성공";
+		result.object = service.getcurrentFeed(email);
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}

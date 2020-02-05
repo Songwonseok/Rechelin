@@ -1,6 +1,5 @@
 package com.web.curation.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.web.curation.dao.user.BookmarkDao;
 import com.web.curation.dao.user.CommentDao;
-import com.web.curation.dao.user.FollowDao;
 import com.web.curation.dao.user.LikecheckDao;
 import com.web.curation.dao.user.ReviewDao;
 import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.user.Bookmark;
 import com.web.curation.model.user.Comments;
-import com.web.curation.model.user.Follow;
 import com.web.curation.model.user.Likecheck;
 import com.web.curation.model.user.Review;
 import com.web.curation.model.user.User;
@@ -31,8 +28,6 @@ public class ReviewServiceImpl implements ReviewService {
 	private BookmarkDao bookdao;
 	@Autowired
 	private UserDao userdao;
-	@Autowired
-	private FollowService fservice;
 	
 	@Override
 	public void register(Review review) {
@@ -146,12 +141,15 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> getcurrentFeed(String email) {
 		// email을 통해서 star 리스트를 가져온다.
-		List<User> list = fservice.starList(email);
-		
-		
+		User user = userdao.findByEmail(email);
+		System.out.println("SERVICE "+email);
+		System.out.println(user.toString());
+		List<Review> list = dao.feedList(user);
+		for (Review review : list) {
+			System.out.println(review.toString());
+		}
 		// start리스트의 게시물을 최근 순으로 가져온다
-		
-		return null;
+		return list;
 	}
 
 }

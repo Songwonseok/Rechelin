@@ -39,11 +39,12 @@ implements CustomRepository{
 	}
 	
 	public List<Review> feedList(User email){
-		
+		System.out.println(email.toString());
 		return queryFactory.selectFrom(review)
 				.where(review.user.in(
 						JPAExpressions.select(follow.star)
-						.from(follow).where(follow.fan.eq(email)))).fetch();
+						.from(follow).where(follow.fan.eq(email)))).orderBy(review.wdate.desc())
+				.fetch();
 	}
 	
 }
