@@ -10,20 +10,20 @@ import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.PathInits;
 import com.querydsl.core.types.dsl.StringPath;
-import com.web.curation.model.user.Subreview;
+import com.web.curation.model.user.Comments;
 
 
 /**
- * QSubreview is a Querydsl query type for Subreview
+ * QComments is a Querydsl query type for Comments
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QSubreview extends EntityPathBase<Subreview> {
+public class QComments extends EntityPathBase<Comments> {
 
-    private static final long serialVersionUID = -884814388L;
+    private static final long serialVersionUID = -231063744L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QSubreview subreview = new QSubreview("subreview");
+    public static final QComments comments = new QComments("comments");
 
     public final StringPath content = createString("content");
 
@@ -35,23 +35,23 @@ public class QSubreview extends EntityPathBase<Subreview> {
 
     public final StringPath wdate = createString("wdate");
 
-    public QSubreview(String variable) {
-        this(Subreview.class, forVariable(variable), INITS);
+    public QComments(String variable) {
+        this(Comments.class, forVariable(variable), INITS);
     }
 
-    public QSubreview(Path<? extends Subreview> path) {
+    public QComments(Path<? extends Comments> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QSubreview(PathMetadata metadata) {
+    public QComments(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QSubreview(PathMetadata metadata, PathInits inits) {
-        this(Subreview.class, metadata, inits);
+    public QComments(PathMetadata metadata, PathInits inits) {
+        this(Comments.class, metadata, inits);
     }
 
-    public QSubreview(Class<? extends Subreview> type, PathMetadata metadata, PathInits inits) {
+    public QComments(Class<? extends Comments> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.review = inits.isInitialized("review") ? new QReview(forProperty("review"), inits.get("review")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
