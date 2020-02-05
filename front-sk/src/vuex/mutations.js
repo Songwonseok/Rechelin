@@ -158,15 +158,28 @@ export default {
                 console.log('실패')
             })
     },
-    reviewsGet(state, payload) {
+    commentsOfreview(state, payload) {
         const params = new URLSearchParams();
-        params.append('id', payload.id) // store id로 store에 걸린 reivew 검색
+        //리뷰 아이디 집어 넣으면, 리뷰의 댓글들 목록이 올 것.
+        params.append('id', payload.id)
+        Axios.post('', params)
+            .then(res => {
+                console.log('요청 성공')
+                state.comments = ''
+            }).catch(exp => {
+                console.log('실패')
+            })
+    },
+     createComment(state, payload) {
+        const params = new URLSearchParams();
+        //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글이 생성될 것
+        params.append('id', payload.id)
         Axios.post('', params)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
                 console.log('실패')
             })
-    }
+     }
 
 }

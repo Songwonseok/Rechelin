@@ -73,6 +73,13 @@ export default {
     },
     reviewsGet({commit}, payload){
         commit('reviewsGet', payload)
+    },
+    commentsOfreview({commit}, payload) {
+        commit('commentsOfreview', payload)
+    },
+    createComment({commit}, payload) {
+        commit('createComment', payload)
     }
+
 
 }
