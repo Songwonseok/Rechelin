@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.web.curation.model.user.Bookmark;
+import com.web.curation.model.user.Review;
+import com.web.curation.model.user.User;
 
 public interface BookmarkDao extends JpaRepository<Bookmark, Long> {
-	List<Bookmark> findAllByUseremail(String useremail);
+	List<Bookmark> findAllByUser(User user);
+	Bookmark findByUserAndReview(User user, Review review);
 }

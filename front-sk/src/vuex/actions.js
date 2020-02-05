@@ -25,19 +25,14 @@ export default {
             console.log(error);
         })
     },
-    LOADING_RECENTUSERDATA(context){
-        Userapi.requestFetchUserData().then(
+    LOADING_RECENTUSERDATA({commit}, email){
+        Userapi.requestFetchUserData({commit},email).then(
             response => {
-                var jcAry = new Array();
-                for(var i =0; i<response.data.object.length; i++){
-                    jcAry[i] = response.data.object[i].nickname;
-                    console.log(jcAry[i]);
-                    context.commit('SET_RECENTUSER', jcAry);
-                }
+                console.log("최근 검색 내용, action->LOADING_RECENTUSERDATA");
             }).catch(error=>{
                 console.log(error);
             })
-        },
+    },
     logout({commit}) {
         commit('logout')
     },

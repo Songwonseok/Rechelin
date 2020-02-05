@@ -1,14 +1,14 @@
 package com.web.curation.model.user;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Entity
 @NoArgsConstructor
@@ -18,25 +18,26 @@ public class Bookmark {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 	
-	@NonNull
-	@Column(name="user_email")
-	private String useremail;
+	@ManyToOne
+	@JoinColumn(name= "user_email")
+	private User user;
 	
-	@NonNull
-	@Column(name="store_num")
-	private String storenum;
+	@ManyToOne
+	@JoinColumn(name= "review_num")
+	private Review review;
 
 	public long getNum() {
 		return num;
 	}
 
-	public String getUseremail() {
-		return useremail;
+	public User getUser() {
+		return user;
 	}
 
-	public String getStorenum() {
-		return storenum;
+	public Review getReview() {
+		return review;
 	}
+
 
 	
 }

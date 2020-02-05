@@ -5,10 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Entity
 @NoArgsConstructor
@@ -17,25 +18,33 @@ public class Likecheck {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
+
+
+	@ManyToOne
+	@JoinColumn(name= "review_num")
+	private Review review;
 	
-	@NonNull
-	@Column(name="review_num")
-	private long reviewnum;
+	@ManyToOne
+	@JoinColumn(name= "user_email")
+	private User user;
 	
-	@NonNull
-	@Column(name="user_email")
-	private String useremail;
-
-	public long getNum() {
-		return num;
+	private int status;
+		
+	public int getStatus() {
+		return status;
 	}
 
-	public long getReviewnum() {
-		return reviewnum;
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public Review getReview() {
+		return review;
 	}
 
-	public String getUser_email() {
-		return useremail;
+	public User getUser() {
+		return user;
 	}
+	
+
 
 }

@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
      
 
 	public User() {
-		super();
 	}
 	public User(String email, String nickname) {
 		this.email = email;

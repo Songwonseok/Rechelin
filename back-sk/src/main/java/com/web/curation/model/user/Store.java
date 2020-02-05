@@ -18,13 +18,9 @@ public class Store {
 
 	private String sname;
 	private String address;
-	private String phone;
-
-	public void update(Store s) {
-		this.sname = s.getSname();
-		this.address = s.getAddress();
-		this.phone = s.getPhone();
-	}
+	private String img;
+	private String lat;
+	private String lng;
 	
 	public long getNum() {
 		return num;
@@ -38,8 +34,16 @@ public class Store {
 		return address;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getImg() {
+		return img;
+	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public String getLng() {
+		return lng;
 	}
 
 }
