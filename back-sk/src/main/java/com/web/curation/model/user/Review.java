@@ -55,6 +55,7 @@ public class Review {
 //	}
 	public long getRnum() {
 		return rnum;
+
 	}
 	public Store getStore() {
 		return store;
@@ -114,6 +115,7 @@ public class Review {
 		return "Review [rnum=" + rnum + ", store=" + store + ", user=" + user + ", str=" + str + ", weak=" + weak
 				+ ", picture=" + picture + ", title=" + title + ", hashtag=" + hashtag + ", views=" + views + ", wdate="
 				+ wdate + ", total=" + total + ", taste=" + taste + ", price=" + price + ", kindness=" + kindness + "]";
+
 	}
 	
 	
