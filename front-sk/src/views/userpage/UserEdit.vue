@@ -33,6 +33,7 @@
             <v-icon left>{{ svgPath }}</v-icon>
             EDIT
         </v-btn>
+        <!-- TODO : 취소 버튼 눌르면 이전 페이지로 이동 -->
 
 
     </div>
@@ -49,8 +50,8 @@
     export default {
         data() {
             return {
-                email: this.$route.params.info.email,
-                nickname: this.$route.params.info.name,
+                email: this.$store.state.userEmail,
+                nickname: this.$store.state.nickname,
                 pw1: this.$route.params.info.pw1,
                 pw2: this.$route.params.info.pw1,
                 phone: this.$route.params.info.phone,
@@ -160,7 +161,33 @@
                     this.image = e.target.result;
                 }
                 reader.readAsDataURL(file);
-            }
+            },
+            getProfile(){
+                let email = this.$store.state.userEmail;
+               
+                console.log(email)
+                 UserApi.requestProfile( email,res=>{
+                    this.image = res.object.profile
+                    console.log(this.image);
+                    console.log('프로필 가져오기 성공')              
+                },error=>{  
+                    console.log('프로필 가져오기 실패')
+                })
+        },
+        getUser(){
+            let email = this.$store.state.userEmail;
+            
+            console.log(email)
+            UserApi.requestEmail( email,res=>{
+                this.nickname = res.object.nickname
+                this.pw1 = res.object.pw
+                this.pw2 = res.object.pw
+                this.phone = res.object.phone
+                console.log('유저정보 가져오기 성공')              
+            },error=>{  
+                console.log('유저정보 가져오기 실패')
+            })
+        }
 
         },
         created() {
@@ -169,6 +196,8 @@
                 .is().max(100)
                 .has().digits()
                 .has().letters();
+            this.getProfile();
+            this.getUser();
         }
     }
 </script>

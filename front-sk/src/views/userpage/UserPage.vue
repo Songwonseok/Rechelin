@@ -4,13 +4,15 @@
       <div class="profile-user-page card">
         <div class="img-user-profile">
           <img class="profile-bgHome" src="" />
-          <img class="avatar" :src="UserInfo.picture" :alt="UserInfo.name" />
+          <img class="avatar" :src="profile" :alt="UserInfo.name" />
         </div>
+        <!--TODO : 자기 자신이면 button 숨기기 -->
         <button @click="followRequest">Follow</button>
 
         <div class="user-profile-data">
           <h1>{{userInfo.nickname}}</h1>
           <p>{{userInfo.email}}</p>
+          <!-- TODO : 자기 자신일때만 보여주기-->
           <router-link :to="{name: 'UserEdit', params: {info: userInfo}}"><strong> Edit</strong></router-link>
         </div>
 
@@ -49,13 +51,14 @@
     mdiPencil,
     mdiAccountCircle
   } from '@mdi/js'
+  import UserApi from '../../apis/UserApi'
 
   export default {
     data() {
       return {
         svgPath: mdiPencil,
-        accountIcon: mdiAccountCircle
-
+        accountIcon: mdiAccountCircle,
+        profile: ''
       }
     },
     computed: {
@@ -86,7 +89,20 @@
           star: this.$store.state.userPageInfo.email
         }
         this.$store.dispatch('followRequest', payload)
-      }
+      },getProfile(){
+        let email = this.$store.state.userEmail;
+        let data = {
+          email
+        }
+        console.log(email)
+        UserApi.requestProfile( email,res=>{
+          this.profile = res.object.profile
+          console.log(this.profile);
+          console.log('프로필 가져오기 성공')              
+          },error=>{  
+            console.log('프로필 가져오기 실패')
+          })
+        }
 
     },
     created() {
@@ -102,6 +118,8 @@
           reviews: this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
         }
       })
+
+      this.getProfile();
     },
 
   }

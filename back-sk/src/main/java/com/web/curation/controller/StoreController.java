@@ -45,6 +45,7 @@ public class StoreController {
 	@ApiOperation(value = "등록하기")
 	public Object signup(@RequestBody Store request) {
 		final BasicResponse result = new BasicResponse();
+		System.out.println("음식점 등록하기@@@@@");
 		if(service.create(request)) {
 			result.status = true;
 			result.data = "식당 등록 성공";
