@@ -16,7 +16,7 @@ import searchPassword from './views/user/searchPw.vue';
 import userSearch from './components/common/userSearch.vue';
 import reviewPage from './views/review/reviewPage.vue';
 import reviewDetail from './views/review/reviewDetail.vue';
-
+import updateNewPw from './views/user/updateNewPw.vue';
 export default [
     // ERROR PAGE
     // 404 PAGE
@@ -101,4 +101,10 @@ export default [
         name : 'reviewDetail',
         component :reviewDetail
     },
+    {
+        path : '/updateNewPw',
+        name : 'updateNewPw',
+        component : updateNewPw,
+    }
+
 ]

@@ -307,6 +307,43 @@ function requestFetchAdrData({commit}, address){
      
      return Axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?input=${address}&inputtype=textquery&region=kr&language=ko&fields=formatted_addres,name,geometry&key=${mykey}`);   
 }
+
+const requestUpdatePw = async(data, callback, errorCallback) => {
+    // let options = {
+    //     headers: { 'Content-Type': 'application/json' }
+    //     , url: 'http://70.12.246.134:8080/account/changePW'
+    //     , method: 'post'
+    //     , data: JSON.stringify(data)
+    // }
+    
+    // let response = await Axios(options)
+    //     .then(response => {
+    //         console.log(response)
+    //         callback(response);
+    //         console.log('성공')
+    //     }).catch(exp => {
+    //         errorCallback(exp);
+    //         console.log('실패');
+    //     })
+
+    const params = new URLSearchParams();
+    params.append('email', data.email);
+    params.append('password', data.pw);
+    // Axios({
+    //     method: 'post',
+    //     url: 'http://localhost:8080/account/login',
+    //     data: params
+    // });
+    Axios.post('http://70.12.246.134:8080/account/changePW', params)
+        .then(response => {
+            callback(response.data);
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp);
+            console.log('실패')
+        })
+}
+
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
@@ -320,6 +357,7 @@ const UserApi = {
     searchUserHistory : (data,callback, errorCallback) => searchUserHistory(data,callback,errorCallback),
     requestAddPlace : (data,callback,errorCallback) => requestAddPlace(data,callback,errorCallback),
     requestAddReview : (data, callback, errorCallback) => requestAddReview(data, callback, errorCallback),
+    requestUpdatePw : (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
     requestFetchUserData,
     requestFetchAdrData,

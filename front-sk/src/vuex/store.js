@@ -123,6 +123,10 @@ export default new Vuex.Store({
         googleStorePlaceView : [
 
         ],
+        searchEmail : '',
+        searchCode : '',
+
+
     },
 
     // state가 아닌 부분
