@@ -2,15 +2,15 @@ import Axios from "axios"
 import store from "../vuex/store"
 // import Api from "axios.js"
 
-const URL = 'http://70.12.246.134:8080' // 김주연 ip
-    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
+//const URL = 'http://70.12.246.134:8080' // 김주연 ip
+ const URL = 'http://70.12.246.51:8080' //  조장님 ip
 
 
 const requestsignUp = async(data, callback, errorCallback) => {
 
     let options = {
         headers: { 'Content-Type': 'application/json' },
-        url: URL + '/account/signup',
+        url: URL + '/auth/signup',
         method: 'post',
         data: JSON.stringify(data)
     }
@@ -62,7 +62,7 @@ const requestLogin = (data, callback, errorCallback) => {
     params.append('email', data.email);
     params.append('password', data.password);
 
-    Axios.post(URL + '/account/login', params)
+    Axios.post(URL + '/auth/login', params)
         .then(response => {
             callback(response.data);
             sessionStorage.setItem("userToken", JSON.stringify({
@@ -177,13 +177,12 @@ function requestfetchUserList() {
 
 const searchUserHistory = (data, callback, errorCallback) => {
 
-    // const params = new URLSearchParams();
     //const params = new URLSearchParams();
     console.log(data.email + " " + data.nickname)
-        // params.append('email', data.email);
-        // params.append('searchname', data.nickname);
+       // params.append('email', data.email);
+        //params.append('searchname', data.nickname);
     var params = {
-        'email': data.email,
+        'email': 'ssafy@naver.com',
         'searchname': data.nickname,
     }
     Axios.post('http://70.12.246.51:8080/search/user', params)
@@ -206,7 +205,7 @@ function requestFetchUserData({ commit }, email) {
 
     }
     console.log(email);
-    Axios.post('http://70.12.246.51:8080/search/recentUser', params)
+    Axios.post('http://70.12.246.134:8080/search/recentUser', params)
         .then(response => {
             console.log('dd')
             console.log(response);
