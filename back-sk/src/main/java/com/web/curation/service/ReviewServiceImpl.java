@@ -164,4 +164,13 @@ public class ReviewServiceImpl implements ReviewService {
 		return list;
 	}
 
+	@Override
+	public void register(long store_num, String user_email, String str, String weak, String picture, String title,
+			String hashtag, int score_total, int score_taste, int score_price, int score_kindness) {
+		User u = userdao.findByEmail(user_email);
+		Store s = storedao.findByNum(store_num);
+		Review rr = new Review(s, u, str, weak, picture, title, hashtag, score_total, score_taste, score_price, score_kindness);
+		dao.save(rr);
+	}
+
 }

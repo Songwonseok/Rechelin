@@ -199,6 +199,7 @@ public class AccountController {
 		} else {
 			result.status = false;
 			result.data = "유저가 없습니다.";
+			result.object = email;
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -274,11 +275,16 @@ public class AccountController {
 		User user = service.selectEmail(email);
 		if(user!=null) {
 			// update 호출
-			service.update(user);
+			user.setPw(service.EncodePW(password));
+			if(service.update(user)) {
+				result.status = true;
+				result.data = "비밀번호바꾸기 성공";
+				result.object = new JSONObject(user).toMap();				
+			}else {
+				result.status = false;
+				result.data = "비밀번호바꾸기 실패";
+			}
 			
-			result.status = true;
-			result.data = "비밀번호바꾸기 성공";
-			result.object = new JSONObject(user).toMap();
 		}else {
 			result.status = false;
 			result.data = "존재하지않는 email입니다";

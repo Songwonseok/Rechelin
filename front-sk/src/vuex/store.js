@@ -5,33 +5,32 @@ import Vuex, {
 import getters from './getters'
 import actions from './actions'
 import mutations from './mutations'
-import UserApi from '../apis/UserApi'
 
 Vue.use(Vuex)
 
 
 export default new Vuex.Store({
-    state : { 
-        name : '',
-        email : '',
-        password  : '',
-        user : '',
-        searchUser :{
-            nickname : [],
-            email :[],
-        },//searchBar에서 User가 User를 검색하기 위한 info를 불러와 저장한다.
-        recentUser : [
-          
+    state: {
+        name: '',
+        email: '',
+        password: '',
+        user: '',
+        searchUser: {
+            nickname: [],
+            email: [],
+        }, //searchBar에서 User가 User를 검색하기 위한 info를 불러와 저장한다.
+        recentUser: [
+
         ], //searchBar에서 User가 검색했던 recentUser를 불러와 저장한다.  
-        phone : '010',
-        code  : '',
-        isSubmit : false,
-        info : {
-            nickname : "",
-            email : "",
-            pw : "",
-            profile : null,
-            phone : '010',
+        phone: '010',
+        code: '',
+        isSubmit: false,
+        info: {
+            nickname: "",
+            email: "",
+            pw: "",
+            profile: null,
+            phone: '010',
         },
         confirmation: '',
         randomNumber: '',
