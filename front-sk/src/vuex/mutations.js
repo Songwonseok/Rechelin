@@ -135,6 +135,11 @@ export default {
             }).catch(exp => {
                 console.log('실패')
             })
+    },
+    SET_GOOGLEMAP_TOTAL(state,googlemap_total){
+        state.googleStorePlace = googlemap_total;
+    },
+    SET_GOOGLEMAP(state,googlemap){
+        state.googleStorePlaceView = googlemap;
     }
-
 }

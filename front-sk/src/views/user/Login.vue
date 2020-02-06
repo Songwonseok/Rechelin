@@ -56,7 +56,8 @@
 
                 </div>
             </div>
-            <button class="btn btn--back btn--login" v-on:click="login" :disabled="!isSubmit"
+            <button class="btn btn--back btn--login" 
+            v-on:click="login" :disabled="!isSubmit"
                     :class="{disabled : !isSubmit}">
                 로그인
 
