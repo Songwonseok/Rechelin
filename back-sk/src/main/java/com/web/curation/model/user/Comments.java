@@ -5,28 +5,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Subreview {
+public class Comments {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 	
-	@NonNull
-	@Column(name="review_num")
-	private long reviewnum;
 	
-	@NonNull
-	@Column(name="user_email")
-	private String useremail;
+	@ManyToOne
+	@JoinColumn(name= "review_num")
+	private Review review;
+	
+	@ManyToOne
+	@JoinColumn(name= "user_email")
+	private User user;
 	
 	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private String wdate;
@@ -37,12 +37,12 @@ public class Subreview {
 		return num;
 	}
 
-	public long getReviewnum() {
-		return reviewnum;
+	public Review getReview() {
+		return review;
 	}
 
-	public String getUseremail() {
-		return useremail;
+	public User getUser() {
+		return user;
 	}
 
 	public String getWdate() {

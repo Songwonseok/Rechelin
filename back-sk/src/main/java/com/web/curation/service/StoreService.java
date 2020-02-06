@@ -1,14 +1,16 @@
 package com.web.curation.service;
 
+import java.util.List;
+
+import com.web.curation.model.user.Hashtag;
 import com.web.curation.model.user.Store;
 
 public interface StoreService {
-	public Object create(Store request); 
-	public Object delete(long num);
-	public Object update(Store request);
-	public Object selectAll();
-	public Object selectOne(long num);
-	public Object searchName(String sname);
+	public boolean create(Store request); 
+	public boolean delete(long num);
+	public List<Store> selectAll();
+	public Store selectOne(long num);
+	public List<Hashtag> storeTags(long num);
 	 
 	 
 }
