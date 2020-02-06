@@ -139,15 +139,10 @@ export default {
                 console.log('실패')
             })
     },
-    SET_GOOGLEMAP_TOTAL(state,googlemap_total){
+    SET_GOOGLEMAP_TOTAL(state, googlemap_total) {
         state.googleStorePlace = googlemap_total;
     },
-    SET_GOOGLEMAP(state,googlemap){
+    SET_GOOGLEMAP(state, googlemap) {
         state.googleStorePlaceView = googlemap;
     }
-<<<<<<< HEAD
 }
-=======
-
-}
->>>>>>> feature-review

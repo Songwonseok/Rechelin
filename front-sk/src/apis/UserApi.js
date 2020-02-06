@@ -1,5 +1,6 @@
 import Axios from "axios"
 import store from "../vuex/store"
+import Api from "axios.js"
 
 const URL = 'http://70.12.246.134:8080' // 김주연 ip
     // const URL = 'http://70.12.246.51:8080' //  조장님 ip
@@ -186,12 +187,12 @@ const searchUserHistory = (data, callback, errorCallback) => {
 
     // const params = new URLSearchParams();
     //const params = new URLSearchParams();
-    console.log(data.email+" "+data.nickname)
-    // params.append('email', data.email);
-    // params.append('searchname', data.nickname);
+    console.log(data.email + " " + data.nickname)
+        // params.append('email', data.email);
+        // params.append('searchname', data.nickname);
     var params = {
-        'email' : data.email,
-        'searchname' : data.nickname,
+        'email': data.email,
+        'searchname': data.nickname,
     }
     Axios.post('http://70.12.246.51:8080/search/user', params)
         .then(response => {
@@ -209,40 +210,40 @@ function requestFetchUserData({ commit }, email) {
     //코딩컨벤션
     //const params = new URLSearchParams();
     var params = {
-        'email' : email,
-       
+        'email': email,
+
     }
     console.log(email);
     Axios.post('http://70.12.246.51:8080/search/recentUser', params)
-    .then(response => {
-        console.log('dd')
-        console.log(response);
-      
-                var jcAry = new Array();
-                for(var i =0; i<response.data.object.length; i++){ 
-                    jcAry[i] = response.data.object[i].searchname;
-                    console.log(jcAry[i]);
-                   
-                }
-                commit('SET_RECENTUSER', jcAry);
-        console.log('성공')
-    }).catch(exp => {
-       
-        console.log('실패')
-    })   
+        .then(response => {
+            console.log('dd')
+            console.log(response);
+
+            var jcAry = new Array();
+            for (var i = 0; i < response.data.object.length; i++) {
+                jcAry[i] = response.data.object[i].searchname;
+                console.log(jcAry[i]);
+
+            }
+            commit('SET_RECENTUSER', jcAry);
+            console.log('성공')
+        }).catch(exp => {
+
+            console.log('실패')
+        })
 }
 //http://70.12.246.134:8080/store/create
 //http://70.12.246.51:8080/store/review
 const requestAddPlace = async(data, callback, errorCallback) => {
-  
-         var params = {
-            'sname' : data.sname,
-            'address' : data.address,
-            'img' : data.img,
-            'lat' : data.lat,
-            'lng' : data.lng
-        }
-       
+
+    var params = {
+        'sname': data.sname,
+        'address': data.address,
+        'img': data.img,
+        'lat': data.lat,
+        'lng': data.lng
+    }
+
     Axios.post('http://70.12.246.51:8080/store/review', params)
         .then(response => {
             console.log(response);
@@ -255,7 +256,7 @@ const requestAddPlace = async(data, callback, errorCallback) => {
     console.log(data);
 }
 
-const requestAddReview = async(data, callback, errorCallback) =>{
+const requestAddReview = async(data, callback, errorCallback) => {
     // let options = {
     //     headers: { 'Content-Type': 'application/json' },
     //     url: 'http://70.12.246.134:8080/review/register',
@@ -272,23 +273,23 @@ const requestAddReview = async(data, callback, errorCallback) =>{
     //         errorCallback(exp);
     //         console.log('실패');
     //     })
-    
-    
-    let review = { 
-        'hashtag' : data.hashtag,
-        'picture' : data.picture,
-        'score_kindness' : data.score_kindness,
-        'score_price' : data.score_price,
-        'score_taste' : data.score_taste,
-        'score_total' : data.score_total,
-        'store_num' : data.store_num,
-        'str' : data.str,
-        'title' : data.title,
-        'user_email' : 'ssafy@naver.com',
-        'weak' : data.weak,
-        }
 
-        const params = new URLSearchParams();
+
+    let review = {
+        'hashtag': data.hashtag,
+        'picture': data.picture,
+        'score_kindness': data.score_kindness,
+        'score_price': data.score_price,
+        'score_taste': data.score_taste,
+        'score_total': data.score_total,
+        'store_num': data.store_num,
+        'str': data.str,
+        'title': data.title,
+        'user_email': 'ssafy@naver.com',
+        'weak': data.weak,
+    }
+
+    const params = new URLSearchParams();
     params.append("review", review);
     Axios.post('http://70.12.246.134:8080/review/register', review)
         .then(response => {
@@ -301,11 +302,11 @@ const requestAddReview = async(data, callback, errorCallback) =>{
         })
 }
 
-function requestFetchAdrData({commit}, address){
+function requestFetchAdrData({ commit }, address) {
     //Axios.get()
-     let mykey = 'AIzaSyDo6iueX6Cf9SPVlg9TdH8FIdfMgRshX9k'
-     
-     return Axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?input=${address}&inputtype=textquery&region=kr&language=ko&fields=formatted_addres,name,geometry&key=${mykey}`);   
+    let mykey = 'AIzaSyDo6iueX6Cf9SPVlg9TdH8FIdfMgRshX9k'
+
+    return Axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?input=${address}&inputtype=textquery&region=kr&language=ko&fields=formatted_addres,name,geometry&key=${mykey}`);
 }
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -317,9 +318,9 @@ const UserApi = {
     requestUserpage: (data, callback, errorCallback) => requestUserpage(data, callback, errorCallback),
     requestProfile: (data, callback, errorCallback) => requestProfile(data, callback, errorCallback),
     requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
-    searchUserHistory : (data,callback, errorCallback) => searchUserHistory(data,callback,errorCallback),
-    requestAddPlace : (data,callback,errorCallback) => requestAddPlace(data,callback,errorCallback),
-    requestAddReview : (data, callback, errorCallback) => requestAddReview(data, callback, errorCallback),
+    searchUserHistory: (data, callback, errorCallback) => searchUserHistory(data, callback, errorCallback),
+    requestAddPlace: (data, callback, errorCallback) => requestAddPlace(data, callback, errorCallback),
+    requestAddReview: (data, callback, errorCallback) => requestAddReview(data, callback, errorCallback),
     requestfetchUserList,
     requestFetchUserData,
     requestFetchAdrData,
