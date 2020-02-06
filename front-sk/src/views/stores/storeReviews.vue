@@ -34,7 +34,33 @@
                 </v-card>
                 <div v-if="visible[i]" style="margin-bottom: 10px;">
                     <div style="text-align:center;">
-                        sfghsfgsdfgsdfgsdfgsdfg
+                         <v-card class="mx-auto" max-width="344">
+            <v-card-text>
+                <v-form ref="form" lazy-validation>
+                    <b-form-textarea id="textarea-small" size="sm" v-model="newComment" @keyup.enter="submitComment(newComment)"
+                        placeholder="comment"></b-form-textarea>
+                    <div class="my-2">
+                        <v-btn class="ma-2" text outlined small color="primary" @click="submitComment(newComment)">
+                            댓글등록
+                        </v-btn>
+                    </div>
+
+                </v-form>
+
+                <div class="text--primary" v-if="comments">
+                    <b-list-group>
+                        <b-list-group-item>댓글이 들어올 곳이에요
+                                <v-btn text icon>
+                                <v-icon>{{icons.contentDelete}}</v-icon>
+                            </v-btn>
+                            
+                        </b-list-group-item>
+                    </b-list-group>
+                </div>
+            </v-card-text>
+
+        </v-card>
+
                     </div>
                 </div>
 

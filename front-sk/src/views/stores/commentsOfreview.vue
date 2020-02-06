@@ -14,13 +14,13 @@
                 </v-form>
 
                 <div class="text--primary" v-if="comments">
-                    <b-list-group v-for="(c, index) in comments" :key="index">
-                        <b-list-group-item>{{c.content}}
-                            <div v-if="canDelete(c.user.email)">
-                                <v-btn text icon @click="commentDelete(c.num)">
+                    <b-list-group>
+                        <b-list-group-item>댓글이 들어올 곳이에요
+                          
+                                <v-btn text icon>
                                 <v-icon>{{icons.contentDelete}}</v-icon>
                             </v-btn>
-                            </div>
+
                             
                         </b-list-group-item>
                     </b-list-group>

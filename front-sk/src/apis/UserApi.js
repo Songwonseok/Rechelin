@@ -68,7 +68,6 @@ const requestLogin = (data, callback, errorCallback) => {
                 userToken: response.data.object.token,
                 info:response.data.object.user
             }))
-            console.log(response)
             sessionStorage.setItem("userToken", response.data.object.accessToken)
             sessionStorage.setItem("userEmail", response.data.object.email)
             sessionStorage.setItem("userNickname", response.data.object.nickname)
