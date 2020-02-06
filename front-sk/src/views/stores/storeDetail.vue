@@ -39,10 +39,10 @@
       </v-col>
       <v-col cols="6" md="4">
         <div>
-          <gmap-map :center="storeInfoSave.gps" :zoom="16" style="width: 500px; height: 300px">
+          <!-- <gmap-map :center="storeInfoSave.gps" :zoom="16" style="width: 500px; height: 300px">
             <gmap-marker :position="storeInfoSave.gps" :clickable="true" :draggable="true" @click="center=m.position">
             </gmap-marker>
-          </gmap-map>
+          </gmap-map> -->
         </div>
       </v-col>
     </v-row>

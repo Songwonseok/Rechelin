@@ -16,7 +16,7 @@ import searchPassword from './views/user/searchPw.vue';
 import userSearch from './components/common/userSearch.vue';
 import storeDetail from './views/stores/storeDetail'
 import storeReviews from './views/stores/storeReviews'
-import createReview from './views/stores/createReview'
+import commentsOfreview from './views/stores/commentsOfreview'
 
 export default [
     // ERROR PAGE
@@ -103,14 +103,15 @@ export default [
                 component: storeReviews,
                 children: [
                     {
-                        path: 'createReview',
-                        name: 'createReview',
-                        component: createReview,
+                        path: 'id',
+                        name: 'commentsOfreview',
+                        component : commentsOfreview,
                     }
                 ]
                
             }
         ]
-    }
+    },
+ 
     
 ]

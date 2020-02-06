@@ -169,20 +169,11 @@ export default {
             })
     },
     // 리뷰의 댓글관련
-   async commentsOfreview(state, payload) {
-        const params = new URLSearchParams();
-        //리뷰 아이디 집어 넣으면, 리뷰의 댓글들 목록이 올 것.
-        let response = await Axios.get(`http://70.12.246.134:8080/review/comment/${payload}`)
-            .then(res => {
-                console.log('리뷰의 댓글들 가져오기 성공')
-                console.log(res.data.object)
-            }).catch(exp => {
-                console.log('실패')
-            })
-        console.log(response)
+    commentsOfreview(state, payload) {
+        state.commentsOfreview = payload.comments
     },
      createComment(state, payload) {
-        state.commentsOfreview = payload
+        state.newComments = payload
      },
      // 리뷰 관련
     reviewsGet(state, payload) {
