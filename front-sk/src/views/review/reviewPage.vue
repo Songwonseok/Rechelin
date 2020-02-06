@@ -11,10 +11,17 @@
             background-color: white;
             color: black;
             border: 2px solid #008Cy
-            BA;"/>
+            BA;"
+            v-bind:class ="{error : error.title,
+            complete:!error.title&&reviewTitle.length!==0}"
+            />
       <label for="reviewTitle">리뷰 제목</label>
-
+        <div class="error-text" v-if="error.title">
+                    {{error.title}}
+        </div>
       <!-- 해시 태그 모달 -->
+      <br>
+      선택된 HashTag : {{area}} {{age}} {{gender}} {{atmosphere}} {{withWho}}  <br>
       <b-button id="show-btn"
                     style="width: 50%;height: 15%;color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
                     @click="$bvModal.show('bv-modal-example')">HashTag</b-button>
@@ -94,9 +101,11 @@
                 <button @click="upload">제출</button>
             </div> <br>
             <span contenteditable="true" placeholder="음식점 주소를 등록해주세요.">
-            음식점 주소 : {{address}} 
-            </span><br>
-            <b-button id="show-btn"
+            음식점 주소 : {{address}} <br>
+            음식점 번호 : {{store_num}}
+            </span><br> 
+            <!-- 음식점 사진 : <img :src="store_pic" style="max-width:30%" > -->
+            <br><b-button id="show-btn"
                     style="width: 50%;height: 15%;color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
                     @click="$bvModal.show('bv-modal-example_adr')">음식점 주소 등록하기</b-button>
                   <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example_adr" class="modalStore" hide-footer>
@@ -132,14 +141,25 @@
 
 
             평점 : <star-rating v-model="rating"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating><br>
-            장점 : <textarea v-model="cons" class="cons_textarea"  placeholder="장점을 작성해주세요~"></textarea> <br>
-            단점 : <textarea v-model="props" class="props_textarea" placeholder="단점을 작성해주세요~" ></textarea><br>
+            장점 : <textarea v-model="props" class="props_textarea"  placeholder="장점을 작성해주세요~"
+                v-bind:class="{error :error.props, complete :!error.props && props.length!==0}"
+            /> <br>
+            <div class="error-text" v-if="error.props">
+                        {{error.props}}
+            </div>
+
+            단점 : <textarea v-model="cons" class="cons_textarea" placeholder="단점을 작성해주세요~"
+                v-bind:class="{error :error.cons, complete :!error.cons && cons.length!==0}"
+             /><br>
+            <div class="error-text" v-if="error.cons">
+                        {{error.cons}}
+            </div>
 
              맛 : <star-rating v-model="flavor"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating> <br>
              가격 : <star-rating v-model="price"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating> <br>
              친절함 : <star-rating v-model="kindness"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating> <br>
              <input type="submit" name="submit" id="submit" 
-              v-on:click="review"
+              v-on:click="reviewConfirm" 
               class="form-submit" value="review 등록" />
             
       </div>
@@ -151,17 +171,39 @@
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
 import UserApi from '../../apis/UserApi'
-
+import PV from 'password-validator'
 import ImgurApi from '../../apis/ImgurApi'
 import StarRating from 'vue-star-rating'
 import Vue from 'vue'
 export default {
     created() {
+
+      this.titleSchema
+         .is().min(10)
+         .is().max(100)
+      
+      this.propsSchema
+         .is().min(10)
+         .is().max(20)
+      this.consSchema
+         .is().min(10)
+         .is().max(20)
       this.getProfile();
+      
+    },
+    watch : {
+        reviewTitle : function(v){
+            this.checkForm();
+        },
+        props : function(v){
+            this.checkForm_props();
+        },
+        cons : function(v){
+            this.checkForm_cons();
+        }
     },
     computed() {
-        this.rating; //issue
-        console.log(this.rating);
+     
     },
 
     components: {
@@ -259,9 +301,38 @@ export default {
                
                
              },
-            review (){
-                if(this.isSubmit){
-                    console.log('');
+            reviewConfirm (){
+                let hashtag = this.area + this.age + this.age + this.atmosphere + this.withWho; 
+                console.log(hashtag.length);
+                console.log(hashtag + " " + this.profile + " " + this.rating + " " + this.cons +
+                this.props + " "+ this.flavor + " " + this.price + " " + this.kindness +
+                this.reviewTitle + " " + this.store_num)
+                
+                if(hashtag.length <0 || this.rating <0 || this.flavor <0 || this.price <0 || this.kindness <0
+                   || this.store_num<0 
+                ) this.isSubmit = true //validation 나중ㅇ
+                this.isSubmit = true
+                if(this.isSubmit)
+                {
+                       var data = { 
+                        'hashtag' : hashtag,
+                        'picture' : this.store_pic,
+                        'score_kindness' : this.kindness,
+                        'score_price' : this.price,
+                        'score_taste' : this.flavor,
+                        'score_total' : this.rating,
+                        'store_num' : 1,//this.store_num,
+                        'str' : this.props,
+                        'title' : this.reviewTitle,
+                        'user_email' : this.user_email,
+                        'weak' : this.cons,
+                        }
+                        console.log(data);
+                    UserApi.requestAddReview(data, res=>{
+                        console.log("reviewPage 등록 성공");
+                    })
+                    console.log('all complete');
+
                 }
             },
             clickEvent(record, index) {
@@ -271,12 +342,40 @@ export default {
             console.log(this.$store.state.googleStorePlace[index]);
              //Q : 리뷰 항목을 다 건네줘야 하는건지?
                  UserApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
-                     console.log("hi"+res);
+                 this.store_num = res.data.object.num;
+                 this.store_pic = res.data.object.img;
                  })
+            },
+            checkForm(){
+                //리뷰 제목(0자이상 10자 이하)
+                //장점, 단점 (0자 이상 20자 이하)
+                if(this.reviewTitle.length>=0 && !this.titleSchema.validate(this.reviewTitle))
+                    this.error.title = '리류제목은 0 글자 이상 10글자 이하 이어야 합니다.'
+                else 
+                    this.error.title = false;
+            },
+            checkForm_props(){ 
+                if(this.props.length>=0 && !this.propsSchema.validate(this.props))
+                    this.error.props = '장점은 0글자 이상 20글자 이하 이어야 합니다.'
+                else
+                     this.error.props = false; 
+            },
+            checkForm_cons(){
+                if(this.cons.length>=0 && !this.consSchema.validate(this.cons))
+                    this.error.cons = '단점은 0글자 이상 20글자 이하 이어야 합니다.'
+                else
+                     this.error.cons = false;
+
+
+                let isSubmit = true;
+                Object.values(this.error).map(v => {
+                    if (v) isSubmit = false;
+                })
+                this.isSubmit = isSubmit;
             },
     },
     data : () =>({
-         fixArea : ['강남','종로','잠실','이태원'],
+         
          area : [],
          age : [],
          gender : [],
@@ -285,7 +384,7 @@ export default {
          profile: '',
          mageUrl: '',
          selectedImage: '',
-         rating : '',
+         rating : "",
          cons : '',
          props : '',
          flavor: '',
@@ -298,6 +397,16 @@ export default {
          isSubmit : '', //form 완료시 toggle
          reviewTitle : '',
          store_num : '',
+         user_email : 'ssafy@ssafy.com', //temp
+         titleSchema : new PV(),
+         consSchema : new PV(),
+         propsSchema : new PV(),
+         error : {
+             title : false,
+             props : false,
+             cons : false,
+         },
+         store_pic : '',
     })
 }
 </script>
