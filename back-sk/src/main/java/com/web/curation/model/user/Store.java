@@ -46,4 +46,11 @@ public class Store {
 		return lng;
 	}
 
+	@Override
+	public String toString() {
+		return "Store [num=" + num + ", sname=" + sname + ", address=" + address + ", img=" + img + ", lat=" + lat
+				+ ", lng=" + lng + "]";
+	}
+	
+
 }

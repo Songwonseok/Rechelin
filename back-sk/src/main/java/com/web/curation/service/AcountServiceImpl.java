@@ -56,6 +56,8 @@ public class AcountServiceImpl implements AcountService {
 			// 닉네임 중복
 			request.setNickname("");
 		}
+//		String imgurl = "../../assets/images/ssafy.jpg";
+//		request.setProfile(imgurl); // 기본 이미지
 		request.setPw(EncodePW(request.getPw())); // 암호화
 		request.setProfile(null); // 처음 프로필을 만들어주지 않는다
 		userDao.save(request);

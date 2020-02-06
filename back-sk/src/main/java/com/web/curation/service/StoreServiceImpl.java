@@ -24,6 +24,7 @@ public class StoreServiceImpl implements StoreService {
 	
 	public boolean create(Store request) {
 		if (storeDao.findByNum(request.getNum()) == null) {
+			System.out.println(request.toString());
 			storeDao.save(request);
 			return true;
 		}else {

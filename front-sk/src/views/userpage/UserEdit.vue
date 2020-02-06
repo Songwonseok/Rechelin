@@ -4,7 +4,12 @@
         <h1 style="margin-top: 20px; margin-bottom: 20px;">회원정보 수정 페이지</h1>
 
         <div>
-            <img :src="image" :alt="EditUser.name" style="height: 300px; width:300px;">
+            <template v-if="profile==null">
+            <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="UserInfo.name" style="height: 300px; width:300px;" />
+          </template>
+          <template v-else>
+            <img class="avatar" :src="profile" :alt="UserInfo.name" style="height: 300px; width:300px;"/>
+          </template>
 
             <input type="file" @change="load" accept=".jpg, .jpeg, .png, .gif">
 
@@ -33,6 +38,7 @@
             <v-icon left>{{ svgPath }}</v-icon>
             EDIT
         </v-btn>
+        <!-- TODO : 취소 버튼 눌르면 이전 페이지로 이동 -->
 
 
     </div>
@@ -49,12 +55,12 @@
     export default {
         data() {
             return {
-                email: this.$route.params.info.email,
-                nickname: this.$route.params.info.name,
-                pw1: this.$route.params.info.pw1,
-                pw2: this.$route.params.info.pw1,
-                phone: this.$route.params.info.phone,
-                image: this.$route.params.info.picture,
+                email: this.$store.state.userEmail,
+                nickname: '',
+                pw1: '',
+                pw2: '',
+                phone: '',
+                image: '',
                 passwordSchema: new PV(),
                 error: {
                     pw1: false,
@@ -160,7 +166,21 @@
                     this.image = e.target.result;
                 }
                 reader.readAsDataURL(file);
-            }
+            },
+    
+        getUser(){
+            let email = this.$store.state.userEmail;
+            
+            console.log(email)
+            UserApi.requestEmail( email,res=>{
+                this.nickname = res.object.nickname
+                this.phone = res.object.phone
+                this.profile = res.object.profile
+                console.log('유저정보 가져오기 성공')              
+            },error=>{  
+                console.log('유저정보 가져오기 실패')
+            })
+        }
 
         },
         created() {
@@ -169,6 +189,7 @@
                 .is().max(100)
                 .has().digits()
                 .has().letters();
+            this.getUser();
         }
     }
 </script>

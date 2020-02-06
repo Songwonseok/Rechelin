@@ -8,6 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.web.curation.dao.user.StoreDao;
+import com.web.curation.dao.user.UserDao;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +24,7 @@ public class Review {
 	@Id
 	@Column(name="review_num")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long rnum;
+	private long rnum; //auto 
 	
 	@ManyToOne
 	@JoinColumn(name= "store_num")
@@ -27,20 +32,16 @@ public class Review {
 	
 	@ManyToOne
 	@JoinColumn(name= "user_email")
-	private User user;
+	private User user; 
 	
 	private String str;
 	private String weak;
 	private String picture;
 	private String title;
-	private String hashtag;
-
-	
-	private int views;
-	
+	private String hashtag;	
+	private int views; //auto 
 	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private String wdate;
-	
+	private String wdate;	//auto 
 	@Column(name="score_total")
 	private int total;
 	@Column(name="score_taste")
@@ -50,13 +51,35 @@ public class Review {
 	@Column(name="score_kindness")
 	private int kindness;
 	
-//	public Review(long snum, String email, ) {
-//		
-//	}
+//	@Autowired
+//	StoreDao sdao;
+//	@Autowired
+//	UserDao udao;
+	public Review() {
+		
+	}
+	public Review( Store store, User email, String str, String weak, String picture, String title,
+			String hashtag, int total, int taste, int price, int kindness) {
+		super();
+		this.store = store;
+		this.user = email;
+		this.str = str;
+		this.weak = weak;
+		this.picture = picture;
+		this.title = title;
+		this.hashtag = hashtag;
+		this.total = total;
+		this.taste = taste;
+		this.price = price;
+		this.kindness = kindness;
+	}
+	
+	
 	public long getRnum() {
 		return rnum;
 
 	}
+	
 	public Store getStore() {
 		return store;
 	}

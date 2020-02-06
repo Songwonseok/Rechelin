@@ -1,6 +1,9 @@
 import Axios from "axios"
 import router from '../main'
 
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
+    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
+
 export default {
     updateName(state, name) {
         state.name = name;
@@ -26,13 +29,13 @@ export default {
     updateIsSubmit(state, submit) {
         state.phone = submit;
     },
-    SET_USER(state, searchUser){
+    SET_USER(state, searchUser) {
         state.searchUser.nickname = searchUser;
     },
-    SET_EMAIL(state, searchEmail){
+    SET_EMAIL(state, searchEmail) {
         state.searchUser.email = searchEmail;
     },
-    SET_RECENTUSER(state, recentUser){
+    SET_RECENTUSER(state, recentUser) {
         state.recentUser = recentUser;
     },
     //로그인, 로그아웃
@@ -53,7 +56,7 @@ export default {
         const params = new URLSearchParams();
         console.log(payload)
         params.append('email', payload);
-        Axios.post('http://70.12.246.51:8080/account/selectEmail', params)
+        Axios.post(URL + '/account/selectEmail', params)
             .then(response => {
                 router.push({
                     name: "UserPage",
@@ -64,8 +67,8 @@ export default {
                         userInfo: response.data.object
                     }
                 })
-            state.userPageInfo.nickname = response.data.object.nickname
-            state.userPageInfo.email = response.data.object.email
+                state.userPageInfo.nickname = response.data.object.nickname
+                state.userPageInfo.email = response.data.object.email
             }).catch(exp => {
                 console.log('실패')
             })
@@ -73,7 +76,7 @@ export default {
     userStars(state, payload) {
         const params = new URLSearchParams();
         params.append('email', payload);
-        Axios.post('http://70.12.246.51:8080/follow/starList', params)
+        Axios.post(URL + '/follow/starList', params)
             .then(response => {
                 this.state.userPageInfo.stars = response.data.object
                 console.log(this.state.userPageInfo.stars, '스타스타스타')
@@ -85,7 +88,7 @@ export default {
     userFans(state, payload) {
         const params = new URLSearchParams();
         params.append('email', payload);
-        Axios.post('http://70.12.246.51:8080/follow/fanList', params)
+        Axios.post(URL + '/follow/fanList', params)
             .then(response => {
                 this.state.userPageInfo.fans = response.data.object
             }).catch(exp => {
@@ -95,7 +98,7 @@ export default {
     notificationGet(state, payload) {
         const params = new URLSearchParams();
         params.append('email', payload)
-        Axios.post('http://70.12.246.51:8080/follow/alarmList', params)
+        Axios.post(URL + '/follow/alarmList', params)
             .then(res => {
                 this.state.notifications = res.data.object
 
@@ -107,7 +110,7 @@ export default {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
         params.append('star', payload.star)
-        Axios.post('http://70.12.246.51:8080/follow/request', params)
+        Axios.post(URL + '/follow/request', params)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
@@ -118,7 +121,7 @@ export default {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
         params.append('star', payload.star)
-        Axios.post('http://70.12.246.51:8080/follow/accept', params)
+        Axios.post(URL + '/follow/accept', params)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
@@ -129,7 +132,7 @@ export default {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
         params.append('star', payload.star)
-        Axios.post('http://70.12.246.51:8080/follow/decline', params)
+        Axios.post(URL + '/follow/decline', params)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
@@ -142,4 +145,9 @@ export default {
     SET_GOOGLEMAP(state,googlemap){
         state.googleStorePlaceView = googlemap;
     }
+<<<<<<< HEAD
 }
+=======
+
+}
+>>>>>>> feature-review
