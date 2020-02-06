@@ -41,7 +41,7 @@ public class StoreController {
 
 	
 
-	@PostMapping("/store/create")
+	@PostMapping(value="/store/create",produces="application/json")
 	@ApiOperation(value = "등록하기")
 	public Object signup(@RequestBody Store request) {
 		final BasicResponse result = new BasicResponse();

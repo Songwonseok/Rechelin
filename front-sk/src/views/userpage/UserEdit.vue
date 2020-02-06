@@ -4,7 +4,12 @@
         <h1 style="margin-top: 20px; margin-bottom: 20px;">회원정보 수정 페이지</h1>
 
         <div>
-            <img :src="image" :alt="EditUser.name" style="height: 300px; width:300px;">
+            <template v-if="profile==null">
+            <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="UserInfo.name" style="height: 300px; width:300px;" />
+          </template>
+          <template v-else>
+            <img class="avatar" :src="profile" :alt="UserInfo.name" style="height: 300px; width:300px;"/>
+          </template>
 
             <input type="file" @change="load" accept=".jpg, .jpeg, .png, .gif">
 
@@ -51,11 +56,11 @@
         data() {
             return {
                 email: this.$store.state.userEmail,
-                nickname: this.$store.state.nickname,
-                pw1: this.$route.params.info.pw1,
-                pw2: this.$route.params.info.pw1,
-                phone: this.$route.params.info.phone,
-                image: this.$route.params.info.picture,
+                nickname: '',
+                pw1: '',
+                pw2: '',
+                phone: '',
+                image: '',
                 passwordSchema: new PV(),
                 error: {
                     pw1: false,
@@ -162,18 +167,7 @@
                 }
                 reader.readAsDataURL(file);
             },
-            getProfile(){
-                let email = this.$store.state.userEmail;
-               
-                console.log(email)
-                 UserApi.requestProfile( email,res=>{
-                    this.image = res.object.profile
-                    console.log(this.image);
-                    console.log('프로필 가져오기 성공')              
-                },error=>{  
-                    console.log('프로필 가져오기 실패')
-                })
-        },
+    
         getUser(){
             let email = this.$store.state.userEmail;
             
@@ -181,6 +175,7 @@
             UserApi.requestEmail( email,res=>{
                 this.nickname = res.object.nickname
                 this.phone = res.object.phone
+                this.profile = res.object.profile
                 console.log('유저정보 가져오기 성공')              
             },error=>{  
                 console.log('유저정보 가져오기 실패')
@@ -194,7 +189,6 @@
                 .is().max(100)
                 .has().digits()
                 .has().letters();
-            this.getProfile();
             this.getUser();
         }
     }

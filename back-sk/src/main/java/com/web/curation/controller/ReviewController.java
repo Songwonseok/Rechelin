@@ -18,6 +18,8 @@ import com.web.curation.model.user.Bookmark;
 import com.web.curation.model.user.Comments;
 import com.web.curation.model.user.Likecheck;
 import com.web.curation.model.user.Review;
+import com.web.curation.model.user.Store;
+import com.web.curation.model.user.User;
 import com.web.curation.service.ReviewService;
 
 import io.swagger.annotations.ApiOperation;
@@ -39,12 +41,31 @@ public class ReviewController {
 	
 	@PostMapping("/review/register")
 	@ApiOperation(value = "리뷰 등록")
-	public Object register(@RequestBody Review review) {
+//	public Object register(@RequestBody (required = true) Review review) {
+	public Object register(@RequestParam (required = true) String hashtag,
+			@RequestParam (required = true) String picture,
+			@RequestParam (required = true) int score_kindness,
+			@RequestParam (required = true) int score_price,
+			@RequestParam (required = true) int score_taste,
+			@RequestParam (required = true) int score_total,
+			@RequestParam (required = true) long store_num,
+			@RequestParam (required = true) String str,
+			@RequestParam (required = true) String title,
+			@RequestParam (required = true) String user_email,
+			@RequestParam (required = true) String weak
+			) {
+//	    Review review = new Review( store_num, user_email, str, weak, picture, title,
+//				 hashtag,  score_total,  score_taste,  score_price, score_kindness);
 		final BasicResponse result = new BasicResponse();
-		service.register(review);
+//		System.out.println(review.getHashtag());
+//		System.out.println(review.getKindness());
+		System.out.println("--------------");
+		System.out.println(user_email);
+		service.register(store_num, user_email, str, weak, picture, title,
+				 hashtag,  score_total,  score_taste,  score_price, score_kindness);
 		result.status = true;
 		result.data = "리뷰 등록 성공";
-		result.object = review;
+		result.object = null;
 //		if(service.register(review)) {
 //			result.status = true;
 //		result.data = "리뷰 등록 성공";
@@ -58,7 +79,7 @@ public class ReviewController {
 	
 	@PutMapping("/review/update")
 	@ApiOperation(value = "리뷰 업데이트")
-	public Object update(@RequestBody Review review) {
+	public Object update(@RequestParam Review review) {
 		final BasicResponse result = new BasicResponse();
 		
 		if(service.update(review)) {
@@ -106,7 +127,7 @@ public class ReviewController {
 	
 	@PostMapping("/review/like")
 	@ApiOperation(value = "리뷰 도움돼요 / 안돼요")
-	public Object like(@RequestBody Likecheck check) {
+	public Object like(@RequestParam Likecheck check) {
 		////// 1 - 도움 돼요 0 - 안돼요
 		final BasicResponse result = new BasicResponse();
 		int rs = service.useful(check);
@@ -130,7 +151,7 @@ public class ReviewController {
 	
 	@PostMapping("/review/comment")
 	@ApiOperation(value = "댓글 등록")
-	public Object addComment(@RequestBody Comments com) {
+	public Object addComment(@RequestParam Comments com) {
 		final BasicResponse result = new BasicResponse();
 		service.addComment(com);
 		result.status = true;
@@ -163,7 +184,7 @@ public class ReviewController {
 	
 	@PostMapping("/review/bookmark")
 	@ApiOperation(value = "북마크 추가 / 삭제")
-	public Object addBookMark(@RequestBody Bookmark book) {
+	public Object addBookMark(@RequestParam Bookmark book) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.object = book;
