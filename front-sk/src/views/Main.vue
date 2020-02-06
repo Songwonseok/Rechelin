@@ -106,14 +106,28 @@
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
+                
               </v-list>
             </v-card>
+            
           </v-row>
+
+      
+    <div class="text-center">
+
+<br><br>
+<span style ="font-size:30px"> 리뷰 작성하기</span><br>
+            <v-btn router-link to="/reviewPage" class="mx-2" id = "btn" style="font-size: 2em; color:black" fab dark large color="purple">
+              
+               <i class="fas fa-pencil-alt"></i>
+           </v-btn>
+        
+    </div>
+  
         </v-col>
 
       </v-row>
     </v-container>
-
 
   </div>
 </template>
@@ -304,5 +318,9 @@ export default {
     left: 0px;
     color: white;
     text-align: center;
+  }
+  #btn {
+    /* color: red; */
+    background-color: azure;
   }
 </style>

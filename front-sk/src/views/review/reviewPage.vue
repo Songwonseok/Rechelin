@@ -310,8 +310,9 @@ export default {
                 
                 if(hashtag.length <0 || this.rating <0 || this.flavor <0 || this.price <0 || this.kindness <0
                    || this.store_num<0 
-                ) this.isSubmit = true //validation 나중ㅇ
-                this.isSubmit = true
+                ) 
+                    this.isSubmit = true //validation 나중ㅇ
+                //this.isSubmit = true
                 if(this.isSubmit)
                 {
                        var data = { 
@@ -333,6 +334,8 @@ export default {
                     })
                     console.log('all complete');
 
+                }else{
+                    alert('리뷰를 작성해주세요~~')
                 }
             },
             clickEvent(record, index) {

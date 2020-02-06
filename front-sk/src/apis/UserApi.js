@@ -64,6 +64,8 @@ const requestLogin = (data, callback, errorCallback) => {
 
     Axios.post(URL + '/auth/login', params)
         .then(response => {
+            console.log("로그인"+response.object);
+            
             callback(response.data);
             sessionStorage.setItem("userToken", JSON.stringify({
                 userToken: response.data.object.token,
@@ -178,11 +180,11 @@ function requestfetchUserList() {
 const searchUserHistory = (data, callback, errorCallback) => {
 
     //const params = new URLSearchParams();
-    console.log(data.email + " " + data.nickname)
+    //console.log(data.email + " " + data.nickname)
        // params.append('email', data.email);
         //params.append('searchname', data.nickname);
     var params = {
-        'email': 'ssafy@naver.com',
+        'email': data.email,
         'searchname': data.nickname,
     }
     Axios.post('http://70.12.246.51:8080/search/user', params)

@@ -172,8 +172,11 @@
                     UserApi.requestLogin( data,res=>{
                         //통신을 통해 전달받은 값 콘솔에 출력
                         console.log(res.data);
-                        if(res.data == "success")    
+                        if(res.data == "success") {
+                            console.log('login form 안 '+res.object)
+                            console.log(res.object);
                             this.$router.push({ name: "Main" });
+                        }
                         else
                             this.$router.push({ path: '/' });
                         //요청이 끝나면 버튼 활성화
@@ -183,7 +186,7 @@
                     })
                 }
 
-                console.log('로그인 끝')
+              
 
             },
             getProfile(){

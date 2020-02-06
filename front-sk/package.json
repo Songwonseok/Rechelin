@@ -19,6 +19,7 @@
         "core-js": "^3.4.3",
         "email-validator": "^2.0.4",
         "local-lib": "^0.1.0",
+        "material-design-icons-iconfont": "^5.0.1",
         "node-sass": "^4.13.0",
         "password-validator": "^5.0.3",
         "save": "^2.4.0",
@@ -56,6 +57,7 @@
         "jest-transform-stub": "^2.0.0",
         "sass": "^1.25.0",
         "sass-loader": "^8.0.2",
+        "vue-cli-plugin-vuetify": "^2.0.4",
         "vue-jest": "^3.0.5",
         "vue-template-compiler": "^2.6.10",
         "vue-test-utils": "^1.0.0-beta.11"
