@@ -1,14 +1,12 @@
 import Axios from "axios"
 import store from "../vuex/store"
-
+// import API from "./API"
 const URL = 'http://70.12.246.134:8080' // 김주연 ip
     // const URL = 'http://70.12.246.51:8080' //  조장님 ip
 
 
 const requestsignUp = async(data, callback, errorCallback) => {
-    // const params = new URLSearchParams();
-    // params.append('request', data);   
-    // console.log(params);
+
     let options = {
         headers: { 'Content-Type': 'application/json' },
         url: URL + '/account/signup',
@@ -58,17 +56,11 @@ const requestEmail = (data, callback, errorCallback) => {
 }
 
 const requestLogin = (data, callback, errorCallback) => {
-    //백앤드와 로그인 통신하는 부분
-    // http://localhost:8080/account/login
-    // Post 
+
     const params = new URLSearchParams();
     params.append('email', data.email);
     params.append('password', data.password);
-    // Axios({
-    //     method: 'post',
-    //     url: 'http://localhost:8080/account/login',
-    //     data: params
-    // });
+
     Axios.post(URL + '/account/login', params)
         .then(response => {
             callback(response.data);

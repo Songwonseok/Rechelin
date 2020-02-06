@@ -36,9 +36,7 @@ public class AcountServiceImpl implements AcountService {
 			// 비밀번호 일치 X
 
 			System.out.println(password + " " + tmp.getPw());
-//			if(!password.equals(tmp.getPw())) {
-//				tmp.setPw("");
-//			}
+			
 			if (!passwordEncoder.matches(password, tmp.getPw())) {
 				System.out.println("비밀번호 틀림");
 				tmp.setPw("");
