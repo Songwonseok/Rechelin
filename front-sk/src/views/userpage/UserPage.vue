@@ -26,12 +26,12 @@
 
 
          <ul class="data-user">
-         <!-- <li>
+         <li>
             <router-link :to="{name: 'UserReviews', params: {
           bookmarks: this.UserInfo.stores,
-          reviews : this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
-        }}"><strong>{{UserInfo.stores.length+UserInfo.stores.length}}</strong><span>Posts</span></router-link>
-          </li>-->
+          reviews : this.reviewList, // 향후 db에서 받아오는 값으로 수정할 애들
+        }}"><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
+          </li>
           <li>
             <router-link :to="{name:'Fans', params: { fans : this.fanList}}">
               <strong>{{fanList.length}}</strong><span>Followers</span></router-link>
@@ -62,7 +62,8 @@
   } from '@mdi/js'
   import UserApi from '../../apis/UserApi'
   import FollowApi from '../../apis/FollowApi'
-
+  import ReviewApi from '../../apis/ReviewApi'
+  
   export default {
     data() {
       return {
@@ -77,6 +78,8 @@
         },
         fanList:[],
         starList:[],
+        bookmarkList:[],
+        reviewList:[],
         myEmail:this.$store.state.userEmail // session에 저장된 User
       }
     },
@@ -125,6 +128,13 @@
         })
       }
       ,getBookmarkList(){
+        ReviewApi.requestBookmarkList(this.id, res=>{
+          this.starList = res;
+        }, error=>{
+          alert('BookmarkList 가져오기 실패')
+        })
+      }
+      ,getReviewList(){
         
       }
       ,getUser(){
@@ -160,7 +170,8 @@
       this.getUser();
       this.getFanList();
       this.getStarList();
-      // this.getBookmarkList();
+      this.getBookmarkList();
+      this.getReviewList();
     },
 
   }
