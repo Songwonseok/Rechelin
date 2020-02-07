@@ -19,7 +19,7 @@ import com.web.curation.model.DTO.Review;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QReview extends EntityPathBase<Review> {
 
-    private static final long serialVersionUID = -1108264028L;
+    private static final long serialVersionUID = 1648113854L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

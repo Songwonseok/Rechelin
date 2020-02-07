@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.curation.model.BasicResponse;
@@ -39,33 +40,15 @@ public class ReviewController {
 	
 	@PostMapping("/review/register")
 	@ApiOperation(value = "리뷰 등록")
-//	public Object register(@RequestBody (required = true) Review review) {
-	public Object register(@RequestParam (required = true) String hashtag,
-			@RequestParam (required = true) String picture,
-			@RequestParam (required = true) int score_kindness,
-			@RequestParam (required = true) int score_price,
-			@RequestParam (required = true) int score_taste,
-			@RequestParam (required = true) int score_total,
-			@RequestParam (required = true) long store_num,
-			@RequestParam (required = true) String str,
-			@RequestParam (required = true) String title,
-			@RequestParam (required = true) String user_email,
-			@RequestParam (required = true) String weak
-			) {
-//	    Review review = new Review( store_num, user_email, str, weak, picture, title,
-//				 hashtag,  score_total,  score_taste,  score_price, score_kindness);
+	public Object register(@RequestBody(required = true) Review review) {
+		System.out.println("asdasdsadasdadasdasd");
 		final BasicResponse result = new BasicResponse();
-//		System.out.println(review.getHashtag());
-//		System.out.println(review.getKindness());
 		System.out.println("--------------");
-		System.out.println(user_email);
-		service.register(store_num, user_email, str, weak, picture, title,
-				 hashtag,  score_total,  score_taste,  score_price, score_kindness);
+		service.register(review);
+		
 		result.status = true;
 		result.data = "리뷰 등록 성공";
 		result.object = null;
-//		if(service.register(review)) {
-//			result.status = true;
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}

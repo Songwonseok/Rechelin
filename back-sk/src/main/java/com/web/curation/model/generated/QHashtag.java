@@ -18,7 +18,7 @@ import com.web.curation.model.DTO.Hashtag;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QHashtag extends EntityPathBase<Hashtag> {
 
-    private static final long serialVersionUID = -398851840L;
+    private static final long serialVersionUID = -850483418L;
 
     public static final QHashtag hashtag = new QHashtag("hashtag");
 

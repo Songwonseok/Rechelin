@@ -18,7 +18,7 @@ import com.web.curation.model.DTO.Storetags;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QStoretags extends EntityPathBase<Storetags> {
 
-    private static final long serialVersionUID = 319921326L;
+    private static final long serialVersionUID = 93671764L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

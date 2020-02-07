@@ -8,6 +8,7 @@ import com.querydsl.core.types.Path;
 import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.PathInits;
 import com.querydsl.core.types.dsl.StringPath;
 import com.web.curation.model.DTO.Search;
 
@@ -18,13 +19,13 @@ import com.web.curation.model.DTO.Search;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QSearch extends EntityPathBase<Search> {
 
-    private static final long serialVersionUID = -1080251916L;
+    private static final long serialVersionUID = 1676125966L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QSearch search = new QSearch("search");
 
     public final StringPath category = createString("category");
-
-    public final StringPath email = createString("email");
 
     public final NumberPath<Long> num = createNumber("num", Long.class);
 
@@ -32,16 +33,27 @@ public class QSearch extends EntityPathBase<Search> {
 
     public final StringPath searchname = createString("searchname");
 
+    public final QUser user;
+
     public QSearch(String variable) {
-        super(Search.class, forVariable(variable));
+        this(Search.class, forVariable(variable), INITS);
     }
 
     public QSearch(Path<? extends Search> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QSearch(PathMetadata metadata) {
-        super(Search.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QSearch(PathMetadata metadata, PathInits inits) {
+        this(Search.class, metadata, inits);
+    }
+
+    public QSearch(Class<? extends Search> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
 
 }
