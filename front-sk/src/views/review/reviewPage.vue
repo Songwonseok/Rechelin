@@ -77,7 +77,6 @@
                         <br>
                         <span>체크 : {{withWho}}</span>
                     </div>
-                    
                     <b-button
                         style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
                         class="mt-3" block @click="$bvModal.hide('bv-modal-example')">닫기</b-button>
@@ -351,8 +350,10 @@ export default {
             // 'record' will be the row data from items
             // `index` will be the visible row number (available in the v-model 'shownItems')
             
+            console.log("통신하기전 : ")
             console.log(this.$store.state.googleStorePlace[index]);
              //Q : 리뷰 항목을 다 건네줘야 하는건지?
+                
                  UserApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
                  this.store_num = res.data.object.num;
                  this.store_pic = res.data.object.img;
