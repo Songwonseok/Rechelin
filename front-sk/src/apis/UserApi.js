@@ -48,11 +48,10 @@ const requestName = (data, callback, errorCallback) => {
 const requestEmail = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append('email', data);
-    console.log('###################################' + data)
-    Axios.post(URL + '/account/selectEmail', params)
+    Axios.post(URL + '/account/selectEmail', params, auth)
         .then(response => {
             console.log(response);
-            if (response.status == true)
+            if (response.data.status == true)
                 callback(response.data.object);
             console.log('성공')
 
@@ -222,11 +221,8 @@ function requestFetchUserData({ commit }, email) {
 }
 //http://70.12.246.134:8080/store/create
 //http://70.12.246.51:8080/store/review
-const requestAddPlace = (data, callback, errorCallback) => { <<
-    << << < HEAD
-        ===
-        === =
-        console.log('requestAddPlace first')
+const requestAddPlace = (data, callback, errorCallback) => {
+    console.log('requestAddPlace first')
     console.log(data);
     // var params = {
     //     'sname': data.sname,
@@ -235,8 +231,7 @@ const requestAddPlace = (data, callback, errorCallback) => { <<
     //     'lat': data.lat,
     //     'lng': data.lng
     // }
-    >>>
-    >>> > 954 f7671689fc020aaf8890af4b46cdb9ad9b8e8
+
 
     let options = {
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
@@ -246,16 +241,10 @@ const requestAddPlace = (data, callback, errorCallback) => { <<
     }
 
     <<
-    << << < HEAD
-    BASE.post('/store/review', params) ===
-        === =
-        console.log('requestAddPlace');
-    console.log(data.sname);
+
 
     Axios(options)
         // Axios.post('http://70.12.246.51:8080/store/review', params, auth)
-        >>>
-        >>> > 954 f7671689fc020aaf8890af4b46cdb9ad9b8e8
         .then(response => {
             console.log(response);
             callback(response); //return type true/false 

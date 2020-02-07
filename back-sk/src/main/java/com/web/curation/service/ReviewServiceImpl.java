@@ -184,4 +184,17 @@ public class ReviewServiceImpl implements ReviewService {
 		dao.save(rr);
 	}
 
+	@Override
+	public List<Review> getMyReview(String email) {
+		User user = userdao.findByEmail(email);
+		List<Review> list = dao.findAllByUser(user);
+		return list;
+	}
+
+	@Override
+	public List<Review> getCurReview() {
+		List<Review> list = dao.findTop30ByOrderByRnumDesc();
+		return list;
+	}
+
 }
