@@ -37,13 +37,20 @@ ssafy
 ```
 
 ## 사용기술
-aws cognito API : 회원 가입에 필요한 이메일 인증
-Naver Login API : 간편 로그인
+aws cognito API : 회원 가입에 필요한 이메일 인증 
+
+Naver Login API : 간편 로그인 
+
 GoogleMap API : 음식점 맛집 검색 및 정보 가져오기
+
 Imgurl API : 이미지 업로드 및, 사진 가져오기
+
 SpringSecurity + JWT : 로그인한 사용자만 서비스를 사용가능 하도록(filter), Token을 계속 검사해서 유효한 회원인지 확인
+
 JPA(JAVA Persistent API)  : 
+
 QueryDSL : 사용자가 원하는 쿼리 작성이 가능
+
 
 ## Prerequisite
 We recommend using [nvm](https://github.com/creationix/nvm) (or [nvm-windows](https://github.com/coreybutler/nvm-windows)) to manage and install Node.js, which makes it easy to change the version of Node.js per project.
