@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.NonNull;
 
@@ -14,8 +16,9 @@ public class Search {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 	
-	@NonNull
-	private String email;
+	@ManyToOne
+	@JoinColumn(name= "user_id")
+	private User user;
 	
 	@NonNull
 	private String searchname;
@@ -28,8 +31,8 @@ public class Search {
 	
 	public Search() {}
 
-	public Search(@NonNull String email, @NonNull String searchname, @NonNull String category) {
-		this.email = email;
+	public Search(@NonNull User user, @NonNull String searchname, @NonNull String category) {
+		this.user = user;
 		this.searchname = searchname;
 		this.category = category;
 	}
@@ -38,8 +41,8 @@ public class Search {
 		return num;
 	}
 
-	public String getEmail() {
-		return email;
+	public User getUser() {
+		return user;
 	}
 
 	public String getSearchname() {

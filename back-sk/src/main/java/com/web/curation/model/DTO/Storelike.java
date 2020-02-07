@@ -25,7 +25,7 @@ public class Storelike {
 	private Store store;
 	
 	@ManyToOne
-	@JoinColumn(name= "user_email")
+	@JoinColumn(name= "user_id")
 	private User user;
 
 	public long getNum() {

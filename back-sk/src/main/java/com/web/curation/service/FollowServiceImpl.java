@@ -53,7 +53,10 @@ public class FollowServiceImpl implements FollowService {
 
 	public boolean requestFollow(String fan, String star) {
 		User f = userDao.findByEmail(fan);
+		f.getEmail();
 		User s = userDao.findByEmail(star);
+		s.getEmail();
+		
 		if (alarmDao.findByFanAndStar(f, s) == null) {
 			alarmDao.save(new Alarm(f, s));
 			return true;
@@ -75,7 +78,15 @@ public class FollowServiceImpl implements FollowService {
 
 	public List<User> fanList(String email) {
 		User user =userDao.findByEmail(email);
+		System.out.println(email);
+		System.out.println(user.getEmail());
+		System.out.println(email);
+		System.out.println(email);
+		System.out.println(email);
+		System.out.println(user.getId());
+		
 		List<Follow> flist = followDao.findAllByStar(user);
+		System.out.println(flist.size());
 		List<User> ulist = new ArrayList<>();
 		
 		for(Follow f : flist) {
