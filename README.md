@@ -1,5 +1,5 @@
-# �Ĵ� ���� SNS
-����� ������ �Ĵ� ���� �� ��õ ����
+# 식당 리뷰 SNS
+사용자 참여형 식당 리뷰 및 추천 서비스
 ![version](https://img.shields.io/badge/version-0.0.1-orange?)
 ![vue](https://img.shields.io/badge/vue-3.0.0-blue?logo=Vue.js)
 ![spring](https://img.shields.io/badge/spring-4.0.0-yellow?logo=spring)
@@ -35,6 +35,23 @@ ssafy
 |		`-- src
 |--
 ```
+
+## 사용기술
+aws cognito API : 회원 가입에 필요한 이메일 인증 
+
+Naver Login API : 간편 로그인 
+
+GoogleMap API : 음식점 맛집 검색 및 정보 가져오기
+
+Imgurl API : 이미지 업로드 및, 사진 가져오기
+
+SpringSecurity + JWT : 로그인한 사용자만 서비스를 사용가능 하도록(filter), Token을 계속 검사해서 유효한 회원인지 확인
+
+JPA(JAVA Persistent API)  : 
+
+QueryDSL : 사용자가 원하는 쿼리 작성이 가능
+
+
 ## Prerequisite
 We recommend using [nvm](https://github.com/creationix/nvm) (or [nvm-windows](https://github.com/coreybutler/nvm-windows)) to manage and install Node.js, which makes it easy to change the version of Node.js per project.
 - [Yarn](https://yarnpkg.com): We use Yarn to install our Node.js module dependencies (rather than using npm).
