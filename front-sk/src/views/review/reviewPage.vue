@@ -77,7 +77,6 @@
                         <br>
                         <span>체크 : {{withWho}}</span>
                     </div>
-                    
                     <b-button
                         style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
                         class="mt-3" block @click="$bvModal.hide('bv-modal-example')">닫기</b-button>
