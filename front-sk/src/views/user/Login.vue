@@ -26,8 +26,7 @@
             </div>
             -->
 
-            <h1 >로그인 해주세요! <br>오늘도 즐겁게 🤣</h1>
-
+           
 
             <div class="input-with-label">
                 <input v-model="email" 
@@ -131,7 +130,7 @@
                 .has().digits()
                 .has().letters();
                 
-            this.getProfile();
+            //this.getProfile();
         },
         watch: {
             password: function (v) {
