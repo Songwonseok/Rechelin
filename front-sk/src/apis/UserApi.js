@@ -64,7 +64,7 @@ const requestLogin = (data, callback, errorCallback) => {
 
     Axios.post(URL + '/auth/login', params)
         .then(response => {
-            console.log("로그인"+response.object);
+            console.log("로그인", response.object);
             
             callback(response.data);
             sessionStorage.setItem("userToken", JSON.stringify({

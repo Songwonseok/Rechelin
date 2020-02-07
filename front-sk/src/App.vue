@@ -20,12 +20,12 @@
 
       </v-btn>
     
-      <div v-if="checkLogin">
-        <v-btn text @click="UserLogout">로그인 해주세요.</v-btn>
+      <div v-if="isLogin">
+        <v-btn text @click="UserLogout">로그아웃</v-btn>
       </div>
       
       <div v-else>
-        <v-btn text @click="UserLogout">로그아웃 해주세요.</v-btn>  
+        <v-btn text @click="UserLogout">로그인</v-btn>  
       </div>
 
       <v-btn fab dark small color="green" id="popover-target-1" @click="notificationGet" @mouseover="notificationGet">
@@ -84,6 +84,11 @@
         },
         alarms: 'asdfasd',
         checkLogin : true,
+      }
+    },
+    computed :{
+      isLogin() {
+        return this.$store.state.accessToken
       }
     },
     methods: {

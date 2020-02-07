@@ -25,7 +25,7 @@ public class Likecheck {
 	private Review review;
 	
 	@ManyToOne
-	@JoinColumn(name= "user_email")
+	@JoinColumn(name= "user_id")
 	private User user;
 	
 	private int status;

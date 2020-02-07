@@ -25,7 +25,7 @@ public class Comments {
 	private Review review;
 	
 	@ManyToOne
-	@JoinColumn(name= "user_email")
+	@JoinColumn(name= "user_id")
 	private User user;
 	
 	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
