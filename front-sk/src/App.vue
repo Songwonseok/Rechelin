@@ -19,7 +19,14 @@
         <v-icon>{{icons.Magnify}}</v-icon>
 
       </v-btn>
-      <v-btn text @click="UserLogout">sign out</v-btn>
+    
+      <div v-if="checkLogin">
+        <v-btn text @click="UserLogout">로그인 해주세요.</v-btn>
+      </div>
+      
+      <div v-else>
+        <v-btn text @click="UserLogout">로그아웃 해주세요.</v-btn>  
+      </div>
 
       <v-btn fab dark small color="green" id="popover-target-1" @click="notificationGet" @mouseover="notificationGet">
         <v-icon>{{icons.Bell}}</v-icon>
@@ -58,8 +65,10 @@
 
   export default {
     name: 'app',
-    components: {
-
+    watch : {
+        checkLogin : function(v){
+            this.checkLogin2();
+        },
     },
     data() {
       return {
@@ -74,6 +83,7 @@
           Delete: mdiDelete,
         },
         alarms: 'asdfasd',
+        checkLogin : true,
       }
     },
     methods: {
@@ -111,7 +121,14 @@
         }
         this.$store.dispatch('followDecline', payload)
         this.alarms.splice(index, 1)
+      },
+      checkLogin2() {
+        console.log(sessionStorage.getItem("userToken"))
+        if(sessionStorage.getItem("userToken")){
+          this.checkLogin = false;
+        }
       }
+      
     },
 
   };
