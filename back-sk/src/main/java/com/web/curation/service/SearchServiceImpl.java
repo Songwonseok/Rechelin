@@ -24,7 +24,7 @@ public class SearchServiceImpl implements SearchService {
 		
 		User user = userDao.findByEmail(email);
 		if(user != null) {
-			Search search = new Search(email, searchname, "user");
+			Search search = new Search(user, searchname, "user");
 			searchDao.save(search);
 			return true;
 		}else
@@ -32,8 +32,8 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	public List<Search> userList(String email) {
-		
-		List<Search> allList = searchDao.findAllByEmailAndCategoryOrderBySdateDesc(email,"user");
+		User user = userDao.findByEmail(email);
+		List<Search> allList = searchDao.findAllByUserAndCategoryOrderBySdateDesc(user,"user");
 		List<Search> list = new ArrayList<>();
 		HashSet<String> set = new HashSet<>();
 		for(Search s : allList) {

@@ -19,7 +19,7 @@ public class Bookmark {
 	private long num;
 	
 	@ManyToOne
-	@JoinColumn(name= "user_email")
+	@JoinColumn(name= "user_id")
 	private User user;
 	
 	@ManyToOne

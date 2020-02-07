@@ -26,7 +26,7 @@ public class Review {
 	private Store store;
 	
 	@ManyToOne
-	@JoinColumn(name= "user_email")
+	@JoinColumn(name= "user_id")
 	private User user; 
 	
 	private String str;
