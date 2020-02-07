@@ -69,11 +69,12 @@ export default new Vuex.Store({
         tempStores: [{
                 name: '카페 413 프로젝트',
                 address: '서울 강남구 논현로 97길 19-11',
+                gps: [33.523, 156.234],
                 hashtag: [
                     '친구와', '강남', '아늑한', '분위기좋은'
                 ],
                 phone: '070-7798-0544',
-                picture: 'https://mp-seoul-image-production-s3.mangoplate.com/67078_1497540642492532.jpg'
+                image: 'https://mp-seoul-image-production-s3.mangoplate.com/67078_1497540642492532.jpg'
             },
             {
                 name: '바나프레소 역삼점',
@@ -81,8 +82,12 @@ export default new Vuex.Store({
                 hashtag: [
                     '친구와', '혼자', '강남', '역삼'
                 ],
+                gps: {
+                    lat: 37.49861012989273,
+                    lng: 127.0534505298927
+                },
                 phone: '',
-                picture: 'https://mblogthumb-phinf.pstatic.net/MjAxODA2MDVfMjU3/MDAxNTI4MTg4MDAwMzg1.2IvQiB0gDBR12GUqwBKs2H6VH5V1rjSXrSalF_09FQIg.89DIbuCipP_5FGOyPu8Z8rgre0r-c-IHimIYPwP3iq4g.JPEG.yhyang_hae/image_3952403311528187975089.jpg?type=w800'
+                image: 'https://mblogthumb-phinf.pstatic.net/MjAxODA2MDVfMjU3/MDAxNTI4MTg4MDAwMzg1.2IvQiB0gDBR12GUqwBKs2H6VH5V1rjSXrSalF_09FQIg.89DIbuCipP_5FGOyPu8Z8rgre0r-c-IHimIYPwP3iq4g.JPEG.yhyang_hae/image_3952403311528187975089.jpg?type=w800'
             },
             {
                 name: '양자강',
@@ -116,20 +121,28 @@ export default new Vuex.Store({
         // 알람 관리
         notifications: [],
         // 음식점 위치 정보
-        googleStorePlace :[
+        googleStorePlace: [
 
         ],
-        googleStorePlaceView : [
+        googleStorePlaceView: [
 
         ],
-        searchEmail : '',
-        searchCode : '',
+        searchEmail: '',
+        searchCode: '',
+        ratings: null, //리스트로 올것
 
-
+        // commets of REVIEWS
+        commentsOfreview: null, // 아마 리스트로 올 것
+        commentsOfreview2: null,
+        reviewsOfstore: null,
+        newComments: null,
+    
     },
 
-    // state가 아닌 부분
-    mutations,
-    getters,
-    actions
+ 
+
+// state가 아닌 부분
+mutations,
+getters,
+actions,
 })

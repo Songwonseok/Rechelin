@@ -5,26 +5,26 @@
     text-align: center;
 ">
 
+            <!--
             <h3>이미지 가져오기 테스트</h3>
-            <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
             <template v-if="this.profile != ''">
             사진있어요 
-            <!-- {{this.profile}} -->
                <img :src="profile" style="max-width:30%" >
 
             </template>
             <template v-else>
                 사진없어요
             </template>
+            
 
 
             <h3>사진업로드 테스트</h3>
             <div class="uploadProfile">
                 <input type="file" name="fileToUpload" id="fileToUpload" accept=".gif, .jpg, .png"
-                    @change="getProfileForm"> <!--change을 통해서 파일의 변화를 감지 -->
+                    @change="getProfileForm">   change을 통해서 파일의 변화를 감지 
                 <button @click="upload">제출</button>
             </div>
-
+            -->
 
             <h1 >로그인 해주세요! <br>오늘도 즐겁게 🤣</h1>
 

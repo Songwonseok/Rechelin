@@ -53,91 +53,41 @@ export default {
         this.state.accessToken = payload.token
     },
     userpageGo(state, payload) {
-        const params = new URLSearchParams();
-        console.log(payload)
-        params.append('email', payload);
-        Axios.post(URL + '/account/selectEmail', params)
-            .then(response => {
-                router.push({
-                    name: "UserPage",
-                    params: {
-                        id: payload,
-                    },
-                    query: {
-                        userInfo: response.data.object
-                    }
-                })
-                state.userPageInfo.nickname = response.data.object.nickname
-                state.userPageInfo.email = response.data.object.email
-            }).catch(exp => {
-                console.log('실패')
-            })
+        state.userPageInfo.nickname = payload.nickname
+        state.userPageInfo.email = payload.email
     },
     userStars(state, payload) {
-        const params = new URLSearchParams();
-        params.append('email', payload);
-        Axios.post(URL + '/follow/starList', params)
-            .then(response => {
-                this.state.userPageInfo.stars = response.data.object
-                console.log(this.state.userPageInfo.stars, '스타스타스타')
-            }).catch(exp => {
-                console.log('실패')
-            })
+        this.state.userPageInfo.stars = payload
 
     },
     userFans(state, payload) {
-        const params = new URLSearchParams();
-        params.append('email', payload);
-        Axios.post(URL + '/follow/fanList', params)
-            .then(response => {
-                this.state.userPageInfo.fans = response.data.object
-            }).catch(exp => {
-                console.log('실패')
-            })
+        this.state.userPageInfo.fans = payload
+        
     },
     notificationGet(state, payload) {
-        const params = new URLSearchParams();
-        params.append('email', payload)
-        Axios.post(URL + '/follow/alarmList', params)
-            .then(res => {
-                this.state.notifications = res.data.object
+        this.state.notifications = payload
+    },
+    // 스토어 관련
+    storeinfoGet(state, payload){
+        this.state.dining = payload
+    },
 
-            }).catch(exp => {
-                console.log('실패')
-            })
+    tagsGet(state, payload) {
+    
     },
-    followRequest(state, payload) {
-        const params = new URLSearchParams();
-        params.append('fan', payload.fan)
-        params.append('star', payload.star)
-        Axios.post(URL + '/follow/request', params)
-            .then(res => {
-                console.log('요청 성공')
-            }).catch(exp => {
-                console.log('실패')
-            })
+    // 리뷰의 댓글관련
+    commentsOfreview(state, payload) {
+        state.commentsOfreview = payload.comments
     },
-    followAccept(state, payload) {
-        const params = new URLSearchParams();
-        params.append('fan', payload.fan)
-        params.append('star', payload.star)
-        Axios.post(URL + '/follow/accept', params)
-            .then(res => {
-                console.log('요청 성공')
-            }).catch(exp => {
-                console.log('실패')
-            })
-    },
-    followDecline(state, payload) {
-        const params = new URLSearchParams();
-        params.append('fan', payload.fan)
-        params.append('star', payload.star)
-        Axios.post(URL + '/follow/decline', params)
-            .then(res => {
-                console.log('요청 성공')
-            }).catch(exp => {
-                console.log('실패')
-            })
+     createComment(state, payload) {
+        state.newComments = payload
+     },
+     // 리뷰 관련
+    reviewsGet(state, payload) {
+        state.reviewsOfstore = payload
+     },
+    reviewDetail(state, payload) {
+        state.reviewDetail = payload
     },
     SET_GOOGLEMAP_TOTAL(state, googlemap_total) {
         state.googleStorePlace = googlemap_total;
@@ -145,4 +95,8 @@ export default {
     SET_GOOGLEMAP(state, googlemap) {
         state.googleStorePlaceView = googlemap;
     }
+
 }
+        
+    
+

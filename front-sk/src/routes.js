@@ -14,6 +14,10 @@ import signUpForm from './views/user/signUpForm.vue';
 import signUpConfirm from './views/user/signUpConfirm.vue';
 import searchPassword from './views/user/searchPw.vue';
 import userSearch from './components/common/userSearch.vue';
+import storeDetail from './views/stores/storeDetail'
+import storeReviews from './views/stores/storeReviews'
+import commentsOfreview from './views/stores/commentsOfreview'
+
 import reviewPage from './views/review/reviewPage.vue';
 import reviewDetail from './views/review/reviewDetail.vue';
 import updateNewPw from './views/user/updateNewPw.vue';
@@ -92,6 +96,28 @@ export default [
         name : 'userSearch',
         component : userSearch,
     },
+    { // 음식점 상세페이지
+        path: '/storeDetail/:id',
+        name: 'storeDetail',
+        component: storeDetail,
+        children: [
+            {
+                path: 'reviews',
+                name: 'reviewsOfstore',
+                component: storeReviews,
+                children: [
+                    {
+                        path: 'id',
+                        name: 'commentsOfreview',
+                        component : commentsOfreview,
+                    }
+                ]
+               
+            }
+        ]
+    },
+ 
+    
     {
         path : '/reviewPage',
         name : 'reviewPage',

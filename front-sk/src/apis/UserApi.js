@@ -71,15 +71,16 @@ const requestLogin = (data, callback, errorCallback) => {
                 userToken: response.data.object.token,
                 info: response.data.object.user
             }))
-            sessionStorage.setItem("userToken", response.data.object.token)
-            sessionStorage.setItem("userEmail", response.data.object.user.email)
-            sessionStorage.setItem("userNickname", response.data.object.user.nickname)
-            let payload = {
-                useremail: sessionStorage.getItem("userEmail"),
-                usernickname: sessionStorage.getItem("userNickname"),
-                token: sessionStorage.getItem("userToken")
-            }
-            store.dispatch('login', payload)
+            sessionStorage.setItem("userToken", response.data.object.accessToken)
+            sessionStorage.setItem("userEmail", response.data.object.email)
+            sessionStorage.setItem("userNickname", response.data.object.nickname)
+        let payload = {
+            useremail: sessionStorage.getItem("userEmail"),
+            usernickname: sessionStorage.getItem("userNickname"),
+            token: sessionStorage.getItem("userToken")
+            
+        } 
+        store.dispatch('login', payload)
         }).catch(exp => {
             console.log(exp)
             errorCallback(exp);
@@ -97,7 +98,7 @@ const requestJoin = (data, callback, errorCallback) => {
     console.log(params)
 
     ///////////// response body로 받기
-    Axios.post(URL + '/account/signup', params)
+    Axios.post('http://localhost:8080/auth/signup', params)
         .then(response => {
             callback(response.data.object);
             console.log('성공')
