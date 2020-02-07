@@ -319,10 +319,11 @@ export default {
                 if(hashtag.length <0 || this.rating <0 || this.flavor <0 || this.price <0 || this.kindness <0
                    || this.store_num<0 
                 ) 
-                    this.isSubmit = true //validation 나중ㅇ
-                //this.isSubmit = true
+                    this.isSubmit = false //validation 나중ㅇ
+                this.isSubmit = true
                 if(this.isSubmit)
                 {
+                      console.log(this.store_num);
                        var data = { 
                         'hashtag' : hashtag,
                         'picture' : this.store_pic,
@@ -330,14 +331,19 @@ export default {
                         'score_price' : this.price,
                         'score_taste' : this.flavor,
                         'score_total' : this.rating,
-                        'store_num' : 1,//this.store_num,
+                        'store' : {
+                            'num' : this.store_num,//this.store_num,
+                        },
                         'str' : this.props,
                         'title' : this.reviewTitle,
-                        'user_email' : this.user_email,
+                        'user' : {
+                            'id' : Number(sessionStorage.getItem("userid")),
+                        },
                         'weak' : this.cons,
                         }
                         console.log(data);
                     UserApi.requestAddReview(data, res=>{
+                        
                         console.log("reviewPage 등록 성공");
                     })
                     console.log('all complete');
