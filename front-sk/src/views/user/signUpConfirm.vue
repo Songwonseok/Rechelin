@@ -4,7 +4,6 @@
 
 
      <section class="signup">
-        <!-- <img src="images/signup-bg.jpg" alt=""> -->
         <div class="container">
           <div class="signup-content">
             
@@ -51,7 +50,7 @@ export default {
   methods: {
     confirm() {
       // After retrieveing the confirmation code from the user
-      
+
       Auth.confirmSignUp(this.$store.state.randomNumber, this.code, {
         // Optional. Force user confirmation irrespective of existing alias. By default set to True.
         forceAliasCreation: true
@@ -62,10 +61,7 @@ export default {
           this.$store.state.info.nickname = this.$store.state.name,
           this.$store.state.info.email = this.$store.state.email,
           this.$store.state.info.pw = this.$store.state.password,
-        //   this.$store.state.info.profile = '',
           this.$store.state.info.phone = this.$store.state.phone,
-        //   this.$store.state.info.code = this.$store.state.code,
-        //   this.$store.state.info.randomNumber = this.$store.state.randomNumber,
           alert("인증에 성공하셨습니다.");
           this.$router.push({ path: '/' })
           console.log(this.$store.state.info)
@@ -75,8 +71,7 @@ export default {
           });
 
           }
-          //this.$router.push("/")
-        )
+         )
         .catch(err => {
           if (err.code === "CodeMismatchException") {
             alert("인증에 실패했습니다.");

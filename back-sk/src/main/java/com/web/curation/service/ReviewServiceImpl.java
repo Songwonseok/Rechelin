@@ -9,11 +9,13 @@ import com.web.curation.model.DAO.BookmarkDao;
 import com.web.curation.model.DAO.CommentDao;
 import com.web.curation.model.DAO.LikecheckDao;
 import com.web.curation.model.DAO.ReviewDao;
+import com.web.curation.model.DAO.StoreDao;
 import com.web.curation.model.DAO.UserDao;
 import com.web.curation.model.DTO.Bookmark;
 import com.web.curation.model.DTO.Comments;
 import com.web.curation.model.DTO.Likecheck;
 import com.web.curation.model.DTO.Review;
+import com.web.curation.model.DTO.Store;
 import com.web.curation.model.DTO.User;
 import com.web.curation.model.querydsl.CustomRepositoryImpl;
 
@@ -30,7 +32,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private UserDao userdao;
 	@Autowired
-	private FollowService fservice;
+	private StoreDao storedao;
 	
 	@Autowired
 	private CustomRepositoryImpl custom;
@@ -147,12 +149,32 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> getcurrentFeed(String email) {
 		// email을 통해서 star 리스트를 가져온다.
-		List<User> list = fservice.starList(email);
-		
-		
+		User user = userdao.findByEmail(email);
+		System.out.println("SERVICE "+email);
+		System.out.println(user.toString());
+		List<Review> list = dao.feedList(user);
+		for (Review review : list) {
+			System.out.println(review.toString());
+		}
 		// start리스트의 게시물을 최근 순으로 가져온다
-		
-		return null;
+		return list;
+	}
+
+	@Override
+	public List<Review> getReview(long snum) {
+		// store의 num으로 통해서 리뷰들을 가져온다
+		Store store = storedao.findByNum(snum);
+		List<Review> list = dao.findAllByStore(store);
+		return list;
+	}
+
+	@Override
+	public void register(long store_num, String user_email, String str, String weak, String picture, String title,
+			String hashtag, int score_total, int score_taste, int score_price, int score_kindness) {
+		User u = userdao.findByEmail(user_email);
+		Store s = storedao.findByNum(store_num);
+		Review rr = new Review(s, u, str, weak, picture, title, hashtag, score_total, score_taste, score_price, score_kindness);
+		dao.save(rr);
 	}
 
 }

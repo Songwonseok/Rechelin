@@ -42,6 +42,7 @@ public class AcountServiceImpl implements AcountService {
 			// 비밀번호 일치 X
 
 			System.out.println(password + " " + tmp.getPw());
+			
 			if (!passwordEncoder.matches(password, tmp.getPw())) {
 				System.out.println("비밀번호 틀림");
 				tmp.setPw("");
@@ -62,8 +63,6 @@ public class AcountServiceImpl implements AcountService {
 			// 닉네임 중복
 			request.setNickname("");
 		}
-		
-		
 		request.setPw(EncodePW(request.getPw())); // 암호화
 		request.setProfile(null); // 처음 프로필을 만들어주지 않는다
 		Role userRole = roleDao.findByName(RoleName.ROLE_USER);
@@ -84,7 +83,8 @@ public class AcountServiceImpl implements AcountService {
 	public boolean update(User request) {
 		User user = userDao.findByEmail(request.getEmail());
 		if(user!=null) {
-			request.setPw(passwordEncoder.encode(request.getPw()));
+			
+//			request.setPw(passwordEncoder.encode(request.getPw()));
 			user.updateUser(request);
 			userDao.save(user);
 			return true;
@@ -125,12 +125,10 @@ public class AcountServiceImpl implements AcountService {
 		return userDao.findByEmail(email);
 	}
 
-	@Override
 	public String EncodePW(String Pw) {
 		return passwordEncoder.encode(Pw);
 	}
 
-	@Override
 	public User NaverLogin(String code, String state) {
 		String apiURL;
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
@@ -201,5 +199,6 @@ public class AcountServiceImpl implements AcountService {
 		}
 		
 	}
+
 
 }

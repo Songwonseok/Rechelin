@@ -40,24 +40,6 @@ public class StoreController {
 
 	@Autowired
 	StoreDao storeDao;
-//	
-//	@PostMapping("/store/review")
-//	@ApiOperation(value = "리뷰 식당검색")
-//	public Object register(@RequestBody Store store) {
-//		System.out.println(store.getNum());
-//		System.out.println(store.getSname());
-//		System.out.println(store.getAddress());
-//		System.out.println(store.getLat());
-//		System.out.println(store.getLng());
-//		System.out.println(store.getImg());
-//		
-//		final BasicResponse result = new BasicResponse();
-//		result.status = true;
-//		result.data = "식당 정보";
-//		Store nstore = service.register(store);
-//		result.object = new JSONObject(store).toMap();
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
 	@RequestMapping(value="/store/review", method = {RequestMethod.GET, RequestMethod.POST})
 	@ApiOperation(value = "리뷰 식당검색")
 	public Object register(@RequestParam String sname, @RequestParam String address, @RequestParam String img, @RequestParam String lat,
@@ -75,6 +57,7 @@ public class StoreController {
 		result.data = "식당 정보";
 		Store nstore = service.register(store);
 		result.object = new JSONObject(store).toMap();
+
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 

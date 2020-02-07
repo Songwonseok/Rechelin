@@ -6,7 +6,7 @@
 <div class="input-container">
 <i class="fas fa-search"></i>
 {{inputStatus}}
-<b-form-input  class="in" type="text" v-on:keyup.enter="changeInput" v-model="search" list="this.$store.state.recentUser"></b-form-input>
+<b-form-input  class="searchTerm" type="text" v-on:keyup.enter="changeInput" v-model="search" list="this.$store.state.recentUser"></b-form-input>
   <datalist  id="this.$store.state.recentUser"> 
         <option v-for="user in this.$store.state.recentUser" v-bind:key="user">{{user}}</option>
   </datalist>
@@ -17,7 +17,7 @@
     {{inputStatus}}
     <div class="input-container">
     <i class="fas fa-search"></i>
-<b-form-input class="in"  type="text" v-on:keyup.enter="changeInput2" v-model="search" list="this.$store.state.searchUser.nickname"/>
+<b-form-input class="searchTerm"  type="text" v-on:keyup.enter="changeInput2" v-model="search" list="this.$store.state.searchUser.nickname"/>
   <datalist id="this.$store.state.searchUser.nickname">
         <option v-for="user in this.$store.state.searchUser.nickname"  v-bind:key="user">{{user}}</option>
        
@@ -40,9 +40,6 @@ export default {
     },
     data: () => ({
         search: '',
-        films: [
-            "A Throne Too Far", "The Cat Wasn't Invited", "You Only Meow Once", "Catless in Seattle"
-        ],
         inputStatus: true,
         history : {
             email : '',

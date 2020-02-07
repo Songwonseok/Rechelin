@@ -10,7 +10,28 @@
       </v-col>
       <v-col>
         <div class="search">
-          <input type="text" class="searchTerm" placeholder="What are you looking for?">
+<!-- <input type="text" class="searchTerm" placeholder="What are you looking for?"> -->
+<!--User가 최근 검색한 history를 보여줌 --> 
+<div v-if="inputStatus">
+<div class="input-container">
+<b-form-input  class="searchTerm" type="text" v-on:keyup.enter="changeInput" v-model="search" list="this.$store.state.recentUser"></b-form-input>
+  <datalist  id="this.$store.state.recentUser"> 
+        <option v-for="user in this.$store.state.recentUser" v-bind:key="user">{{user}}</option>
+  </datalist>
+  </div>
+ </div>
+ <!--User 정보 전체를 보여줌 -->
+<div v-else>
+   
+    <div class="input-container">
+
+<b-form-input class="searchTerm"  type="text" v-on:keyup.enter="changeInput2" v-model="search" list="this.$store.state.searchUser.nickname"/>
+  <datalist id="this.$store.state.searchUser.nickname">
+        <option v-for="user in this.$store.state.searchUser.nickname"  v-bind:key="user">{{user}}</option>
+       
+  </datalist>
+  </div>
+</div>
           <button type="submit" class="searchButton">
 
           </button>
@@ -85,14 +106,28 @@
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
+                
               </v-list>
             </v-card>
+            
           </v-row>
+
+      
+    <div class="text-center">
+
+<br><br>
+<span style ="font-size:30px"> 리뷰 작성하기</span><br>
+            <v-btn router-link to="/reviewPage" class="mx-2" id = "btn" style="font-size: 2em; color:black" fab dark large color="purple">
+              
+               <i class="fas fa-pencil-alt"></i>
+           </v-btn>
+        
+    </div>
+  
         </v-col>
 
       </v-row>
     </v-container>
-
 
   </div>
 </template>
@@ -108,10 +143,23 @@
   import {
     mapState
   } from 'vuex'
-
-  export default {
+ //import userSearch from '../../src/components/common/userSearch';
+import UserApi from '../../src/apis/UserApi.js';
+export default {
+     created() {
+        this
+            .$store
+            .dispatch('LOADING_USERDATA');
+     },
     data() {
       return {
+        search: '',
+        inputStatus: true,
+        history : {
+            email : '',
+            nickname : '',
+            moveUser : '',
+        },
         icons: {
           Magnify: mdiMagnify,
           AccountCircle: mdiAccountCircle,
@@ -150,6 +198,7 @@
 
       }
     },
+     
     computed: {
       ...mapState(['tempStores']),
       Stores() {
@@ -161,8 +210,47 @@
         this.loading = true
 
         setTimeout(() => (this.loading = false), 2000)
-      },
+      },changeInput(){ //if-else 
+            if(this.inputStatus == true) this.inputStatus = false;
+            else
+                this.inputStatus = true;
+        },
+        changeInput2(){ //enter 누를 때, user 정보가 db에 저장된다.
+            let find = false;
+            
+            for(var j =0; j<this.$store.state.searchUser.nickname.length; j++){
+                if(this.search == this.$store.state.searchUser.nickname[j]) {
+                    this.moveUser = this.$store.state.searchUser.email[j]; 
+                    //검색한 닉네임의 email
+                    find = true;
+                    break;
+                }
+               
+            }
+            if(find == false) this.moveUser = 'notEmail'
+            //this.history.email = sessionStorage.getItem("userEmail");
+            this.history.email ="ssafy@naver.com"
+            this.history.nickname = this.search;
+
+           
+            UserApi.searchUserHistory(this.history, res=>{
+              
+             if(this.inputStatus == true) this.inputStatus = false;
+             else{
+                this.inputStatus = true;
+                this.search="";
+                this.$store.dispatch('LOADING_RECENTUSERDATA', this.history.email);
+             }
+            },error=>{  
+                console.log("userSearch.vue, server 와 통신 실패");
+            })
+            //DB에 저장하고 email로 유저페이지 이동한다. 
+            //this.$router.push({ name: 'userPage', params: { id: this.moveUser }}) 
+            //다시 inpustState를 변화시키므로써, User가 최근 검색 history를 보여준다. 
+             
+        }
     },
+    
   }
 </script>
 
@@ -230,5 +318,9 @@
     left: 0px;
     color: white;
     text-align: center;
+  }
+  #btn {
+    /* color: red; */
+    background-color: azure;
   }
 </style>

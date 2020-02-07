@@ -12,6 +12,7 @@ public interface ReviewService {
 	public boolean update(Review review);
 	public boolean delete(long rnum);
 	public Review detail(long rnum);
+	public List<Review> getReview(long snum);
 	public int useful(Likecheck like);
 	public void addComment(Comments com);
 	public void deleteComment(long num);
@@ -19,4 +20,6 @@ public interface ReviewService {
 	public boolean clickBookmark(Bookmark book);
 	public List<Bookmark> getBookmark(String email);
 	public List<Review> getcurrentFeed(String email);
+	public void register(long store_num, String user_email, String str, String weak, String picture, String title,
+			String hashtag, int score_total, int score_taste, int score_price, int score_kindness);
 }
