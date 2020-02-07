@@ -4,7 +4,12 @@
         <h1 style="margin-top: 20px; margin-bottom: 20px;">회원정보 수정 페이지</h1>
 
         <div>
-            <img :src="image" :alt="EditUser.name" style="height: 300px; width:300px;">
+            <template v-if="profile==null">
+            <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="nickname" style="height: 300px; width:300px;" />
+          </template>
+          <template v-else>
+            <img class="avatar" :src="profile" :alt="nickname" style="height: 300px; width:300px;"/>
+          </template>
 
             <input type="file" @change="load" accept=".jpg, .jpeg, .png, .gif">
 
@@ -13,7 +18,7 @@
 
         <div style="margin-top: 10px;">
             닉네임 변경 : <input v-model="nickname" type="text" id="nickname" @keyup.enter="edit"
-                :placeholder="EditUser.name">
+                >
         </div>
 
         <div style="margin-top: 10px;">
@@ -27,12 +32,13 @@
         </div>
 
         <div style="margin-top: 10px;">
-            핸드폰 번호 변경: <input v-model="phone" type="text" id="phone" :placeholder="EditUser.phone">
+            핸드폰 번호 변경: <input v-model="phone" type="text" id="phone" >
         </div>
         <v-btn class="ma-2" tile outlined color="success" @click="edit">
             <v-icon left>{{ svgPath }}</v-icon>
             EDIT
         </v-btn>
+        <!-- TODO : 취소 버튼 눌르면 이전 페이지로 이동 -->
 
 
     </div>
@@ -49,12 +55,12 @@
     export default {
         data() {
             return {
-                email: this.$route.params.info.email,
-                nickname: this.$route.params.info.name,
-                pw1: this.$route.params.info.pw1,
-                pw2: this.$route.params.info.pw1,
-                phone: this.$route.params.info.phone,
-                image: this.$route.params.info.picture,
+                email: this.$store.state.userEmail,
+                nickname: '',
+                pw1: '',
+                pw2: '',
+                phone: '',
+                profile: '',
                 passwordSchema: new PV(),
                 error: {
                     pw1: false,
@@ -81,9 +87,9 @@
             }
         },
         computed: {
-            EditUser() {
-                return this.$route.params.info
-            }
+            // EditUser() {
+            //     return this.$route.params.info
+            // }
             // 해당 회원이 자기 자신인지 아닌지 확인하는 함수 만들기 : button에 v-if!만들기
         },
         methods: {
@@ -128,7 +134,7 @@
 
                         alert('회원 정보 수정에 성공');
                         this.$router.push({
-                            name: `UserPage`
+                            // name: `UserPage`
                         })
                     }, error => {
 
@@ -154,13 +160,25 @@
 
                 reader.onload = (e) => {
 
-                    this.EditUser.picture = e.target.result;
+                   // this.EditUser.picture = e.target.result;
                     // 파일 경로
                     console.log(e.target.result)
                     this.image = e.target.result;
                 }
                 reader.readAsDataURL(file);
-            }
+            },
+    
+        getUser(){
+            
+            UserApi.requestEmail(this.email,res=>{
+                this.nickname = res.object.nickname
+                this.phone = res.object.phone
+                this.profile = res.object.profile
+                console.log('***유저정보 가져오기 성공')              
+            },error=>{  
+                console.log('유저정보 가져오기 실패')
+            })
+        }
 
         },
         created() {
@@ -169,6 +187,7 @@
                 .is().max(100)
                 .has().digits()
                 .has().letters();
+            this.getUser();
         }
     }
 </script>

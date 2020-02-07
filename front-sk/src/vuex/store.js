@@ -5,33 +5,32 @@ import Vuex, {
 import getters from './getters'
 import actions from './actions'
 import mutations from './mutations'
-import UserApi from '../apis/UserApi'
 
 Vue.use(Vuex)
 
 
 export default new Vuex.Store({
-    state : { 
-        name : '',
-        email : '',
-        password  : '',
-        user : '',
-        searchUser :{
-            nickname : [],
-            email :[],
-        },//searchBar에서 User가 User를 검색하기 위한 info를 불러와 저장한다.
-        recentUser : [
-          
+    state: {
+        name: '',
+        email: '',
+        password: '',
+        user: '',
+        searchUser: {
+            nickname: [],
+            email: [],
+        }, //searchBar에서 User가 User를 검색하기 위한 info를 불러와 저장한다.
+        recentUser: [
+
         ], //searchBar에서 User가 검색했던 recentUser를 불러와 저장한다.  
-        phone : '010',
-        code  : '',
-        isSubmit : false,
-        info : {
-            nickname : "",
-            email : "",
-            pw : "",
-            profile : null,
-            phone : '010',
+        phone: '010',
+        code: '',
+        isSubmit: false,
+        info: {
+            nickname: "",
+            email: "",
+            pw: "",
+            profile: null,
+            phone: '010',
         },
         confirmation: '',
         randomNumber: '',
@@ -83,7 +82,10 @@ export default new Vuex.Store({
                 hashtag: [
                     '친구와', '혼자', '강남', '역삼'
                 ],
-                gps: { lat: 37.49861012989273, lng: 127.0534505298927},
+                gps: {
+                    lat: 37.49861012989273,
+                    lng: 127.0534505298927
+                },
                 phone: '',
                 image: 'https://mblogthumb-phinf.pstatic.net/MjAxODA2MDVfMjU3/MDAxNTI4MTg4MDAwMzg1.2IvQiB0gDBR12GUqwBKs2H6VH5V1rjSXrSalF_09FQIg.89DIbuCipP_5FGOyPu8Z8rgre0r-c-IHimIYPwP3iq4g.JPEG.yhyang_hae/image_3952403311528187975089.jpg?type=w800'
             },
@@ -100,7 +102,7 @@ export default new Vuex.Store({
                 hashtag: ['노맛', '혼자', '시끄러운'],
                 phone: '12313',
                 picture: 'https://ww.namu.la/s/b9ae6fd83019ce31055107c03aaff8743d43aa5d90fa22e77e54c12c5e9cb12364bfd31c34e2b00001708cc5b0e12800f6c8ea63683c97ec8b5a534cd2546c5b5f94b6a88e9d226e34e400aab5c22fdad72e053f92e787c2350c4e1d947d2028558171b8e8d89dabc60b75210b14ad1b'
-        }
+            }
         ],
         // 로그인 상태 관리 파트 && 유저 email과 닉네임
         accessToken: sessionStorage.getItem("userToken"),
@@ -118,29 +120,30 @@ export default new Vuex.Store({
         },
         // 알람 관리
         notifications: [],
-        // 식당 정보
-        dining: {
-            name: '',
-            image:'',
-            address: '',
-            phone: '',
-            gps: null, // 값이 리스트로 올 것
-            tags: { // 따로 axios
+        // 음식점 위치 정보
+        googleStorePlace: [
 
-            },
-            reviews: [ // 따로 axios
+        ],
+        googleStorePlaceView: [
 
-            ],
-            ratings : null, //리스트로 올것
-        },
-        // commets of REVIEWS
-        commentsOfreview: null, // 아마 리스트로 올 것
-        commentsOfreview2: null,
-        reviewsOfstore: null,
-        newComments: null,
+        ],
+        searchEmail: '',
+        searchCode: '',
+
+
     },
-    // state가 아닌 부분
-    mutations,
-    getters,
-    actions
+
+    ratings: null, //리스트로 올것
+
+    // commets of REVIEWS
+    commentsOfreview: null, // 아마 리스트로 올 것
+    commentsOfreview2: null,
+    reviewsOfstore: null,
+    newComments: null,
+
+},
+// state가 아닌 부분
+mutations,
+getters,
+actions
 })

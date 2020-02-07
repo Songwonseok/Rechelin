@@ -1,14 +1,11 @@
 <template>
   <div>
-   
-
-
      <section class="signup">
         <!-- <img src="images/signup-bg.jpg" alt=""> -->
         <div class="container">
           <div class="signup-content">
             <h2>Search Password</h2>
-              <text-input3
+              <text-input4
                       v-model="email"
                       rules="required|email"
                       label="Email Address"
@@ -21,11 +18,11 @@
                       @statusEmail ="changeEmail"
                       placeholder="e-mail을 적어 주세요."
                     />
-                <b-button variant="outline-primary"   @click="send">Send</b-button>
+                <b-button variant="outline-primary" :disabled="checkEmail"  @click="send">Send</b-button>
         
 
            <text-input v-model="code"  class="form-input" type="text"  name ="code" rules="required|min:6" placeholder="Code" />
-          <b-button variant="outline-primary"   @click="confirm">Confirm</b-button>
+          <b-button variant="outline-primary"  :disabled="checkEmail" @click="confirm">Confirm</b-button>
             
          <p class="loginhere">
               Have already an account ?
@@ -41,11 +38,12 @@
 </template>
 
 <script>
+import Vue from "vue";
 import { Auth } from "aws-amplify";
 import UserApi from '../../apis/UserApi';
-import TextInput3 from "../../components/common/TextInput3.vue";
+import TextInput4 from "../../components/common/TextInput4.vue";
 import TextInput from "../../components/common/TextInput.vue";
-
+//import {EventBus} from "../../event-bus.js";
 export default {
   name: "App",
  data: () => {
@@ -54,11 +52,13 @@ export default {
                 code : '',
                 number : '',
                 disabledEmail : true,
+                checkEmail : true,
+                isEmailOk : '',
                }
  },
   components: {
     TextInput,
-    TextInput3,
+    TextInput4,
 
   },
   computed: {
@@ -73,8 +73,26 @@ export default {
 
   },
   methods: {
+    changeEmail(status){
+      this.isEmailOk = status;
+      
+      
+      console.log(this.isEmailOk);
+     
+      if(this.isEmailOk == true) {
+        alert("존재하는 email 입니다.");
+        this.checkEmail = false;
+        this.disabledEmail = false;
+      }
+      else{
+         alert('존재하지 않는 email 입니다.');
+         
+      }
+    },
     send() {
        this.number = String(Math.random());
+       this.$store.state.randomNumber = this.number;
+       alert('email을 확인해주세요.')
        Auth.signUp({
         username: this.number,
         password: "temp123!",
@@ -84,12 +102,15 @@ export default {
         },
         validationData: [] // optional
       })
-        .then(data => console.log(data))
+        .then(data => {
+              console.log(data)
+        }
+              )
+
         .catch(err => console.log(err));
     },
     confirm() {
       // After retrieveing the confirmation code from the user
-      if(this.code,length<6) alert('email을 확인해주세요.')
       Auth.confirmSignUp(this.number, this.code, {
         // Optional. Force user confirmation irrespective of existing alias. By default set to True.
         forceAliasCreation: true
@@ -97,8 +118,15 @@ export default {
         .then(
           data => {
           alert("인증에 성공하셨습니다.");
-          this.$router.push({ path: '/' })
+          console.log(this.code);
+
+          // EventBus.$emit('eventName',this.email, this.code);
           
+          this.$store.state.searchEmail = this.email;
+          this.$store.state.searchCode = this.code;
+          this.$router.push({ path: "/updateNewPw" })
+          
+
           }
           //this.$router.push("/")
         )

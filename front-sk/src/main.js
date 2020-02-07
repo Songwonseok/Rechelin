@@ -23,6 +23,8 @@ import "./vee-validate";
 import Amplify, * as AmplifyModules from 'aws-amplify'
 import { AmplifyPlugin } from 'aws-amplify-vue'
 import awsconfig from './aws-exports'
+import VueLoading from 'vuejs-loading-plugin'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 Amplify.configure(awsconfig)
 
 Vue.use(AmplifyPlugin, AmplifyModules)
@@ -31,6 +33,16 @@ Vue.use(AmplifyPlugin, AmplifyModules)
 var infiniteScroll =  require('vue-infinite-scroll');
 Vue.use(infiniteScroll)
 
+//
+Vue.use(VueLoading)
+Vue.use(VueLoading, {
+    dark: true, // default false
+    text: 'Ladataan', // default 'Loading'
+    loading: true, // default false
+    customLoader: null, // replaces the spinner and text with your own
+    background: 'rgb(255,255,255)', // set custom background
+    classes: ['myclass'] // array, object or string
+  })
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);
   });
@@ -44,7 +56,7 @@ Vue.use(Router)
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
-
+ 
 const router = new Router({
     mode:'history',
     base: process.env.BASE_URL,

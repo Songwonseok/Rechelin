@@ -2,23 +2,10 @@
   <div class="main">
     <div id="app">
       <section class="signup">
-        <!-- <img src="images/signup-bg.jpg" alt=""> -->
         <div class="container">
           <div class="signup-content">
             <form method="POST" id="signup-form" class="signup-form">
               <h2 class="form-title">Create account</h2>
-              <!-- <KakaoLogin
-      api-key="<api-key>"
-      image="kakao_login_btn_large"
-      :on-success=onSuccess
-      :on-failure=onFailure
-      />
-<NaverLogin
-      client-id="<client-id>"
-      callback-url="<callback-url>"
-      is-popup="false"
-      :callbackFunction=callbackFunction
-              />-->
               <ValidationObserver ref="form" v-slot="{ passes }">
                 <form @submit.prevent="passes(submit)">
                   <text-input2 v-model="name" rules="required|max:5" label="First Name" type="text" class="form-input"

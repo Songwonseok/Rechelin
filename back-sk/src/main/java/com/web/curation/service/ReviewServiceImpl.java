@@ -5,16 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.web.curation.dao.user.BookmarkDao;
-import com.web.curation.dao.user.CommentDao;
-import com.web.curation.dao.user.LikecheckDao;
-import com.web.curation.dao.user.ReviewDao;
-import com.web.curation.dao.user.UserDao;
-import com.web.curation.model.user.Bookmark;
-import com.web.curation.model.user.Comments;
-import com.web.curation.model.user.Likecheck;
-import com.web.curation.model.user.Review;
-import com.web.curation.model.user.User;
+import com.web.curation.model.DAO.BookmarkDao;
+import com.web.curation.model.DAO.CommentDao;
+import com.web.curation.model.DAO.LikecheckDao;
+import com.web.curation.model.DAO.ReviewDao;
+import com.web.curation.model.DAO.StoreDao;
+import com.web.curation.model.DAO.UserDao;
+import com.web.curation.model.DTO.Bookmark;
+import com.web.curation.model.DTO.Comments;
+import com.web.curation.model.DTO.Likecheck;
+import com.web.curation.model.DTO.Review;
+import com.web.curation.model.DTO.Store;
+import com.web.curation.model.DTO.User;
+import com.web.curation.model.querydsl.CustomRepositoryImpl;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -28,6 +31,11 @@ public class ReviewServiceImpl implements ReviewService {
 	private BookmarkDao bookdao;
 	@Autowired
 	private UserDao userdao;
+	@Autowired
+	private StoreDao storedao;
+	
+	@Autowired
+	private CustomRepositoryImpl custom;
 	
 	@Override
 	public void register(Review review) {
@@ -150,6 +158,23 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		// start리스트의 게시물을 최근 순으로 가져온다
 		return list;
+	}
+
+	@Override
+	public List<Review> getReview(long snum) {
+		// store의 num으로 통해서 리뷰들을 가져온다
+		Store store = storedao.findByNum(snum);
+		List<Review> list = dao.findAllByStore(store);
+		return list;
+	}
+
+	@Override
+	public void register(long store_num, String user_email, String str, String weak, String picture, String title,
+			String hashtag, int score_total, int score_taste, int score_price, int score_kindness) {
+		User u = userdao.findByEmail(user_email);
+		Store s = storedao.findByNum(store_num);
+		Review rr = new Review(s, u, str, weak, picture, title, hashtag, score_total, score_taste, score_price, score_kindness);
+		dao.save(rr);
 	}
 
 }

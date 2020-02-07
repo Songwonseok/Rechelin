@@ -9,7 +9,7 @@ import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.PathInits;
-import com.web.curation.model.user.Likecheck;
+import com.web.curation.model.DTO.Likecheck;
 
 
 /**
@@ -27,6 +27,8 @@ public class QLikecheck extends EntityPathBase<Likecheck> {
     public final NumberPath<Long> num = createNumber("num", Long.class);
 
     public final QReview review;
+
+    public final NumberPath<Integer> status = createNumber("status", Integer.class);
 
     public final QUser user;
 

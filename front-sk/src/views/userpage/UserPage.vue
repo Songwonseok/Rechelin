@@ -4,32 +4,43 @@
       <div class="profile-user-page card">
         <div class="img-user-profile">
           <img class="profile-bgHome" src="" />
-          <img class="avatar" :src="UserInfo.picture" :alt="UserInfo.name" />
+          <template v-if="UserInfo.profile==null">
+            <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="UserInfo.nickname" />
+          </template>
+          <template v-else>
+            <img class="avatar" :src="UserInfo.profile" :alt="UserInfo.nickname" />
+          </template>
         </div>
-        <button @click="followRequest">Follow</button>
-
+        <!--자기 자신이면 Follow button 숨기기 -->
+        <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
+        <button v-if="myEmail != UserInfo.email" @click="followRequest">Follow</button>
+        
         <div class="user-profile-data">
-          <h1>{{userInfo.nickname}}</h1>
-          <p>{{userInfo.email}}</p>
-          <router-link :to="{name: 'UserEdit', params: {info: userInfo}}"><strong> Edit</strong></router-link>
+          
+          <h1>{{UserInfo.nickname}}</h1>
+          <p>{{UserInfo.email}}</p>
+          <!-- 자기 자신일때만  Edit 보여주기-->
+          <router-link :to="{name: 'UserEdit'}"><strong v-if="myEmail == UserInfo.email"> Edit</strong></router-link>
         </div>
 
-        <ul class="data-user">
-          <li>
+
+
+         <ul class="data-user">
+         <li>
             <router-link :to="{name: 'UserReviews', params: {
           bookmarks: this.UserInfo.stores,
-          reviews : this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
-        }}"><strong>{{UserInfo.stores.length+UserInfo.stores.length}}</strong><span>Posts</span></router-link>
+          reviews : this.reviewList, // 향후 db에서 받아오는 값으로 수정할 애들
+        }}"><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
           </li>
           <li>
-            <router-link :to="{name:'Fans', params: { fans : this.userInfo.fans}}">
-              <strong>{{userInfo.fans.length}}</strong><span>Followers</span></router-link>
+            <router-link :to="{name:'Fans', params: { fans : this.fanList}}">
+              <strong>{{fanList.length}}</strong><span>Followers</span></router-link>
           </li>
           <li>
-            <router-link :to="{name: 'Stars', params: { stars: this.userInfo.stars}}"><strong>
-                {{userInfo.stars.length}}</strong><span>Following</span></router-link>
+            <router-link :to="{name: 'Stars', params: { stars: this.starList}}"><strong>
+                {{starList.length}}</strong><span>Following</span></router-link>
           </li>
-        </ul>
+        </ul> 
       </div>
       <router-view></router-view>
     </div>
@@ -49,59 +60,118 @@
     mdiPencil,
     mdiAccountCircle
   } from '@mdi/js'
-
+  import UserApi from '../../apis/UserApi'
+  import FollowApi from '../../apis/FollowApi'
+  import ReviewApi from '../../apis/ReviewApi'
+  
   export default {
     data() {
       return {
         svgPath: mdiPencil,
-        accountIcon: mdiAccountCircle
-
+        accountIcon: mdiAccountCircle,
+        id : this.$route.params.id, // URL에서 가져온 User
+        UserInfo:{ // id로 가져온 정보들
+          email:'',
+          nickname:'',
+          phone:'',
+          profile:''
+        },
+        fanList:[],
+        starList:[],
+        bookmarkList:[],
+        reviewList:[],
+        myEmail:this.$store.state.userEmail // session에 저장된 User
       }
     },
     computed: {
-      ...mapState(['allUsers', 'userPageInfo']),
-      UserInfo() {
-        return this.allUsers[0]
-      },
-      userInfo() {
-        return this.userPageInfo
-      },
-      UserBookMark() {
-        return this.allUsers
-      },
+      // ...mapState(['allUsers', 'userPageInfo']),
+      // UserInfo() {
+      //   return this.allUsers[0]
+      // },
+      // userInfo() {
+      //   return this.userPageInfo
+      // },
+      // UserBookMark() {
+      //   return this.allUsers
+      // },
     },
     methods: {
 
-      UserFan() {
-        this.$router.push({
-          name: 'Fans',
-          params: {
-            fans: this.UserInfo.fans
-          }
-        }).catch(err => {});
-      },
+      // UserFan() {
+      //   this.$router.push({
+      //     name: 'Fans',
+      //     params: {
+      //       fans: this.UserInfo.fans
+      //     }
+      //   }).catch(err => {});
+      // },
       followRequest() {
-        var payload = {
-          fan: this.$store.state.userEmail,
-          star: this.$store.state.userPageInfo.email
-        }
-        this.$store.dispatch('followRequest', payload)
+      //   var payload = {
+      //     fan: this.$store.state.userEmail,
+      //     star: this.$store.state.userPageInfo.email
+      //   }
+      //   this.$store.dispatch('followRequest', payload)
+      /**TODO - follow 요청 버튼 작동하기 */
+      },
+      getFanList(){
+        FollowApi.requestFanList(this.id, res=>{
+          this.fanList = res;
+        }, error=>{
+          alert('FanList가져오기 실패')
+        })
       }
+      ,getStarList(){
+        FollowApi.requestStarList(this.id, res=>{
+          this.starList = res;
+        }, error=>{
+          alert('StarList가져오기 실패')
+        })
+      }
+      ,getBookmarkList(){
+        ReviewApi.requestBookmarkList(this.id, res=>{
+          this.starList = res;
+        }, error=>{
+          alert('BookmarkList 가져오기 실패')
+        })
+      }
+      ,getReviewList(){
+        
+      }
+      ,getUser(){
+          UserApi.requestEmail( this.id,res=>{
+            this.UserInfo.email = res.object.email;
+            this.UserInfo.nickname = res.object.nickname;
+            this.UserInfo.phone = res.object.phone;
+            this.UserInfo.profile = res.object.profile;
+           
+          },error =>{
+            alert('정보 가져오기 실패 !');
+          })
+
+          
+        }
+      
 
     },
     created() {
-      this.$store.dispatch('userFans', this.$route.params.id)
+      //  this.$store.dispatch('userFans', this.$route.params.id)
 
-      // stars 찾기
-      this.$store.dispatch('userStars', this.$route.params.id)
-      console.log(this.userInfo)
-      this.$router.push({
-        name: 'UserReviews',
-        params: {
-          bookmarks: this.UserInfo.stores,
-          reviews: this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
-        }
-      })
+      // // stars 찾기
+      // this.$store.dispatch('userStars', this.$route.params.id)
+      // // console.log(this.userInfo)
+      // this.$router.push({
+      //   name: 'UserReviews',
+      //   params: {
+      //     bookmarks: this.UserInfo.stores,
+      //     reviews: this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
+      //   }
+      // })
+
+      this.getUser();
+      this.getFanList();
+      this.getStarList();
+      this.getBookmarkList();
+      this.getReviewList();
     },
 
   }

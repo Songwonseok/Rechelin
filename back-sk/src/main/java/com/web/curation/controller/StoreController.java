@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.web.curation.dao.user.StoreDao;
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.user.Hashtag;
-import com.web.curation.model.user.Store;
+import com.web.curation.model.DAO.StoreDao;
+import com.web.curation.model.DTO.Hashtag;
+import com.web.curation.model.DTO.Store;
 import com.web.curation.service.StoreService;
 
 import io.swagger.annotations.ApiOperation;
@@ -38,26 +40,30 @@ public class StoreController {
 
 	@Autowired
 	StoreDao storeDao;
-
-	
-
-	@PostMapping("/store/create")
-	@ApiOperation(value = "등록하기")
-	public Object signup(@RequestBody Store request) {
+	@RequestMapping(value="/store/review", method = {RequestMethod.GET, RequestMethod.POST})
+	@ApiOperation(value = "리뷰 식당검색")
+	public Object register(@RequestParam String sname, @RequestParam String address, @RequestParam String img, @RequestParam String lat,
+			@RequestParam String lng) {
+		
+		Store store = new Store(sname, address, img, lat, lng);
+		System.out.println(store.getSname());
+		System.out.println(store.getAddress());
+		System.out.println(store.getLat());
+		System.out.println(store.getLng());
+		System.out.println(store.getImg());
+		
 		final BasicResponse result = new BasicResponse();
-		if(service.create(request)) {
-			result.status = true;
-			result.data = "식당 등록 성공";
-			result.object = new JSONObject(request).toMap();
-		}else {
-			result.status = false;
-			result.data = "이미 등록되었습니다.";
-		}
+		result.status = true;
+		result.data = "식당 정보";
+		Store nstore = service.register(store);
+		result.object = new JSONObject(store).toMap();
+
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+	
 	@DeleteMapping("/store/delete")
-	@ApiOperation(value = "삭제하기")
+	@ApiOperation(value = "삭제하기2")
 	public Object delete(@RequestParam(required = true) final long num) {
 		final BasicResponse result = new BasicResponse();
 		if (service.delete(num)) {
@@ -85,11 +91,11 @@ public class StoreController {
 	public Object selectOne(@RequestParam(required = true) final long num) {
 		final BasicResponse result = new BasicResponse();
 		Store store = service.selectOne(num);
-		if(store != null) {
-				result.status = true;
-				result.data = "성공";
-				result.object = new JSONObject(store).toMap();
-		}else {
+		if (store != null) {
+			result.status = true;
+			result.data = "성공";
+			result.object = new JSONObject(store).toMap();
+		} else {
 			result.status = false;
 			result.data = "식당이 없습니다.";
 		}
@@ -101,10 +107,11 @@ public class StoreController {
 	public Object tags(@RequestParam(required = true) final long num) {
 		final BasicResponse result = new BasicResponse();
 		List<Hashtag> list = service.storeTags(num);
-		if(list != null) {
-				result.status = true;
-				result.data = "성공";
-		}else {
+		if (list != null) {
+			result.status = true;
+			result.data = "성공";
+			result.object = list;
+		} else {
 			result.status = false;
 			result.data = "리뷰가 없습니다.";
 		}

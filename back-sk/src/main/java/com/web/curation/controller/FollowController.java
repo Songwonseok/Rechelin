@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.user.Alarm;
-import com.web.curation.model.user.User;
+import com.web.curation.model.DTO.Alarm;
+import com.web.curation.model.DTO.User;
 import com.web.curation.service.FollowService;
 
 import io.swagger.annotations.ApiOperation;

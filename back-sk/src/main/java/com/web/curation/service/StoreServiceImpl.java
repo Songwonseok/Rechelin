@@ -1,17 +1,19 @@
 package com.web.curation.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.web.curation.dao.user.StoreDao;
-import com.web.curation.dao.user.StoreTagsDao;
-import com.web.curation.model.user.Hashtag;
-import com.web.curation.model.user.Store;
-import com.web.curation.model.user.Storetags;
+import com.web.curation.model.DAO.HashtagDao;
+import com.web.curation.model.DAO.StoreDao;
+import com.web.curation.model.DAO.StoreTagsDao;
+import com.web.curation.model.DTO.Hashtag;
+import com.web.curation.model.DTO.Store;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -22,12 +24,16 @@ public class StoreServiceImpl implements StoreService {
 	@Autowired
 	StoreTagsDao storeTagsDao;
 	
-	public boolean create(Store request) {
-		if (storeDao.findByNum(request.getNum()) == null) {
+	@Autowired
+	HashtagDao hashTagDao;
+	
+	public Store register(Store request) {
+		Store store = storeDao.findBySnameAndAddress(request.getSname(), request.getAddress());
+		if(store == null) {
 			storeDao.save(request);
-			return true;
+			return storeDao.findBySnameAndAddress(request.getSname(), request.getAddress());
 		}else {
-			return false;
+			return store; 
 		}
 	}
 
@@ -50,54 +56,55 @@ public class StoreServiceImpl implements StoreService {
 	}
 	
 
-	//카테고리 : food, location, with, mood, facilities
 	public List<Hashtag> storeTags(long num) {
 		
-		List<Storetags> slist = storeTagsDao.storeTags(num);
-		List<Hashtag> hlist = new ArrayList<>();
-		HashMap<String,Integer> foodHash = new HashMap<>();
-		HashMap<String,Integer> locHash = new HashMap<>();
-		HashMap<String,Integer> withHash = new HashMap<>();
-		HashMap<String,Integer> moodHash = new HashMap<>();
-		HashMap<String,Integer> facHash = new HashMap<>();
+		List<Hashtag> list = new ArrayList<>();
+		list.addAll(topThree(storeTagsDao.foodtags(num)));
+		list.addAll(topThree(storeTagsDao.loctags(num)));
+		list.addAll(topThree(storeTagsDao.withtags(num)));
+		list.addAll(topThree(storeTagsDao.moodtags(num)));
+		list.addAll(topThree(storeTagsDao.factags(num)));
 		
-		for(Storetags s : slist) {
-			String key = s.getHashtag().getKeyword();
-			String category = s.getHashtag().getCategory();
-			
-			if(category.equals("food")) {
-				if(foodHash.containsKey(key)){
-					foodHash.put(key, foodHash.get(key)+1);
-				}else {
-					foodHash.put(key, 1);
-				}
-			}else if(category.equals("location")) {
-				if(locHash.containsKey(key)){
-					locHash.put(key, locHash.get(key)+1);
-				}else {
-					locHash.put(key, 1);
-				}
-			}else if(category.equals("with")) {
-				if(withHash.containsKey(key)){
-					withHash.put(key, withHash.get(key)+1);
-				}else {
-					withHash.put(key, 1);
-				}
-			}else if(category.equals("mood")) {
-				if(moodHash.containsKey(key)){
-					moodHash.put(key, moodHash.get(key)+1);
-				}else {
-					moodHash.put(key, 1);
-				}
-			}else if(category.equals("facilites")){
-				if(facHash.containsKey(key)){
-					facHash.put(key, facHash.get(key)+1);
-				}else {
-					facHash.put(key, 1);
-				}
+		return list;
+	}
+	
+	public List<Hashtag> topThree(List<Hashtag> list){
+		List<Hashtag> hlist = new ArrayList<>();
+		HashMap<Long,Integer> map = new HashMap<>();
+		int[][] arr;
+		int index = 0;
+		for(Hashtag h : list) {
+			if(!map.containsKey(h.getNum()))
+				map.put(h.getNum(), index++);
+		}
+		
+		arr = new int[map.size()][2];
+		
+		for(int i=0;i<arr.length;i++) {
+			arr[i][0] = i;
+		}
+		
+		for(Hashtag h : list) {
+			arr[map.get(h.getNum())][0] = (int)h.getNum(); 
+			arr[map.get(h.getNum())][1]++; 
+		}
+		
+		//정렬
+		Arrays.sort(arr, new Comparator<int[]>() {
+			public int compare(int[] o1, int[] o2) {
+				return Integer.compare(o2[1], o1[1]);
 			}
+		});
+		
+		//태그가 3개가 안되는지 체크
+		int n =3;
+		if(map.size() <3) {
+			n = map.size();
+		}
+	
+		for(int i=0;i<n;i++) {
+			hlist.add(hashTagDao.findByNum(arr[i][0]));
 		}
 		return hlist;
 	}
-
 }

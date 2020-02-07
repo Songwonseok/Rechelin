@@ -6,12 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.web.curation.dao.user.AlarmDao;
-import com.web.curation.dao.user.FollowDao;
-import com.web.curation.dao.user.UserDao;
-import com.web.curation.model.user.Alarm;
-import com.web.curation.model.user.Follow;
-import com.web.curation.model.user.User;
+import com.web.curation.model.DAO.AlarmDao;
+import com.web.curation.model.DAO.FollowDao;
+import com.web.curation.model.DAO.UserDao;
+import com.web.curation.model.DTO.Alarm;
+import com.web.curation.model.DTO.Follow;
+import com.web.curation.model.DTO.User;
 
 @Service
 public class FollowServiceImpl implements FollowService {

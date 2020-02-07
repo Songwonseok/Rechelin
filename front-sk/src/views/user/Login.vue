@@ -30,7 +30,9 @@
 
 
             <div class="input-with-label">
-                <input v-model="email" v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
+                <input v-model="email" 
+                v-bind:class="{error : error.email, 
+                complete:!error.email&&email.length!==0}"
                        @keyup.enter="login"
                        id="email" placeholder="이메일을 입력하세요."
                        type="text" style="
@@ -46,7 +48,8 @@
 
             <div class="input-with-label">
                 <input v-model="password" type="password"
-                       v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
+                       v-bind:class="{error : error.password, 
+                       complete:!error.password&&password.length!==0}"
                        id="password"
                        @keyup.enter="login"
                        placeholder="비밀번호를 입력하세요." style="background-color: white; color: black; border: 2px solid rgb(0, 140, 186);"/>
@@ -56,7 +59,8 @@
 
                 </div>
             </div>
-            <button class="btn btn--back btn--login" v-on:click="login" :disabled="!isSubmit"
+            <button class="btn btn--back btn--login" 
+            v-on:click="login" :disabled="!isSubmit"
                     :class="{disabled : !isSubmit}">
                 로그인
 
@@ -167,11 +171,14 @@
                     this.isSubmit = false;
                     UserApi.requestLogin( data,res=>{
                         //통신을 통해 전달받은 값 콘솔에 출력
-                        console.log(res);
-                        if(res.data == "success")    
+                        console.log(res.data);
+                        if(res.data == "success") {
+                            console.log('login form 안 '+res.object)
+                            console.log(res.object);
                             this.$router.push({ name: "Main" });
+                        }
                         else
-                            this.$router.push({ path: '/signUpForm' });
+                            this.$router.push({ path: '/' });
                         //요청이 끝나면 버튼 활성화
                         this.isSubmit = true;
                     },error=>{  
@@ -179,7 +186,7 @@
                     })
                 }
 
-                console.log('로그인 끝')
+              
 
             },
             getProfile(){

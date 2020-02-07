@@ -1,13 +1,20 @@
 import Axios from "axios"
 import store from "../vuex/store"
+// import Api from "axios.js"
+
+//const URL = 'http://70.12.246.134:8080' // 김주연 ip
+ const URL = 'http://70.12.246.51:8080' //  조장님 ip
+
 
 const requestsignUp = async(data, callback, errorCallback) => {
-    // const params = new URLSearchParams();
-    // params.append('request', data);   
-    // console.log(params);
+
     let options = {
         headers: { 'Content-Type': 'application/json' },
+<<<<<<< HEAD
         url: 'http://70.12.246.51:8080/auth/signup',
+=======
+        url: URL + '/auth/signup',
+>>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
         method: 'post',
         data: JSON.stringify(data)
     }
@@ -26,7 +33,7 @@ const requestsignUp = async(data, callback, errorCallback) => {
 const requestName = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append('nickname', data);
-    Axios.post('http://70.12.246.51:8080/account/selectName', params)
+    Axios.post(URL + '/account/selectName', params)
         .then(response => {
             console.log(response)
             callback(response.data);
@@ -41,7 +48,7 @@ const requestEmail = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append('email', data);
 
-    Axios.post('http://70.12.246.51:8080/account/selectEmail', params)
+    Axios.post(URL + '/account/selectEmail', params)
         .then(response => {
             console.log(response);
             callback(response.data);
@@ -54,20 +61,25 @@ const requestEmail = (data, callback, errorCallback) => {
 }
 
 const requestLogin = (data, callback, errorCallback) => {
-    //백앤드와 로그인 통신하는 부분
-    // http://localhost:8080/account/login
-    // Post 
+
     const params = new URLSearchParams();
     params.append('email', data.email);
     params.append('password', data.password);
 
+<<<<<<< HEAD
     Axios.post('http://70.12.246.51:8080/auth/login', params)
+=======
+    Axios.post(URL + '/auth/login', params)
+>>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
         .then(response => {
+            console.log("로그인"+response.object);
+            
             callback(response.data);
             sessionStorage.setItem("userToken", JSON.stringify({
                 userToken: response.data.object.token,
-                info:response.data.object.user
+                info: response.data.object.user
             }))
+<<<<<<< HEAD
             sessionStorage.setItem("userToken", response.data.object.accessToken)
             sessionStorage.setItem("userEmail", response.data.object.email)
             sessionStorage.setItem("userNickname", response.data.object.nickname)
@@ -78,6 +90,17 @@ const requestLogin = (data, callback, errorCallback) => {
             
         } 
         store.dispatch('login', payload)
+=======
+            sessionStorage.setItem("userToken", response.data.object.token)
+            sessionStorage.setItem("userEmail", response.data.object.user.email)
+            sessionStorage.setItem("userNickname", response.data.object.user.nickname)
+            let payload = {
+                useremail: sessionStorage.getItem("userEmail"),
+                usernickname: sessionStorage.getItem("userNickname"),
+                token: sessionStorage.getItem("userToken")
+            }
+            store.dispatch('login', payload)
+>>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
         }).catch(exp => {
             console.log(exp)
             errorCallback(exp);
@@ -95,7 +118,11 @@ const requestJoin = (data, callback, errorCallback) => {
     console.log(params)
 
     ///////////// response body로 받기
+<<<<<<< HEAD
     Axios.post('http://localhost:8080/auth/signup', params)
+=======
+    Axios.post(URL + '/account/signup', params)
+>>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
         .then(response => {
             callback(response.data.object);
             console.log('성공')
@@ -110,7 +137,7 @@ const requestProfile = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append("email", data);
 
-    Axios.post('http://localhost:8080/account/getProfile', params)
+    Axios.post('http://70.12.246.51:8080/account/getProfile', params)
         .then(response => {
             callback(response.data);
             console.log('성공')
@@ -126,7 +153,7 @@ const requestEdit = async(data, callback, errorCallback) => {
 
     let options = {
         headers: { 'Content-Type': 'application/json' },
-        url: 'http://70.12.246.51:8080/account/update',
+        url: URL + '/account/update',
         method: 'put',
         data: JSON.stringify(data),
     }
@@ -148,7 +175,7 @@ const requestUpload = (email, profile, callback, errorCallback) => {
     params.append("email", email);
     params.append("profile", profile);
 
-    Axios.post('http://localhost:8080/account/uploadProfile', params)
+    Axios.post('http://70.12.246.51:8080/account/uploadProfile', params)
         .then(response => {
             callback(response.data);
             console.log('성공')
@@ -159,63 +186,141 @@ const requestUpload = (email, profile, callback, errorCallback) => {
 
 const requestUserpage = (data, callback, errorCallback) => {
 
-    Axios.post('http://70.12.246.51:8080/account/selectEamil',data)
-    .then(response => {
-        callback(response.data.object);
-        console.log('성공')
-    }).catch(exp => {
-        errorCallback(exp);
-        console.log('실패')
-    })
-    
+    Axios.post(URL + '/account/selectEamil', data)
+        .then(response => {
+            callback(response.data.object);
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp);
+            console.log('실패')
+        })
+
 }
 
-function requestfetchUserList(){
+function requestfetchUserList() {
     //return axios.get(config.baseUrl+'news/1.json');
-    return Axios.post(`http://70.12.246.51:8080/account/list`);
+    return Axios.post(URL + `/account/list`);
 }
 
-const searchUserHistory = async(data, callback, errorCallback) => {
+const searchUserHistory = (data, callback, errorCallback) => {
 
-    const params = new URLSearchParams();
-    params.append('email', data.email);
-    params.append('searchname', data.nickname);
-    Axios.post('http://70.12.246.51:8080/search/user/', params)
+    //const params = new URLSearchParams();
+    //console.log(data.email + " " + data.nickname)
+       // params.append('email', data.email);
+        //params.append('searchname', data.nickname);
+    var params = {
+        'email': data.email,
+        'searchname': data.nickname,
+    }
+    Axios.post('http://70.12.246.51:8080/search/user', params)
         .then(response => {
             console.log(response);
             callback(response); //return type true/false 
             console.log('성공')
         }).catch(exp => {
             errorCallback(exp)
+            console.log(exp.response);
             console.log('실패')
         })
 }
 
-function requestFetchUserData({commit}, email){
+function requestFetchUserData({ commit }, email) {
     //코딩컨벤션
-    const params = new URLSearchParams();
-    params.append('email', email);
-    
-    Axios.post('http://70.12.246.51:8080/search/recentUser', params)
-    .then(response => {
-        console.log('dd')
-        console.log(response);
-      
-                var jcAry = new Array();
-                for(var i =0; i<response.data.object.length; i++){ 
-                    jcAry[i] = response.data.object[i].searchname;
-                    console.log(jcAry[i]);
-                   
-                }
-                commit('SET_RECENTUSER', jcAry);
-        console.log('성공')
-    }).catch(exp => {
-       
-        console.log('실패')
-    })
-   
+    //const params = new URLSearchParams();
+    var params = {
+        'email': email,
+
+    }
+    console.log(email);
+    Axios.post('http://70.12.246.134:8080/search/recentUser', params)
+        .then(response => {
+            console.log('dd')
+            console.log(response);
+
+            var jcAry = new Array();
+            for (var i = 0; i < response.data.object.length; i++) {
+                jcAry[i] = response.data.object[i].searchname;
+                console.log(jcAry[i]);
+
+            }
+            commit('SET_RECENTUSER', jcAry);
+            console.log('성공')
+        }).catch(exp => {
+
+            console.log('실패')
+        })
+}
+//http://70.12.246.134:8080/store/create
+//http://70.12.246.51:8080/store/review
+const requestAddPlace = async(data, callback, errorCallback) => {
+
+    var params = {
+        'sname': data.sname,
+        'address': data.address,
+        'img': data.img,
+        'lat': data.lat,
+        'lng': data.lng
+    }
+
+    Axios.post('http://70.12.246.51:8080/store/review', params)
+        .then(response => {
+            console.log(response);
+            callback(response); //return type true/false 
+            console.log('성공')
+        }).catch(exp => {
+            console.log(exp.response);
+            console.log('실패')
+        })
+    console.log(data);
 }
 
+const requestAddReview = async(data, callback, errorCallback) => {
+    // let options = {
+    //     headers: { 'Content-Type': 'application/json' },
+    //     url: 'http://70.12.246.134:8080/review/register',
+    //     method: 'post',
+    //     data: data
+    // }
+
+    // let response = await Axios(options)
+    //     .then(response => {
+    //         console.log(response)
+    //         callback(response);
+    //         console.log('성공')
+    //     }).catch(exp => {
+    //         errorCallback(exp);
+    //         console.log('실패');
+    //     })
+
+
+    let review = {
+        'hashtag': data.hashtag,
+        'picture': data.picture,
+        'score_kindness': data.score_kindness,
+        'score_price': data.score_price,
+        'score_taste': data.score_taste,
+        'score_total': data.score_total,
+        'store_num': data.store_num,
+        'str': data.str,
+        'title': data.title,
+        'user_email': 'ssafy@naver.com',
+        'weak': data.weak,
+    }
+
+    const params = new URLSearchParams();
+    params.append("review", review);
+    Axios.post('http://70.12.246.134:8080/review/register', review)
+        .then(response => {
+            console.log(response);
+            callback(response); //return type true/false 
+            console.log('review api 성공')
+        }).catch(exp => {
+            console.log(exp.reponse)
+            console.log('review api 실패')
+        })
+}
+
+<<<<<<< HEAD
 function reviewsGet({commit}, payload) {
     const params = new URLSearchParams();
     params.append('snum', payload)
@@ -235,6 +340,50 @@ function reviewsGet({commit}, payload) {
 
 
 
+=======
+function requestFetchAdrData({ commit }, address) {
+    //Axios.get()
+    let mykey = 'AIzaSyDo6iueX6Cf9SPVlg9TdH8FIdfMgRshX9k'
+
+    return Axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?input=${address}&inputtype=textquery&region=kr&language=ko&fields=formatted_addres,name,geometry&key=${mykey}`);
+}
+
+const requestUpdatePw = async(data, callback, errorCallback) => {
+    // let options = {
+    //     headers: { 'Content-Type': 'application/json' }
+    //     , url: 'http://70.12.246.134:8080/account/changePW'
+    //     , method: 'post'
+    //     , data: JSON.stringify(data)
+    // }
+    
+    // let response = await Axios(options)
+    //     .then(response => {
+    //         console.log(response)
+    //         callback(response);
+    //         console.log('성공')
+    //     }).catch(exp => {
+    //         errorCallback(exp);
+    //         console.log('실패');
+    //     })
+
+    const params = new URLSearchParams();
+    params.append('email', data.email);
+    params.append('password', data.pw);
+    // Axios({
+    //     method: 'post',
+    //     url: 'http://localhost:8080/account/login',
+    //     data: params
+    // });
+    Axios.post('http://70.12.246.134:8080/account/changePW', params)
+        .then(response => {
+            callback(response.data);
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp);
+            console.log('실패')
+        })
+}
+>>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
 
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -242,14 +391,21 @@ const UserApi = {
     requestEdit: (data, callback, errorCallback) => requestEdit(data, callback, errorCallback),
     requestName: (data, callback, errorCallback) => requestName(data, callback, errorCallback),
     requestEmail: (data, callback, errorCallback) => requestEmail(data, callback, errorCallback),
-    requestsignUp : (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
-    requestUserpage : (data, callback, errorCallback) => requestUserpage(data, callback, errorCallback),
+    requestsignUp: (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
+    requestUserpage: (data, callback, errorCallback) => requestUserpage(data, callback, errorCallback),
     requestProfile: (data, callback, errorCallback) => requestProfile(data, callback, errorCallback),
     requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
     searchUserHistory : (data,callback, errorCallback) => searchUserHistory(data,callback,errorCallback),
+    requestAddPlace : (data,callback,errorCallback) => requestAddPlace(data,callback,errorCallback),
+    requestAddReview : (data, callback, errorCallback) => requestAddReview(data, callback, errorCallback),
+    requestUpdatePw : (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
     requestFetchUserData,
+<<<<<<< HEAD
     reviewsGet
+=======
+    requestFetchAdrData,
+>>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
 }
 
 export default UserApi

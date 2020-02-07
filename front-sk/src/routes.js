@@ -18,6 +18,10 @@ import storeDetail from './views/stores/storeDetail'
 import storeReviews from './views/stores/storeReviews'
 import commentsOfreview from './views/stores/commentsOfreview'
 
+import reviewPage from './views/review/reviewPage.vue';
+import reviewDetail from './views/review/reviewDetail.vue';
+import updateNewPw from './views/user/updateNewPw.vue';
+import userFeed from './views/feed/userFeed.vue';
 export default [
     // ERROR PAGE
     // 404 PAGE
@@ -114,4 +118,25 @@ export default [
     },
  
     
+    {
+        path : '/reviewPage',
+        name : 'reviewPage',
+        component : reviewPage,
+    },
+    {
+        path : '/reviewDetail/:id',
+        name : 'reviewDetail',
+        component :reviewDetail
+    },
+    {
+        path : '/updateNewPw',
+        name : 'updateNewPw',
+        component : updateNewPw,
+    },
+    {
+        path : '/userFeed',
+        name : 'userFeed',
+        component : userFeed,
+    }
+
 ]

@@ -9,7 +9,7 @@ import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringPath;
-import com.web.curation.model.user.Search;
+import com.web.curation.model.DTO.Search;
 
 
 /**

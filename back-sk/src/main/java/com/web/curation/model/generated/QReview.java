@@ -10,7 +10,7 @@ import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.PathInits;
 import com.querydsl.core.types.dsl.StringPath;
-import com.web.curation.model.user.Review;
+import com.web.curation.model.DTO.Review;
 
 
 /**
@@ -27,23 +27,23 @@ public class QReview extends EntityPathBase<Review> {
 
     public final StringPath hashtag = createString("hashtag");
 
+    public final NumberPath<Integer> kindness = createNumber("kindness", Integer.class);
+
     public final StringPath picture = createString("picture");
 
-    public final NumberPath<Long> review_num = createNumber("review_num", Long.class);
+    public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
-    public final NumberPath<Integer> scorekindness = createNumber("scorekindness", Integer.class);
-
-    public final NumberPath<Integer> scoreprice = createNumber("scoreprice", Integer.class);
-
-    public final NumberPath<Integer> scoretaste = createNumber("scoretaste", Integer.class);
-
-    public final NumberPath<Integer> scoretotal = createNumber("scoretotal", Integer.class);
+    public final NumberPath<Long> rnum = createNumber("rnum", Long.class);
 
     public final QStore store;
 
     public final StringPath str = createString("str");
 
+    public final NumberPath<Integer> taste = createNumber("taste", Integer.class);
+
     public final StringPath title = createString("title");
+
+    public final NumberPath<Integer> total = createNumber("total", Integer.class);
 
     public final QUser user;
 
