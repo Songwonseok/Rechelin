@@ -13,7 +13,13 @@
         </div>
         <!--자기 자신이면 Follow button 숨기기 -->
         <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
-        <button v-if="myEmail != UserInfo.email" @click="followRequest">Follow</button>
+        <template v-if="myEmail != UserInfo.email" >
+            <div>
+              <button @click="followRequest">Follow</button>
+            <button @click="followRequest">UnFollow</button>
+            <button @click="followRequest">요청됨</button>
+            </div>
+        </template>
         
         <div class="user-profile-data">
           
@@ -142,10 +148,10 @@
       }
       ,getUser(){
           UserApi.requestEmail( this.id,res=>{
-            this.UserInfo.email = res.object.email;
-            this.UserInfo.nickname = res.object.nickname;
-            this.UserInfo.phone = res.object.phone;
-            this.UserInfo.profile = res.object.profile;
+            this.UserInfo.email = res.data.object.email;
+            this.UserInfo.nickname = res.data.object.nickname;
+            this.UserInfo.phone = res.data.object.phone;
+            this.UserInfo.profile = res.data.object.profile;
            
           },error =>{
             alert('정보 가져오기 실패 !');

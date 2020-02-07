@@ -18,7 +18,7 @@ import com.web.curation.model.DTO.Storelike;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QStorelike extends EntityPathBase<Storelike> {
 
-    private static final long serialVersionUID = 319690796L;
+    private static final long serialVersionUID = 93441234L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

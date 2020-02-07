@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.NonNull;
 
 @Entity
@@ -18,6 +21,7 @@ public class Search {
 	
 	@ManyToOne
 	@JoinColumn(name= "user_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User user;
 	
 	@NonNull

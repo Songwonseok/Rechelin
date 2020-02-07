@@ -5,6 +5,7 @@ export default axios.create({
     //   baseURL: "http://70.12.246.51:8080", // 조장님 ip
     withCredentials: false,
     headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem("userToken"),
         Accept: "application/json",
         "Content-Type": "application/json"
     }

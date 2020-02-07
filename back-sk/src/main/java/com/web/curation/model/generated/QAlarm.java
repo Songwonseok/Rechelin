@@ -18,7 +18,7 @@ import com.web.curation.model.DTO.Alarm;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QAlarm extends EntityPathBase<Alarm> {
 
-    private static final long serialVersionUID = -743998331L;
+    private static final long serialVersionUID = 1977316395L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

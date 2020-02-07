@@ -28,6 +28,7 @@ public class StoreServiceImpl implements StoreService {
 	HashtagDao hashTagDao;
 	
 	public Store register(Store request) {
+		System.out.println(request.getSname());
 		Store store = storeDao.findBySnameAndAddress(request.getSname(), request.getAddress());
 		if(store == null) {
 			storeDao.save(request);

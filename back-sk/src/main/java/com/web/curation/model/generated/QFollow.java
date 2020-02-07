@@ -18,7 +18,7 @@ import com.web.curation.model.DTO.Follow;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QFollow extends EntityPathBase<Follow> {
 
-    private static final long serialVersionUID = -1442873347L;
+    private static final long serialVersionUID = 1313504535L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

@@ -36,10 +36,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		try {
 			String jwt = getJwtFromRequest(request);
-			System.out.println("토큰: "+ jwt);
+//			System.out.println("토큰: "+ jwt);
 			if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
 				Long userId = tokenProvider.getUserIdFromJWT(jwt);
-				System.out.println(userId);
 				
 				UserDetails userDetails = customUserDetailsService.loadUserById(userId); // 추출한 id로 detail 가져오기
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
@@ -58,7 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	private String getJwtFromRequest(HttpServletRequest request) { // 요청 받기
 		String bearerToken = request.getHeader("Authorization");
-		System.out.println("요청");
+//		System.out.println("요청");
 		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
 			return bearerToken.substring(7, bearerToken.length());
 		}
