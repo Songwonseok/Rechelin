@@ -23,9 +23,10 @@
                     </v-list-item>
 
                     <v-card-actions>
-                        <!-- <v-btn text @click="reviewLike">좋아요 {{review.like}}</v-btn>
-                        <v-btn text @click="reviewLike">싫어요 {{review.dislike}}</v-btn> -->
-                        <v-btn text @click="reviewDetail(i)">
+                        <v-btn text @click="reviewLike">좋아요 {{review.like}}</v-btn>
+                        <v-btn text @click="reviewLike">싫어요 {{review.dislike}}</v-btn>
+
+                        <v-btn text @click="reviewDetail(i, review.rnum)">
                             <v-icon v-if="!visible[i]">{{icons.arrowDownDropCircle}}</v-icon>
                             <v-icon v-else>{{icons.arrowUpDropCircle}}</v-icon>
                         </v-btn>
@@ -33,35 +34,19 @@
 
                 </v-card>
                 <div v-if="visible[i]" style="margin-bottom: 10px;">
-                    <div style="text-align:center;">
-                         <v-card class="mx-auto" max-width="344">
-            <v-card-text>
-                <v-form ref="form" lazy-validation>
-                    <b-form-textarea id="textarea-small" size="sm" v-model="newComment" @keyup.enter="submitComment(newComment)"
-                        placeholder="comment"></b-form-textarea>
-                    <div class="my-2">
+                    <b-modal v-model="visible[i]">
+                        <b-form-textarea id="textarea" v-model="newComment" placeholder="Enter something..." rows="3"
+                            max-rows="6" @keyup.enter="submitComment(newComment)"></b-form-textarea>
+                        <div class="my-2">
                         <v-btn class="ma-2" text outlined small color="primary" @click="submitComment(newComment)">
                             댓글등록
                         </v-btn>
                     </div>
+                        {{reviewDetailInfo}}
+                        <hr>
+                        {{commentsDetail}}
+                    </b-modal>
 
-                </v-form>
-
-                <div class="text--primary" v-if="comments">
-                    <b-list-group>
-                        <b-list-group-item>댓글이 들어올 곳이에요
-                                <v-btn text icon>
-                                <v-icon>{{icons.contentDelete}}</v-icon>
-                            </v-btn>
-                            
-                        </b-list-group-item>
-                    </b-list-group>
-                </div>
-            </v-card-text>
-
-        </v-card>
-
-                    </div>
                 </div>
 
             </v-col>
@@ -101,7 +86,12 @@
             }
         },
         computed: {
-
+            reviewDetailInfo() {
+                return this.$store.state.reviewDetail
+            },
+            commentsDetail() {
+                return this.$store.state.commentsOfreview
+            }
         },
         methods: {
             reviewsScroll() {
@@ -117,7 +107,7 @@
                                     comments: res.data.object
                                 }
                                 this.commentsOfreviews.push(data.comments)
-                                
+
                             }).catch(exp => {
                                 console.log('실패')
                             })
@@ -129,11 +119,12 @@
                 }
 
             },
-            reviewDetail(i) {
+            reviewDetail(i, num) {
 
                 let list = [...this.visible];
                 list.splice(i, 1, !list[i])
                 this.visible = list;
+                this.$store.dispatch('reviewDetail', num)
 
             },
             canReivewDelete(user) {
@@ -152,6 +143,9 @@
                     resolve('성공')
                 })
             },
+            reviewLike(num) {
+                this.$store.dispatch('reviewLike', num)
+            }
 
         },
         mounted() {

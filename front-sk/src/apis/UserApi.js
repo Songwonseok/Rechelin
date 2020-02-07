@@ -75,6 +75,7 @@ const requestLogin = (data, callback, errorCallback) => {
             useremail: sessionStorage.getItem("userEmail"),
             usernickname: sessionStorage.getItem("userNickname"),
             token: sessionStorage.getItem("userToken")
+            
         } 
         store.dispatch('login', payload)
         }).catch(exp => {

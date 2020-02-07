@@ -98,10 +98,9 @@
     methods: {
       likeStore() {
         var payload = {
-          user: this.$store.state.userEmail,
-          // store: '스토어id',
+          user: this.$store.state.userEmail, 
         }
-        // this.$store.dispatch('likeStore', payload)
+        this.$store.dispatch('likeStore', payload)
       },
     },
     created() {
