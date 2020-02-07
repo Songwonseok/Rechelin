@@ -38,13 +38,20 @@
                         <b-form-textarea id="textarea" v-model="newComment" placeholder="Enter something..." rows="3"
                             max-rows="6" @keyup.enter="submitComment(newComment)"></b-form-textarea>
                         <div class="my-2">
-                        <v-btn class="ma-2" text outlined small color="primary" @click="submitComment(newComment)">
-                            댓글등록
-                        </v-btn>
-                    </div>
+                            <v-btn class="ma-2" text outlined small color="primary" @click="submitComment(newComment)">
+                                댓글등록
+                            </v-btn>
+                        </div>
                         {{reviewDetailInfo}}
                         <hr>
                         {{commentsDetail}}
+                        <b-list-group v-for="(comment, index) in commentsDetail" :key="index">
+                            <b-list-group-item>{{ comment }} 
+                                <v-btn text icon color="pink" v-if="samePerson(comment.user.email)">
+                                    <v-icon>{{Deletes}}</v-icon>
+                                </v-btn>
+                            </b-list-group-item>
+                        </b-list-group>
                     </b-modal>
 
                 </div>
@@ -65,7 +72,8 @@
 <script>
     import {
         mdiArrowDownDropCircle,
-        mdiArrowUpDropCircle
+        mdiArrowUpDropCircle,
+        mdiDelete
     } from '@mdi/js';
     import Axios from "axios"
 
@@ -80,7 +88,8 @@
                 commentsOfreviews: [],
                 icons: {
                     arrowDownDropCircle: mdiArrowDownDropCircle,
-                    arrowUpDropCircle: mdiArrowUpDropCircle
+                    arrowUpDropCircle: mdiArrowUpDropCircle,
+                    Deletes: mdiDelete,
                 },
                 newComment: ''
             }
@@ -145,6 +154,13 @@
             },
             reviewLike(num) {
                 this.$store.dispatch('reviewLike', num)
+            },
+            samePerson(p) {
+                if (sessionStorage.getItem('userEmail')===p) {
+                    return true
+                } else {
+                    return false
+                }
             }
 
         },
