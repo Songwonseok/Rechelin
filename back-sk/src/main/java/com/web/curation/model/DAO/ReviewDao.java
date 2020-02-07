@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.web.curation.model.DTO.Review;
 import com.web.curation.model.DTO.Store;
 import com.web.curation.model.DTO.User;
-import com.web.curation.model.querydsl.CustomRepository;
+import com.web.curation.model.QueryDSL.CustomRepository;
 
 public interface ReviewDao extends JpaRepository<Review, Long>, CustomRepository {
 	Review findByRnum(long rnum);

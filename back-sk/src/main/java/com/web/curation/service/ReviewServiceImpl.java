@@ -17,7 +17,7 @@ import com.web.curation.model.DTO.Likecheck;
 import com.web.curation.model.DTO.Review;
 import com.web.curation.model.DTO.Store;
 import com.web.curation.model.DTO.User;
-import com.web.curation.model.querydsl.CustomRepositoryImpl;
+import com.web.curation.model.QueryDSL.CustomRepositoryImpl;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
