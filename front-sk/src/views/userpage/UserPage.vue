@@ -34,7 +34,7 @@
          <ul class="data-user">
          <li>
             <router-link :to="{name: 'UserReviews', params: {
-          bookmarks: this.UserInfo.stores,
+          bookmarks: this.bookmarkList,
           reviews : this.reviewList, // 향후 db에서 받아오는 값으로 수정할 애들
         }}"><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
           </li>
@@ -144,7 +144,11 @@
         })
       }
       ,getReviewList(){
-        
+         ReviewApi.requestMyReviewList(this.id, res=>{
+          this.reviewList = res;
+        }, error=>{
+          alert('ReviewList 가져오기 실패')
+        })
       }
       ,getUser(){
           UserApi.requestEmail( this.id,res=>{
