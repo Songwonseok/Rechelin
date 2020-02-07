@@ -28,6 +28,11 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 Amplify.configure(awsconfig)
 
 Vue.use(AmplifyPlugin, AmplifyModules)
+
+// infinite scroll
+var infiniteScroll =  require('vue-infinite-scroll');
+Vue.use(infiniteScroll)
+
 //
 Vue.use(VueLoading)
 Vue.use(VueLoading, {

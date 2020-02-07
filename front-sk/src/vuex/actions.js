@@ -1,6 +1,14 @@
 
 import {requestfetchUserList} from '../apis/index.js';
 import Userapi from '../apis/UserApi.js';
+import Axios from "axios"
+import router from '../main.js';
+
+const auth = {
+    headers: {
+        Authorization: 'Bearer '+ sessionStorage.getItem("userToken")
+    }
+}
 
 export default {
     LOADING_USERDATA(context){
@@ -81,25 +89,224 @@ export default {
         commit('login', payload)
     },
     userpageGo({commit}, payload) {
-        commit('userpageGo', payload)
+
+        const params = new URLSearchParams();
+        params.append('email', payload)
+        // var options = Object.assign({}, defaults, params)
+
+        Axios.post('http://70.12.246.51:8080/account/selectEmail', params, auth)
+            .then(response => {
+                commit('userpageGo', response.data.object)
+                router.push({
+                    name: "UserPage",
+                    params: {
+                        id: payload,
+                    },
+                    query: {
+                        userInfo: response.data.object
+                    }
+                })
+            
+            }).catch(exp => {
+                console.log('실패')
+            })
+        
     },
     userFans({commit}, payload) {
-        commit('userFans', payload)
+
+        const params = new URLSearchParams();
+        params.append('email', payload);
+        Axios.post('http://70.12.246.51:8080/follow/fanList', params, auth)
+            .then(response => {
+                commit('userFans', response.data.object)
+            }).catch(exp => {
+                console.log('실패')
+            })
+        
     },
     userStars({commit}, payload) {
-        commit('userStars', payload)
+        const params = new URLSearchParams();
+        params.append('email', payload);
+        Axios.post('http://70.12.246.51:8080/follow/starList', params, auth)
+            .then(response => {
+                commit('userStars', response.data.object)
+                console.log(this.state.userPageInfo.stars, '스타스타스타')
+            }).catch(exp => {
+                console.log('실패')
+            })
+        
     },
     notificationGet({commit}, payload){
-        commit('notificationGet', payload)
+        const params = new URLSearchParams();
+        params.append('email', payload)
+        Axios.post('http://70.12.246.51:8080/follow/alarmList', params, auth)
+            .then(res => {
+                
+                commit('notificationGet', res.data.object)
+            }).catch(exp => {
+                console.log('실패')
+            })
+        
     },
     followRequest({commit}, payload) {
-        commit('followRequest', payload)
+        const params = new URLSearchParams();
+        params.append('fan', payload.fan)
+        params.append('star', payload.star)
+        Axios.post('http://70.12.246.51:8080/follow/request', params, auth)
+            .then(res => {
+                console.log('요청 성공')
+            }).catch(exp => {
+                console.log('실패')
+            })
+        
     },
     followAccept({commit}, payload) {
-        commit('followAccept', payload)
+        const params = new URLSearchParams();
+        params.append('fan', payload.fan)
+        params.append('star', payload.star)
+        Axios.post('http://70.12.246.51:8080/follow/accept', params, auth)
+            .then(res => {
+                console.log('요청 성공')
+            }).catch(exp => {
+                console.log('실패')
+            })
     },
     followDecline({commit}, payload) {
-        commit('followDecline', payload)
+        const params = new URLSearchParams();
+        params.append('fan', payload.fan)
+        params.append('star', payload.star)
+        Axios.post('http://70.12.246.51:8080/follow/decline', params, auth)
+            .then(res => {
+                console.log('요청 성공')
+            }).catch(exp => {
+                console.log('실패')
+            })
+        
     },
+    storeinfoGet({commit}, payload) {
+        const params = new URLSearchParams();
+        params.append('id', payload.id)
+        Axios.post('http://70.12.246.51:8080/store/selectOne', params, auth)
+            .then(res => {
+                console.log('요청 성공')
+                commit('storeinfoGet', res.data.object)
+            }).catch(exp => {
+                console.log('실패')
+            })
+        
+    },
+    tagsGet({commit}, payload) {
+        const params = new URLSearchParams();
+        params.append('id', payload.id) // store id로 store에 걸린 tag 검색
+        Axios.post('', params)
+            .then(res => {
+                console.log('요청 성공')
+                commit('tagsGet', payload)
+            }).catch(exp => {
+                console.log('실패')
+            })
+        
+    },
+    likeStore({commit}, payload) {
+          
+        Axios.post("http://70.12.246.51:8080/review/bookmark", payload, auth)
+        .then(res => {
+           console.log('요청 성공')
+       }).catch(exp => {
+           console.log('실패')
+       })
+
+    },
+    // 리뷰 관련
+    reviewsGet({commit}, payload){
+        Axios.get(`http://70.12.246.134:8080/review/${payload}`, auth)
+            .then(res => {
+                commit('reviewsGet', res.data.object);
+                router.push({name: 'reviewsOfstore',
+                    query: {
+                        reviewsOfstore: res.data.object
+                    }})
+            }).catch(exp => {
+                console.log('실패')
+            })
+    },
+    reviewDetail({commit}, rnum) {
+        Axios.get(`http://70.12.246.134:8080/review/detail/${rnum}`, auth)
+        .then(res => {
+            commit('reviewDetail', res.data.object);
+            Axios.get(`http://70.12.246.134:8080/review/comment/${rnum}`, auth)
+            .then(response => {
+                var data = {
+                    reviewID: rnum,
+                    comments: response.data.object
+                }
+                console.log(data)
+                commit('commentsOfreview', data)
+            })
+        }).catch(exp => {
+            console.log('실패')
+        })
+    },
+    // 리뷰의 댓글 관련
+    commentsOfreview({commit}, payload) {
+        //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
+        console.log(payload, '????')
+        Axios.get(`http://70.12.246.134:8080/review/comment/${payload}`, auth)
+            .then(res => {
+                console.log(res, '리뷰의 댓글 가져오기')
+                var data = {
+                    reviewID: payload,
+                    comments: res.data.object
+                }
+                commit('commentsOfreview', data)
+                console.log('요청 성공')
+            }).catch(exp => {
+                console.log('실패')
+            })
+       
+    },
+    createComment({commit}, newComment) {
+
+        Axios.post(`http://70.12.246.134:8080/review/comment`, newComment, auth)
+        .then(res => {
+            console.log('요청 성공')
+            commit('createComment', newComment)
+        }).catch(exp => {
+            console.log('실패')
+        })
+        
+    },
+    commentDelete({commit}, num) {
+
+        Axios.delete(`http://70.12.246.134:8080/review/comment/${num}`, auth)
+                    .then(res => {
+                        console.log('댓글 삭제 성공')
+                    }).catch(exp => {
+                        console.log('실패')
+                    })
+    },
+    reviewDelete({commit}, num) {
+        
+        Axios.delete(`http://70.12.246.134:8080/review/delete`, num, auth)
+                    .then(res => {
+                        console.log('댓글 삭제 성공')
+                    }).catch(exp => {
+                        console.log('실패')
+                    })
+    },
+    reviewLike({commit}, num) {
+         Axios.post("http://70.12.246.51:8080/review/like", num, auth)
+        .then(res => {
+           console.log('요청 성공')
+       }).catch(exp => {
+           console.log('실패')
+       })
+    },
+    addStore({commit}, storeInfo) {
+
+    }
+    
+  
+    
 
 }
