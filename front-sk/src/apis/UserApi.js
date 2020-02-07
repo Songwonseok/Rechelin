@@ -1,18 +1,18 @@
 import Axios from "axios"
 import store from "../vuex/store"
-import BASE from "./BaseApi.js"
+// import Api from "axios.js"
 
 //const URL = 'http://70.12.246.134:8080' // 김주연 ip
-const URL = 'http://70.12.246.51:8080' //  조장님 ip
-const auth = {
+ const URL = 'http://70.12.246.51:8080' //  조장님 ip
+ const auth = {
     headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
+        Authorization: 'Bearer '+ sessionStorage.getItem("userToken")
     }
 }
 const requestsignUp = async(data, callback, errorCallback) => {
-
-
-
+    
+    
+    
     let options = {
         headers: { 'Content-Type': 'application/json' },
         url: URL + '/auth/signup',
@@ -34,7 +34,7 @@ const requestsignUp = async(data, callback, errorCallback) => {
 const requestName = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append('nickname', data);
-    BASE.post('/account/selectName', params)
+    Axios.post(URL + '/account/selectName', params)
         .then(response => {
             console.log(response)
             callback(response.data);
@@ -48,12 +48,11 @@ const requestName = (data, callback, errorCallback) => {
 const requestEmail = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append('email', data);
-    console.log('###################################' + data)
+
     Axios.post(URL + '/account/selectEmail', params)
         .then(response => {
             console.log(response);
-            if (response.status == true)
-                callback(response.data.object);
+            callback(response.data);
             console.log('성공')
 
         }).catch(exp => {
@@ -71,7 +70,7 @@ const requestLogin = (data, callback, errorCallback) => {
     Axios.post(URL + '/auth/login', params)
         .then(response => {
             console.log("로그인", response.object);
-
+            
             callback(response.data);
             sessionStorage.setItem("userToken", JSON.stringify({
                 userToken: response.data.object.token,
@@ -80,7 +79,6 @@ const requestLogin = (data, callback, errorCallback) => {
             sessionStorage.setItem("userToken", response.data.object.accessToken)
             sessionStorage.setItem("userEmail", response.data.object.email)
             sessionStorage.setItem("userNickname", response.data.object.nickname)
-<<<<<<< HEAD
             sessionStorage.setItem("userid",response.data.object.userid)
         let payload = {
             useremail: sessionStorage.getItem("userEmail"),
@@ -90,15 +88,6 @@ const requestLogin = (data, callback, errorCallback) => {
             
         } 
         store.dispatch('login', payload)
-=======
-            let payload = {
-                useremail: sessionStorage.getItem("userEmail"),
-                usernickname: sessionStorage.getItem("userNickname"),
-                token: sessionStorage.getItem("userToken")
-
-            }
-            store.dispatch('login', payload)
->>>>>>> 82a3c639fe4d54bbf70ad3269ea3b19b8742c46f
         }).catch(exp => {
             console.log(exp)
             errorCallback(exp);
@@ -116,7 +105,7 @@ const requestJoin = (data, callback, errorCallback) => {
     console.log(params)
 
     ///////////// response body로 받기
-    BASE.post('/auth/signup', params)
+    Axios.post('http://localhost:8080/auth/signup', params)
         .then(response => {
             callback(response.data.object);
             console.log('성공')
@@ -131,7 +120,7 @@ const requestProfile = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append("email", data);
 
-    BASE.post('/account/getProfile', params)
+    Axios.post('http://70.12.246.51:8080/account/getProfile', params)
         .then(response => {
             callback(response.data);
             console.log('성공')
@@ -169,7 +158,7 @@ const requestUpload = (email, profile, callback, errorCallback) => {
     params.append("email", email);
     params.append("profile", profile);
 
-    BASE.post('/account/uploadProfile', params)
+    Axios.post('http://70.12.246.51:8080/account/uploadProfile', params)
         .then(response => {
             callback(response.data);
             console.log('성공')
@@ -178,23 +167,35 @@ const requestUpload = (email, profile, callback, errorCallback) => {
         })
 }
 
+const requestUserpage = (data, callback, errorCallback) => {
+
+    Axios.post(URL + '/account/selectEamil', data)
+        .then(response => {
+            callback(response.data.object);
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp);
+            console.log('실패')
+        })
+
+}
 
 function requestfetchUserList() {
     //return axios.get(config.baseUrl+'news/1.json');
-    return BASE.post(`/account/list`);
+    return Axios.post(URL + `/account/list`);
 }
 
 const searchUserHistory = (data, callback, errorCallback) => {
 
     //const params = new URLSearchParams();
     //console.log(data.email + " " + data.nickname)
-    // params.append('email', data.email);
-    //params.append('searchname', data.nickname);
+       // params.append('email', data.email);
+        //params.append('searchname', data.nickname);
     var params = {
         'email': data.email,
         'searchname': data.nickname,
     }
-    BASE.post('/search/user', params)
+    Axios.post('http://70.12.246.51:8080/search/user', params)
         .then(response => {
             console.log(response);
             callback(response); //return type true/false 
@@ -214,7 +215,7 @@ function requestFetchUserData({ commit }, email) {
 
     }
     console.log(email);
-    BASE.post('/search/recentUser', params)
+    Axios.post('http://70.12.246.134:8080/search/recentUser', params)
         .then(response => {
             console.log('dd')
             console.log(response);
@@ -234,11 +235,8 @@ function requestFetchUserData({ commit }, email) {
 }
 //http://70.12.246.134:8080/store/create
 //http://70.12.246.51:8080/store/review
-const requestAddPlace = (data, callback, errorCallback) => { <<
-    << << < HEAD
-        ===
-        === =
-        console.log('requestAddPlace first')
+const requestAddPlace = (data, callback, errorCallback) => {
+    console.log('requestAddPlace first')
     console.log(data);
     // var params = {
     //     'sname': data.sname,
@@ -247,27 +245,19 @@ const requestAddPlace = (data, callback, errorCallback) => { <<
     //     'lat': data.lat,
     //     'lng': data.lng
     // }
-    >>>
-    >>> > 954 f7671689fc020aaf8890af4b46cdb9ad9b8e8
 
     let options = {
-        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
+        headers: { 'Content-Type': 'application/json' ,Authorization: 'Bearer '+ sessionStorage.getItem("userToken")},
         url: URL + '/store/review',
         method: 'post',
         data: JSON.stringify(data)
     }
 
-    <<
-    << << < HEAD
-    BASE.post('/store/review', params) ===
-        === =
-        console.log('requestAddPlace');
+    console.log('requestAddPlace');
     console.log(data.sname);
-
+    
     Axios(options)
-        // Axios.post('http://70.12.246.51:8080/store/review', params, auth)
-        >>>
-        >>> > 954 f7671689fc020aaf8890af4b46cdb9ad9b8e8
+    // Axios.post('http://70.12.246.51:8080/store/review', params, auth)
         .then(response => {
             console.log(response);
             callback(response); //return type true/false 
@@ -299,7 +289,6 @@ const requestAddReview = async(data, callback, errorCallback) => {
     //     })
     console.log('requestAddReview')
     let options = {
-<<<<<<< HEAD
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer '+ sessionStorage.getItem("userToken") },
         url: URL + '/review/register',
         method: 'post',
@@ -318,31 +307,11 @@ const requestAddReview = async(data, callback, errorCallback) => {
     //     'user_email': 'ssafy@naver.com',
     //     'weak': data.weak,
     // }
-=======
-            headers: { 'Content-Type': 'application/json' },
-            url: URL + '/auth/signup',
-            method: 'post',
-            data: JSON.stringify(data)
-        }
-        // let review = {
-        //     'hashtag': data.hashtag,
-        //     'picture': data.picture,
-        //     'score_kindness': data.score_kindness,
-        //     'score_price': data.score_price,
-        //     'score_taste': data.score_taste,
-        //     'score_total': data.score_total,
-        //     'store_num': data.store_num,
-        //     'str': data.str,
-        //     'title': data.title,
-        //     'user_email': 'ssafy@naver.com',
-        //     'weak': data.weak,
-        // }
->>>>>>> 82a3c639fe4d54bbf70ad3269ea3b19b8742c46f
 
     //const params = new URLSearchParams();
     //params.append("review", review);
-    Axios(options)
-        // Axios.post('http://70.12.246.134:8080/review/register', review)
+       Axios(options)
+    // Axios.post('http://70.12.246.134:8080/review/register', review)
         .then(response => {
             console.log(response);
             callback(response); //return type true/false 
@@ -367,7 +336,7 @@ const requestUpdatePw = async(data, callback, errorCallback) => {
     //     , method: 'post'
     //     , data: JSON.stringify(data)
     // }
-
+    
     // let response = await Axios(options)
     //     .then(response => {
     //         console.log(response)
@@ -386,7 +355,7 @@ const requestUpdatePw = async(data, callback, errorCallback) => {
     //     url: 'http://localhost:8080/account/login',
     //     data: params
     // });
-    BASE.post('/account/changePW', params)
+    Axios.post('http://70.12.246.134:8080/account/changePW', params)
         .then(response => {
             callback(response.data);
             console.log('성공')
@@ -403,12 +372,13 @@ const UserApi = {
     requestName: (data, callback, errorCallback) => requestName(data, callback, errorCallback),
     requestEmail: (data, callback, errorCallback) => requestEmail(data, callback, errorCallback),
     requestsignUp: (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
+    requestUserpage: (data, callback, errorCallback) => requestUserpage(data, callback, errorCallback),
     requestProfile: (data, callback, errorCallback) => requestProfile(data, callback, errorCallback),
     requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
-    searchUserHistory: (data, callback, errorCallback) => searchUserHistory(data, callback, errorCallback),
-    requestAddPlace: (data, callback, errorCallback) => requestAddPlace(data, callback, errorCallback),
-    requestAddReview: (data, callback, errorCallback) => requestAddReview(data, callback, errorCallback),
-    requestUpdatePw: (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
+    searchUserHistory : (data,callback, errorCallback) => searchUserHistory(data,callback,errorCallback),
+    requestAddPlace : (data,callback,errorCallback) => requestAddPlace(data,callback,errorCallback),
+    requestAddReview : (data, callback, errorCallback) => requestAddReview(data, callback, errorCallback),
+    requestUpdatePw : (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
     requestFetchUserData,
     requestFetchAdrData,

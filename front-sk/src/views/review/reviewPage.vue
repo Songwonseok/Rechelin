@@ -310,7 +310,7 @@ export default {
                
              },
             reviewConfirm (){
-                let hashtag = this.area + this.age + this.age + this.atmosphere + this.withWho; 
+                let hashtag = this.area + " "+ this.age + " "+ this.age + " "+this.atmosphere + " "+this.withWho; 
                 console.log(hashtag.length);
                 console.log(hashtag + " " + this.profile + " " + this.rating + " " + this.cons +
                 this.props + " "+ this.flavor + " " + this.price + " " + this.kindness +
@@ -343,7 +343,7 @@ export default {
                         }
                         console.log(data);
                     UserApi.requestAddReview(data, res=>{
-                        
+
                         console.log("reviewPage 등록 성공");
                     })
                     console.log('all complete');
