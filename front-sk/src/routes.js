@@ -14,10 +14,12 @@ import signUpForm from './views/user/signUpForm.vue';
 import signUpConfirm from './views/user/signUpConfirm.vue';
 import searchPassword from './views/user/searchPw.vue';
 import userSearch from './components/common/userSearch.vue';
+import likeButton from './components/common/likeButton.vue';
 import reviewPage from './views/review/reviewPage.vue';
 import reviewDetail from './views/review/reviewDetail.vue';
 import updateNewPw from './views/user/updateNewPw.vue';
 import userFeed from './views/feed/userFeed.vue';
+
 export default [
     // ERROR PAGE
     // 404 PAGE
@@ -111,6 +113,11 @@ export default [
         path : '/userFeed',
         name : 'userFeed',
         component : userFeed,
+    },
+    {
+        path : '/likeButton',
+        name : 'likeButton',
+        component : likeButton,
     }
 
 ]

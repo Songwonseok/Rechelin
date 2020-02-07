@@ -25,6 +25,9 @@ import { AmplifyPlugin } from 'aws-amplify-vue'
 import awsconfig from './aws-exports'
 import VueLoading from 'vuejs-loading-plugin'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
+import VueStar from 'vue-star'
+Vue.component('VueStar', VueStar)
 Amplify.configure(awsconfig)
 
 Vue.use(AmplifyPlugin, AmplifyModules)
