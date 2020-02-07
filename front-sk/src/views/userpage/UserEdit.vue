@@ -5,10 +5,10 @@
 
         <div>
             <template v-if="profile==null">
-            <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="UserInfo.name" style="height: 300px; width:300px;" />
+            <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="nickname" style="height: 300px; width:300px;" />
           </template>
           <template v-else>
-            <img class="avatar" :src="profile" :alt="UserInfo.name" style="height: 300px; width:300px;"/>
+            <img class="avatar" :src="profile" :alt="nickname" style="height: 300px; width:300px;"/>
           </template>
 
             <input type="file" @change="load" accept=".jpg, .jpeg, .png, .gif">
@@ -18,7 +18,7 @@
 
         <div style="margin-top: 10px;">
             닉네임 변경 : <input v-model="nickname" type="text" id="nickname" @keyup.enter="edit"
-                :placeholder="EditUser.name">
+                >
         </div>
 
         <div style="margin-top: 10px;">
@@ -32,7 +32,7 @@
         </div>
 
         <div style="margin-top: 10px;">
-            핸드폰 번호 변경: <input v-model="phone" type="text" id="phone" :placeholder="EditUser.phone">
+            핸드폰 번호 변경: <input v-model="phone" type="text" id="phone" >
         </div>
         <v-btn class="ma-2" tile outlined color="success" @click="edit">
             <v-icon left>{{ svgPath }}</v-icon>
@@ -60,7 +60,7 @@
                 pw1: '',
                 pw2: '',
                 phone: '',
-                image: '',
+                profile: '',
                 passwordSchema: new PV(),
                 error: {
                     pw1: false,
@@ -87,9 +87,9 @@
             }
         },
         computed: {
-            EditUser() {
-                return this.$route.params.info
-            }
+            // EditUser() {
+            //     return this.$route.params.info
+            // }
             // 해당 회원이 자기 자신인지 아닌지 확인하는 함수 만들기 : button에 v-if!만들기
         },
         methods: {
@@ -134,7 +134,7 @@
 
                         alert('회원 정보 수정에 성공');
                         this.$router.push({
-                            name: `UserPage`
+                            // name: `UserPage`
                         })
                     }, error => {
 
@@ -160,7 +160,7 @@
 
                 reader.onload = (e) => {
 
-                    this.EditUser.picture = e.target.result;
+                   // this.EditUser.picture = e.target.result;
                     // 파일 경로
                     console.log(e.target.result)
                     this.image = e.target.result;
@@ -169,14 +169,12 @@
             },
     
         getUser(){
-            let email = this.$store.state.userEmail;
             
-            console.log(email)
-            UserApi.requestEmail( email,res=>{
+            UserApi.requestEmail(this.email,res=>{
                 this.nickname = res.object.nickname
                 this.phone = res.object.phone
                 this.profile = res.object.profile
-                console.log('유저정보 가져오기 성공')              
+                console.log('***유저정보 가져오기 성공')              
             },error=>{  
                 console.log('유저정보 가져오기 실패')
             })
