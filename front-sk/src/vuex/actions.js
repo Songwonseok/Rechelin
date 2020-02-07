@@ -222,45 +222,29 @@ export default {
     reviewsGet({commit}, payload){
         Axios.get(`http://70.12.246.51:8080/review/${payload}`, auth)
             .then(res => {
+                console.log('성공')
                 commit('reviewsGet', res.data.object);
-                router.push({name: 'reviewsOfstore',
-                    query: {
-                        reviewsOfstore: res.data.object
-                    }})
+                console.log(res, '??????')
+                router.push({name: 'reviewsOfstore', params: {
+                    reviews: res.data.object
+                }})
             }).catch(exp => {
                 console.log('실패')
             })
     },
-    reviewDetail({commit}, rnum) {
-        Axios.get(`http://70.12.246.51:8080/review/detail/${rnum}`, auth)
-        .then(res => {
-            commit('reviewDetail', res.data.object);
-            Axios.get(`http://70.12.246.51:8080/review/comment/${rnum}`, auth)
-            .then(response => {
-                var data = {
-                    reviewID: rnum,
-                    comments: response.data.object
-                }
-                console.log(data)
-                commit('commentsOfreview', data)
-            })
-        }).catch(exp => {
-            console.log('실패')
-        })
-    },
     // 리뷰의 댓글 관련
-    commentsOfreview({commit}, payload) {
+    commentsOfreview({commit}, review) {
+        console.log(review, "???")
         //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
-        console.log(payload, '????')
-        Axios.get(`http://70.12.246.51:8080/review/comment/${payload}`, auth)
+        Axios.get(`http://70.12.246.51:8080/review/comment/${review.rnum}`, auth)
             .then(res => {
-                console.log(res, '리뷰의 댓글 가져오기')
                 var data = {
-                    reviewID: payload,
+                    reviewInfo: review,
                     comments: res.data.object
                 }
                 commit('commentsOfreview', data)
                 console.log('요청 성공')
+                router.push({name: 'comments'})
             }).catch(exp => {
                 console.log('실패')
             })

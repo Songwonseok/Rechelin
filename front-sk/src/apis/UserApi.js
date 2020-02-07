@@ -80,13 +80,15 @@ const requestLogin = (data, callback, errorCallback) => {
             sessionStorage.setItem("userToken", response.data.object.accessToken)
             sessionStorage.setItem("userEmail", response.data.object.email)
             sessionStorage.setItem("userNickname", response.data.object.nickname)
-            let payload = {
-                useremail: sessionStorage.getItem("userEmail"),
-                usernickname: sessionStorage.getItem("userNickname"),
-                token: sessionStorage.getItem("userToken")
-
-            }
-            store.dispatch('login', payload)
+            sessionStorage.setItem("userid",response.data.object.userid)
+        let payload = {
+            useremail: sessionStorage.getItem("userEmail"),
+            usernickname: sessionStorage.getItem("userNickname"),
+            token: sessionStorage.getItem("userToken"),
+            id : sessionStorage.getItem("userid"),
+            
+        } 
+        store.dispatch('login', payload)
         }).catch(exp => {
             console.log(exp)
             errorCallback(exp);
@@ -222,11 +224,9 @@ function requestFetchUserData({ commit }, email) {
 }
 //http://70.12.246.134:8080/store/create
 //http://70.12.246.51:8080/store/review
-const requestAddPlace = (data, callback, errorCallback) => { <<
-    << << < HEAD
-        ===
-        === =
-        console.log('requestAddPlace first')
+const requestAddPlace = (data, callback, errorCallback) => { 
+
+    console.log('requestAddPlace first')
     console.log(data);
     // var params = {
     //     'sname': data.sname,
@@ -235,8 +235,7 @@ const requestAddPlace = (data, callback, errorCallback) => { <<
     //     'lat': data.lat,
     //     'lng': data.lng
     // }
-    >>>
-    >>> > 954 f7671689fc020aaf8890af4b46cdb9ad9b8e8
+
 
     let options = {
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
@@ -245,17 +244,11 @@ const requestAddPlace = (data, callback, errorCallback) => { <<
         data: JSON.stringify(data)
     }
 
-    <<
-    << << < HEAD
-    BASE.post('/store/review', params) ===
-        === =
-        console.log('requestAddPlace');
-    console.log(data.sname);
+ 
 
     Axios(options)
         // Axios.post('http://70.12.246.51:8080/store/review', params, auth)
-        >>>
-        >>> > 954 f7671689fc020aaf8890af4b46cdb9ad9b8e8
+     
         .then(response => {
             console.log(response);
             callback(response); //return type true/false 
@@ -285,28 +278,28 @@ const requestAddReview = async(data, callback, errorCallback) => {
     //         errorCallback(exp);
     //         console.log('실패');
     //     })
-
+    console.log('requestAddReview')
     let options = {
-            headers: { 'Content-Type': 'application/json' },
-            url: URL + '/auth/signup',
-            method: 'post',
-            data: JSON.stringify(data)
-        }
-        // let review = {
-        //     'hashtag': data.hashtag,
-        //     'picture': data.picture,
-        //     'score_kindness': data.score_kindness,
-        //     'score_price': data.score_price,
-        //     'score_taste': data.score_taste,
-        //     'score_total': data.score_total,
-        //     'store_num': data.store_num,
-        //     'str': data.str,
-        //     'title': data.title,
-        //     'user_email': 'ssafy@naver.com',
-        //     'weak': data.weak,
-        // }
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer '+ sessionStorage.getItem("userToken") },
+        url: URL + '/review/register',
+        method: 'post',
+        data: JSON.stringify(data)
+    }
+    // let review = {
+    //     'hashtag': data.hashtag,
+    //     'picture': data.picture,
+    //     'score_kindness': data.score_kindness,
+    //     'score_price': data.score_price,
+    //     'score_taste': data.score_taste,
+    //     'score_total': data.score_total,
+    //     'store_num': data.store_num,
+    //     'str': data.str,
+    //     'title': data.title,
+    //     'user_email': 'ssafy@naver.com',
+    //     'weak': data.weak,
+    // }
 
-    const params = new URLSearchParams();
+    //const params = new URLSearchParams();
     //params.append("review", review);
     Axios(options)
         // Axios.post('http://70.12.246.134:8080/review/register', review)
@@ -315,7 +308,7 @@ const requestAddReview = async(data, callback, errorCallback) => {
             callback(response); //return type true/false 
             console.log('review api 성공')
         }).catch(exp => {
-            console.log(exp.reponse)
+            console.log(exp.response)
             console.log('review api 실패')
         })
 }
