@@ -2,7 +2,7 @@ package com.web.curation.service;
 
 import java.util.List;
 
-import com.web.curation.model.user.User;
+import com.web.curation.model.DTO.User;
 
 public interface AcountService {
 	public User login(String email,String password);

@@ -50,6 +50,9 @@ public class SearchController{
     @PostMapping("/search/recentUser")
     @ApiOperation(value = "최근 유저 검색 리스트")
     public Object userList(@RequestParam(required = true) final String email) {
+    	System.out.println(email);
+    	System.out.println(email);
+    	System.out.println(email);
     	final BasicResponse result = new BasicResponse();
     	result.status = true;
 		result.data = "성공"; 

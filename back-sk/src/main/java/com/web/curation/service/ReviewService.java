@@ -2,10 +2,10 @@ package com.web.curation.service;
 
 import java.util.List;
 
-import com.web.curation.model.user.Bookmark;
-import com.web.curation.model.user.Comments;
-import com.web.curation.model.user.Likecheck;
-import com.web.curation.model.user.Review;
+import com.web.curation.model.DTO.Bookmark;
+import com.web.curation.model.DTO.Comments;
+import com.web.curation.model.DTO.Likecheck;
+import com.web.curation.model.DTO.Review;
 
 public interface ReviewService {
 	public void register(Review review);

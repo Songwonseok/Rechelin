@@ -1,23 +1,21 @@
 package com.web.curation.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.web.curation.dao.user.BookmarkDao;
-import com.web.curation.dao.user.CommentDao;
-import com.web.curation.dao.user.FollowDao;
-import com.web.curation.dao.user.LikecheckDao;
-import com.web.curation.dao.user.ReviewDao;
-import com.web.curation.dao.user.UserDao;
-import com.web.curation.model.user.Bookmark;
-import com.web.curation.model.user.Comments;
-import com.web.curation.model.user.Follow;
-import com.web.curation.model.user.Likecheck;
-import com.web.curation.model.user.Review;
-import com.web.curation.model.user.User;
+import com.web.curation.model.DAO.BookmarkDao;
+import com.web.curation.model.DAO.CommentDao;
+import com.web.curation.model.DAO.LikecheckDao;
+import com.web.curation.model.DAO.ReviewDao;
+import com.web.curation.model.DAO.UserDao;
+import com.web.curation.model.DTO.Bookmark;
+import com.web.curation.model.DTO.Comments;
+import com.web.curation.model.DTO.Likecheck;
+import com.web.curation.model.DTO.Review;
+import com.web.curation.model.DTO.User;
+import com.web.curation.model.querydsl.CustomRepositoryImpl;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -33,6 +31,9 @@ public class ReviewServiceImpl implements ReviewService {
 	private UserDao userdao;
 	@Autowired
 	private FollowService fservice;
+	
+	@Autowired
+	private CustomRepositoryImpl custom;
 	
 	@Override
 	public void register(Review review) {

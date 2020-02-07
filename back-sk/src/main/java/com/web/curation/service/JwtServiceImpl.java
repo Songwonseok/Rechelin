@@ -11,7 +11,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.stereotype.Service;
 
-import com.web.curation.model.user.User;
+import com.web.curation.model.DTO.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -25,7 +25,7 @@ public class JwtServiceImpl implements JwtService {
 
 	private static String SECRETKEY = "TimelineApplicationSecretkey";
 		
-	private static int HOUR = 12; //12시간 동안 토큰 유효
+	private static int HOUR = 6; //12시간 동안 토큰 유효
 	
 	@Override
 	public String makeJwt(User user) {

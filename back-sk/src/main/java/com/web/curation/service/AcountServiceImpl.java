@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -14,16 +15,21 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.NaverLogin;
-import com.web.curation.model.user.User;
+import com.web.curation.model.DAO.RoleDao;
+import com.web.curation.model.DAO.UserDao;
+import com.web.curation.model.DTO.Role;
+import com.web.curation.model.DTO.RoleName;
+import com.web.curation.model.DTO.User;
 
 @Service
 public class AcountServiceImpl implements AcountService {
 
 	@Autowired
 	UserDao userDao;
-
+	@Autowired
+	RoleDao roleDao;
+	
 	@Autowired
 	PasswordEncoder passwordEncoder; // 비밀번호 암호화
 
@@ -56,10 +62,13 @@ public class AcountServiceImpl implements AcountService {
 			// 닉네임 중복
 			request.setNickname("");
 		}
+		
+		
 		request.setPw(EncodePW(request.getPw())); // 암호화
 		request.setProfile(null); // 처음 프로필을 만들어주지 않는다
+		Role userRole = roleDao.findByName(RoleName.ROLE_USER);
+		request.setRole(Collections.singleton(userRole));
 		userDao.save(request);
-
 		return request;
 	}
 

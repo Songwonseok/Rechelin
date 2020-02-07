@@ -2,11 +2,11 @@ package com.web.curation.service;
 
 import java.util.List;
 
-import com.web.curation.model.user.Hashtag;
-import com.web.curation.model.user.Store;
+import com.web.curation.model.DTO.Hashtag;
+import com.web.curation.model.DTO.Store;
 
 public interface StoreService {
-	public boolean create(Store request); 
+	public Store register(Store request);
 	public boolean delete(long num);
 	public List<Store> selectAll();
 	public Store selectOne(long num);

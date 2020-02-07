@@ -10,7 +10,7 @@ import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.PathInits;
 import com.querydsl.core.types.dsl.StringPath;
-import com.web.curation.model.user.Comments;
+import com.web.curation.model.DTO.Comments;
 
 
 /**

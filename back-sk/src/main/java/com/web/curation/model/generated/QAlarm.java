@@ -9,7 +9,7 @@ import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.PathInits;
-import com.web.curation.model.user.Alarm;
+import com.web.curation.model.DTO.Alarm;
 
 
 /**

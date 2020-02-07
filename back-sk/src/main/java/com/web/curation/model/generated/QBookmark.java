@@ -9,7 +9,7 @@ import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.PathInits;
-import com.web.curation.model.user.Bookmark;
+import com.web.curation.model.DTO.Bookmark;
 
 
 /**
@@ -26,7 +26,7 @@ public class QBookmark extends EntityPathBase<Bookmark> {
 
     public final NumberPath<Long> num = createNumber("num", Long.class);
 
-    public final QStore store;
+    public final QReview review;
 
     public final QUser user;
 
@@ -48,7 +48,7 @@ public class QBookmark extends EntityPathBase<Bookmark> {
 
     public QBookmark(Class<? extends Bookmark> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.store = inits.isInitialized("store") ? new QStore(forProperty("store")) : null;
+        this.review = inits.isInitialized("review") ? new QReview(forProperty("review"), inits.get("review")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
 

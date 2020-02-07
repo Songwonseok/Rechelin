@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.user.User;
+import com.web.curation.model.DTO.User;
 import com.web.curation.service.AcountService;
 import com.web.curation.service.JwtService;
 
@@ -36,7 +36,7 @@ public class AccountController {
 
 	@Autowired
 	private AcountService service;
-
+	
 
 	@Autowired
 	private JwtService jwtService;
@@ -73,74 +73,75 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
 	
-	@PostMapping("/account/login")
-	@ApiOperation(value = "로그인")
-	public Object login(@RequestParam(required = true) final String email,
-			@RequestParam(required = true) final String password) {
+//	@PostMapping("/account/login")
+//	@ApiOperation(value = "로그인")
+//	public Object login(@RequestParam(required = true) final String email,
+//			@RequestParam(required = true) final String password) {
+//
+//		
+//		System.out.println("&&&&&&&&&&&&&&&login");
+//		System.out.println(email + "==========" + password);
+//
+//		final BasicResponse result = new BasicResponse();
+//		JSONObject dummyToken = new JSONObject();
+//		JSONObject dummyUser = new JSONObject();
+//
+//		User tmp = service.login(email, password);
+//
+//		// 1. DB 에 값이 존재하는지 판단
+//		if (tmp == null) {
+//			System.out.println("X");
+//			result.status = false;
+//			result.data = "email이 존재하지않습니다";
+//
+//		} else {
+//			// 2. email과 pw일치하는지 판단
+//			dummyUser.put("email", email);
+//			dummyUser.put("nickname", tmp.getNickname());
+//
+//			if (tmp.getPw() == "") {
+//				result.status = false;
+//				result.data = "비밀번호가 일치하지 않습니다";
+//				result.object = dummyUser.toMap();
+//			} else {
+//				result.status = true;
+//				result.data = "success";
+//				dummyToken.put("token", jwtService.makeJwt(tmp));
+//				dummyToken.put("user", dummyUser);
+//
+//				result.object = dummyToken.toMap();
+//			}
+//
+//		}
+//		System.out.println(result);
+//		return new ResponseEntity<>(result, HttpStatus.OK);
+//	}
 
-		System.out.println("&&&&&&&&&&&&&&&login");
-		System.out.println(email + "==========" + password);
-
-		final BasicResponse result = new BasicResponse();
-		JSONObject dummyToken = new JSONObject();
-		JSONObject dummyUser = new JSONObject();
-
-		User tmp = service.login(email, password);
-
-		// 1. DB 에 값이 존재하는지 판단
-		if (tmp == null) {
-			System.out.println("X");
-			result.status = false;
-			result.data = "email이 존재하지않습니다";
-
-		} else {
-			// 2. email과 pw일치하는지 판단
-			dummyUser.put("email", email);
-			dummyUser.put("nickname", tmp.getNickname());
-
-			if (tmp.getPw() == "") {
-				result.status = false;
-				result.data = "비밀번호가 일치하지 않습니다";
-				result.object = dummyUser.toMap();
-			} else {
-				result.status = true;
-				result.data = "success";
-				dummyToken.put("token", jwtService.makeJwt(tmp));
-				dummyToken.put("user", dummyUser);
-
-				result.object = dummyToken.toMap();
-			}
-
-		}
-		System.out.println(result);
-		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
-
-	@PostMapping("/account/signup")
-	@ApiOperation(value = "가입하기")
-	public Object signup(@RequestBody User request) {
-
-		final BasicResponse result = new BasicResponse();
-		System.out.println("###########가입하기"+request.toString());
-		User tmp = service.signup(request);
-		
-		if (tmp.getEmail().equals("")) {
-			result.status = false;
-			result.data = "생성 실패(이메일 중복)";
-
-		} else if (tmp.getNickname().equals("")) {
-			result.status = false;
-			result.data = "생성 실패(닉네임 중복)";
-		}
-		else {
-			result.status = true;
-			result.data = "회원 가입 성공";
-			result.object = new JSONObject(request).toMap();
-		}
-
-		return new ResponseEntity<>(result, HttpStatus.OK);
-
-	}
+//	@PostMapping("/account/signup")
+//	@ApiOperation(value = "가입하기")
+//	public Object signup(@RequestBody User request) {
+//
+//		final BasicResponse result = new BasicResponse();
+//		System.out.println("###########가입하기"+request.toString());
+//		User tmp = service.signup(request);
+//		
+//		if (tmp.getEmail().equals("")) {
+//			result.status = false;
+//			result.data = "생성 실패(이메일 중복)";
+//
+//		} else if (tmp.getNickname().equals("")) {
+//			result.status = false;
+//			result.data = "생성 실패(닉네임 중복)";
+//		}
+//		else {
+//			result.status = true;
+//			result.data = "회원 가입 성공";
+//			result.object = new JSONObject(request).toMap();
+//		}
+//
+//		return new ResponseEntity<>(result, HttpStatus.OK);
+//
+//	}
 
 	
     @GetMapping("/account/list")
@@ -287,17 +288,5 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@GetMapping("account/naverlogin")
-	@ApiOperation(value = "로그인")
-	public String naverlogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state){
-		User user = service.NaverLogin(code, state);
-		if(user!=null) {
-			// 로그인 성공페이지
-			return "redirect:http://localhost:3000/#/token?="+jwtService.makeJwt(user);			
-		}else {
-			// 로그인 실패
-			return "redirect:http://localhost:3000/#/404";
-		}
-	}
 
 }
