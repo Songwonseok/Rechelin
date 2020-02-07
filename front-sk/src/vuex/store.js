@@ -130,18 +130,17 @@ export default new Vuex.Store({
         searchEmail: '',
         searchCode: '',
 
+        ratings: null, //리스트로 올것
+
+        // commets of REVIEWS
+        commentsOfreview: null, // 아마 리스트로 올 것
+        commentsOfreview2: null,
+        reviewsOfstore: null,
+        newComments: null,
 
     },
 
-    ratings: null, //리스트로 올것
 
-    // commets of REVIEWS
-    commentsOfreview: null, // 아마 리스트로 올 것
-    commentsOfreview2: null,
-    reviewsOfstore: null,
-    newComments: null,
-
-},
 // state가 아닌 부분
 mutations,
 getters,

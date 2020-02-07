@@ -186,7 +186,7 @@ export default {
     storeinfoGet({commit}, payload) {
         const params = new URLSearchParams();
         params.append('id', payload.id)
-        Axios.post('http://70.12.246.51:8080/store/selectOne', params, auth)
+        Axios.post('http://70.12.246.51:8080/store/selectOne', params)
             .then(res => {
                 console.log('요청 성공')
                 commit('storeinfoGet', res.data.object)
@@ -219,8 +219,10 @@ export default {
     },
     // 리뷰 관련
     reviewsGet({commit}, payload){
-        Axios.get(`http://70.12.246.134:8080/review/${payload}`, auth)
+        console.log(auth)
+        Axios.get(`http://70.12.246.51:8080/review/${payload}`, auth)
             .then(res => {
+                console.log('확인...')
                 commit('reviewsGet', res.data.object);
                 router.push({name: 'reviewsOfstore',
                     query: {
@@ -231,10 +233,10 @@ export default {
             })
     },
     reviewDetail({commit}, rnum) {
-        Axios.get(`http://70.12.246.134:8080/review/detail/${rnum}`, auth)
+        Axios.get(`http://70.12.246.51:8080/review/detail/${rnum}`, auth)
         .then(res => {
             commit('reviewDetail', res.data.object);
-            Axios.get(`http://70.12.246.134:8080/review/comment/${rnum}`, auth)
+            Axios.get(`http://70.12.246.51:8080/review/comment/${rnum}`, auth)
             .then(response => {
                 var data = {
                     reviewID: rnum,
@@ -251,7 +253,7 @@ export default {
     commentsOfreview({commit}, payload) {
         //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
         console.log(payload, '????')
-        Axios.get(`http://70.12.246.134:8080/review/comment/${payload}`, auth)
+        Axios.get(`http://70.12.246.51:8080/review/comment/${payload}`, auth)
             .then(res => {
                 console.log(res, '리뷰의 댓글 가져오기')
                 var data = {
@@ -267,7 +269,7 @@ export default {
     },
     createComment({commit}, newComment) {
 
-        Axios.post(`http://70.12.246.134:8080/review/comment`, newComment, auth)
+        Axios.post(`http://70.12.246.51:8080/review/comment`, newComment, auth)
         .then(res => {
             console.log('요청 성공')
             commit('createComment', newComment)
@@ -278,7 +280,7 @@ export default {
     },
     commentDelete({commit}, num) {
 
-        Axios.delete(`http://70.12.246.134:8080/review/comment/${num}`, auth)
+        Axios.delete(`http://70.12.246.51:8080/review/comment/${num}`, auth)
                     .then(res => {
                         console.log('댓글 삭제 성공')
                     }).catch(exp => {
@@ -287,7 +289,7 @@ export default {
     },
     reviewDelete({commit}, num) {
         
-        Axios.delete(`http://70.12.246.134:8080/review/delete`, num, auth)
+        Axios.delete(`http://70.12.246.51:8080/review/delete`, num, auth)
                     .then(res => {
                         console.log('댓글 삭제 성공')
                     }).catch(exp => {

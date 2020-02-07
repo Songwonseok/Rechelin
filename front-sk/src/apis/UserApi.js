@@ -10,11 +10,7 @@ const requestsignUp = async(data, callback, errorCallback) => {
 
     let options = {
         headers: { 'Content-Type': 'application/json' },
-<<<<<<< HEAD
-        url: 'http://70.12.246.51:8080/auth/signup',
-=======
         url: URL + '/auth/signup',
->>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
         method: 'post',
         data: JSON.stringify(data)
     }
@@ -66,11 +62,7 @@ const requestLogin = (data, callback, errorCallback) => {
     params.append('email', data.email);
     params.append('password', data.password);
 
-<<<<<<< HEAD
-    Axios.post('http://70.12.246.51:8080/auth/login', params)
-=======
     Axios.post(URL + '/auth/login', params)
->>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
         .then(response => {
             console.log("로그인"+response.object);
             
@@ -79,7 +71,6 @@ const requestLogin = (data, callback, errorCallback) => {
                 userToken: response.data.object.token,
                 info: response.data.object.user
             }))
-<<<<<<< HEAD
             sessionStorage.setItem("userToken", response.data.object.accessToken)
             sessionStorage.setItem("userEmail", response.data.object.email)
             sessionStorage.setItem("userNickname", response.data.object.nickname)
@@ -90,17 +81,6 @@ const requestLogin = (data, callback, errorCallback) => {
             
         } 
         store.dispatch('login', payload)
-=======
-            sessionStorage.setItem("userToken", response.data.object.token)
-            sessionStorage.setItem("userEmail", response.data.object.user.email)
-            sessionStorage.setItem("userNickname", response.data.object.user.nickname)
-            let payload = {
-                useremail: sessionStorage.getItem("userEmail"),
-                usernickname: sessionStorage.getItem("userNickname"),
-                token: sessionStorage.getItem("userToken")
-            }
-            store.dispatch('login', payload)
->>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
         }).catch(exp => {
             console.log(exp)
             errorCallback(exp);
@@ -118,11 +98,7 @@ const requestJoin = (data, callback, errorCallback) => {
     console.log(params)
 
     ///////////// response body로 받기
-<<<<<<< HEAD
-    Axios.post('http://localhost:8080/auth/signup', params)
-=======
     Axios.post(URL + '/account/signup', params)
->>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
         .then(response => {
             callback(response.data.object);
             console.log('성공')
@@ -320,27 +296,6 @@ const requestAddReview = async(data, callback, errorCallback) => {
         })
 }
 
-<<<<<<< HEAD
-function reviewsGet({commit}, payload) {
-    const params = new URLSearchParams();
-    params.append('snum', payload)
-    
-    Axios.get(`http://70.12.246.134:8080/review/${payload}`)
-    .then(res => {
-        console.log(res.data.object, '성공')
-        commit('reviewsGet', res.data.object);
-     
-    }).catch(exp => {
-        console.log('실패')
-    })
-
- }
-
-
-
-
-
-=======
 function requestFetchAdrData({ commit }, address) {
     //Axios.get()
     let mykey = 'AIzaSyDo6iueX6Cf9SPVlg9TdH8FIdfMgRshX9k'
@@ -383,7 +338,6 @@ const requestUpdatePw = async(data, callback, errorCallback) => {
             console.log('실패')
         })
 }
->>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
 
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -401,11 +355,7 @@ const UserApi = {
     requestUpdatePw : (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
     requestFetchUserData,
-<<<<<<< HEAD
-    reviewsGet
-=======
     requestFetchAdrData,
->>>>>>> 72290468c50619557071b70ca94cfc3ebc2a18fb
 }
 
 export default UserApi
