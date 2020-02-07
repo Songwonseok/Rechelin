@@ -131,7 +131,7 @@ public class FollowController {
 			result.data = "알림 읽음";
 		}else {
 			result.status = false;
-			result.data = "알림이 없습니다.";
+			result.data = "알림이 없습니다.";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}

@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -15,17 +18,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Follow {
 	
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long num;
 	
 	@ManyToOne
 	@JoinColumn(name= "fan")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User fan;
 	
 	@ManyToOne
 	@JoinColumn(name= "star")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User star;
 	
 	public Follow() {}

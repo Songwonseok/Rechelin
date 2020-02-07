@@ -18,7 +18,7 @@ import com.web.curation.model.DTO.Bookmark;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QBookmark extends EntityPathBase<Bookmark> {
 
-    private static final long serialVersionUID = -1918237054L;
+    private static final long serialVersionUID = 1261053212L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

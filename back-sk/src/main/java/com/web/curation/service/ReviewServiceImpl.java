@@ -39,7 +39,14 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Override
 	public void register(Review review) {
-		review.setViews(0);
+		
+//		System.out.println(review.getStore().getNum());
+		System.out.println(review.getRnum());
+		System.out.println(review);
+		System.out.println(review.getRnum());
+		
+		
+//		review.setViews(0);
 		dao.save(review);
 	}
 

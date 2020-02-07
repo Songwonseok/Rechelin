@@ -130,7 +130,7 @@
                 .has().digits()
                 .has().letters();
                 
-            this.getProfile();
+            //this.getProfile();
         },
         watch: {
             password: function (v) {

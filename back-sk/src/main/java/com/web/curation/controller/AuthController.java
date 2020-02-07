@@ -74,7 +74,7 @@ public class AuthController {
 			} else {
 				result.status = true;
 				result.data = "success";
-				result.object = new JwtAuthenticationResponse(jwt,tmp.getEmail(),tmp.getNickname());
+				result.object = new JwtAuthenticationResponse(jwt, tmp.getId(),tmp.getEmail(),tmp.getNickname());
 			}
 		}
 		System.out.println(result.object.toString());

@@ -19,7 +19,7 @@ import com.web.curation.model.DTO.RoleName;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QRole extends EntityPathBase<Role> {
 
-    private static final long serialVersionUID = 1777625026L;
+    private static final long serialVersionUID = 1865409372L;
 
     public static final QRole role = new QRole("role");
 

@@ -42,10 +42,7 @@ public class StoreController {
 	StoreDao storeDao;
 	@RequestMapping(value="/store/review", method = {RequestMethod.GET, RequestMethod.POST})
 	@ApiOperation(value = "리뷰 식당검색")
-	public Object register(@RequestParam String sname, @RequestParam String address, @RequestParam String img, @RequestParam String lat,
-			@RequestParam String lng) {
-		
-		Store store = new Store(sname, address, img, lat, lng);
+	public Object register(@RequestBody Store store) {
 		System.out.println(store.getSname());
 		System.out.println(store.getAddress());
 		System.out.println(store.getLat());

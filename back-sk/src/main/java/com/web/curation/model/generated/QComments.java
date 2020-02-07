@@ -19,7 +19,7 @@ import com.web.curation.model.DTO.Comments;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QComments extends EntityPathBase<Comments> {
 
-    private static final long serialVersionUID = -231063744L;
+    private static final long serialVersionUID = -1346740774L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

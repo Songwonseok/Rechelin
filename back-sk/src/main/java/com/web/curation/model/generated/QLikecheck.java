@@ -18,7 +18,7 @@ import com.web.curation.model.DTO.Likecheck;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QLikecheck extends EntityPathBase<Likecheck> {
 
-    private static final long serialVersionUID = -1533271035L;
+    private static final long serialVersionUID = -1759520597L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

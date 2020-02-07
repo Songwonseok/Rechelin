@@ -18,7 +18,7 @@ import com.web.curation.model.DTO.Store;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QStore extends EntityPathBase<Store> {
 
-    private static final long serialVersionUID = -727123179L;
+    private static final long serialVersionUID = 1994191547L;
 
     public static final QStore store = new QStore("store");
 

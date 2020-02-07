@@ -23,12 +23,22 @@
                     </v-list-item>
 
                     <v-card-actions>
-                        <v-btn text @click="reviewLike">좋아요 {{review.like}}</v-btn>
                         <v-btn text @click="reviewLike">싫어요 {{review.dislike}}</v-btn>
                         <v-btn text @click="reviewDetail(review)">
                            리뷰 상세 보기
                         </v-btn>
-                       
+
+                        <v-btn text>
+                         <vue-star animate="animated bounceIn" color="#F05654">
+                           <i slot="icon" class="fas fa-thumbs-up fa-lg"></i>
+                         </vue-star>
+                        </v-btn>
+
+                        <v-btn text>
+                        <vue-star animate="animated bounceIn" color="#F05654">
+                           <i slot="icon" class="fas fa-bookmark fa-2x"></i>
+                         </vue-star>
+                         </v-btn>
                     </v-card-actions>
 
                 </v-card>
@@ -54,7 +64,7 @@
         mdiDelete
     } from '@mdi/js';
     import Axios from "axios"
-
+    import VueStar from 'vue-star'
     export default {
 
         data() {
@@ -115,9 +125,8 @@
                 this.visible.push(false)
             }
         },
-        created() {
-            
-        }
-
+        components: {
+            VueStar,
+        },
     }
 </script>
