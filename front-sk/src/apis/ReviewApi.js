@@ -7,14 +7,14 @@ const requestReviewList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append('email', data);
 
-    // Axios.post(URL + '/follow/starList', params)
-    //     .then(response => {
-    //         if (response.data.status == true)
-    //             callback(response.data.object)
-    //     })
-    //     .catch(exp => {
-    //         errorCallback(exp);
-    //     })
+    Axios.post(URL + '/follow/starList', params)
+        .then(response => {
+            if (response.data.status == true)
+                callback(response.data.object)
+        })
+        .catch(exp => {
+            errorCallback(exp);
+        })
 }
 
 const requestBookmarkList = (data, callback, errorCallback) => {
