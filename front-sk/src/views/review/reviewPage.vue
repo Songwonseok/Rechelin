@@ -351,8 +351,10 @@ export default {
             // 'record' will be the row data from items
             // `index` will be the visible row number (available in the v-model 'shownItems')
             
+            console.log("통신하기전 : ")
             console.log(this.$store.state.googleStorePlace[index]);
              //Q : 리뷰 항목을 다 건네줘야 하는건지?
+                
                  UserApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
                  this.store_num = res.data.object.num;
                  this.store_pic = res.data.object.img;
