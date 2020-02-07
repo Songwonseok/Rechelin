@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.web.curation.model.DTO.User;
 
 
-public interface UserDao extends JpaRepository<User, String> {
+public interface UserDao extends JpaRepository<User, Long> {
 	Optional<User> findById(Long id);
 	User findUserByEmailAndPw(String email, String pw);
 	User findByNickname(String nickname);

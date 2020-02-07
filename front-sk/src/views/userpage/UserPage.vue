@@ -116,6 +116,7 @@
       getFanList(){
         FollowApi.requestFanList(this.id, res=>{
           this.fanList = res;
+          console.log('fan 성공')
         }, error=>{
           alert('FanList가져오기 실패')
         })
@@ -123,6 +124,8 @@
       ,getStarList(){
         FollowApi.requestStarList(this.id, res=>{
           this.starList = res;
+          console.log('star 성공')
+          console.log(this.starList);
         }, error=>{
           alert('StarList가져오기 실패')
         })
