@@ -293,17 +293,6 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@GetMapping("account/naverlogin")
-	@ApiOperation(value = "로그인")
-	public String naverlogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state){
-		User user = service.NaverLogin(code, state);
-		if(user!=null) {
-			// 로그인 성공페이지
-			return "redirect:http://localhost:3000/main/token?="+jwtService.makeJwt(user);			
-		}else {
-			// 로그인 실패
-			return "redirect:http://localhost:3000/main/404";
-		}
-	}
+	
 
 }
