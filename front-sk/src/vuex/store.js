@@ -132,10 +132,10 @@ export default new Vuex.Store({
         ratings: null, //리스트로 올것
 
         // commets of REVIEWS
-        commentsOfreview: null, // 아마 리스트로 올 것
-        commentsOfreview2: null,
+        commentsOfreview: null, // 아마 리스트로 올 것  
         reviewsOfstore: null,
         newComments: null,
+        reviewInfo: '',
     
     },
 

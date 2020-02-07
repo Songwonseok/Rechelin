@@ -253,11 +253,11 @@ const requestAddPlace = (data, callback, errorCallback) => {
         data: JSON.stringify(data)
     }
 
-    console.log('requestAddPlace');
-    console.log(data.sname);
-    
+ 
+
     Axios(options)
-    // Axios.post('http://70.12.246.51:8080/store/review', params, auth)
+        // Axios.post('http://70.12.246.51:8080/store/review', params, auth)
+     
         .then(response => {
             console.log(response);
             callback(response); //return type true/false 
