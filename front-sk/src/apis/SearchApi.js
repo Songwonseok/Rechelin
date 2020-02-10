@@ -28,9 +28,37 @@ const searchUserHistory = (data, callback, errorCallback) => {
         })
 }
 
+function requestFetchUserData({ commit }, email) {
+    //코딩컨벤션
+    //const params = new URLSearchParams();
+    var params = {
+        'email': email,
+
+    }
+    console.log(email);
+    Axios.post(URL + '/search/recentUser', params)
+        .then(response => {
+            console.log('dd')
+            console.log(response);
+
+            var jcAry = new Array();
+            for (var i = 0; i < response.data.object.length; i++) {
+                jcAry[i] = response.data.object[i].searchname;
+                console.log(jcAry[i]);
+
+            }
+            commit('SET_RECENTUSER', jcAry);
+            console.log('성공')
+        }).catch(exp => {
+
+            console.log('실패')
+        })
+}
+
+
 const SearchApi = {
     searchUserHistory: (data, callback, errorCallback) => searchUserHistory(data, callback, errorCallback),
-
+    requestFetchUserData,
 }
 
 export default SearchApi

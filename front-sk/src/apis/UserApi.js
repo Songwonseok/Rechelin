@@ -2,17 +2,14 @@ import Axios from "axios"
 import store from "../vuex/store"
 // import Api from "axios.js"
 
-//const URL = 'http://70.12.246.134:8080' // 김주연 ip
-const URL = 'http://70.12.246.51:8080' //  조장님 ip
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
+    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
     }
 }
 const requestsignUp = async(data, callback, errorCallback) => {
-
-
-
     let options = {
         headers: { 'Content-Type': 'application/json' },
         url: URL + '/auth/signup',
@@ -113,18 +110,13 @@ const requestProfile = (data, callback, errorCallback) => {
 }
 
 
-const requestEdit = async(data, callback, errorCallback) => {
+const requestEdit = (data, callback, errorCallback) => {
+    Axios.put(URL + '/account/update', data, auth)
+        .then(response => {
+            if (response.data.status == true)
+                callback(response.data.object);
 
-    let options = {
-        headers: { 'Content-Type': 'application/json' },
-        url: URL + '/account/update',
-        method: 'put',
-        data: JSON.stringify(data),
-    }
-    let res = await Axios(options)
-        .then(res => {
-            callback(res.data.object);
-            console.log('성공')
+            console.log('회원정보 수정 성공')
         }).catch(exp => {
             errorCallback(exp);
             console.log('실패')
@@ -141,7 +133,8 @@ const requestUpload = (email, profile, callback, errorCallback) => {
 
     Axios.post(URL + '/account/uploadProfile', params, auth)
         .then(response => {
-            callback(response.data);
+            if (response.data.status == true)
+                callback(response.data.object);
             console.log('성공')
         }).catch(exp => {
             errorCallback(exp);
@@ -163,36 +156,10 @@ const requestUserpage = (data, callback, errorCallback) => {
 
 function requestfetchUserList() {
     //return axios.get(config.baseUrl+'news/1.json');
-    return Axios.post(URL + `/account/list`);
+    return Axios.post(URL + `/account/list`, auth);
 }
 
 
-function requestFetchUserData({ commit }, email) {
-    //코딩컨벤션
-    //const params = new URLSearchParams();
-    var params = {
-        'email': email,
-
-    }
-    console.log(email);
-    Axios.post(URL + '/search/recentUser', params)
-        .then(response => {
-            console.log('dd')
-            console.log(response);
-
-            var jcAry = new Array();
-            for (var i = 0; i < response.data.object.length; i++) {
-                jcAry[i] = response.data.object[i].searchname;
-                console.log(jcAry[i]);
-
-            }
-            commit('SET_RECENTUSER', jcAry);
-            console.log('성공')
-        }).catch(exp => {
-
-            console.log('실패')
-        })
-}
 
 
 function requestFetchAdrData({ commit }, address) {
@@ -249,7 +216,6 @@ const UserApi = {
     requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
     requestUpdatePw: (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
-    requestFetchUserData,
     requestFetchAdrData,
 }
 

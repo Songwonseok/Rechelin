@@ -16,8 +16,12 @@
         <template v-if="myEmail != UserInfo.email" >
             <div>
               <button @click="followRequest">Follow</button>
-            <button @click="followRequest">UnFollow</button>
-            <button @click="followRequest">요청됨</button>
+            </div>- 
+            <div>
+              <button @click="followRequest">UnFollow</button>
+            </div>
+            <div>
+              <button @click="followRequest">요청됨</button>
             </div>
         </template>
         

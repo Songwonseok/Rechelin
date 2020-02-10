@@ -42,7 +42,6 @@
         </b-list-group-item>
       </b-popover>
     </v-app-bar>
-  <!-- <transition v-bind:name="transitionName" mode="out-in"> -->
   <transition mode="out-in">
     <Main></Main>
     <!-- <Main></Main> -->
