@@ -44,9 +44,9 @@
     </v-app-bar>
   <transition v-bind:name="transitionName" mode="out-in">
     <Main></Main>
-    <router-view></router-view>
+    
     </transition>
-
+<router-view></router-view>
 
 
 

@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- 네브바 -->
+  <div v-if="checkLogin"> 
     <div id="mainTop">
       <div id="mainWithImage" style="text-align: center !important;">
         
@@ -124,6 +125,7 @@
             <v-card-text>
               <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. -->
               <side-menu></side-menu>>
+              
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -297,7 +299,14 @@
 
       </v-row>
     </v-container>
+  </div>
 
+
+  <div v-else>
+    
+    <img src="https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg" @click="checkLoginState" alt="Trulli" width="500" height="333"><br>
+    
+  </div>
   </div>
 </template>
 
@@ -366,6 +375,7 @@
           facility: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         },
         tabs : null,
+        checkLogin : false,
       }
     },
 
@@ -502,6 +512,9 @@
           }
         }
 
+      },
+      checkLoginState(){
+        this.checkLogin = true;
       }
     },
 

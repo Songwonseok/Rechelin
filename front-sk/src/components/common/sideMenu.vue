@@ -2,8 +2,9 @@
   <div id="app">
   <v-app id="inspire">
     <v-card>
-      <v-toolbar flat color="white" dark>
-        <!-- <v-toolbar-title>제목을 정하지 않았습니다.</v-toolbar-title> -->
+      <v-toolbar flat color="orange" dark>
+         <v-toolbar-title>  <i class="far fa-registered fa-5x" > </i></v-toolbar-title> 
+        <i class="far fa-registered"></i>
       </v-toolbar>
       <v-tabs vertical>
         <v-tab>
@@ -22,18 +23,12 @@
         <v-tab-item>
           <v-card flat>
             <v-card-text>
-              <router-link to="/title">Go to Foo</router-link>
-              <p>
-                Sed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac felis. Etiam feugiat lorem non metus. Sed a libero.
-              </p>
-  
-              <p>
-                Nam ipsum risus, rutrum vitae, vestibulum eu, molestie vel, lacus. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Aliquam lobortis. Aliquam lobortis. Suspendisse non nisl sit amet velit hendrerit rutrum.
-              </p>
-  
-              <p class="mb-0">
+              <!-- <router-link to="/login">Go to Foo</router-link> -->
+              <login-bar></login-bar>
+              
+              <!-- <p class="mb-0">
                 Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
-              </p>
+              </p> -->
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -82,8 +77,11 @@
 </template>
 
 <script>
+import loginBar from '../../views/user/Login.vue'
 export default {
-
+    components :{
+        loginBar,
+    }
 }
 </script>
 
