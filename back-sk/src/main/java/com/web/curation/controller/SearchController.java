@@ -1,5 +1,7 @@
 package com.web.curation.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
+import com.web.curation.model.TagsResponse;
 import com.web.curation.service.SearchService;
 import com.web.curation.service.StoreService;
 
@@ -92,12 +95,23 @@ public class SearchController{
     }
     
     @GetMapping("/search/tagSearch")
-    @ApiOperation(value = "검색 리스트 등록")
-    public Object tagstore() {
-    	
-    	
-		return service;
-    }
+	@ApiOperation(value = "스토어태그 리스트")
+	public Object test() {
+		final BasicResponse result = new BasicResponse();
+		List<TagsResponse> list = service.tagSearch();
+		System.out.println(list.size());
+		System.out.println("들어옴");
+		if (list != null) {
+			result.status = true;
+			result.data = "성공";
+			result.object = list;
+		} else {
+			result.status = false;
+			result.data = "결과가 없습니다.";
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
     
     
 }

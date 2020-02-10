@@ -127,7 +127,7 @@ public class ReviewController {
 	
 	@PostMapping("/review/comment")
 	@ApiOperation(value = "댓글 등록")
-	public Object addComment(@RequestParam Comments com) {
+	public Object addComment(@RequestBody Comments com) {
 		final BasicResponse result = new BasicResponse();
 		service.addComment(com);
 		result.status = true;
