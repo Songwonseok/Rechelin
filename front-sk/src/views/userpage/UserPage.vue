@@ -70,13 +70,14 @@
   import FollowApi from '../../apis/FollowApi'
   import ReviewApi from '../../apis/ReviewApi'
   
-  
+
   export default {
     data() {
       return {
         svgPath: mdiPencil,
         accountIcon: mdiAccountCircle,
-        id : this.$route.params.id, // URL에서 가져온 User
+        // id : this.$route.params.id, // URL에서 가져온 User
+        id : this.$store.state.userEmail,
         UserInfo:{ // id로 가져온 정보들
           email:'',
           nickname:'',

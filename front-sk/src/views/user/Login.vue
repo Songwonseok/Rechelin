@@ -172,6 +172,7 @@
                         //통신을 통해 전달받은 값 콘솔에 출력
                         console.log(res.data);
                         if(res.data == "success") {
+                            
                             console.log('login form 안 '+res.object)
                             console.log(res.object);
                             this.$router.push({ name: "Main" });

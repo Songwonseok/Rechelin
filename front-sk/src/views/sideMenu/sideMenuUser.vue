@@ -42,7 +42,13 @@
             <v-card-text>
               <!-- <router-link to="/login">Go to Foo</router-link> -->
               <div v-if="convertLoginToUser">
-                <user-page></user-page>
+                
+                <!-- <user-page router-link :to ="`/userpage/${sessionStorage.getItem("userEmail")}`> </user-page> -->
+                <!-- <user-page></user-page> -->
+                
+                <!-- <router-link :to="sessionStorage.getItem(`userEmail`)"> -->
+                  <user-page></user-page>
+                <!-- </router-link> -->
               </div>
 
 

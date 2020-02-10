@@ -136,6 +136,10 @@ export default [
         name : 'userFeed',
         component : userFeed,
     },
+    {
+        path : '/Login',
+        name : 'login',
+        component : Login,
+    }
   
-
 ]

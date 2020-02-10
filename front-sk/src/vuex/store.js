@@ -136,7 +136,7 @@ export default new Vuex.Store({
         reviewsOfstore: null,
         newReturnComment: null,
         reviewInfo: '',
-        
+        profileSignUp : '',
     },
 
  

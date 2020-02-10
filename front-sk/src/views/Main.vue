@@ -304,6 +304,14 @@
         .$store
         .dispatch('LOADING_USERDATA');
     },
+    watch : {
+      tabs(t){
+        console.log(t);
+        if(t===1){
+           this.$router.push({ path: '/Login' })
+        }
+      }
+    },
     components : {
       sideMenuUser,
       sideMenuFood,
