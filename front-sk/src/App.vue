@@ -42,9 +42,10 @@
         </b-list-group-item>
       </b-popover>
     </v-app-bar>
-  <!-- <transition v-bind:name="transitionName" mode="out-in"> -->
-    <Main></Main>
-    <!-- </transition> -->
+   <!-- <transition v-bind:name="transitionName" mode="out-in">  -->
+     <transition name="page">
+      <Main></Main>
+     </transition> 
 <router-view></router-view>
 
 
@@ -202,5 +203,11 @@
   opacity: 0;
   position: absolute;
 }
-
+/* 라우터 트랜지션 */
+.page-enter-active, .page-leave-active {
+  transition: opacity .5s;
+}
+.page-enter, .page-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>

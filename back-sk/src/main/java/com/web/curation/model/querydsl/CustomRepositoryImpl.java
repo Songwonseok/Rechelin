@@ -1,4 +1,4 @@
-package com.web.curation.model.querydsl;
+package com.web.curation.model.QueryDSL;
 
 import java.util.List;
 

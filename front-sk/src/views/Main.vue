@@ -208,6 +208,7 @@
   import sideMenuUser from './sideMenu/sideMenuUser.vue';
   import sideMenuFood from './sideMenu/sideMenuFood.vue';
   import sideMenuReview from './sideMenu/sideMenuReview.vue';
+
   export default {
     created() {
       this
