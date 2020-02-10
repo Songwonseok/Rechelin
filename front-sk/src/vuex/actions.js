@@ -94,7 +94,7 @@ export default {
         params.append('email', payload)
             // var options = Object.assign({}, defaults, params)
 
-        Axios.post('http://70.12.246.51:8080/account/selectEmail', params, auth)
+        Axios.post(URL + '/account/selectEmail', params, auth)
             .then(response => {
                 commit('userpageGo', response.data.object)
                 router.push({
@@ -116,7 +116,7 @@ export default {
 
         const params = new URLSearchParams();
         params.append('email', payload);
-        Axios.post('http://70.12.246.51:8080/follow/fanList', params, auth)
+        Axios.post(URL + '/follow/fanList', params, auth)
             .then(response => {
                 commit('userFans', response.data.object)
             }).catch(exp => {
@@ -127,7 +127,7 @@ export default {
     userStars({ commit }, payload) {
         const params = new URLSearchParams();
         params.append('email', payload);
-        Axios.post('http://70.12.246.51:8080/follow/starList', params, auth)
+        Axios.post(URL + '/follow/starList', params, auth)
             .then(response => {
                 commit('userStars', response.data.object)
                 console.log(this.state.userPageInfo.stars, '스타스타스타')
@@ -139,7 +139,7 @@ export default {
     notificationGet({ commit }, payload) {
         const params = new URLSearchParams();
         params.append('email', payload)
-        Axios.post('http://70.12.246.51:8080/follow/alarmList', params, auth)
+        Axios.post(URL + '/follow/alarmList', params, auth)
             .then(res => {
 
                 commit('notificationGet', res.data.object)
@@ -152,7 +152,7 @@ export default {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
         params.append('star', payload.star)
-        Axios.post('http://70.12.246.51:8080/follow/request', params, auth)
+        Axios.post(URL + '/follow/request', params, auth)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
@@ -164,7 +164,7 @@ export default {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
         params.append('star', payload.star)
-        Axios.post('http://70.12.246.51:8080/follow/accept', params, auth)
+        Axios.post(URL + '/follow/accept', params, auth)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
@@ -175,7 +175,7 @@ export default {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
         params.append('star', payload.star)
-        Axios.post('http://70.12.246.51:8080/follow/decline', params, auth)
+        Axios.post(URL + '/follow/decline', params, auth)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
@@ -186,7 +186,7 @@ export default {
     storeinfoGet({ commit }, payload) {
         const params = new URLSearchParams();
         params.append('id', payload.id)
-        Axios.post('http://70.12.246.51:8080/store/selectOne', params, auth)
+        Axios.post(URL + '/store/selectOne', params, auth)
             .then(res => {
                 console.log('요청 성공')
                 console.log(res.data.object, '=========================')
@@ -210,7 +210,7 @@ export default {
     },
     likeStore({ commit }, payload) {
 
-        Axios.post("http://70.12.246.51:8080/review/bookmark", payload, auth)
+        Axios.post(URL + "/review/bookmark", payload, auth)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
@@ -220,7 +220,7 @@ export default {
     },
     // 리뷰 관련
     reviewsGet({ commit }, payload) {
-        Axios.get(`http://70.12.246.51:8080/review/${payload}`, auth)
+        Axios.get(URL + `/review/${payload}`, auth)
             .then(res => {
                 console.log('성공')
                 commit('reviewsGet', res.data.object);
@@ -239,7 +239,7 @@ export default {
     commentsOfreview({ commit }, review) {
         console.log(review, "???")
             //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
-        Axios.get(`http://70.12.246.51:8080/review/comment/${review.rnum}`, auth)
+        Axios.get(URL + `/review/comment/${review.rnum}`, auth)
             .then(res => {
                 var data = {
                     reviewInfo: review,
@@ -255,7 +255,7 @@ export default {
     },
     createComment({ commit }, newComment) {
 
-        Axios.post(`http://70.12.246.51:8080/review/comment`, newComment, auth)
+        Axios.post(URL + `/review/comment`, newComment, auth)
             .then(res => {
                 console.log('요청 성공')
                 commit('createComment', newComment)
@@ -266,7 +266,7 @@ export default {
     },
     commentDelete({ commit }, num) {
 
-        Axios.delete(`http://70.12.246.51:8080/review/comment/${num}`, auth)
+        Axios.delete(URL + `/review/comment/${num}`, auth)
             .then(res => {
                 console.log('댓글 삭제 성공')
             }).catch(exp => {
@@ -275,7 +275,7 @@ export default {
     },
     reviewDelete({ commit }, num) {
 
-        Axios.delete(`http://70.12.246.51:8080/review/delete`, num, auth)
+        Axios.delete(URL + `/review/delete`, num, auth)
             .then(res => {
                 console.log('댓글 삭제 성공')
             }).catch(exp => {
@@ -283,7 +283,7 @@ export default {
             })
     },
     reviewLike({ commit }, num) {
-        Axios.post("http://70.12.246.51:8080/review/like", num, auth)
+        Axios.post(URL + "/review/like", num, auth)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {

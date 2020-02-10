@@ -42,17 +42,9 @@
         </b-list-group-item>
       </b-popover>
     </v-app-bar>
-<<<<<<< HEAD
-  <transition mode="out-in">
-    <Main></Main>
-    <!-- <Main></Main> -->
-    <router-view></router-view>
-    </transition>
-=======
   <!-- <transition v-bind:name="transitionName" mode="out-in"> -->
     <Main></Main>
     <!-- </transition> -->
->>>>>>> a371b95781c25be5ddd053500b8e422c96c20807
 <router-view></router-view>
 
 

@@ -305,6 +305,7 @@
   } from 'vuex'
   //import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
+  import SearchApi from '../../src/apis/UserApi.js';
   import sideMenuUser from './sideMenu/sideMenuUser.vue'; 
   import sideMenuFood from './sideMenu/sideMenuFood.vue';
   import sideMenuReview from './sideMenu/sideMenuReview.vue';
