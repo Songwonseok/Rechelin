@@ -3,12 +3,12 @@
     <!-- 네브바 -->
     <div id="mainTop">
       <div id="mainWithImage" style="text-align: center !important;">
-        <div>
-
+        
           <v-btn color="warning" id="find" dark style="position: relative; top: 250px; z-index:1;" @click="open">Find
             Restaurant</v-btn>
-        </div>
+      
         <v-dialog v-model="openSearch" max-width="600">
+          
           <v-card>
             <v-card-title class="headline">
               <v-combobox v-model="newSearch" chips clearable label="Your restaurant" multiple solo>
@@ -106,6 +106,62 @@
             <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
             </v-carousel-item>
           </v-carousel>
+           <v-tabs 
+           color="orange"
+           v-model="tabs"
+           grow>
+                        <v-tab>리뷰 등록</v-tab>
+                        <v-tab>음식점 검색</v-tab>
+                        <v-tab>유저 페이지</v-tab>
+                        <v-tab>미정</v-tab>
+                        <v-tab>미정</v-tab>
+           </v-tabs>
+
+
+      <v-tabs-items v-model="tabs">
+        <v-tab-item>
+          <v-card flat>
+            <v-card-text>
+              <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. -->
+              <side-menu></side-menu>>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+
+        <v-tab-item>
+          <v-card flat>
+            <v-card-title class="headline">An awesome title</v-card-title>
+            <v-card-text>
+              <p>
+                Duis lobortis massa imperdiet quam. Donec vitae orci sed dolor rutrum auctor. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Praesent congue erat at massa.
+              </p>
+  
+              <p>
+                Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est. Etiam sit amet orci eget eros faucibus tincidunt. Donec sodales sagittis magna.
+              </p>
+  
+              <p class="mb-0">
+                Ut leo. Suspendisse potenti. Duis vel nibh at velit scelerisque suscipit. Fusce pharetra convallis urna.
+              </p>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+        
+        <v-tab-item>
+          <v-card flat>
+            <v-card-title class="headline">An even better title</v-card-title>
+            <v-card-text>
+              <p>
+                Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Sed hendrerit. Maecenas malesuada. Vestibulum ullamcorper mauris at ligula. Proin faucibus arcu quis ante.
+              </p>
+  
+              <p class="mb-0">
+                Etiam vitae tortor. Curabitur ullamcorper ultricies nisi. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. Aliquam lobortis. Suspendisse potenti.
+              </p>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
         </v-app>
         <hr>
       </div>
@@ -152,7 +208,9 @@
     <!-- </v-row> -->
 
     <!-- 사진이랑 유저 랭킹 -->
-    <v-container class="grey lighten-5">
+    <v-container class="grey lighten-5" style="
+    margin-top: 400px;
+">
       <v-row no-gutters>
         <v-col cols="9">
           <v-row no-gutters>
@@ -161,7 +219,7 @@
                 <v-hover v-slot:default="{ hover }">
                   <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
 
-                    <v-img height="200" :src="store.picture">
+                    <!-- <v-img height="200" :src="store.picture">
 
                       <v-expand-transition>
                         <div v-if="hover" class="d-flex transition-fast-in-fast-out v-card--reveal white--text"
@@ -171,9 +229,9 @@
                       </v-expand-transition>
 
 
-                    </v-img>
+                    </v-img> -->
 
-                    <v-card-title>{{store.name}}</v-card-title>
+                    <!-- <v-card-title>{{store.name}}</v-card-title>
 
                     <v-card-text>
                       <v-row align="center" class="mx-0">
@@ -188,7 +246,7 @@
                       <v-chip-group column>
                         <v-chip v-for="(h, i) in store.hashtag" :key="i">#{{h}}</v-chip>
                       </v-chip-group>
-                    </v-card-text>
+                    </v-card-text> -->
 
                   </v-card>
                 </v-hover>
@@ -198,7 +256,7 @@
           </v-row>
         </v-col>
 
-        <v-col cols="3">
+        <!-- <v-col cols="3">
           <v-row align="center">
             <v-card class="mx-auto" max-width="400" tile>
               <v-list flat=true avatar=true rounded=true>
@@ -235,7 +293,7 @@
 
           </div>
 
-        </v-col>
+        </v-col> -->
 
       </v-row>
     </v-container>
@@ -256,11 +314,15 @@
   } from 'vuex'
   //import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
+  import sideMenu from '../components/common/sideMenu.vue';
   export default {
     created() {
       this
         .$store
         .dispatch('LOADING_USERDATA');
+    },
+    components : {
+      sideMenu,
     },
     data() {
       return {
@@ -303,6 +365,7 @@
           moods: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           facility: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         },
+        tabs : null,
       }
     },
 
@@ -446,6 +509,15 @@
 </script>
 
 <style scoped>
+ #mainWithImage{
+   position: relative;
+ }
+ #inspire{
+   position: absolute;
+   width : 100%;
+   top: 0px;
+   right: 0px;
+ }
    .btn b-form-tags-button py-0 btn-outline-secondary {
         height: 30px !important;
     }

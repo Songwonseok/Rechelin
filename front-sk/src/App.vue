@@ -43,6 +43,7 @@
       </b-popover>
     </v-app-bar>
   <transition v-bind:name="transitionName" mode="out-in">
+    <Main></Main>
     <router-view></router-view>
     </transition>
 
@@ -63,9 +64,12 @@
     mdiDelete
   } from '@mdi/js'
   import SignUp from "./views/user/signUpForm.vue";
-
+  import Main from "./views/Main.vue";
   export default {
     name: 'app',
+    components : {
+      Main,
+    },
     watch : {
         checkLogin : function(v){
             this.checkLogin2();
@@ -141,12 +145,13 @@
 </script>
 
 <style>
+
   #inspire {
     right: 30px;
   }
   .v-toolbar--dense .v-toolbar__content, .v-toolbar--dense .v-toolbar__extension {
-    background:  #ff7f00 !important;
-    background-color:  #ff7f00 !important;
+    background:  #ff9800 !important;
+    background-color:  #ff9800 !important;
   }
   .out-up-enter-active,
 .out-up-enter-active,
