@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-app-bar dense dark>
+    <v-app-bar dense >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title @click="mainGo">싸피 4조</v-toolbar-title>
@@ -42,8 +42,9 @@
         </b-list-group-item>
       </b-popover>
     </v-app-bar>
-
+  <transition v-bind:name="transitionName" mode="out-in">
     <router-view></router-view>
+    </transition>
 
 
 
@@ -139,8 +140,42 @@
   };
 </script>
 
-<style scoped>
+<style>
   #inspire {
     right: 30px;
   }
+  .v-toolbar--dense .v-toolbar__content, .v-toolbar--dense .v-toolbar__extension {
+    background:  #ff7f00 !important;
+    background-color:  #ff7f00 !important;
+  }
+  .out-up-enter-active,
+.out-up-enter-active,
+.out-up-leave-active,
+.out-down-enter-active,
+.out-down-leave-active,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .3s ease;
+}
+
+.out-up-leave-to,
+.out-down-enter {
+  position: absolute;
+  transform: translateY(-2.5em);
+  opacity: 0;
+}
+
+.out-up-enter,
+.out-down-leave-to {
+  position: absolute;
+  transform: translateY(2.5em);
+  opacity: 0;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  position: absolute;
+}
+
 </style>
