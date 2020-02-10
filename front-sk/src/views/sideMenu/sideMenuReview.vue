@@ -9,7 +9,7 @@
       </v-toolbar>
       <v-tabs vertical>
         <v-tab>
-          <v-icon left>mdi-account</v-icon>
+          <v-icon left >mdi-account</v-icon>
             리뷰 등록
         </v-tab>
             
@@ -21,18 +21,14 @@
         <v-tab-item>
           <v-card flat>
             <v-card-text>
-              <!-- <router-link to="/login">Go to Foo</router-link> -->
-              <!-- <login-bar></login-bar> -->
-              
-              <!-- <p class="mb-0">
-                Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
-              </p> -->
+              <reviewPage></reviewPage>
             </v-card-text>
           </v-card>
         </v-tab-item>
         <v-tab-item>
           <v-card flat>
             <v-card-text>
+              
             <!-- <user-page></user-page> -->
             </v-card-text>
           </v-card>
@@ -57,10 +53,10 @@
 </template>
 
 <script>
-
+import reviewPage from '../review/reviewPage'
 export default {
     components :{
-      
+      reviewPage,
     }
 }
 </script>

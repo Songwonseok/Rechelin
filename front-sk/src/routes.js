@@ -37,7 +37,8 @@ export default [
     {
         path: '/',
         name: 'Main',
-        component: Main
+        component: Main,
+      
     },
     { // 유저페이지
         path: '/userpage/:id',
@@ -116,11 +117,11 @@ export default [
         ]
     },
 
-    {
-        path : '/reviewPage',
-        name : 'reviewPage',
-        component : reviewPage,
-    },
+    // {
+    //     path : '/reviewPage',
+    //     name : 'reviewPage',
+    //     component : reviewPage,
+    // },
     {
         path : '/reviewDetail/:id',
         name : 'reviewDetail',

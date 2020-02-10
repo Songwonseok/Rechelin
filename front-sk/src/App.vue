@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <v-app-bar dense >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    
+    <v-app-bar elevate-on-scroll style="position:absolute;">
 
-      <v-toolbar-title @click="mainGo">싸피 4조</v-toolbar-title>
+      <v-toolbar-title @click="mainGo" :absolute="true">싸피 4조</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -144,15 +144,36 @@
 </script>
 
 <style>
-
+.v-toolbar__title{
+  color: white;
+}
+.v-btn__content{
+  color: white !important;
+}
+.v-toolbar__title{
+  position: absolute !important;
+  color: white;
+  z-index: 150;
+}
   #inspire {
     right: 30px;
   }
-  .v-toolbar--dense .v-toolbar__content, .v-toolbar--dense .v-toolbar__extension {
-    background:  #ff9800 !important;
-    background-color:  #ff9800 !important;
+  
+ header {
+    background: rgba( 255, 255, 255, 0) !important;
+    background-color: rgba( 255, 255, 255, 0) !important;
+    opacity: 100% !important;
+    z-index: 10 !important; 
+    color: white !important;
   }
-  .out-up-enter-active,
+.v-toolbar__content {
+  background: rgba( 255, 255, 255, 0) !important;
+  background-color: rgba( 255, 255, 255, 0) !important;
+  opacity: 100% !important;
+  z-index: 10 !important; 
+  color: white !important;
+}
+.out-up-enter-active,
 .out-up-enter-active,
 .out-up-leave-active,
 .out-down-enter-active,
