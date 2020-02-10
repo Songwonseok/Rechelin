@@ -3,11 +3,10 @@
     <!-- 네브바 -->
     <div id="mainTop">
       <div id="mainWithImage" style="text-align: center !important;">
-        <div>
 
           <v-btn color="warning" id="find" dark style="position: relative; top: 250px; z-index:1;" @click="open">Find
             Restaurant</v-btn>
-        </div>
+
         <v-dialog v-model="openSearch" max-width="600">
           <v-card>
             <v-card-title class="headline">
@@ -156,7 +155,7 @@
       <v-row no-gutters>
         <v-col cols="9">
           <v-row no-gutters>
-            <template v-for="(store, index) in Stores">
+            <!-- <template v-for="(store, index) in Stores">
               <v-col :key="index">
                 <v-hover v-slot:default="{ hover }">
                   <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
@@ -194,13 +193,13 @@
                 </v-hover>
               </v-col>
               <v-responsive v-if="n === 2" :key="`width-${index}`" width="100%"></v-responsive>
-            </template>
+            </template> -->
           </v-row>
         </v-col>
 
         <v-col cols="3">
           <v-row align="center">
-            <v-card class="mx-auto" max-width="400" tile>
+            <!-- <v-card class="mx-auto" max-width="400" tile>
               <v-list flat=true avatar=true rounded=true>
                 <v-subheader>
                   <v-icon>{{icons.Crown}}</v-icon>이달의 리뷰왕<v-icon>{{icons.Crown}}</v-icon>
@@ -218,7 +217,7 @@
                 </v-list-item-group>
 
               </v-list>
-            </v-card>
+            </v-card> -->
 
           </v-row>
 
@@ -459,13 +458,18 @@
         width: 1000px;
 
     }
-
+    #inspire {
+      right: 0px;
+      top: 0px;
+      position: absolute;
+    }
     .mb-2 {
         height: 50px !important;
     }
 
     #mainWithImage {
-        padding-top: 50px;
+        padding-top: 0px;
+        position: relative;
     }
 
     #mainTop {
