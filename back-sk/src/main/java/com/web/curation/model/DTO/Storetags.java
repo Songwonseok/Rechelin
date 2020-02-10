@@ -30,6 +30,21 @@ public class Storetags {
 	@JoinColumn(name= "review_num")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Review review;
+    
+	public Storetags() {}
+	
+
+	public void setHashtag(Hashtag hashtag) {
+		this.hashtag = hashtag;
+	}
+
+
+
+	public void setReview(Review review) {
+		this.review = review;
+	}
+
+
 
 	public long getNum() {
 		return num;

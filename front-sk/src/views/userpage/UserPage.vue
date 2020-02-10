@@ -34,7 +34,7 @@
          <ul class="data-user">
          <li>
             <router-link :to="{name: 'UserReviews', params: {
-          bookmarks: this.UserInfo.stores,
+          bookmarks: this.bookmarkList,
           reviews : this.reviewList, // 향후 db에서 받아오는 값으로 수정할 애들
         }}"><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
           </li>
@@ -144,14 +144,20 @@
         })
       }
       ,getReviewList(){
-        
+         ReviewApi.requestMyReviewList(this.id, res=>{
+          this.reviewList = res;
+        }, error=>{
+          alert('ReviewList 가져오기 실패')
+        })
       }
       ,getUser(){
           UserApi.requestEmail( this.id,res=>{
-            this.UserInfo.email = res.data.object.email;
-            this.UserInfo.nickname = res.data.object.nickname;
-            this.UserInfo.phone = res.data.object.phone;
-            this.UserInfo.profile = res.data.object.profile;
+            console.log("****")
+            console.log(res)
+            this.UserInfo.email = res.email;
+            this.UserInfo.nickname = res.nickname;
+            this.UserInfo.phone = res.phone;
+            this.UserInfo.profile = res.profile;
            
           },error =>{
             alert('정보 가져오기 실패 !');
