@@ -132,7 +132,7 @@
 
         <v-tab-item>
           <v-card flat>
-            <v-card-title class="headline">음식점 검색</v-card-title>
+            <v-card-title class="headline"></v-card-title>
             <v-card-text>
              <side-menu-food></side-menu-food>
             </v-card-text>

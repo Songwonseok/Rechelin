@@ -3,13 +3,28 @@
   <v-app id="inspire">
     <v-card>
       <v-toolbar flat color="orange" dark>
-         <v-toolbar-title>   <i class="fas fa-user fa-3x"></i></v-toolbar-title> 
+         
+         <v-toolbar-title>   <i class="fas fa-user fa-3x"></i></v-toolbar-title>  유저페이지
       </v-toolbar>
       <v-tabs vertical>
-        <v-tab>
+        
+        <div v-if="isLoginTrue">
+        <v-tab v-model="watchLogin">
           <v-icon left>mdi-account</v-icon>
           로그인
         </v-tab>
+        </div>
+
+        <div v-else>
+          <v-tab>
+          <v-icon left>mdi-account</v-icon>
+          유저페이지
+        </v-tab>
+
+        </div>
+
+
+
         <v-tab>
           <v-icon left>mdi-lock</v-icon>
           비밀번호 찾기
@@ -60,6 +75,19 @@ export default {
         loginBar,
         signUp,
         searchPage,
+    },
+    data(){
+      return{
+        isLoginTrue : true,
+      }
+    },
+    watch :{
+       watchLogin :function(){
+         console.log('hi')
+         if(sessionStorage.getItem("userToken").length>0){
+           this.isLoginTrue = false;
+         }
+       }
     }
 }
 </script>

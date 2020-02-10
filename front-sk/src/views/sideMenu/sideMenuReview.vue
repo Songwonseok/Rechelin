@@ -3,7 +3,8 @@
   <v-app id="inspire">
     <v-card>
       <v-toolbar flat color="orange" dark>
-         <v-toolbar-title>  <i class="fas fa-utensils fa-3x" > </i></v-toolbar-title> 
+        
+         <v-toolbar-title>  <i class="fas fa-mail-bulk fa-3x" > </i></v-toolbar-title> 리뷰등록
        
       </v-toolbar>
       <v-tabs vertical>
