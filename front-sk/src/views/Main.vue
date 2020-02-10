@@ -200,9 +200,7 @@
       <v-row no-gutters>
         <v-col cols="9">
           <v-row no-gutters>
-            <!-- <template v-for="(store, index) in Stores">
-              <v-col :key="index">
-                <!-- <v-hover v-slot:default="{ hover }"> -->
+           
                   <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
 
                     <!-- <v-img height="200" :src="store.picture">
@@ -236,15 +234,15 @@
 
                   </v-card>
                 <!-- </v-hover> -->
-              </v-col>
+              <!-- </v-col>
               <v-responsive v-if="n === 2" :key="`width-${index}`" width="100%"></v-responsive>
-            </template> -->
+            </template>  -->
           </v-row>
         </v-col>
 
         <!-- <v-col cols="3">
           <v-row align="center">
-            <!-- <v-card class="mx-auto" max-width="400" tile>
+         
               <v-list flat=true avatar=true rounded=true>
                 <v-subheader>
                   <v-icon>{{icons.Crown}}</v-icon>이달의 리뷰왕<v-icon>{{icons.Crown}}</v-icon>
@@ -269,19 +267,13 @@
 
           <div class="text-center">
 
-            <br><br>
-            <span style="font-size:30px"> 리뷰 작성하기</span><br>
-            <v-btn router-link to="/reviewPage" class="mx-2" id="btn" style="font-size: 2em; color:black" fab dark large
-              color="purple">
-
-              <i class="fas fa-pencil-alt"></i>
-            </v-btn>
+           
 
           </div>
 
-        </v-col> -->
+        <!-- </v-col> 
 
-      </v-row>
+      </v-row> -->
     </v-container>
   </div>
 
