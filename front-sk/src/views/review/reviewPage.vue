@@ -179,6 +179,7 @@
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
 import UserApi from '../../apis/UserApi'
+import StoreApi from '../../apis/UserApi'
 import PV from 'password-validator'
 import ImgurApi from '../../apis/ImgurApi'
 import StarRating from 'vue-star-rating'
@@ -342,7 +343,7 @@ export default {
                         'weak' : this.cons,
                         }
                         console.log(data);
-                    UserApi.requestAddReview(data, res=>{
+                    StoreApi.requestAddReview(data, res=>{
 
                         console.log("reviewPage 등록 성공");
                     })
@@ -360,7 +361,7 @@ export default {
             console.log(this.$store.state.googleStorePlace[index]);
              //Q : 리뷰 항목을 다 건네줘야 하는건지?
                 
-                 UserApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
+                 StoreApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
                  this.store_num = res.data.object.num;
                  this.store_pic = res.data.object.img;
                  })

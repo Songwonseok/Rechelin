@@ -55,7 +55,7 @@ public class ReviewController {
 
 	@PutMapping("/review/update")
 	@ApiOperation(value = "리뷰 업데이트")
-	public Object update(@RequestParam Review review) {
+	public Object update(@RequestBody Review review) {
 		final BasicResponse result = new BasicResponse();
 
 		if (service.update(review)) {

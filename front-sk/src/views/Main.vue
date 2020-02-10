@@ -312,8 +312,7 @@
   import {
     mapState
   } from 'vuex'
-  //import userSearch from '../../src/components/common/userSearch';
-  import UserApi from '../../src/apis/UserApi.js';
+  import SearchApi from '../../src/apis/SearchApi.js';
   import sideMenu from '../components/common/sideMenu.vue';
   export default {
     created() {
@@ -404,7 +403,7 @@
         this.history.nickname = this.search;
 
 
-        UserApi.searchUserHistory(this.history, res => {
+        SearchApi.searchUserHistory(this.history, res => {
 
           if (this.inputStatus == true) this.inputStatus = false;
           else {
