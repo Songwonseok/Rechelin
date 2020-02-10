@@ -81,7 +81,17 @@ export default {
         state.commentsOfreview = payload.comments
     },
      createComment(state, payload) {
-        state.newComments = payload
+        let list = [...state.commentsOfreview]
+        list.push(payload)
+        state.commentsOfreview = [...list]
+        state.newReturnComment = payload
+        
+     },
+     commentDelete(state, comment) {
+        let pos = state.commentsOfreview.indexOf(comment)
+        let list = [...state.commentsOfreview]
+        list.splice(pos, 1)
+        state.commentsOfreview = [...list];
      },
      // 리뷰 관련
     reviewsGet(state, payload) {

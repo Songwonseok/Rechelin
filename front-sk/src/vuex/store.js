@@ -134,9 +134,9 @@ export default new Vuex.Store({
         // commets of REVIEWS
         commentsOfreview: null, // 아마 리스트로 올 것  
         reviewsOfstore: null,
-        newComments: null,
+        newReturnComment: null,
         reviewInfo: '',
-    
+        
     },
 
  

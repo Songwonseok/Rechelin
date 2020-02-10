@@ -4,10 +4,10 @@
   <div v-if="checkLogin"> 
     <div id="mainTop">
       <div id="mainWithImage" style="text-align: center !important;">
-        
+
           <v-btn color="warning" id="find" dark style="position: relative; top: 250px; z-index:1;" @click="open">Find
             Restaurant</v-btn>
-      
+
         <v-dialog v-model="openSearch" max-width="600">
           
           <v-card>
@@ -111,9 +111,9 @@
            color="orange"
            v-model="tabs"
            grow>
-                        <v-tab>리뷰 등록</v-tab>
-                        <v-tab>음식점 검색</v-tab>
-                        <v-tab>유저 페이지</v-tab>
+                        <v-tab><i class="fas fa-user fa-2x"></i> &nbsp;&nbsp;유저 페이지</v-tab>
+                        <v-tab><i class="fas fa-utensils fa-2x" ></i> &nbsp;&nbsp;음식점 검색</v-tab>
+                        <v-tab><i class="fas fa-mail-bulk fa-2x"></i> &nbsp;&nbsp;리뷰 등록</v-tab>
                         <v-tab>미정</v-tab>
                         <v-tab>미정</v-tab>
            </v-tabs>
@@ -124,7 +124,7 @@
           <v-card flat>
             <v-card-text>
               <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. -->
-              <side-menu></side-menu>>
+              <side-menu-user></side-menu-user>
               
             </v-card-text>
           </v-card>
@@ -132,19 +132,9 @@
 
         <v-tab-item>
           <v-card flat>
-            <v-card-title class="headline">An awesome title</v-card-title>
+            <v-card-title class="headline">음식점 검색</v-card-title>
             <v-card-text>
-              <p>
-                Duis lobortis massa imperdiet quam. Donec vitae orci sed dolor rutrum auctor. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Praesent congue erat at massa.
-              </p>
-  
-              <p>
-                Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est. Etiam sit amet orci eget eros faucibus tincidunt. Donec sodales sagittis magna.
-              </p>
-  
-              <p class="mb-0">
-                Ut leo. Suspendisse potenti. Duis vel nibh at velit scelerisque suscipit. Fusce pharetra convallis urna.
-              </p>
+             <side-menu-food></side-menu-food>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -153,13 +143,7 @@
           <v-card flat>
             <v-card-title class="headline">An even better title</v-card-title>
             <v-card-text>
-              <p>
-                Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Sed hendrerit. Maecenas malesuada. Vestibulum ullamcorper mauris at ligula. Proin faucibus arcu quis ante.
-              </p>
-  
-              <p class="mb-0">
-                Etiam vitae tortor. Curabitur ullamcorper ultricies nisi. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. Aliquam lobortis. Suspendisse potenti.
-              </p>
+             <side-menu-review></side-menu-review>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -216,9 +200,7 @@
       <v-row no-gutters>
         <v-col cols="9">
           <v-row no-gutters>
-            <template v-for="(store, index) in Stores">
-              <v-col :key="index">
-                <v-hover v-slot:default="{ hover }">
+           
                   <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
 
                     <!-- <v-img height="200" :src="store.picture">
@@ -251,16 +233,16 @@
                     </v-card-text> -->
 
                   </v-card>
-                </v-hover>
-              </v-col>
+                <!-- </v-hover> -->
+              <!-- </v-col>
               <v-responsive v-if="n === 2" :key="`width-${index}`" width="100%"></v-responsive>
-            </template>
+            </template>  -->
           </v-row>
         </v-col>
 
         <!-- <v-col cols="3">
           <v-row align="center">
-            <v-card class="mx-auto" max-width="400" tile>
+         
               <v-list flat=true avatar=true rounded=true>
                 <v-subheader>
                   <v-icon>{{icons.Crown}}</v-icon>이달의 리뷰왕<v-icon>{{icons.Crown}}</v-icon>
@@ -278,26 +260,15 @@
                 </v-list-item-group>
 
               </v-list>
-            </v-card>
+            </v-card> -->
 
           </v-row>
 
 
-          <div class="text-center">
 
-            <br><br>
-            <span style="font-size:30px"> 리뷰 작성하기</span><br>
-            <v-btn router-link to="/reviewPage" class="mx-2" id="btn" style="font-size: 2em; color:black" fab dark large
-              color="purple">
+        <!-- </v-col> 
 
-              <i class="fas fa-pencil-alt"></i>
-            </v-btn>
-
-          </div>
-
-        </v-col> -->
-
-      </v-row>
+      </v-row> -->
     </v-container>
   </div>
 
@@ -323,7 +294,10 @@
   } from 'vuex'
   //import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
-  import sideMenu from '../components/common/sideMenu.vue';
+  import sideMenuUser from './sideMenu/sideMenuUser.vue'; 
+  import sideMenuFood from './sideMenu/sideMenuFood.vue';
+  import sideMenuReview from './sideMenu/sideMenuReview.vue';
+
   export default {
     created() {
       this
@@ -331,7 +305,9 @@
         .dispatch('LOADING_USERDATA');
     },
     components : {
-      sideMenu,
+      sideMenuUser,
+      sideMenuFood,
+      sideMenuReview,
     },
     data() {
       return {
@@ -544,13 +520,18 @@
         width: 1000px;
 
     }
-
+    #inspire {
+      right: 0px;
+      top: 0px;
+      position: absolute;
+    }
     .mb-2 {
         height: 50px !important;
     }
 
     #mainWithImage {
-        padding-top: 50px;
+        padding-top: 0px;
+        position: relative;
     }
 
     #mainTop {
