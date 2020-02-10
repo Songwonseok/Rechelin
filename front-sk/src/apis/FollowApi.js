@@ -10,6 +10,10 @@ const auth = {
 }
 
 const requestFanList = (data, callback, errorCallback) => {
+    //const requestFanList = ({commit}, data){
+
+    //}
+    //export requestFanList
     const params = new URLSearchParams();
     params.append('email', data);
 
