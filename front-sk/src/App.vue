@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-app-bar dense dark>
+    <v-app-bar dense >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title @click="mainGo">싸피 4조</v-toolbar-title>
@@ -42,9 +42,11 @@
         </b-list-group-item>
       </b-popover>
     </v-app-bar>
-
-    <router-view></router-view>
-
+  <transition v-bind:name="transitionName" mode="out-in">
+    <Main></Main>
+    
+    </transition>
+<router-view></router-view>
 
 
 
@@ -62,9 +64,12 @@
     mdiDelete
   } from '@mdi/js'
   import SignUp from "./views/user/signUpForm.vue";
-
+  import Main from "./views/Main.vue";
   export default {
     name: 'app',
+    components : {
+      Main,
+    },
     watch : {
         checkLogin : function(v){
             this.checkLogin2();
@@ -139,8 +144,43 @@
   };
 </script>
 
-<style scoped>
+<style>
+
   #inspire {
     right: 30px;
   }
+  .v-toolbar--dense .v-toolbar__content, .v-toolbar--dense .v-toolbar__extension {
+    background:  #ff9800 !important;
+    background-color:  #ff9800 !important;
+  }
+  .out-up-enter-active,
+.out-up-enter-active,
+.out-up-leave-active,
+.out-down-enter-active,
+.out-down-leave-active,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .3s ease;
+}
+
+.out-up-leave-to,
+.out-down-enter {
+  position: absolute;
+  transform: translateY(-2.5em);
+  opacity: 0;
+}
+
+.out-up-enter,
+.out-down-leave-to {
+  position: absolute;
+  transform: translateY(2.5em);
+  opacity: 0;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  position: absolute;
+}
+
 </style>

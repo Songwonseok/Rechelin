@@ -35,7 +35,7 @@
                         </v-btn>
 
                         <v-btn text>
-                        <vue-star animate="animated bounceIn" color="#F05654">
+                        <vue-star animate="animated bounceIn" color="#F05654" >
                            <i slot="icon" class="fas fa-bookmark fa-2x"></i>
                          </vue-star>
                          </v-btn>
@@ -48,12 +48,13 @@
 
 
         </v-row>
-
+ 
 <!-- 
         <div v-infinite-scroll="reviewsScroll" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
             로딩중
         </div> -->
 
+                       
     </div>
 </template>
 

@@ -1,48 +1,218 @@
 <template>
   <div>
     <!-- 네브바 -->
+  <div v-if="checkLogin"> 
+    <div id="mainTop">
+      <div id="mainWithImage" style="text-align: center !important;">
+        
+          <v-btn color="warning" id="find" dark style="position: relative; top: 250px; z-index:1;" @click="open">Find
+            Restaurant</v-btn>
+      
+        <v-dialog v-model="openSearch" max-width="600">
+          
+          <v-card>
+            <v-card-title class="headline">
+              <v-combobox v-model="newSearch" chips clearable label="Your restaurant" multiple solo>
+              </v-combobox>
+            </v-card-title>
 
+            <v-card-text>
+
+              위치
+              <v-divider></v-divider>
+              강남
+              <v-chip draggable @click="insertTags('locations', 0, '강남')">강남</v-chip>
+              <v-chip draggable @click="insertTags('locations', 1, '잠실')">잠실</v-chip>
+              <v-chip draggable @click="insertTags('locations', 2, '사당')">사당</v-chip>
+              <v-chip draggable @click="insertTags('locations', 3, '코엑스')">코엑스</v-chip>
+              <v-chip draggable @click="insertTags('locations', 4, '고속터미널')">고속터미널</v-chip>
+              <v-chip draggable @click="insertTags('locations', 5, '가로수길')">가로수길</v-chip>
+              <v-chip draggable @click="insertTags('locations', 6, '서래마을')">서래마을</v-chip>
+              <v-chip draggable @click="insertTags('locations', 7, '건대')">건대</v-chip>
+
+
+
+              <v-divider></v-divider>
+              강북
+              <v-chip draggable @click="insertTags('locations', 8, '종로')">종로</v-chip>
+              <v-chip draggable @click="insertTags('locations', 9, '삼청동')">삼청동</v-chip>
+              <v-chip draggable @click="insertTags('locations', 10, '서촌')">서촌</v-chip>
+              <v-chip draggable @click="insertTags('locations', 11, '왕십리')">왕십리</v-chip>
+              <v-chip draggable @click="insertTags('locations', 12, '혜화')">혜화</v-chip>
+              <v-chip draggable @click="insertTags('locations', 13, '상수')">상수</v-chip>
+              <v-chip draggable @click="insertTags('locations', 14, '한남동')">한남동</v-chip>
+              <v-chip draggable @click="insertTags('locations', 15, '이태원')">이태원</v-chip>
+              <v-chip draggable @click="insertTags('locations', 16, '홍대')">홍대</v-chip>
+              <v-chip draggable @click="insertTags('locations', 17, '광화문')">광화문</v-chip>
+              <v-chip draggable @click="insertTags('locations', 18, '여의도')">여의도</v-chip>
+              <v-chip draggable @click="insertTags('locations', 19, '연남동')">연남동</v-chip>
+              <v-chip draggable @click="insertTags('locations', 20, '합정')">합정</v-chip>
+              <v-chip draggable @click="insertTags('locations', 21, '경리단길')">경리단길</v-chip>
+              <v-chip draggable @click="insertTags('locations', 22, '명동')">명동</v-chip>
+              <v-chip draggable @click="insertTags('locations', 23, '신촌')">신촌</v-chip>
+
+
+              <v-divider></v-divider>
+              누구와
+              <v-divider></v-divider>
+
+              <v-chip draggable @click="insertTags('withWho', 0, '혼밥')">혼밥</v-chip>
+              <v-chip draggable @click="insertTags('withWho', 1, '친구와')">친구와</v-chip>
+              <v-chip draggable @click="insertTags('withWho', 2, '연인과')">연인과</v-chip>
+              <v-chip draggable @click="insertTags('withWho', 3, '직장동료')">직장동료</v-chip>
+              <v-chip draggable @click="insertTags('withWho', 4, '가족과')">가족과</v-chip>
+
+
+              <v-divider></v-divider>
+              연령별
+              <v-divider></v-divider>
+
+              <v-chip draggable @click="insertTags('ages', 0, '10대')">10대</v-chip>
+              <v-chip draggable @click="insertTags('ages', 1, '20대')">20대</v-chip>
+              <v-chip draggable @click="insertTags('ages', 2, '30대')">30대</v-chip>
+              <v-chip draggable @click="insertTags('ages', 3, '40450대')">4050대</v-chip>
+              <v-chip draggable @click="insertTags('ages', 4, '그이상')">그이상</v-chip>
+
+
+              <v-divider></v-divider>
+              분위기
+              <v-divider></v-divider>
+
+              <v-chip draggable @click="insertTags('moods', 0, '시끌벅적한')">시끌벅적한</v-chip>
+              <v-chip draggable @click="insertTags('moods', 1, '차분한')">차분한</v-chip>
+              <v-chip draggable @click="insertTags('moods', 2, '소소한')">소소한</v-chip>
+              <v-chip draggable @click="insertTags('moods', 3, '고급진')">고급진</v-chip>
+              <v-chip draggable @click="insertTags('moods', 4, '데이트')">데이트</v-chip>
+
+              <v-divider></v-divider>
+              편의시설
+              <v-divider></v-divider>
+
+              <v-chip draggable @click="insertTags('facility', 0, '단체석')">단체석</v-chip>
+              <v-chip draggable @click="insertTags('facility', 1, '주차장')">주차장</v-chip>
+              <v-chip draggable @click="insertTags('facility', 2, '개별룸')">개별룸</v-chip>
+
+
+
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-app id="inspire">
+
+          <v-carousel cycle show-arrows-on-hover hide-delimiters v-ripple="true" class="text-center">
+            <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
+            </v-carousel-item>
+          </v-carousel>
+           <v-tabs 
+           color="orange"
+           v-model="tabs"
+           grow>
+                        <v-tab>리뷰 등록</v-tab>
+                        <v-tab>음식점 검색</v-tab>
+                        <v-tab>유저 페이지</v-tab>
+                        <v-tab>미정</v-tab>
+                        <v-tab>미정</v-tab>
+           </v-tabs>
+
+
+      <v-tabs-items v-model="tabs">
+        <v-tab-item>
+          <v-card flat>
+            <v-card-text>
+              <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. -->
+              <side-menu></side-menu>>
+              
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+
+        <v-tab-item>
+          <v-card flat>
+            <v-card-title class="headline">An awesome title</v-card-title>
+            <v-card-text>
+              <p>
+                Duis lobortis massa imperdiet quam. Donec vitae orci sed dolor rutrum auctor. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Praesent congue erat at massa.
+              </p>
+  
+              <p>
+                Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est. Etiam sit amet orci eget eros faucibus tincidunt. Donec sodales sagittis magna.
+              </p>
+  
+              <p class="mb-0">
+                Ut leo. Suspendisse potenti. Duis vel nibh at velit scelerisque suscipit. Fusce pharetra convallis urna.
+              </p>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+        
+        <v-tab-item>
+          <v-card flat>
+            <v-card-title class="headline">An even better title</v-card-title>
+            <v-card-text>
+              <p>
+                Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Sed hendrerit. Maecenas malesuada. Vestibulum ullamcorper mauris at ligula. Proin faucibus arcu quis ante.
+              </p>
+  
+              <p class="mb-0">
+                Etiam vitae tortor. Curabitur ullamcorper ultricies nisi. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. Aliquam lobortis. Suspendisse potenti.
+              </p>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
+        </v-app>
+        <hr>
+      </div>
+    </div>
     <!-- 음식창과 검색창 -->
 
-    <v-row align="start" no-gutters style="height: 130px;" class="mainSearch ">
+    <!-- <v-row align="start" no-gutters style="height: 130px;" class="mainSearch ">
       <v-col>
 
       </v-col>
-      <v-col>
-        <div class="search">
-<!-- <input type="text" class="searchTerm" placeholder="What are you looking for?"> -->
-<!--User가 최근 검색한 history를 보여줌 --> 
-<div v-if="inputStatus">
-<div class="input-container">
-<b-form-input  class="searchTerm" type="text" v-on:keyup.enter="changeInput" v-model="search" list="this.$store.state.recentUser"></b-form-input>
-  <datalist  id="this.$store.state.recentUser"> 
-        <option v-for="user in this.$store.state.recentUser" v-bind:key="user">{{user}}</option>
-  </datalist>
-  </div>
- </div>
- <!--User 정보 전체를 보여줌 -->
-<div v-else>
-   
-    <div class="input-container">
+      <v-col> -->
+    <!-- <div class="search"> -->
+    <!-- <input type="text" class="searchTerm" placeholder="What are you looking for?"> -->
+    <!--User가 최근 검색한 history를 보여줌 -->
+    <!-- <div v-if="inputStatus">
+            <div class="input-container">
+              <b-form-input class="searchTerm" type="text" v-on:keyup.enter="changeInput" v-model="search"
+                list="this.$store.state.recentUser"></b-form-input>
+              <datalist id="this.$store.state.recentUser">
+                <option v-for="user in this.$store.state.recentUser" v-bind:key="user">{{user}}</option>
+              </datalist>
+            </div>
+          </div> -->
+    <!--User 정보 전체를 보여줌 -->
+    <!-- <div v-else>
 
-<b-form-input class="searchTerm"  type="text" v-on:keyup.enter="changeInput2" v-model="search" list="this.$store.state.searchUser.nickname"/>
-  <datalist id="this.$store.state.searchUser.nickname">
-        <option v-for="user in this.$store.state.searchUser.nickname"  v-bind:key="user">{{user}}</option>
-       
-  </datalist>
-  </div>
-</div>
-          <button type="submit" class="searchButton">
+            <div class="input-container">
 
-          </button>
-        </div>
-      </v-col>
+              <b-form-input class="searchTerm" type="text" v-on:keyup.enter="changeInput2" v-model="search"
+                list="this.$store.state.searchUser.nickname" />
+              <datalist id="this.$store.state.searchUser.nickname">
+                <option v-for="user in this.$store.state.searchUser.nickname" v-bind:key="user">{{user}}</option>
+
+              </datalist>
+            </div>
+          </div> -->
+    <!-- <button type="submit" class="searchButton">
+
+          </button> -->
+    <!-- </div> -->
+    <!-- </v-col>
       <v-col>
-      </v-col>
-    </v-row>
+      </v-col> -->
+    <!-- </v-row> -->
 
     <!-- 사진이랑 유저 랭킹 -->
-    <v-container class="grey lighten-5">
+    <v-container class="grey lighten-5" style="
+    margin-top: 400px;
+">
       <v-row no-gutters>
         <v-col cols="9">
           <v-row no-gutters>
@@ -51,7 +221,7 @@
                 <v-hover v-slot:default="{ hover }">
                   <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
 
-                    <v-img height="200" :src="store.picture">
+                    <!-- <v-img height="200" :src="store.picture">
 
                       <v-expand-transition>
                         <div v-if="hover" class="d-flex transition-fast-in-fast-out v-card--reveal white--text"
@@ -61,9 +231,9 @@
                       </v-expand-transition>
 
 
-                    </v-img>
+                    </v-img> -->
 
-                    <v-card-title>{{store.name}}</v-card-title>
+                    <!-- <v-card-title>{{store.name}}</v-card-title>
 
                     <v-card-text>
                       <v-row align="center" class="mx-0">
@@ -78,7 +248,7 @@
                       <v-chip-group column>
                         <v-chip v-for="(h, i) in store.hashtag" :key="i">#{{h}}</v-chip>
                       </v-chip-group>
-                    </v-card-text>
+                    </v-card-text> -->
 
                   </v-card>
                 </v-hover>
@@ -88,7 +258,7 @@
           </v-row>
         </v-col>
 
-        <v-col cols="3">
+        <!-- <v-col cols="3">
           <v-row align="center">
             <v-card class="mx-auto" max-width="400" tile>
               <v-list flat=true avatar=true rounded=true>
@@ -106,29 +276,37 @@
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
-                
+
               </v-list>
             </v-card>
-            
+
           </v-row>
 
-      
-    <div class="text-center">
 
-<br><br>
-<span style ="font-size:30px"> 리뷰 작성하기</span><br>
-            <v-btn router-link to="/reviewPage" class="mx-2" id = "btn" style="font-size: 2em; color:black" fab dark large color="purple">
-              
-               <i class="fas fa-pencil-alt"></i>
-           </v-btn>
-        
-    </div>
-  
-        </v-col>
+          <div class="text-center">
+
+            <br><br>
+            <span style="font-size:30px"> 리뷰 작성하기</span><br>
+            <v-btn router-link to="/reviewPage" class="mx-2" id="btn" style="font-size: 2em; color:black" fab dark large
+              color="purple">
+
+              <i class="fas fa-pencil-alt"></i>
+            </v-btn>
+
+          </div>
+
+        </v-col> -->
 
       </v-row>
     </v-container>
+  </div>
 
+
+  <div v-else>
+    
+    <img src="https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg" @click="checkLoginState" alt="Trulli" width="500" height="333"><br>
+    
+  </div>
   </div>
 </template>
 
@@ -143,22 +321,26 @@
   import {
     mapState
   } from 'vuex'
- //import userSearch from '../../src/components/common/userSearch';
-import UserApi from '../../src/apis/UserApi.js';
-export default {
-     created() {
-        this
-            .$store
-            .dispatch('LOADING_USERDATA');
-     },
+  //import userSearch from '../../src/components/common/userSearch';
+  import UserApi from '../../src/apis/UserApi.js';
+  import sideMenu from '../components/common/sideMenu.vue';
+  export default {
+    created() {
+      this
+        .$store
+        .dispatch('LOADING_USERDATA');
+    },
+    components : {
+      sideMenu,
+    },
     data() {
       return {
         search: '',
         inputStatus: true,
-        history : {
-            email : '',
-            nickname : '',
-            moveUser : '',
+        history: {
+          email: '',
+          nickname: '',
+          moveUser: '',
         },
         icons: {
           Magnify: mdiMagnify,
@@ -168,37 +350,35 @@ export default {
         },
         loading: false,
         selection: 1,
+
+        newSearch: [],
+        openSearch: false,
+        value: ['apple', 'orange'],
         items: [{
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            title: 'alex',
-            subtitle: "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?",
+            src: 'https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg',
           },
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-            title: 'emma',
-            subtitle: "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.",
+            src: 'https://cdn.pixabay.com/photo/2016/03/05/23/02/barbecue-1239434_1280.jpg',
           },
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-            title: 'harry',
-            subtitle: "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?",
+            src: 'https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_1280.jpg',
           },
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-            title: 'lebecca',
-            subtitle: "<span class='text--primary'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?",
-          },
-          {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-            title: 'ron',
-            subtitle: "<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.",
+            src: 'https://cdn.pixabay.com/photo/2017/03/30/15/47/churros-2188871_1280.jpg',
           },
         ],
-
-
+        hashtags: {
+          locations: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          withWho: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          ages: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          moods: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          facility: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        tabs : null,
+        checkLogin : false,
       }
     },
-     
+
     computed: {
       ...mapState(['tempStores']),
       Stores() {
@@ -210,117 +390,194 @@ export default {
         this.loading = true
 
         setTimeout(() => (this.loading = false), 2000)
-      },changeInput(){ //if-else 
-            if(this.inputStatus == true) this.inputStatus = false;
-            else
-                this.inputStatus = true;
-        },
-        changeInput2(){ //enter 누를 때, user 정보가 db에 저장된다.
-            let find = false;
-            
-            for(var j =0; j<this.$store.state.searchUser.nickname.length; j++){
-                if(this.search == this.$store.state.searchUser.nickname[j]) {
-                    this.moveUser = this.$store.state.searchUser.email[j]; 
-                    //검색한 닉네임의 email
-                    find = true;
-                    break;
-                }
-               
-            }
-            if(find == false) this.moveUser = 'notEmail'
-            //this.history.email = sessionStorage.getItem("userEmail");
-            this.history.email ="ssafy@naver.com"
-            this.history.nickname = this.search;
+      },
+      changeInput() { //if-else 
+        if (this.inputStatus == true) this.inputStatus = false;
+        else
+          this.inputStatus = true;
+      },
+      changeInput2() { //enter 누를 때, user 정보가 db에 저장된다.
+        let find = false;
 
-           
-            UserApi.searchUserHistory(this.history, res=>{
-              
-             if(this.inputStatus == true) this.inputStatus = false;
-             else{
-                this.inputStatus = true;
-                this.search="";
-                this.$store.dispatch('LOADING_RECENTUSERDATA', this.history.email);
-             }
-            },error=>{  
-                console.log("userSearch.vue, server 와 통신 실패");
-            })
-            //DB에 저장하고 email로 유저페이지 이동한다. 
-            //this.$router.push({ name: 'userPage', params: { id: this.moveUser }}) 
-            //다시 inpustState를 변화시키므로써, User가 최근 검색 history를 보여준다. 
-             
+        for (var j = 0; j < this.$store.state.searchUser.nickname.length; j++) {
+          if (this.search == this.$store.state.searchUser.nickname[j]) {
+            this.moveUser = this.$store.state.searchUser.email[j];
+            //검색한 닉네임의 email
+            find = true;
+            break;
+          }
+
         }
+        if (find == false) this.moveUser = 'notEmail'
+        //this.history.email = sessionStorage.getItem("userEmail");
+        this.history.email = "ssafy@naver.com"
+        this.history.nickname = this.search;
+
+
+        UserApi.searchUserHistory(this.history, res => {
+
+          if (this.inputStatus == true) this.inputStatus = false;
+          else {
+            this.inputStatus = true;
+            this.search = "";
+            this.$store.dispatch('LOADING_RECENTUSERDATA', this.history.email);
+          }
+        }, error => {
+          console.log("userSearch.vue, server 와 통신 실패");
+        })
+        //DB에 저장하고 email로 유저페이지 이동한다. 
+        //this.$router.push({ name: 'userPage', params: { id: this.moveUser }}) 
+        //다시 inpustState를 변화시키므로써, User가 최근 검색 history를 보여준다. 
+
+      },
+      open() {
+        this.openSearch = !this.openSearch
+      },
+      insertTags(cate, n, name) {
+
+        if (cate === "locations") {
+
+          if (!this.hashtags.locations[n]) {
+            this.hashtags.locations[n] = !this.hashtags.locations[n]
+            let list = [...this.newSearch]
+            list.push(name)
+            this.newSearch = [...list]
+            console.log(this.newSearch)
+          } else {
+            var pos = this.newSearch.indexOf(name)
+            this.hashtags.locations[n] = !this.hashtags.locations[n]
+            let list = [...this.newSearch]
+            list.splice(pos, 1)
+            this.newSearch = [...list]
+          }
+
+        } else if (cate === "withWho") {
+
+          if (!this.hashtags.withWho[n]) {
+            this.hashtags.withWho[n] = !this.hashtags.withWho[n]
+            let list = [...this.newSearch]
+            list.push(name)
+            this.newSearch = [...list]
+            console.log(this.newSearch)
+          } else {
+            let pos = this.newSearch.indexOf(name)
+            this.hashtags.withWho[n] = !this.hashtags.withWho[n]
+            let list = [...this.newSearch]
+            list.splice(pos, 1)
+            this.newSearch = [...list]
+          }
+        } else if (cate === "ages") {
+
+          if (!this.hashtags.ages[n]) {
+            this.hashtags.ages[n] = !this.hashtags.ages[n]
+            let list = [...this.newSearch]
+            list.push(name)
+            this.newSearch = [...list]
+            console.log(this.newSearch)
+          } else {
+            let pos = this.newSearch.indexOf(name)
+            this.hashtags.locations[n] = !this.hashtags.locations[n]
+            let list = [...this.newSearch]
+            list.splice(pos, 1)
+            this.newSearch = [...list]
+          }
+
+        } else if (cate === "moods") {
+          if (!this.hashtags.moods[n]) {
+            this.hashtags.moods[n] = !this.hashtags.moods[n]
+            let list = [...this.newSearch]
+            list.push(name)
+            this.newSearch = [...list]
+            console.log(this.newSearch)
+          } else {
+            let pos = this.newSearch.indexOf(name)
+            this.hashtags.moods[n] = !this.hashtags.moods[n]
+            let list = [...this.newSearch]
+            list.splice(pos, 1)
+            this.newSearch = [...list]
+          }
+        } else if (cate === "facility") {
+          if (!this.hashtags.facility[n]) {
+            this.hashtags.facility[n] = !this.hashtags.facility[n]
+            let list = [...this.newSearch]
+            list.push(name)
+            this.newSearch = [...list]
+            console.log(this.newSearch)
+          } else {
+            let pos = this.newSearch.indexOf(name)
+            this.hashtags.facility[n] = !this.hashtags.facility[n]
+            let list = [...this.newSearch]
+            list.splice(pos, 1)
+            this.newSearch = [...list]
+          }
+        }
+
+      },
+      checkLoginState(){
+        this.checkLogin = true;
+      }
     },
-    
+
   }
 </script>
 
 <style scoped>
-  .mainOut {
-    padding: 0px;
-  }
+ #mainWithImage{
+   position: relative;
+ }
+ #inspire{
+   position: absolute;
+   width : 100%;
+   top: 0px;
+   right: 0px;
+ }
+   .btn b-form-tags-button py-0 btn-outline-secondary {
+        height: 30px !important;
+    }
 
-  .mainSearch {
-    padding-top: 90px;
-    height: 250px !important;
-    background-color: orange;
-  }
+    .form-control {
+        position: absolute;
+        z-index: 1;
+        top: 285px;
+        left: 300px;
+        height: 50px;
+        width: 1000px;
 
-  .search {
-    width: 100%;
-    position: relative;
-    display: flex;
-  }
+    }
 
-  .searchTerm {
-    width: 100%;
-    border: 3px solid orangered;
-    border-right: none;
-    padding: 5px;
-    height: 36px;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-    color: #9DBFAF;
-    background-color: #fff
-  }
+    .mb-2 {
+        height: 50px !important;
+    }
 
-  .searchTerm:focus {
-    color: orangered;
-  }
+    #mainWithImage {
+        padding-top: 50px;
+    }
 
-  .searchButton {
-    width: 40px;
-    height: 36px;
-    border: 1px solid orangered;
-    background: orangered;
-    text-align: center;
-    color: #fff;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    font-size: 20px;
-  }
+    #mainTop {
+        background: #ff7f00;
+    }
+    #find {
+    -webkit-transform:scale(1.2);
+    -moz-transform:scale(1.2);
+    -ms-transform:scale(1.2); 
+    -o-transform:scale(1.2);  
+    transform:scale(1.2);
+    -webkit-transition:.3s;
+    -moz-transition:.3s;
+    -ms-transition:.3s;
+    -o-transition:.3s;
+    transition:.3s;
+    background:#ff7f00;
 
-  .storeRank {
-    margin-bottom: 30px;
-  }
-
-  .v-card__title {
-    line-height: 0.5rem;
-  }
-
-  .v-card--reveal {
-    align-items: center;
-    bottom: 0;
-    justify-content: center;
-    opacity: .5;
-    position: absolute;
-    width: 100%;
-    background-color: orange;
-    left: 0px;
-    color: white;
-    text-align: center;
-  }
-  #btn {
-    /* color: red; */
-    background-color: azure;
-  }
+}
+    #find:hover {
+	-webkit-transform:scale(1.5);
+	-moz-transform:scale(1.5);
+	-ms-transform:scale(1.5);	
+	-o-transform:scale(1.5);
+	transform:scale(1.5);
+    background: white;
+    color: #ff7f00;
+    outline-color: #ff7f00
+}
 </style>

@@ -35,7 +35,8 @@
             }
         },
         created() {
-            // console.log(this.$route.params.bookmarks)
+            console.log('hh')
+            console.log(this.$route.params)
         }
     }
 </script>

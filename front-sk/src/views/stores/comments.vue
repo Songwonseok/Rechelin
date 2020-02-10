@@ -20,7 +20,6 @@
          <div class="card">
          <v-text-field
             v-model="newComment"
-            :rules="nameRules"
             :counter="30"
             label="comments"
             required
