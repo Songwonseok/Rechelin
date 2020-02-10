@@ -190,6 +190,7 @@ export default {
         Axios.post('http://70.12.246.51:8080/store/selectOne', params, auth)
             .then(res => {
                 console.log('요청 성공')
+                console.log(res.data.object, '=========================')
                 commit('storeinfoGet', res.data.object)
             }).catch(exp => {
                 console.log('실패')
@@ -213,6 +214,7 @@ export default {
         Axios.post("http://70.12.246.51:8080/review/bookmark", payload, auth)
         .then(res => {
            console.log('요청 성공')
+
        }).catch(exp => {
            console.log('실패')
        })
@@ -250,22 +252,29 @@ export default {
             })
        
     },
-    createComment({commit}, newComment) {
-
-        Axios.post(`http://70.12.246.51:8080/review/comment`, newComment, auth)
+    createComment({commit}, data) {
+        console.log(data)
+        let options = {
+            headers: {'Content-Type': 'application/json', Authorization: 'Bearer '+ sessionStorage.getItem("userToken")},
+            url : URL + '/review/comment',
+            method: 'post',
+            data: JSON.stringify(data)
+        }
+        Axios(options)
         .then(res => {
-            console.log('요청 성공')
-            commit('createComment', newComment)
+            console.log('요청 성공!!!!!!!!!!!!!!!', res.data.object)
+            commit('createComment', res.data.object)
         }).catch(exp => {
             console.log('실패')
         })
         
     },
-    commentDelete({commit}, num) {
+    commentDelete({commit}, comment) {
 
-        Axios.delete(`http://70.12.246.51:8080/review/comment/${num}`, auth)
+        Axios.delete(`http://70.12.246.51:8080/review/comment/${comment.num}`, auth)
                     .then(res => {
                         console.log('댓글 삭제 성공')
+                        commit('commentDelete', comment)
                     }).catch(exp => {
                         console.log('실패')
                     })

@@ -30,6 +30,8 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import VueStar from 'vue-star'
 Vue.component('VueStar', VueStar)
 
+//강제 업데이트
+
 
 // infinite scroll
 var infiniteScroll =  require('vue-infinite-scroll');
