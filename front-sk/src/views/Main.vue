@@ -265,17 +265,6 @@
           </v-row>
 
 
-          <div class="text-center">
-
-            <br><br>
-            <span style="font-size:30px"> 리뷰 작성하기</span><br>
-            <v-btn router-link to="/reviewPage" class="mx-2" id="btn" style="font-size: 2em; color:black" fab dark large
-              color="purple">
-
-              <i class="fas fa-pencil-alt"></i>
-            </v-btn>
-
-          </div>
 
         <!-- </v-col> 
 
@@ -309,6 +298,7 @@
   import sideMenuUser from './sideMenu/sideMenuUser.vue'; 
   import sideMenuFood from './sideMenu/sideMenuFood.vue';
   import sideMenuReview from './sideMenu/sideMenuReview.vue';
+
   export default {
     created() {
       this
