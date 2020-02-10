@@ -21,12 +21,7 @@
         <v-tab-item>
           <v-card flat>
             <v-card-text>
-              <!-- <router-link to="/login">Go to Foo</router-link> -->
-              <!-- <login-bar></login-bar> -->
-              
-              <!-- <p class="mb-0">
-                Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
-              </p> -->
+              <review-page></review-page>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -57,10 +52,10 @@
 </template>
 
 <script>
-
+import reviewPage from '../review/reviewPage.vue';
 export default {
     components :{
-      
+      reviewPage,
     }
 }
 </script>
