@@ -67,7 +67,7 @@ const requestLogin = (data, callback, errorCallback) => {
     params.append('email', data.email);
     params.append('password', data.password);
 
-    Axios.post(URL + '/auth/login', params)
+    Axios.post(URL + '/auth/login', params, auth)
         .then(response => {
             console.log("로그인", response.object);
 
