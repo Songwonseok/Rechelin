@@ -16,7 +16,7 @@ import searchPassword from './views/user/searchPw.vue';
 import userSearch from './components/common/userSearch.vue';
 import storeDetail from './views/stores/storeDetail'
 import storeReviews from './views/stores/storeReviews'
-import commentsOfreview from './views/stores/commentsOfreview'
+import comments from './views/stores/comments'
 
 import reviewPage from './views/review/reviewPage.vue';
 import reviewDetail from './views/review/reviewDetail.vue';
@@ -105,19 +105,16 @@ export default [
                 path: 'reviews',
                 name: 'reviewsOfstore',
                 component: storeReviews,
-                children: [
-                    {
-                        path: 'id',
-                        name: 'commentsOfreview',
-                        component : commentsOfreview,
-                    }
-                ]
                
-            }
+            },
+            {
+                path: '/comments',
+                name : 'comments',
+                component: comments
+            },
         ]
     },
- 
-    
+
     {
         path : '/reviewPage',
         name : 'reviewPage',

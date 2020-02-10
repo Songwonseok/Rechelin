@@ -77,6 +77,7 @@ export default {
     },
     // 리뷰의 댓글관련
     commentsOfreview(state, payload) {
+        state.reviewInfo = payload.reviewInfo
         state.commentsOfreview = payload.comments
     },
      createComment(state, payload) {
@@ -88,6 +89,7 @@ export default {
      },
     reviewDetail(state, payload) {
         state.reviewDetail = payload
+
     },
     SET_GOOGLEMAP_TOTAL(state, googlemap_total) {
         state.googleStorePlace = googlemap_total;
