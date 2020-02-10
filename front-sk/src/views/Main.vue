@@ -221,7 +221,7 @@
                 <v-hover v-slot:default="{ hover }">
                   <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
 
-                    <!-- <v-img height="200" :src="store.picture">
+                     <v-img height="200" :src="store.picture">
 
                       <v-expand-transition>
                         <div v-if="hover" class="d-flex transition-fast-in-fast-out v-card--reveal white--text"
@@ -233,7 +233,7 @@
 
                     </v-img> -->
 
-                    <!-- <v-card-title>{{store.name}}</v-card-title>
+                     <!-- <v-card-title>{{store.name}}</v-card-title>
 
                     <v-card-text>
                       <v-row align="center" class="mx-0">
@@ -248,19 +248,19 @@
                       <v-chip-group column>
                         <v-chip v-for="(h, i) in store.hashtag" :key="i">#{{h}}</v-chip>
                       </v-chip-group>
-                    </v-card-text> -->
+                    </v-card-text> 
 
                   </v-card>
                 </v-hover>
               </v-col>
               <v-responsive v-if="n === 2" :key="`width-${index}`" width="100%"></v-responsive>
-            </template> -->
+            </template> 
           </v-row>
-        </v-col>
+        </v-col> -->
 
         <!-- <v-col cols="3">
           <v-row align="center">
-            <!-- <v-card class="mx-auto" max-width="400" tile>
+            <v-card class="mx-auto" max-width="400" tile>
               <v-list flat=true avatar=true rounded=true>
                 <v-subheader>
                   <v-icon>{{icons.Crown}}</v-icon>이달의 리뷰왕<v-icon>{{icons.Crown}}</v-icon>
@@ -295,7 +295,7 @@
 
           </div>
 
-        </v-col> -->
+        </v-col> 
 
       </v-row>
     </v-container>
