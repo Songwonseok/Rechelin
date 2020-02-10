@@ -7,10 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.web.curation.model.Tagsearch;
+import com.web.curation.model.TagsResponse;
 import com.web.curation.model.DAO.SearchDao;
+import com.web.curation.model.DAO.StoreDao;
 import com.web.curation.model.DAO.UserDao;
+import com.web.curation.model.DTO.Hashtag;
 import com.web.curation.model.DTO.Search;
+import com.web.curation.model.DTO.Store;
 import com.web.curation.model.DTO.User;
 
 @Service
@@ -18,6 +21,9 @@ public class SearchServiceImpl implements SearchService {
 
 	@Autowired
 	SearchDao searchDao;
+	
+	@Autowired
+	StoreDao storeDao;
 	
 	@Autowired
 	StoreService service;
@@ -78,10 +84,19 @@ public class SearchServiceImpl implements SearchService {
 		return list;
 	}
 
-	@Override
-	public List<Tagsearch> tagslist() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TagsResponse> tagSearch(){
+
+		List<Store> slist = storeDao.findAll();
+		List<TagsResponse> list = new ArrayList<>();
+		
+		for(Store s : slist) {
+			List<Hashtag> hlist = service.storeTags(s.getNum());
+			if(hlist.size() != 0) {
+				list.add(new TagsResponse(s,hlist));
+			}
+		}
+		
+		return list;
 	}
 
 

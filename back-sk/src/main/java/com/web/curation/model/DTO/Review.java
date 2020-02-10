@@ -59,11 +59,11 @@ public class Review {
 	public Review() {
 		
 	}
-	public Review( Store store, User email, String str, String weak, String picture, String title,
+	public Review( Store store, User user, String str, String weak, String picture, String title,
 			String hashtag, int total, int taste, int price, int kindness) {
 		super();
 		this.store = store;
-		this.user = email;
+		this.user = user;
 		this.str = str;
 		this.weak = weak;
 		this.picture = picture;
