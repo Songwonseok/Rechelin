@@ -41,7 +41,6 @@ public class ReviewController {
 	@PostMapping("/review/register")
 	@ApiOperation(value = "리뷰 등록")
 	public Object register(@RequestBody(required = true) Review review) {
-		System.out.println("asdasdsadasdadasdasd");
 
 		final BasicResponse result = new BasicResponse();
 		System.out.println("--------------");

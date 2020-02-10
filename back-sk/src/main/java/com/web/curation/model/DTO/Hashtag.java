@@ -35,4 +35,9 @@ public class Hashtag {
 		return category;
 	}
 
+	@Override
+	public String toString() {
+		return "Hashtag [num=" + num + ", keyword=" + keyword + ", category=" + category + "]";
+	}
+
 }

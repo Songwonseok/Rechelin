@@ -7,15 +7,20 @@ import org.springframework.stereotype.Service;
 
 import com.web.curation.model.DAO.BookmarkDao;
 import com.web.curation.model.DAO.CommentDao;
+import com.web.curation.model.DAO.HashtagDao;
 import com.web.curation.model.DAO.LikecheckDao;
 import com.web.curation.model.DAO.ReviewDao;
 import com.web.curation.model.DAO.StoreDao;
+import com.web.curation.model.DAO.StoreLikeDao;
+import com.web.curation.model.DAO.StoreTagsDao;
 import com.web.curation.model.DAO.UserDao;
 import com.web.curation.model.DTO.Bookmark;
 import com.web.curation.model.DTO.Comments;
+import com.web.curation.model.DTO.Hashtag;
 import com.web.curation.model.DTO.Likecheck;
 import com.web.curation.model.DTO.Review;
 import com.web.curation.model.DTO.Store;
+import com.web.curation.model.DTO.Storetags;
 import com.web.curation.model.DTO.User;
 import com.web.curation.model.querydsl.CustomRepositoryImpl;
 
@@ -33,6 +38,12 @@ public class ReviewServiceImpl implements ReviewService {
 	private UserDao userdao;
 	@Autowired
 	private StoreDao storedao;
+	@Autowired
+	private HashtagDao hashdao;
+	@Autowired
+	private StoreLikeDao SLikedao;
+	@Autowired
+	private StoreTagsDao STagsdao;
 	
 	@Autowired
 	private CustomRepositoryImpl custom;
@@ -40,13 +51,21 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void register(Review review) {
 		
-//		System.out.println(review.getStore().getNum());
-		System.out.println(review.getRnum());
-		System.out.println(review);
-		System.out.println(review.getRnum());
+		// 1) review.hashtag을 가져와서 hashtag에 일치하는 값 확인
+		String hashtag = review.getHashtag();
+		String[] tagList = hashtag.split(" "); // 해시태그 분리
 		
+		///////////////////미완성
+		for(int i=0; i<tagList.length; i++) {
+			Hashtag tag = hashdao.findByKeyword(tagList[i]);
+			System.out.println(tag.toString());
+			Storetags st = new Storetags();
+			st.setHashtag(tag);
+			st.setReview(review);
+			// hastag 객체와 review객체를 StoreTags에 저장
+			STagsdao.save(st);
+		}
 		
-//		review.setViews(0);
 		dao.save(review);
 	}
 
