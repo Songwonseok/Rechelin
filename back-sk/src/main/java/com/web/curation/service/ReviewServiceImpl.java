@@ -22,7 +22,7 @@ import com.web.curation.model.DTO.Review;
 import com.web.curation.model.DTO.Store;
 import com.web.curation.model.DTO.Storetags;
 import com.web.curation.model.DTO.User;
-import com.web.curation.model.QueryDSL.CustomRepositoryImpl;
+import com.web.curation.model.querydsl.CustomRepositoryImpl;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -50,23 +50,27 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Override
 	public void register(Review review) {
+		dao.save(review);
+		
+		// review num 가져오기
+		Review tmp = dao.findTopByStoreAndUserOrderByRnumDesc(review.getStore(), review.getUser());
 		
 		// 1) review.hashtag을 가져와서 hashtag에 일치하는 값 확인
 		String hashtag = review.getHashtag();
 		String[] tagList = hashtag.split(" "); // 해시태그 분리
 		
-		///////////////////미완성
 		for(int i=0; i<tagList.length; i++) {
 			Hashtag tag = hashdao.findByKeyword(tagList[i]);
+			if(tag ==null) continue; // 없는 태그가 나오면 DB에 추가?
+			
+			System.out.println("********************");
 			System.out.println(tag.toString());
 			Storetags st = new Storetags();
 			st.setHashtag(tag);
-			st.setReview(review);
+			st.setReview(tmp);
 			// hastag 객체와 review객체를 StoreTags에 저장
 			STagsdao.save(st);
 		}
-		
-		dao.save(review);
 	}
 
 	@Override

@@ -103,7 +103,7 @@ public class ReviewController {
 
 	@PostMapping("/review/like")
 	@ApiOperation(value = "리뷰 도움돼요 / 안돼요")
-	public Object like(@RequestParam Likecheck check) {
+	public Object like(@RequestBody Likecheck check) {
 		////// 1 - 도움 돼요 0 - 안돼요
 		final BasicResponse result = new BasicResponse();
 		int rs = service.useful(check);
@@ -127,7 +127,7 @@ public class ReviewController {
 
 	@PostMapping("/review/comment")
 	@ApiOperation(value = "댓글 등록")
-	public Object addComment(@RequestParam Comments com) {
+	public Object addComment(@RequestBody Comments com) {
 		final BasicResponse result = new BasicResponse();
 		service.addComment(com);
 		result.status = true;
@@ -160,7 +160,7 @@ public class ReviewController {
 
 	@PostMapping("/review/bookmark")
 	@ApiOperation(value = "북마크 추가 / 삭제")
-	public Object addBookMark(@RequestParam Bookmark book) {
+	public Object addBookMark(@RequestBody Bookmark book) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.object = book;
