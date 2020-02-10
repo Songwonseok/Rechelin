@@ -42,9 +42,9 @@
         </b-list-group-item>
       </b-popover>
     </v-app-bar>
-  <transition v-bind:name="transitionName" mode="out-in">
+  <!-- <transition v-bind:name="transitionName" mode="out-in"> -->
     <Main></Main>
-    </transition>
+    <!-- </transition> -->
 <router-view></router-view>
 
 
@@ -61,7 +61,7 @@
     mdiPencil,
     mdiPlus,
     mdiDelete
-  } from '@mdi/js'
+  } from '@mdi/js'  
   import SignUp from "./views/user/signUpForm.vue";
   import Main from "./views/Main.vue";
   export default {
