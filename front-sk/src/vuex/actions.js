@@ -189,6 +189,7 @@ export default {
         Axios.post('http://70.12.246.51:8080/store/selectOne', params, auth)
             .then(res => {
                 console.log('요청 성공')
+                console.log(res.data.object, '=========================')
                 commit('storeinfoGet', res.data.object)
             }).catch(exp => {
                 console.log('실패')
