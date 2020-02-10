@@ -22,7 +22,7 @@ import reviewPage from './views/review/reviewPage.vue';
 import reviewDetail from './views/review/reviewDetail.vue';
 import updateNewPw from './views/user/updateNewPw.vue';
 import userFeed from './views/feed/userFeed.vue';
-import firstPage from './views/firstPage.vue';
+
 export default [
     // ERROR PAGE
     // 404 PAGE
@@ -35,9 +35,9 @@ export default [
         component: PageNotFound
     },
     {
-        path: '/login',
-        name: 'Login',
-        component: Login
+        path: '/',
+        name: 'Main',
+        component: Main
     },
     { // 유저페이지
         path: '/userpage/:id',
@@ -136,10 +136,6 @@ export default [
         name : 'userFeed',
         component : userFeed,
     },
-    {
-        path : '/firstPage',
-        name : 'firstPage',
-        component : firstPage,
-    }
+  
 
 ]

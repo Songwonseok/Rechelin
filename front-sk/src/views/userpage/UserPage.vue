@@ -70,6 +70,7 @@
   import FollowApi from '../../apis/FollowApi'
   import ReviewApi from '../../apis/ReviewApi'
   
+  
   export default {
     data() {
       return {
