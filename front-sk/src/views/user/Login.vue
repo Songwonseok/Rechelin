@@ -109,14 +109,14 @@
     import GoogleLogin from '../../components/user/snsLogin/Google.vue'
     import NaverLogin from '../../components/user/snsLogin/Naver.vue'
     import UserApi from '../../apis/UserApi'
-    import JoinPage from './Join.vue';
+    // import JoinPage from './Join.vue';
     import ImgurApi from '../../apis/ImgurApi'
 
     export default {
         components: {
             KakaoLogin,
             GoogleLogin,
-            JoinPage,
+            // JoinPage,
             NaverLogin,
         },
         created(){

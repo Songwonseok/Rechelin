@@ -116,5 +116,18 @@ public class StoreController {
 	}
 	
 	
+	@GetMapping("/store/random")
+	@ApiOperation(value="랜덤 음식 추천")
+	public Object random(@RequestParam(required = true) final String keyword) {
+		final BasicResponse result = new BasicResponse();
+		
+		result.status = true;
+		result.data = "성공";
+		result.object = service.random(keyword);
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+		
+	}
+	
 
 }

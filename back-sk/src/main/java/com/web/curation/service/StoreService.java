@@ -11,6 +11,6 @@ public interface StoreService {
 	public List<Store> selectAll();
 	public Store selectOne(long num);
 	public List<Hashtag> storeTags(long num);
-	 
+	public List<Store> random(String keyword);
 	 
 }

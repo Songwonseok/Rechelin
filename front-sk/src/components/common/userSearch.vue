@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import UserApi from '../../apis/UserApi';
+import SearchApi from '../../apis/SearchApi';
 export default {
     created() {
         this
@@ -85,7 +85,7 @@ export default {
             this.history.nickname = this.search;
 
            
-            UserApi.searchUserHistory(this.history, res=>{
+            SearchApi.searchUserHistory(this.history, res=>{
               
              if(this.inputStatus == true) this.inputStatus = false;
              else{
