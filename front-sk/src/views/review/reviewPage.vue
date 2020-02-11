@@ -303,36 +303,7 @@ export default {
         StarRating
     },
     methods : {
-        check_area(){
-            this.area = [];
-        },
-        check_age(){
-            this.age = [];
-            
-        },
-        mounted() {
-            this.gojump();
-        },
-        watch: {
-            reviewTitle: function (v) {
-                this.checkForm();
-            },
-            props: function (v) {
-                this.checkForm_props();
-            },
-            cons: function (v) {
-                this.checkForm_cons();
-            }
-        },
-        computed() {
-
-        },
-
-        components: {
-            StarRating
-        },
-        methods: {
-            check_area(n, name) {
+        check_area(n, name) {
                 if (!this.hashtags.locations[n]) {
                     this.hashtags.locations[n] = !this.hashtags.locations[n]
                     let list = [...this.area]
@@ -354,31 +325,9 @@ export default {
                     this.allTags = [...list2]
                 }
             },
-            check_age(n, name) {
-
-                if (!this.hashtags.ages[n]) {
-                    this.hashtags.ages[n] = !this.hashtags.ages[n]
-                    let list = [...this.age]
-                    list.push(name)
-                    this.age = [...list]
-                    console.log(this.age)
-                     let list2 = [...this.allTags]
-                    list2.push(name)
-                    this.allTags = [...list2]
-                } else {
-                    let pos = this.age.indexOf(name)
-                    this.hashtags.locations[n] = !this.hashtags.locations[n]
-                    let list = [...this.age]
-                    list.splice(pos, 1)
-                    this.age = [...list]
-                    var pos2 = this.allTags.indexOf(name)
-                    let list2 = [...this.allTags]
-                    list2.splice(pos2, 1)
-                    this.allTags = [...list2]
-                }
+            
 
 
-            },
             gojump() {
                 jump(this.$refs.finalSubmit);
             },
@@ -663,7 +612,7 @@ export default {
             }
         })
     }
-}
+
 </script>
 
 <style scoped>

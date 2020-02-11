@@ -126,11 +126,11 @@ export default [
         ]
     },
 
-    // {
-    //     path : '/reviewPage',
-    //     name : 'reviewPage',
-    //     component : reviewPage,
-    // },
+    {
+        path : '/reviewPage',
+        name : 'reviewPage',
+        component : reviewPage,
+    },
     {
         path : '/reviewDetail/:id',
         name : 'reviewDetail',

@@ -141,7 +141,7 @@
             <v-card-title class="headline">리뷰</v-card-title>
              
             <v-card-text>
-              <sideMenuReview></sideMenuReview>
+              
             </v-card-text>
           </v-card>
         </v-tab-item>
