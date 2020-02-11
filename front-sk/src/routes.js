@@ -29,6 +29,7 @@ import sideMenuLogin from './views/sideMenu/sideMenuLogin.vue';
 import sideMenuReview from './views/sideMenu/sideMenuReview.vue';
 import sideMenuFood from './views/sideMenu/sideMenuFood.vue';
 import sideMenuUserPage from './views/sideMenu/sideMenuUserPage.vue';
+import sideMenuFeed from './views/sideMenu/sideMenuFeed.vue';
 
 
 export default [
@@ -85,7 +86,17 @@ export default [
                     name: 'createReview',
                     component: reviewPage
                 }]
-            }
+            },
+            {
+                path: 'feed',
+                name: 'feed',
+                component: sideMenuFeed,
+                children: [{
+                    path: 'userFeed',
+                    name: 'userFeed',
+                    component: userFeed
+                }]
+            },
         ]
 
     },

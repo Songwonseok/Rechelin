@@ -123,7 +123,7 @@
     <v-tab router-link :to="{name: 'review'}">
       리뷰
     </v-tab>
-    <v-tab>
+    <v-tab router-link :to="{name: 'feed'}">
       피드 페이지(예정)
     </v-tab>
   </v-tabs>
@@ -157,8 +157,6 @@
   // import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
   import SearchApi from '../../src/apis/UserApi.js';
-  import sideMenuFood from './sideMenu/sideMenuFood.vue';
-  import sideMenuReview from './sideMenu/sideMenuReview.vue';
 
   export default {
     created() {

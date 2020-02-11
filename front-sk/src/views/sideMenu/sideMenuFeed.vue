@@ -6,11 +6,11 @@
           <v-list rox unded>
             <!-- <v-subheader>REPORTS</v-subheader> -->
             <v-list-item-group color="primary">
-              <v-list-item>
-                <v-list-item-content >검색</v-list-item-content>
+              <v-list-item router-link :to="{name: 'userFeed'}">
+                <v-list-item-content>피드 리스트</v-list-item-content>
               </v-list-item>
-              <v-list-item router-link :to="{name: 'random'}">
-                <v-list-item-content >랜덤음식추천</v-list-item-content>
+              <v-list-item >
+                <v-list-item-content >내가 작성한 목록</v-list-item-content>
               </v-list-item>
             </v-list-item-group>
           </v-list>

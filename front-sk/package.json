@@ -28,6 +28,7 @@
         "vue-axios-cors": "^1.0.1",
         "vue-carousel-3d": "^0.2.0",
         "vue-gmaps": "^0.2.2",
+        "vue-infinite-loading": "^2.4.4",
         "vue-infinite-scroll": "^2.0.2",
         "vue-kakao-login": "^1.0.5",
         "vue-naver-login": "^1.0.4",
