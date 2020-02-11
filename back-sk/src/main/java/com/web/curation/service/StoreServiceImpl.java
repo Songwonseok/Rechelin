@@ -65,6 +65,33 @@ public class StoreServiceImpl implements StoreService {
 		
 		return list;
 	}
+
+	@Override
+	public List<Store> random(String keyword) {
+		// 1) 키워드 찾고
+		Hashtag tag = hashTagDao.findByKeyword(keyword);
+		System.out.println(tag.toString());
+		// 2) 리스트 뽑아오기
+		List<Store> Alllist = storeDao.random(tag.getNum());
+		// 3) 랜덤으로 10개만 가져오기
+		int r, size = Alllist.size();
+		List<Store> list = new ArrayList<Store>();
+		boolean[] dul = new boolean[size];
+		
+		for(int i=0; i<10; i++) {
+			r = (int) Math.random()*size;
+			
+			if(dul[r]) continue;
+			
+			list.add(Alllist.get(r));
+			dul[r] = true;
+		}
+		
+		return list;
+	}
+	
+	
+	
 	
 	
 	

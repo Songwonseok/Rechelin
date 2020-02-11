@@ -1,5 +1,6 @@
 import { requestfetchUserList } from '../apis/index.js';
 import Userapi from '../apis/UserApi.js';
+import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
 const URL = 'http://70.12.246.134:8080' // 김주연 ip
@@ -35,7 +36,7 @@ export default {
         })
     },
     LOADING_RECENTUSERDATA({ commit }, email) {
-        Userapi.requestFetchUserData({ commit }, email).then(
+        SearchApi.requestFetchUserData({ commit }, email).then(
             response => {
                 console.log("최근 검색 내용, action->LOADING_RECENTUSERDATA");
             }).catch(error => {
@@ -43,7 +44,7 @@ export default {
         })
     },
     FETCH_ADR({ commit }, address) { //google 에서부터 음식점 주소를 FETCH 해옴
-        Userapi.requestFetchAdrData({ commit }, address).then(
+        SearchApi.requestFetchAdrData({ commit }, address).then(
             response => {
 
 
@@ -93,6 +94,7 @@ export default {
         const params = new URLSearchParams();
         params.append('email', payload)
             // var options = Object.assign({}, defaults, params)
+
 
         Axios.post(URL + '/account/selectEmail', params, auth)
             .then(response => {

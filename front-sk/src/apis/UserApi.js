@@ -9,6 +9,7 @@ const auth = {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
     }
 }
+
 const requestsignUp = async(data, callback, errorCallback) => {
     let options = {
         headers: { 'Content-Type': 'application/json' },
@@ -162,13 +163,6 @@ function requestfetchUserList() {
 
 
 
-function requestFetchAdrData({ commit }, address) {
-    //Axios.get()
-    let mykey = 'AIzaSyDo6iueX6Cf9SPVlg9TdH8FIdfMgRshX9k'
-
-    return Axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?input=${address}&inputtype=textquery&region=kr&language=ko&fields=formatted_addres,name,geometry&key=${mykey}`);
-}
-
 const requestUpdatePw = async(data, callback, errorCallback) => {
     // let options = {
     //     headers: { 'Content-Type': 'application/json' }
@@ -216,7 +210,7 @@ const UserApi = {
     requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
     requestUpdatePw: (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
-    requestFetchAdrData,
+
 }
 
 export default UserApi

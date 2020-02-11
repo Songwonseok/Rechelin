@@ -58,4 +58,10 @@ public class Storetags {
 		return review;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Storetags [num=" + num + ", hashtag=" + hashtag + ", review=" + review + "]";
+	}
+
 }
