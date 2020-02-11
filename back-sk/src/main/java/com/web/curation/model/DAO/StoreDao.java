@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.web.curation.model.DTO.Store;
-import com.web.curation.model.querydsl.CustomRepository;
+import com.web.curation.model.QueryDSL.CustomRepository;
 
 
 public interface StoreDao extends JpaRepository<Store, Long>,CustomRepository {

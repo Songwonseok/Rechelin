@@ -126,7 +126,7 @@ public class AuthController {
 			String jwt = tokenProvider.generateToken(authentication);
 			
 			
-			return "redirect:http://localhost:3000/#/token?="+ jwt;			
+			return "redirect:http://localhost:3000/token?="+ jwt;			
 		}else {
 			// 로그인 실패
 			return "redirect:http://localhost:3000/#/404";
