@@ -3,7 +3,7 @@
         <div class="card card--big">
 
             <div class="card__image">
-                <div>사진들어갓 곳</div>
+                <div>사진들어갈 곳</div>
                 <img v-if="reviewInfo.picture" alt="">
             </div>
             <h2 class="card__title"></h2><span class="card__subtitle">{{reviewInfo.wdate}} by

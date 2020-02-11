@@ -115,7 +115,7 @@
           <v-tab>미정</v-tab>
         </v-tabs>
 
-      <v-tabs-items v-model="tabs">
+       <v-tabs-items v-model="tabs">
         <v-tab-item>
           <v-card flat>
             <v-card-text>
@@ -149,7 +149,7 @@
 
 
 
-      <!-- 음식창과 검색창 -->
+        <!-- 음식창과 검색창 -->
 
 
 
@@ -161,8 +161,8 @@
           <v-col cols="9">
             <v-row no-gutters>
 
-              <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
-              </v-card>
+                <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
+                </v-card>
 
             </v-row>
           </v-col>
@@ -172,8 +172,8 @@
 <!-- 
         <div class="text-center">
 
-          <br><br>
-          <span style="font-size:30px"> 리뷰 작성하기</span><br>
+            <br><br>
+            <span style="font-size:30px"> 리뷰 작성하기</span><br>
 
         </div> -->
 <!-- 
@@ -198,7 +198,7 @@
   import {
     mapState
   } from 'vuex'
-  //import userSearch from '../../src/components/common/userSearch';
+  // import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
   import SearchApi from '../../src/apis/UserApi.js';
   
@@ -463,15 +463,7 @@
 
     margin-top: 0px;
   }
-
-  .mb-2 {
-    height: 50px !important;
-  }
-
-  #mainTop {
-    background: #ff7f00;
-  }
-
+  
   #find {
     -webkit-transform: scale(1.2);
     -moz-transform: scale(1.2);
@@ -487,14 +479,25 @@
 
   }
 
-  #find:hover {
+   #find:hover {
     -webkit-transform: scale(1.5);
     -moz-transform: scale(1.5);
     -ms-transform: scale(1.5);
     -o-transform: scale(1.5);
     transform: scale(1.5);
-    background: white;
-    color: #ff7f00;
-    outline-color: #ff7f00
+    background: white !important;
+    color: #ff7f00 !important;
+    outline-color: #ff7f00 !important;
   }
+
+  .mb-2 {
+    height: 50px !important;
+  }
+
+  #mainTop {
+    background: #ff7f00;
+  }
+
+
+ 
 </style>

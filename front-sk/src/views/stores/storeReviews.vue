@@ -1,18 +1,28 @@
 <template>
     <div>
-        <v-row no-gutters>
-            <v-col cols="12" sm="6" md="8" lg="8" v-for="(review, i) in allReviews" :key="i"
-                style="margin-bottom: 15px;">
+        <v-container class="grey lighten-5" >
+            <v-row no-gutters>
+            <v-col cols="12" sm="6" md="6" lg="5" v-for="(review, i) in allReviews" :key="i"
+                style="margin: 20px;">
 
-                <v-card id="reviews" class="mx-auto" max-width="344" outlined>
+                <v-card id="reviews" class="mx-auto" max-width="600" outlined>
                     <v-list-item three-line>
                         <v-list-item-content>
 
                             <div class="overline mb-4">{{review.store.sname}}</div>
-                            <v-list-item-title class="headline mb-1">{{review.user.nickname}}</v-list-item-title>
-                            <v-list-item-subtitle>{{review.weak}}</v-list-item-subtitle>
-                            {{review.picture}}, 제목: {{review.title}}, 조회수 : {{review.views}}, 쓴 날짜 : {{review.wdate}}
-                            총점 {{review.total}}, 맛: {{review.taste}}, 가격:ㅣ {{review.taste}}, 친절| {{review.kindness}}
+                            <v-list-item-title class="headline mb-1">  {{review.title}}</v-list-item-title>
+                            <div  v-if ="review.picture === null  || reveiw.picture ===''">
+                                <img src="https://upload.wikimedia.org/wikipedia/en/6/60/No_Picture.jpg" style="height: 300px;width: 400px">  
+                            </div>
+                            <div v-else>
+                                <img :src="review.picture" style="height: 300px">   
+                            </div>
+
+                             글쓴이: {{review.user.nickname}}
+                             <br>총점 {{review.total}}
+                             <br>
+                             조회수 : {{review.views}}
+                              <br>{{review.wdate}}
 
                             <div v-if="canReivewDelete(review.user.email)">
                                 <v-btn class="ma-2" x-small outlined color="indigo" @click="reviewDelete(review.rnum)">
@@ -48,6 +58,10 @@
 
 
         </v-row>
+            </v-container>
+
+        
+        
  
 <!-- 
         <div v-infinite-scroll="reviewsScroll" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
@@ -78,12 +92,16 @@
                     arrowUpDropCircle: mdiArrowUpDropCircle,
                     Deletes: mdiDelete,
                 },
-                newComment: ''
+                newComment: '',
+                
             }
         },
         computed: {
             allReviews() {
                 return this.$store.state.reviewsOfstore
+            },
+            defaultImage(){
+                return this.$store.state.reveiwDefault
             }
         },
         methods: {
@@ -130,3 +148,10 @@
         },
     }
 </script>
+
+<style scoped>
+
+
+
+
+</style>

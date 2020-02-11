@@ -84,7 +84,8 @@ export default [
     {
         path: '/main',
         name: 'Main',
-        component: Main
+        component: Main,
+       
     },
     {
         path : '/signUpForm',

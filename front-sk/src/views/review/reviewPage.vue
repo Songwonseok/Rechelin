@@ -1,117 +1,36 @@
 <template>
 
-    <div class="signup-content">
-        <div class="input-with-label">
-            <b-container class="bv-example-row">
+    <div>
+        <div>
+            <b-container>
                 <!-- 리뷰 제목 -->
                 <b-row>
-                    <b-col>
-                        <h3>리뷰 제목</h3>
-                        <v-text-field v-model="reviewTitle" label="리뷰 제목을 작성해주세요." single-line filled></v-text-field>
+                    <b-col style="margin-right: 50px;">
+                        <!-- 리뷰 제목 -->
+
+                        <h4>리뷰 제목</h4>
+                        <v-text-field v-model="reviewTitle" label="Review Title" :counter="10"></v-text-field>
 
                         <div class="error-text" v-if="error.title">
                             {{error.title}}
                         </div>
-                        <!-- 해시 태그 모달 -->
-                        <h3>해시태그</h3>
-                        선택된 HashTag : {{area}} {{age}} {{gender}} {{atmosphere}} {{withWho}} <br>
-                        <v-btn @click="$bvModal.show('bv-modal-example')" id="show-btn" class="ma-2" dark
-                            style="color: #ff7f00 !important; background:#ff7f00 ;">
-                            <v-icon left>{{icons.pencil}}</v-icon> hashtag
-                        </v-btn>
 
-                        <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example" hide-footer>
-                            <template v-slot:modal-title>HashTag</template>
-                            <div class="d-block text-center">
-                                <h3>지역</h3>
-                                <!-- <div v-for = "fa in this.fixArea" v-bind:key=fa>
-                                    <input type="checkbox" id="fa" value="fa" v-model="area">
-                                    <label for="fa">{{fa}}</label>
-                            </div> -->
-                                <input type="checkbox" id="gangnam" value="강남" v-model="area" v-on:click="check_area()">
-                                <label for="gangnam">강남</label>
-                                <input type="checkbox" id="jongro" value="종로" v-model="area" v-on:click="check_area()">
-                                <label for="jongro">종로</label>
-                                <input type="checkbox" id="jamsil" value="잠실" v-model="area" v-on:click="check_area()">
-                                <label for="jamsil">잠실</label>
-                                <br>
-                                <span>체크 : {{ area}}</span>
-                                <h3>연령</h3>
-                                <input type="checkbox" id="ten" value="10대" v-model="age" v-on:click="check_age()">
-                                <label for="ten">10대</label>
-                                <input type="checkbox" id="twienty" value="20대" v-model="age" v-on:click="check_age()">
-                                <label for="twienty">20대</label>
-                                <input type="checkbox" id="thirty" value="30대" v-model="age" v-on:click="check_age()">
-                                <label for="thirty">30대</label>
-                                <br>
-                                <span>체크 : {{age}}</span>
-                                <h3>성별</h3>
-                                <input type="checkbox" id="man" value="남" v-model="gender" v-on:click="check_gender()">
-                                <label for="man">남</label>
-                                <input type="checkbox" id="girl" value="여" v-model="gender" v-on:click="check_gender()">
-                                <label for="girl">여</label>
-                                <br>
-                                <span>체크 : {{gender}}</span>
-                                <h3>분위기</h3>
-                                <input type="checkbox" id="calm" value="조용한" v-model="atmosphere"
-                                    v-on:click="check_atmosphere()">
-                                <label for="calm">조용한</label>
-                                <input type="checkbox" id="comfortable" value="아늑한" v-model="atmosphere"
-                                    v-on:click="check_atmosphere()">
-                                <label for="comfortable">아늑한</label>
-                                <input type="checkbox" id="warm" value="따뜻한" v-model="atmosphere"
-                                    v-on:click="check_atmosphere()">
-                                <label for="warm">따뜻한</label>
-                                <br>
-                                <span>체크 : {{atmosphere}}</span>
-                                <span></span>
-                                <h3>누구랑 가면 좋을까요?</h3>
-                                <input type="checkbox" id="friend" value="친구" v-model="withWho"
-                                    v-on:click="check_with()">
-                                <label for="friend">친구</label>
-                                <input type="checkbox" id="family" value="가족" v-model="withWho"
-                                    v-on:click="check_with()">
-                                <label for="family">가족</label>
-                                <input type="checkbox" id="coworker" value="동료" v-model="withWho"
-                                    v-on:click="check_with()">
-                                <label for="coworker">동료</label>
-                                <br>
-                                <span>체크 : {{withWho}}</span>
-                            </div>
 
-                            
-                            <b-button
-                                style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
-                                class="mt-3" block @click="$bvModal.hide('bv-modal-example')">닫기</b-button>
-                        </b-modal> <br>
 
-                        <h3>음식 사진 업로드</h3>
-                        <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
-                        <template v-if="this.profile != ''">
-                            <!-- {{this.profile}}  -->
+                        <!-- 음식점 주소 등록 -->
+                        <h4>음식점 이름 <span>
+                                <v-btn class="ma-2" id="show-btn" @click="$bvModal.show('bv-modal-example_adr')"
+                                    style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 주소 등록
+                                </v-btn>
+                            </span></h4>
+                        <v-text-field v-model="store_name" :rules="nameRules" label="store name" required>
+                        </v-text-field>
 
-                            <img :src="profile" style="max-width:30%">
-                        </template>
+                        <h4>음식점 주소 </h4>
+                        <v-text-field v-model="address" :rules="nameRules" label="store address" required>
+                        </v-text-field>
 
-                        <h3>사진업로드 테스트</h3>
-                        <div class="uploadProfile">
-                            <v-file-input   @change="getProfileForm" label="File input" filled :prepend-icon="icons.camera" name="fileToUpload" id="fileToUpload" accept=".gif, .jpg, .png"></v-file-input>
-                            <!--change을 통해서 파일의 변화를 감지 -->
-                             <v-btn  @click="upload" class="ma-2" dark
-                            style="color: #ff7f00 !important; background:#ff7f00 ;">
-                            <v-icon left>{{icons.pencil}}</v-icon> submit
-                        </v-btn>
-                        </div> <br>
-                        <span contenteditable="true" placeholder="음식점 주소를 등록해주세요.">
-                            <h4>음식점 주소</h4>
-                             {{address}} 
-                             <h4>음식점 전화 번호</h4> 
-                            {{store_num}}
-                        </span><br>
-                        <!-- 음식점 사진 : <img :src="store_pic" style="max-width:30%" > -->
-                        <br>
-                        <v-btn class="ma-2" id="show-btn" @click="$bvModal.show('bv-modal-example_adr')"  style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 주소 등록
-                        </v-btn>
+
 
                         <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example_adr"
                             class="modalStore" hide-footer>
@@ -120,48 +39,170 @@
                                 <!--Main Modal Page-->
                                 <div v-if="eye">
                                     검색 완료한 후 enter를 눌러주세요!
-                                    <b-form-input id="address_search" @keyup="fetchAdr" type="text" v-model="address">
+                                    <b-form-input id="address_search" @keyup="fetchAdr" type="text">
                                     </b-form-input>
                                     <b-table striped hover :items="map" @row-clicked="clickEvent"></b-table>
                                 </div>
 
                                 <div v-else>
-                                    검색 완료한 후 enter를 눌러주세요!
+                                    <p>
+                                        <v-icon>{{icons.noodles}}</v-icon>음식점을 검색해주세요
+                                    </p>
+                                    <hr>
                                     <b-form-input id="address_search2" @keyup="fetchAdr" type="text" v-model="address">
                                     </b-form-input>
                                     <b-table striped hover :items="map" @row-clicked="clickEvent">
-
                                     </b-table>
                                 </div>
                             </div>
-
-                            <b-button
-                                style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
-                                class="mt-3" block @click="$bvModal.hide('bv-modal-example_adr')">닫기</b-button>
+                            <div style="text-align: center;">
+                                <v-btn block color="#ff7f00" @click="$bvModal.hide('bv-modal-example_adr')">EXIT</v-btn>
+                            </div>
                         </b-modal>
                         <br>
+
+
+                        <!-- 해시 태그 모달 -->
+                        <div id="reviewHashtag">
+                            <h4>해시태그<span>
+                                    <v-btn @click="$bvModal.show('bv-modal-example')" id="show-btn" class="ma-2" dark
+                                        style="color: #ff7f00 !important; background:#ff7f00 ;">
+                                        <v-icon left>{{icons.pencil}}</v-icon> hashtag
+                                    </v-btn>
+                                </span></h4>
+                             <span><v-combobox v-model="allTags" chips clearable label="Your hashtags" multiple >
+                                </v-combobox></span>
+
+                        </div>
+                        <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example" hide-footer>
+                            <template v-slot:modal-title>HashTag</template>
+                            <div class="d-block text-center">
+                                <span><v-combobox v-model="allTags" chips clearable label="Your hashtags" multiple solo>
+                                </v-combobox></span>
+                                <v-divider></v-divider>
+                                위치 (강남)
+                                <v-divider></v-divider>
+                                <v-chip draggable @click="check_area(0, '강남')">강남</v-chip>
+                                <v-chip draggable @click="check_area( 1, '잠실')">잠실</v-chip>
+                                <v-chip draggable @click="check_area( 2, '사당')">사당</v-chip>
+                                <v-chip draggable @click="check_area( 3, '코엑스')">코엑스</v-chip>
+                                <v-chip draggable @click="check_area( 4, '고속터미널')">고속터미널</v-chip>
+                                <v-chip draggable @click="check_area( 5, '가로수길')">가로수길</v-chip>
+                                <v-chip draggable @click="check_area( 6, '서래마을')">서래마을</v-chip>
+                                <v-chip draggable @click="check_area( 7, '건대')">건대</v-chip>
+                                <v-divider></v-divider>
+                                위치(강북)
+                                <v-divider></v-divider>
+                               
+                                <v-chip draggable @click="check_area( 8, '종로')">종로</v-chip>
+                                <v-chip draggable @click="check_area( 9, '삼청동')">삼청동</v-chip>
+                                <v-chip draggable @click="check_area( 10, '서촌')">서촌</v-chip>
+                                <v-chip draggable @click="check_area( 11, '왕십리')">왕십리</v-chip>
+                                <v-chip draggable @click="check_area( 12, '혜화')">혜화</v-chip>
+                                <v-chip draggable @click="check_area(13, '상수')">상수</v-chip>
+                                <v-chip draggable @click="check_area( 14, '한남동')">한남동</v-chip>
+                                <v-chip draggable @click="check_area( 15, '이태원')">이태원</v-chip>
+                                <v-chip draggable @click="check_area( 16, '홍대')">홍대</v-chip>
+                                <v-chip draggable @click="check_area( 17, '광화문')">광화문</v-chip>
+                                <v-chip draggable @click="check_area( 18, '여의도')">여의도</v-chip>
+                                <v-chip draggable @click="check_area( 19, '연남동')">연남동</v-chip>
+                                <v-chip draggable @click="check_area( 20, '합정')">합정</v-chip>
+                                <v-chip draggable @click="check_area( 21, '경리단길')">경리단길</v-chip>
+                                <v-chip draggable @click="check_area( 22, '명동')">명동</v-chip>
+                                <v-chip draggable @click="check_area(23, '신촌')">신촌</v-chip>
+
+                                <br>
+                                
+
+                                <v-divider></v-divider>
+                                
+                                누구와
+                                <v-divider></v-divider>
+
+                                <v-chip draggable @click="check_with( 0, '혼밥')">혼밥</v-chip>
+                                <v-chip draggable @click="check_with(1, '친구와')">친구와</v-chip>
+                                <v-chip draggable @click="check_with(2, '연인과')">연인과</v-chip>
+                                <v-chip draggable @click="check_with( 3, '직장동료')">직장동료</v-chip>
+                                <v-chip draggable @click="check_with(4, '가족과')">가족과</v-chip>
+
+                                <v-divider></v-divider>
+                                연령별
+                                <v-divider></v-divider>
+
+                                <v-chip draggable @click="check_age(0, '10대')">10대</v-chip>
+                                <v-chip draggable @click="check_age( 1, '20대')">20대</v-chip>
+                                <v-chip draggable @click="check_age( 2, '30대')">30대</v-chip>
+                                <v-chip draggable @click="check_age( 3, '40450대')">4050대</v-chip>
+                                <v-chip draggable @click="check_age(4, '그이상')">그이상</v-chip>
+
+
+                                <v-divider></v-divider>
+                                분위기 
+                                <v-divider></v-divider>
+
+                                <v-chip draggable @click="check_atmosphere( 0, '시끌벅적한')">시끌벅적한</v-chip>
+                                <v-chip draggable @click="check_atmosphere( 1, '차분한')">차분한</v-chip>
+                                <v-chip draggable @click="check_atmosphere( 2, '소소한')">소소한</v-chip>
+                                <v-chip draggable @click="check_atmosphere( 3, '고급진')">고급진</v-chip>
+                                <v-chip draggable @click="check_atmosphere( 4, '데이트')">데이트</v-chip>
+
+                                
+
+
+                                <v-divider></v-divider>
+                                편의시설 
+                                <v-divider></v-divider>
+
+                                <v-chip draggable @click="check_facility( 0, '단체석')">단체석</v-chip>
+                                <v-chip draggable @click="check_facility( 1, '주차장')">주차장</v-chip>
+                                <v-chip draggable @click="check_facility( 2, '개별룸')">개별룸</v-chip>
+
+
+                            </div>
+                            <hr>
+                            <div>
+                            <v-btn block color="#ff7f00"
+                                 @click="$bvModal.hide('bv-modal-example')">닫기</v-btn>
+                            </div>
+                        </b-modal> <br>
+
+
+                        <!--음식사진 -->
+                        <h4>음식 사진 업로드</h4>
+                        <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
+                        <template v-if="this.profile != ''">
+                            <!-- {{this.profile}}  -->
+
+                            <img :src="profile" style="max-width:30%">
+                        </template>
+
+                        <h4>사진업로드 미리보기</h4>
+                        <div class="uploadProfile">
+                            <v-file-input @change="getProfileForm" label="File input" filled
+                                :prepend-icon="icons.camera" name="fileToUpload" id="fileToUpload"
+                                accept=".gif, .jpg, .png"></v-file-input>
+                            <!--change을 통해서 파일의 변화를 감지 -->
+                            <v-btn @click="upload" class="ma-2" dark
+                                style="color: #ff7f00 !important; background:#ff7f00; left: 350px;">
+                                <v-icon left>{{icons.camera}}</v-icon>이미지업로드
+                            </v-btn>
+                        </div> <br>
+
                     </b-col>
-                    <!-- 음식점 주소 등록
-            <b-form-input id="address_search" @keyup ="fetchAdr" class="in" type="text"  v-model="address" list="maps"></b-form-input>
-                <datalist  id="maps"> 
-            <option v-for="map in maps" v-bind:key="map">{{map}}</option>
-            </datalist><br>
-            <label for="address_search"></label>  -->
+
+                    <!-- 평점 -->
                     <b-col>
 
                         <h5>맛</h5>
-                          <star-rating v-model="flavor" :border-width="4" border-color="#d8d8d8"
-                            :rounded-corners="true"
+                        <star-rating v-model="flavor" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
                         <h5>가격</h5>
-                         <star-rating v-model="price" :border-width="4" border-color="#d8d8d8"
-                            :rounded-corners="true"
+                        <star-rating v-model="price" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
                         <h5>친절함</h5>
-                        <star-rating v-model="kindness" :border-width="4" border-color="#d8d8d8"
-                            :rounded-corners="true"
+                        <star-rating v-model="kindness" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
                           <h4>장점</h4>
@@ -203,8 +244,8 @@
               </b-col>
                </b-row>
             </b-container>
-      </div>
-  </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -217,6 +258,7 @@ import StarRating from 'vue-star-rating'
   import {
     mdiPencil,
     mdiCamera,
+    mdiNoodles
   } from '@mdi/js'
   import {jump} from '../../assets/js/animejs';
 
@@ -268,122 +310,248 @@ export default {
             this.age = [];
             
         },
-        gojump() {
-            jump(this.$refs.finalSubmit);
+        mounted() {
+            this.gojump();
         },
-        check_gender(){
-            this.gender = [];
+        watch: {
+            reviewTitle: function (v) {
+                this.checkForm();
+            },
+            props: function (v) {
+                this.checkForm_props();
+            },
+            cons: function (v) {
+                this.checkForm_cons();
+            }
         },
-        check_atmosphere(){
-            this.atmosphere = [];
+        computed() {
+
         },
-        check_with(){
-            this.withWho = [];
+
+        components: {
+            StarRating
         },
-        getProfile(){
+        methods: {
+            check_area(n, name) {
+                if (!this.hashtags.locations[n]) {
+                    this.hashtags.locations[n] = !this.hashtags.locations[n]
+                    let list = [...this.area]
+                    list.push(name)
+                    this.area = [...list]
+                    let list2 = [...this.allTags]
+                    list2.push(name)
+                    this.allTags = [...list2]
+                    console.log(this.area)
+                } else {
+                    var pos = this.area.indexOf(name)
+                    this.hashtags.locations[n] = !this.hashtags.locations[n]
+                    let list = [...this.area]
+                    list.splice(pos, 1)
+                    this.area = [...list]
+                    var pos2 = this.allTags.indexOf(name)
+                    let list2 = [...this.allTags]
+                    list2.splice(pos2, 1)
+                    this.allTags = [...list2]
+                }
+            },
+            check_age(n, name) {
+
+                if (!this.hashtags.ages[n]) {
+                    this.hashtags.ages[n] = !this.hashtags.ages[n]
+                    let list = [...this.age]
+                    list.push(name)
+                    this.age = [...list]
+                    console.log(this.age)
+                     let list2 = [...this.allTags]
+                    list2.push(name)
+                    this.allTags = [...list2]
+                } else {
+                    let pos = this.age.indexOf(name)
+                    this.hashtags.locations[n] = !this.hashtags.locations[n]
+                    let list = [...this.age]
+                    list.splice(pos, 1)
+                    this.age = [...list]
+                    var pos2 = this.allTags.indexOf(name)
+                    let list2 = [...this.allTags]
+                    list2.splice(pos2, 1)
+                    this.allTags = [...list2]
+                }
+
+
+            },
+            gojump() {
+                jump(this.$refs.finalSubmit);
+            },
+
+            check_atmosphere(n, name) {
+                if (!this.hashtags.moods[n]) {
+                    this.hashtags.moods[n] = !this.hashtags.moods[n]
+                    let list = [...this.atmosphere]
+                    list.push(name)
+                    this.atmosphere = [...list]
+                    console.log(this.atmosphere)
+                     let list2 = [...this.allTags]
+                    list2.push(name)
+                    this.allTags = [...list2]
+                } else {
+                    let pos = this.atmosphere.indexOf(name)
+                    this.hashtags.moods[n] = !this.hashtags.moods[n]
+                    let list = [...this.atmosphere]
+                    list.splice(pos, 1)
+                    this.atmosphere = [...list]
+                     var pos2 = this.allTags.indexOf(name)
+                    let list2 = [...this.allTags]
+                    list2.splice(pos2, 1)
+                    this.allTags = [...list2]
+                }
+            },
+            check_with(n, name) {
+                if (!this.hashtags.withWho[n]) {
+                    this.hashtags.withWho[n] = !this.hashtags.withWho[n]
+                    let list = [...this.withWho]
+                    list.push(name)
+                    this.withWho = [...list]
+                    console.log(this.withWho)
+                     let list2 = [...this.allTags]
+                    list2.push(name)
+                    this.allTags = [...list2]
+                } else {
+                    let pos = this.withWho.indexOf(name)
+                    this.hashtags.withWho[n] = !this.hashtags.withWho[n]
+                    let list = [...this.withWho]
+                    list.splice(pos, 1)
+                    this.withWho = [...list]
+                     var pos2 = this.allTags.indexOf(name)
+                    let list2 = [...this.allTags]
+                    list2.splice(pos2, 1)
+                    this.allTags = [...list2]
+                }
+            },
+            check_facility(n, name) {
+                if (!this.hashtags.facility[n]) {
+                    this.hashtags.facility[n] = !this.hashtags.facility[n]
+                    let list = [...this.facility]
+                    list.push(name)
+                    this.facility = [...list]
+                    console.log(this.facility)
+                     let list2 = [...this.allTags]
+                    list2.push(name)
+                    this.allTags = [...list2]
+                } else {
+                    let pos = this.facility.indexOf(name)
+                    this.hashtags.facility[n] = !this.hashtags.facility[n]
+                    let list = [...this.facility]
+                    list.splice(pos, 1)
+                    this.facility = [...list]
+                    var pos2 = this.allTags.indexOf(name)
+                    let list2 = [...this.allTags]
+                    list2.splice(pos2, 1)
+                    this.allTags = [...list2]
+                }
+            },
+            getProfile() {
                 // Axios로 사진 가져오기
                 // console.log('프로필 가져오기!!!')
 
                 let email = "ssafy@naver.com";
                 let data = {
-                        email
-                    }
-                UserApi.requestProfile( email,res=>{
+                    email
+                }
+                UserApi.requestProfile(email, res => {
                     // console.log(res)
                     this.profile = res.object.profile
                     // console.log(this.profile);
                     console.log('프로필 가져오기 성공')
-                        
-                    },error=>{  
-                        // console.log('프로필 가져오기 실패')
-                    })
+
+                }, error => {
+                    // console.log('프로필 가져오기 실패')
+                })
             },
-            upload(){
+            upload() {
                 console.log('이미지 업로드 @@')
                 // console.log(this.selectedImage)
 
 
-                ImgurApi.uploadProfile(this.selectedImage, res =>{
+                ImgurApi.uploadProfile(this.selectedImage, res => {
                     // img url - res.link에 저장
-                     // 2) Imgur에 저장된 사진 링크를 가져오기
-                    
+                    // 2) Imgur에 저장된 사진 링크를 가져오기
+
                     this.imageUrl = res.data.link
                     // this.imageUrl = "https://i.imgur.com/91WnlBF.png" // ######TEST 용
                     // console.log(this.imageUrl)
                     this.email = "ssafy@naver.com" // ######TEST 용
-                    
-                    
+
+
                     // 3) 사진링크를 User의 profile 링크로 수정하기
-                    UserApi.requestUpload(this.email, this.imageUrl, res =>{
+                    UserApi.requestUpload(this.email, this.imageUrl, res => {
                         // status로 판단
                         console.log(res)
-                        if(res.status == true)
+                        if (res.status == true)
                             console.log('프로필 업로드 성공!')
                         this.getProfile();
-                    }, error =>{
+                    }, error => {
                         alert('프로필 업로드 실패')
                     })
 
-                }, error =>{
+                }, error => {
                     alert('Imgur 업로드 실패!')
                 })
-                
+
             },
-            getProfileForm(event){
+            getProfileForm(event) {
                 this.selectedImage = event.target.files[0];
             },
             setRating(rating) {
                 this.rating = "You have Selected: " + rating + " stars";
                 console.log(this.rating);
-             },
-             fetchAdr(){
-               
-               //검색시
+            },
+            fetchAdr() {
+
+                //검색시
                 this
-                .$store
-                .dispatch('FETCH_ADR', this.address)
-                
-               
-               
-                         if(this.eye == false) this.eye = true;
+                    .$store
+                    .dispatch('FETCH_ADR', this.address)
+
+
+
+                if (this.eye == false) this.eye = true;
                 else this.eye = false
 
                 //값 init
-                
+
                 this.map = this.$store.state.googleStorePlaceView
                 console.log(this.$store.state.googleStorePlace);
-               
-               
-             },
-            reviewConfirm (){
-                let hashtag = this.area + " "+ this.age + " "+ this.age + " "+this.atmosphere + " "+this.withWho; 
+
+
+            },
+            reviewConfirm() {
+                let hashtag = this.area + " " + this.age + " " + this.age + " " + this.atmosphere + " " + this.withWho;
                 console.log(hashtag.length);
                 console.log(hashtag + " " + this.profile + " " + this.rating + " " + this.cons +
-                this.props + " "+ this.flavor + " " + this.price + " " + this.kindness +
-                this.reviewTitle + " " + this.store_num)
-                
-                if(hashtag.length <0 || this.rating <0 || this.flavor <0 || this.price <0 || this.kindness <0
-                   || this.store_num<0 
-                ) 
+                    this.props + " " + this.flavor + " " + this.price + " " + this.kindness +
+                    this.reviewTitle + " " + this.store_num)
+
+                if (hashtag.length < 0 || this.rating < 0 || this.flavor < 0 || this.price < 0 || this.kindness < 0 ||
+                    this.store_num < 0
+                )
                     this.isSubmit = false //validation 나중ㅇ
                 this.isSubmit = true
-                if(this.isSubmit)
-                {
-                      console.log(this.store_num);
-                       var data = { 
-                        'hashtag' : hashtag,
-                        'picture' : this.store_pic,
-                        'score_kindness' : this.kindness,
-                        'score_price' : this.price,
-                        'score_taste' : this.flavor,
-                        'score_total' : this.rating,
-                        'store' : {
-                            'num' : this.store_num,//this.store_num,
+                if (this.isSubmit) {
+                    console.log(this.store_num);
+                    var data = {
+                        'hashtag': hashtag,
+                        'picture': this.store_pic,
+                        'score_kindness': this.kindness,
+                        'score_price': this.price,
+                        'score_taste': this.flavor,
+                        'score_total': this.rating,
+                        'store': {
+                            'num': this.store_num, //this.store_num,
                         },
-                        'str' : this.props,
-                        'title' : this.reviewTitle,
-                        'user' : {
-                            'id' : Number(sessionStorage.getItem("userid")),
+                        'str': this.props,
+                        'title': this.reviewTitle,
+                        'user': {
+                            'id': Number(sessionStorage.getItem("userid")),
                         },
                         'weak' : this.cons,
                         }
@@ -394,7 +562,7 @@ export default {
                     })
                     console.log('all complete');
 
-                }else{
+                } else {
                     alert('리뷰를 작성해주세요~~')
                 }
             },
@@ -411,25 +579,25 @@ export default {
                  this.store_pic = res.data.object.img;
                  })
             },
-            checkForm(){
+            checkForm() {
                 //리뷰 제목(0자이상 10자 이하)
                 //장점, 단점 (0자 이상 20자 이하)
-                if(this.reviewTitle.length>=0 && !this.titleSchema.validate(this.reviewTitle))
-                    this.error.title = '리류제목은 0 글자 이상 10글자 이하 이어야 합니다.'
-                else 
+                if (this.reviewTitle.length >= 0 && !this.titleSchema.validate(this.reviewTitle))
+                    this.error.title = '리뷰제목은 0 글자 이상 10글자 이하 이어야 합니다.'
+                else
                     this.error.title = false;
             },
-            checkForm_props(){ 
-                if(this.props.length>=0 && !this.propsSchema.validate(this.props))
+            checkForm_props() {
+                if (this.props.length >= 0 && !this.propsSchema.validate(this.props))
                     this.error.props = '장점은 0글자 이상 20글자 이하 이어야 합니다.'
                 else
-                     this.error.props = false; 
+                    this.error.props = false;
             },
-            checkForm_cons(){
-                if(this.cons.length>=0 && !this.consSchema.validate(this.cons))
+            checkForm_cons() {
+                if (this.cons.length >= 0 && !this.consSchema.validate(this.cons))
                     this.error.cons = '단점은 0글자 이상 20글자 이하 이어야 합니다.'
                 else
-                     this.error.cons = false;
+                    this.error.cons = false;
 
 
                 let isSubmit = true;
@@ -438,48 +606,103 @@ export default {
                 })
                 this.isSubmit = isSubmit;
             },
-    },
-    data : () =>({
-         
-         area : [],
-         age : [],
-         gender : [],
-         atmosphere : [],
-         withWho : [],
-         profile: '',
-         mageUrl: '',
-         selectedImage: '',
-         rating : "",
-         cons : '',
-         props : '',
-         flavor: '',
-         price : '',
-         kindness : '',
-         maps :[
-         ],
-         address : '',
-         eye : false,
-         isSubmit : '', //form 완료시 toggle
-         reviewTitle : '',
-         store_num : '',
-         user_email : 'ssafy@ssafy.com', //temp
-         titleSchema : new PV(),
-         consSchema : new PV(),
-         propsSchema : new PV(),
-         error : {
-             title : false,
-             props : false,
-             cons : false,
-         },
-         store_pic : '',
-         icons: {
-             pencil : mdiPencil,
-             camera: mdiCamera,
-         }
-    })
+        },
+        data: () => ({
+            allTags: [],
+            area: [],
+            age: [],
+            atmosphere: [],
+            withWho: [],
+            facility:[],
+            profile: '',
+            mageUrl: '',
+            selectedImage: '',
+            rating: "",
+            cons: '',
+            props: '',
+            flavor: '',
+            price: '',
+            kindness: '',
+            maps: [],
+            address: '',
+            eye: false,
+            isSubmit: '', //form 완료시 toggle
+            reviewTitle: '',
+            store_num: '',
+            user_email: 'ssafy@ssafy.com', //temp
+            titleSchema: new PV(),
+            consSchema: new PV(),
+            propsSchema: new PV(),
+            hashtags: {
+                locations: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0
+                ],
+                withWho: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0
+                ],
+                ages: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0
+                ],
+                moods: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0
+                ],
+                facility: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0
+                ]
+            },
+            error: {
+                title: false,
+                props: false,
+                cons: false,
+            },
+            store_pic: '',
+            icons: {
+                pencil: mdiPencil,
+                camera: mdiCamera,
+                noodles: mdiNoodles
+            }
+        })
+    }
 }
 </script>
 
 <style scoped>
+    h4 {
+        padding-bottom: 20px;
+        margin-top: 10px;
+        margin-right: 10px;
+        font-weight: bold;
+    }
 
+    span {
+        margin-left: 10px;
+    }
+
+    #show-btn:hover {
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        transform: scale(1.2);
+        -webkit-transition: .3s;
+        -moz-transition: .3s;
+        -ms-transition: .3s;
+        -o-transition: .3s;
+        transition: .3s;
+        background: white !important;
+        color: #ff7f00 !important;
+        outline-color: #ff7f00 !important;
+    }
+    v-chip:hover {
+         -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        transform: scale(1.2);
+        -webkit-transition: .3s;
+        -moz-transition: .3s;
+        -ms-transition: .3s;
+        -o-transition: .3s;
+        transition: .3s;
+    }
 </style>
