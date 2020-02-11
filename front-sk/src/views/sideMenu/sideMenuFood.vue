@@ -23,12 +23,7 @@
         <v-tab-item>
           <v-card flat>
             <v-card-text>
-              <!-- <router-link to="/login">Go to Foo</router-link> -->
-              <!-- <login-bar></login-bar> -->
-              
-              <!-- <p class="mb-0">
-                Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
-              </p> -->
+            .............................
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -61,6 +56,11 @@
 <script>
 
 export default {
+  data(){
+    return {
+      randomList:[]
+    }
+  },
     components :{
       
     }

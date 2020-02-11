@@ -1,4 +1,4 @@
-package com.web.curation.model.querydsl;
+package com.web.curation.model.QueryDSL;
 
 import java.util.List;
 
@@ -98,7 +98,7 @@ implements CustomRepository{
 	public List<Store> random(long num) {
 		return queryFactory.selectFrom(store).where(store.num.in(
 				JPAExpressions.select(review.store.num).from(review).where(review.rnum.in(
-						JPAExpressions.select(storetags.review.rnum).from(storetags).where(storetags.hashtag.num.eq(num))))))
+						JPAExpressions.select(storetags.review.rnum).from(storetags).where(storetags.hashtag.num.eq(num)).groupBy(storetags.review.rnum)))))
 				.fetch();
 	}
 
