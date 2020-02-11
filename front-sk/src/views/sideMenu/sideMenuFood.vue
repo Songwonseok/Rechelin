@@ -11,7 +11,7 @@
                   검색
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item>
+              <v-list-item >
                 <v-list-item-content>
                   랜덤음식추천
                 </v-list-item-content>
@@ -28,10 +28,13 @@
 </template>
 
 <script>
-import random from "../../views/stores/random.vue";
+
 import StoreApi from "../../apis/StoreApi";
 
 export default {
+  created(){
+    this.$store.state.data +=1;
+  },
   data() {
     return {
       keyword: "",
@@ -39,7 +42,7 @@ export default {
     };
   },
   components: {
-    random
+  
   },
   methods: {
     insertTags(name) {

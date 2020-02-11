@@ -29,7 +29,7 @@ import sideMenuLogin from './views/sideMenu/sideMenuLogin.vue';
 import sideMenuReview from './views/sideMenu/sideMenuReview.vue';
 import sideMenuFood from './views/sideMenu/sideMenuFood.vue';
 import sideMenuUserPage from './views/sideMenu/sideMenuUserPage.vue';
-
+import bestReviewList from './views/review/bestReviewList.vue';
 
 export default [
     // ERROR PAGE
@@ -49,6 +49,11 @@ export default [
         name: 'main',
         component: Main,
         children: [
+            {
+                path: 'popular',
+                name : 'popular',
+                component : bestReviewList,
+            },
             {
                 path: 'user',
                 name: 'user',

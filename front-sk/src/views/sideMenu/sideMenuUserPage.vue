@@ -41,6 +41,9 @@
 
 <script>
   export default {
+    created(){
+      this.$store.state.data +=1;
+    },
     data() {
       return {
         userid : sessionStorage.getItem('userid')

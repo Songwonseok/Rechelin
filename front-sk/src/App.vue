@@ -1,14 +1,9 @@
 <template>
   <div id="app">
     <Header></Header>
-
- <transition name="page">
+    <transition name="page">
       <router-view></router-view>
      </transition>
-
-
-
-
   </div>
 </template>
 <script>

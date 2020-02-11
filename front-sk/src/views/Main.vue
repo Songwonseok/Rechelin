@@ -109,10 +109,10 @@
           </v-carousel>
         </div>
         <!-- 탭부분 -->
-         <v-tabs
+  <v-tabs
     fixed-tabs
     background-color="#ff7f00"
-    dark
+    dark 
   >
     <v-tab router-link :to="{name: 'user'}">
       유저페이지
@@ -128,6 +128,8 @@
     </v-tab>
   </v-tabs>
        
+  
+
        <div>
          <router-view></router-view>
        </div>
@@ -157,17 +159,18 @@
   // import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
   import SearchApi from '../../src/apis/UserApi.js';
-
+  
   export default {
     created() {
       this
         .$store
         .dispatch('LOADING_USERDATA');
-    },
-    watch : {
-     
+
+
+      this.$router.push({name : "popular"})
     },
     components : {
+     
     },
     data() {
       return {

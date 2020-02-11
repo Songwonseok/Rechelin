@@ -5,9 +5,9 @@
       <v-card class="mx-auto" max-width="300" tile>
           <v-list rounded>
             <v-subheader>REPORTS</v-subheader>
-            <v-list-item-group v-model="item" color="primary">
-              <v-list-item>
-                <v-list-item-content router-link :to="{name: 'createReview'}">
+            <v-list-item-group v-model="item" color="primary" >
+              <v-list-item router-link :to="{name: 'createReview'}">
+                <v-list-item-content>
                   리뷰등록
                 </v-list-item-content>
               </v-list-item>
@@ -31,7 +31,9 @@
 <script>
 
 export default {
-  
+    created(){
+      this.$store.state.data+=1;
+    },
     components :{
 
     }
