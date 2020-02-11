@@ -47,7 +47,7 @@ export default {
         SearchApi.requestFetchAdrData({ commit }, address).then(
             response => {
 
-
+                      
 
 
                 var aJsonArray = new Array(); //선택된 데이터만 
@@ -75,8 +75,11 @@ export default {
                     aJsonArray.push(item);
                     aJsonArray2.push(item2);
                 }
+                console.log(aJsonArray); //표에 뿌려줄것
+                console.log(aJsonArray2); //db에 들어가는것
                 commit('SET_GOOGLEMAP_TOTAL', aJsonArray2);
                 commit('SET_GOOGLEMAP', aJsonArray);
+                
             }).catch(error => {
             console.log(error);
         })
