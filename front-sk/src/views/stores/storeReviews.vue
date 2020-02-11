@@ -78,7 +78,6 @@
         mdiArrowUpDropCircle,
         mdiDelete
     } from '@mdi/js';
-    import Axios from "axios"
     import VueStar from 'vue-star'
     export default {
 

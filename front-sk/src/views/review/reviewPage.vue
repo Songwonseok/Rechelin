@@ -4,169 +4,202 @@
         <div class="input-with-label">
             <b-container class="bv-example-row">
                 <!-- 리뷰 제목 -->
-                 <b-row>
-            <b-col>
-                <input v-model="reviewTitle" id="reviewTitle" placeholder="리뷰 제목을 작성해주세요." type="text" style="
-            background-color: white;
-            color: black;
-            border: 2px solid #008Cy
-            BA;" v-bind:class="{error : error.title,
-            complete:!error.title&&reviewTitle.length!==0}" />
-                <label for="reviewTitle">리뷰 제목</label>
-                <div class="error-text" v-if="error.title">
-                    {{error.title}}
-                </div>
-                <!-- 해시 태그 모달 -->
-                <br>
-                선택된 HashTag : {{area}} {{age}} {{gender}} {{atmosphere}} {{withWho}} <br>
-                <b-button id="show-btn"
-                    style="width: 50%;height: 15%;color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
-                    @click="$bvModal.show('bv-modal-example')">HashTag</b-button>
-                <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example" hide-footer>
-                    <template v-slot:modal-title>HashTag</template>
-                    <div class="d-block text-center">
-                        <h3>지역</h3>
-                        <!-- <div v-for = "fa in this.fixArea" v-bind:key=fa>
+                <b-row>
+                    <b-col>
+                        <h3>리뷰 제목</h3>
+                        <v-text-field v-model="reviewTitle" label="리뷰 제목을 작성해주세요." single-line filled></v-text-field>
+
+                        <div class="error-text" v-if="error.title">
+                            {{error.title}}
+                        </div>
+                        <!-- 해시 태그 모달 -->
+                        <h3>해시태그</h3>
+                        선택된 HashTag : {{area}} {{age}} {{gender}} {{atmosphere}} {{withWho}} <br>
+                        <v-btn @click="$bvModal.show('bv-modal-example')" id="show-btn" class="ma-2" dark
+                            style="color: #ff7f00 !important; background:#ff7f00 ;">
+                            <v-icon left>{{icons.pencil}}</v-icon> hashtag
+                        </v-btn>
+
+                        <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example" hide-footer>
+                            <template v-slot:modal-title>HashTag</template>
+                            <div class="d-block text-center">
+                                <h3>지역</h3>
+                                <!-- <div v-for = "fa in this.fixArea" v-bind:key=fa>
                                     <input type="checkbox" id="fa" value="fa" v-model="area">
                                     <label for="fa">{{fa}}</label>
                             </div> -->
-                        <input type="checkbox" id="gangnam" value="강남" v-model="area" v-on:click="check_area()">
-                        <label for="gangnam">강남</label>
-                        <input type="checkbox" id="jongro" value="종로" v-model="area" v-on:click="check_area()">
-                        <label for="jongro">종로</label>
-                        <input type="checkbox" id="jamsil" value="잠실" v-model="area" v-on:click="check_area()">
-                        <label for="jamsil">잠실</label>
+                                <input type="checkbox" id="gangnam" value="강남" v-model="area" v-on:click="check_area()">
+                                <label for="gangnam">강남</label>
+                                <input type="checkbox" id="jongro" value="종로" v-model="area" v-on:click="check_area()">
+                                <label for="jongro">종로</label>
+                                <input type="checkbox" id="jamsil" value="잠실" v-model="area" v-on:click="check_area()">
+                                <label for="jamsil">잠실</label>
+                                <br>
+                                <span>체크 : {{ area}}</span>
+                                <h3>연령</h3>
+                                <input type="checkbox" id="ten" value="10대" v-model="age" v-on:click="check_age()">
+                                <label for="ten">10대</label>
+                                <input type="checkbox" id="twienty" value="20대" v-model="age" v-on:click="check_age()">
+                                <label for="twienty">20대</label>
+                                <input type="checkbox" id="thirty" value="30대" v-model="age" v-on:click="check_age()">
+                                <label for="thirty">30대</label>
+                                <br>
+                                <span>체크 : {{age}}</span>
+                                <h3>성별</h3>
+                                <input type="checkbox" id="man" value="남" v-model="gender" v-on:click="check_gender()">
+                                <label for="man">남</label>
+                                <input type="checkbox" id="girl" value="여" v-model="gender" v-on:click="check_gender()">
+                                <label for="girl">여</label>
+                                <br>
+                                <span>체크 : {{gender}}</span>
+                                <h3>분위기</h3>
+                                <input type="checkbox" id="calm" value="조용한" v-model="atmosphere"
+                                    v-on:click="check_atmosphere()">
+                                <label for="calm">조용한</label>
+                                <input type="checkbox" id="comfortable" value="아늑한" v-model="atmosphere"
+                                    v-on:click="check_atmosphere()">
+                                <label for="comfortable">아늑한</label>
+                                <input type="checkbox" id="warm" value="따뜻한" v-model="atmosphere"
+                                    v-on:click="check_atmosphere()">
+                                <label for="warm">따뜻한</label>
+                                <br>
+                                <span>체크 : {{atmosphere}}</span>
+                                <span></span>
+                                <h3>누구랑 가면 좋을까요?</h3>
+                                <input type="checkbox" id="friend" value="친구" v-model="withWho"
+                                    v-on:click="check_with()">
+                                <label for="friend">친구</label>
+                                <input type="checkbox" id="family" value="가족" v-model="withWho"
+                                    v-on:click="check_with()">
+                                <label for="family">가족</label>
+                                <input type="checkbox" id="coworker" value="동료" v-model="withWho"
+                                    v-on:click="check_with()">
+                                <label for="coworker">동료</label>
+                                <br>
+                                <span>체크 : {{withWho}}</span>
+                            </div>
+
+                            
+                            <b-button
+                                style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
+                                class="mt-3" block @click="$bvModal.hide('bv-modal-example')">닫기</b-button>
+                        </b-modal> <br>
+
+                        <h3>음식 사진 업로드</h3>
+                        <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
+                        <template v-if="this.profile != ''">
+                            <!-- {{this.profile}}  -->
+
+                            <img :src="profile" style="max-width:30%">
+                        </template>
+
+                        <h3>사진업로드 테스트</h3>
+                        <div class="uploadProfile">
+                            <v-file-input   @change="getProfileForm" label="File input" filled :prepend-icon="icons.camera" name="fileToUpload" id="fileToUpload" accept=".gif, .jpg, .png"></v-file-input>
+                            <!--change을 통해서 파일의 변화를 감지 -->
+                             <v-btn  @click="upload" class="ma-2" dark
+                            style="color: #ff7f00 !important; background:#ff7f00 ;">
+                            <v-icon left>{{icons.pencil}}</v-icon> submit
+                        </v-btn>
+                        </div> <br>
+                        <span contenteditable="true" placeholder="음식점 주소를 등록해주세요.">
+                            <h4>음식점 주소</h4>
+                             {{address}} 
+                             <h4>음식점 전화 번호</h4> 
+                            {{store_num}}
+                        </span><br>
+                        <!-- 음식점 사진 : <img :src="store_pic" style="max-width:30%" > -->
                         <br>
-                        <span>체크 : {{ area}}</span>
-                        <h3>연령</h3>
-                        <input type="checkbox" id="ten" value="10대" v-model="age" v-on:click="check_age()">
-                        <label for="ten">10대</label>
-                        <input type="checkbox" id="twienty" value="20대" v-model="age" v-on:click="check_age()">
-                        <label for="twienty">20대</label>
-                        <input type="checkbox" id="thirty" value="30대" v-model="age" v-on:click="check_age()">
-                        <label for="thirty">30대</label>
+                        <v-btn class="ma-2" id="show-btn" @click="$bvModal.show('bv-modal-example_adr')"  style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 주소 등록
+                        </v-btn>
+
+                        <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example_adr"
+                            class="modalStore" hide-footer>
+                            <template v-slot:modal-title>음식점 주소 등록하기</template>
+                            <div class="d-block text-center">
+                                <!--Main Modal Page-->
+                                <div v-if="eye">
+                                    검색 완료한 후 enter를 눌러주세요!
+                                    <b-form-input id="address_search" @keyup="fetchAdr" type="text" v-model="address">
+                                    </b-form-input>
+                                    <b-table striped hover :items="map" @row-clicked="clickEvent"></b-table>
+                                </div>
+
+                                <div v-else>
+                                    검색 완료한 후 enter를 눌러주세요!
+                                    <b-form-input id="address_search2" @keyup="fetchAdr" type="text" v-model="address">
+                                    </b-form-input>
+                                    <b-table striped hover :items="map" @row-clicked="clickEvent">
+
+                                    </b-table>
+                                </div>
+                            </div>
+
+                            <b-button
+                                style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
+                                class="mt-3" block @click="$bvModal.hide('bv-modal-example_adr')">닫기</b-button>
+                        </b-modal>
                         <br>
-                        <span>체크 : {{age}}</span>
-                        <h3>성별</h3>
-                        <input type="checkbox" id="man" value="남" v-model="gender" v-on:click="check_gender()">
-                        <label for="man">남</label>
-                        <input type="checkbox" id="girl" value="여" v-model="gender" v-on:click="check_gender()">
-                        <label for="girl">여</label>
-                        <br>
-                        <span>체크 : {{gender}}</span>
-                        <h3>분위기</h3>
-                        <input type="checkbox" id="calm" value="조용한" v-model="atmosphere"
-                            v-on:click="check_atmosphere()">
-                        <label for="calm">조용한</label>
-                        <input type="checkbox" id="comfortable" value="아늑한" v-model="atmosphere"
-                            v-on:click="check_atmosphere()">
-                        <label for="comfortable">아늑한</label>
-                        <input type="checkbox" id="warm" value="따뜻한" v-model="atmosphere"
-                            v-on:click="check_atmosphere()">
-                        <label for="warm">따뜻한</label>
-                        <br>
-                        <span>체크 : {{atmosphere}}</span>
-                        <span></span>
-                        <h3>누구랑 가면 좋을까요?</h3>
-                        <input type="checkbox" id="friend" value="친구" v-model="withWho" v-on:click="check_with()">
-                        <label for="friend">친구</label>
-                        <input type="checkbox" id="family" value="가족" v-model="withWho" v-on:click="check_with()">
-                        <label for="family">가족</label>
-                        <input type="checkbox" id="coworker" value="동료" v-model="withWho" v-on:click="check_with()">
-                        <label for="coworker">동료</label>
-                        <br>
-                        <span>체크 : {{withWho}}</span>
-                    </div>
-                    <b-button
-                        style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
-                        class="mt-3" block @click="$bvModal.hide('bv-modal-example')">닫기</b-button>
-                </b-modal> <br>
-
-                <h3>음식 사진 업로드</h3>
-                <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
-                <template v-if="this.profile != ''">
-                    <!-- {{this.profile}}  -->
-
-                    <img :src="profile" style="max-width:30%">
-                </template>
-                <template v-else>
-                    사진없어요
-                </template>
-
-
-                <h3>사진업로드 테스트</h3>
-                <div class="uploadProfile">
-                    <input type="file" name="fileToUpload" id="fileToUpload" accept=".gif, .jpg, .png"
-                        @change="getProfileForm">
-                    <!--change을 통해서 파일의 변화를 감지 -->
-                    <button @click="upload">제출</button>
-                </div> <br>
-                <span contenteditable="true" placeholder="음식점 주소를 등록해주세요.">
-                    음식점 주소 : {{address}} <br>
-                    음식점 번호 : {{store_num}}
-                </span><br>
-                <!-- 음식점 사진 : <img :src="store_pic" style="max-width:30%" > -->
-                <br>
-                 <v-btn class="ma-2" id="show-btn" @click="$bvModal.show('bv-modal-example_adr')">음식점 주소 등록</v-btn>
-               
-                <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example_adr" class="modalStore"
-                    hide-footer>
-                    <template v-slot:modal-title>음식점 주소 등록하기</template>
-                    <div class="d-block text-center">
-                        <!--Main Modal Page-->
-                        <div v-if="eye">
-                            검색 완료한 후 enter를 눌러주세요!
-                            <b-form-input id="address_search" @keyup="fetchAdr" type="text" v-model="address">
-                            </b-form-input>
-                            <b-table striped hover :items="map" @row-clicked="clickEvent"></b-table>
-                        </div>
-
-                        <div v-else>
-                            검색 완료한 후 enter를 눌러주세요!
-                            <b-form-input id="address_search2" @keyup="fetchAdr" type="text" v-model="address">
-                            </b-form-input>
-                            <b-table striped hover :items="map" @row-clicked="clickEvent">
-
-                            </b-table>
-                        </div>
-                    </div>
-
-                    <b-button
-                        style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
-                        class="mt-3" block @click="$bvModal.hide('bv-modal-example_adr')">닫기</b-button>
-                </b-modal>
-                <br>
-                </b-col>
-                <!-- 음식점 주소 등록
+                    </b-col>
+                    <!-- 음식점 주소 등록
             <b-form-input id="address_search" @keyup ="fetchAdr" class="in" type="text"  v-model="address" list="maps"></b-form-input>
                 <datalist  id="maps"> 
             <option v-for="map in maps" v-bind:key="map">{{map}}</option>
             </datalist><br>
             <label for="address_search"></label>  -->
-<b-col>
+                    <b-col>
 
-               
-                 맛 : <star-rating v-model="flavor"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating> <br>
-             가격 : <star-rating v-model="price"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating> <br>
-             친절함 : <star-rating v-model="kindness"  :border-width="4" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating> <br>
-           
-                장점 : <textarea v-model="props" class="props_textarea" placeholder="장점을 작성해주세요~"
-                    v-bind:class="{error :error.props, complete :!error.props && props.length!==0}" /> <br>
+                        <h5>맛</h5>
+                          <star-rating v-model="flavor" :border-width="4" border-color="#d8d8d8"
+                            :rounded-corners="true"
+                            :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
+                        </star-rating> <br>
+                        <h5>가격</h5>
+                         <star-rating v-model="price" :border-width="4" border-color="#d8d8d8"
+                            :rounded-corners="true"
+                            :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
+                        </star-rating> <br>
+                        <h5>친절함</h5>
+                        <star-rating v-model="kindness" :border-width="4" border-color="#d8d8d8"
+                            :rounded-corners="true"
+                            :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
+                        </star-rating> <br>
+                          <h4>장점</h4>
+                         <v-textarea
+          label="장점 20자 이내"
+          auto-grow
+          outlined
+          :counter="20"
+          rows="3"
+          row-height="30"
+          shaped
+        ></v-textarea>
+                         
             <div class="error-text" v-if="error.props">
                         {{error.props}}
             </div>
-
-            단점 : <textarea v-model="cons" class="cons_textarea" placeholder="단점을 작성해주세요~"
-                v-bind:class="{error :error.cons, complete :!error.cons && cons.length!==0}"
-             /><br>
+            <h4>단점</h4>
+                               <v-textarea
+          label="단점 20자 이내"
+          auto-grow
+          outlined
+          :counter="20"
+          rows="3"
+          row-height="30"
+          shaped
+        ></v-textarea>
+   
             <div class="error-text" v-if="error.cons">
                         {{error.cons}}
             </div>
-             평점 : <star-rating v-model="rating" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
+            <h5>그래서 이 음식점의 총평을 평점으로 매긴다면?</h5>
+             <star-rating v-model="rating" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                     :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
-              <br>
-              <v-btn depressed large name="submit" id="submit" @click="reviewConfirm" 
+           
+              <div ref="finalSubmit">
+              <v-btn depressed large name="submit" id="submit" @click="reviewConfirm" style="color: #ff7f00 !important; background:#ff7f00 ;"
               value="review 등록" >리뷰 등록</v-btn>
+              </div>
               </b-col>
                </b-row>
             </b-container>
@@ -176,14 +209,21 @@
 
 <script>
 
-import '../../assets/css/style.scss'
-import '../../assets/css/user.scss'
 import UserApi from '../../apis/UserApi'
+import StoreApi from '../../apis/UserApi'
 import PV from 'password-validator'
 import ImgurApi from '../../apis/ImgurApi'
 import StarRating from 'vue-star-rating'
-import Vue from 'vue'
+  import {
+    mdiPencil,
+    mdiCamera,
+  } from '@mdi/js'
+  import {jump} from '../../assets/js/animejs';
+
+
+
 export default {
+   
     created() {
 
       this.titleSchema
@@ -198,6 +238,9 @@ export default {
          .is().max(20)
       this.getProfile();
       
+    },
+    mounted() {
+        this.gojump();
     },
     watch : {
         reviewTitle : function(v){
@@ -224,6 +267,9 @@ export default {
         check_age(){
             this.age = [];
             
+        },
+        gojump() {
+            jump(this.$refs.finalSubmit);
         },
         check_gender(){
             this.gender = [];
@@ -342,7 +388,7 @@ export default {
                         'weak' : this.cons,
                         }
                         console.log(data);
-                    UserApi.requestAddReview(data, res=>{
+                    StoreApi.requestAddReview(data, res=>{
 
                         console.log("reviewPage 등록 성공");
                     })
@@ -360,7 +406,7 @@ export default {
             console.log(this.$store.state.googleStorePlace[index]);
              //Q : 리뷰 항목을 다 건네줘야 하는건지?
                 
-                 UserApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
+                 StoreApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
                  this.store_num = res.data.object.num;
                  this.store_pic = res.data.object.img;
                  })
@@ -426,6 +472,10 @@ export default {
              cons : false,
          },
          store_pic : '',
+         icons: {
+             pencil : mdiPencil,
+             camera: mdiCamera,
+         }
     })
 }
 </script>

@@ -16,8 +16,12 @@
         <template v-if="myEmail != UserInfo.email" >
             <div>
               <button @click="followRequest">Follow</button>
-            <button @click="followRequest">UnFollow</button>
-            <button @click="followRequest">요청됨</button>
+            </div>- 
+            <div>
+              <button @click="followRequest">UnFollow</button>
+            </div>
+            <div>
+              <button @click="followRequest">요청됨</button>
             </div>
         </template>
         
@@ -34,9 +38,9 @@
          <ul class="data-user">
          <li>
             <router-link :to="{name: 'UserReviews', params: {
-          bookmarks: this.bookmarkList,
+          bookmarks: this.bookmarkList, 
           reviews : this.reviewList, // 향후 db에서 받아오는 값으로 수정할 애들
-        }}"><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
+        }}"  @click="userReviews" ><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
           </li>
           <li>
             <router-link :to="{name:'Fans', params: { fans : this.fanList}}">
@@ -70,13 +74,14 @@
   import FollowApi from '../../apis/FollowApi'
   import ReviewApi from '../../apis/ReviewApi'
   
-  
+
   export default {
     data() {
       return {
         svgPath: mdiPencil,
         accountIcon: mdiAccountCircle,
-        id : this.$route.params.id, // URL에서 가져온 User
+        // id : this.$route.params.id, // URL에서 가져온 User
+        id : this.$store.state.userEmail,
         UserInfo:{ // id로 가져온 정보들
           email:'',
           nickname:'',
@@ -121,6 +126,7 @@
       /**TODO - follow 요청 버튼 작동하기 */
       },
       getFanList(){
+        console.log(this.id)
         FollowApi.requestFanList(this.id, res=>{
           this.fanList = res;
           console.log('fan 성공')
@@ -164,6 +170,9 @@
             alert('정보 가져오기 실패 !');
           })
 
+          
+        },
+        userReviews(){
           
         }
       
