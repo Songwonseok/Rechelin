@@ -1,11 +1,14 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Main></Main>
-   <!-- <transition v-bind:name="transitionName" mode="out-in">  -->
-     <transition name="page">
+
+ <transition name="page">
       <router-view></router-view>
-     </transition> 
+     </transition>
+
+
+
+
   </div>
 </template>
 <script>
@@ -20,12 +23,10 @@
     mdiDelete
   } from '@mdi/js'  
   import SignUp from "./views/user/signUpForm.vue";
-  import Main from "./views/Main.vue";
   import Header from "./views/header.vue";
   export default {
     name: 'app',
     components : {
-      Main,
       Header,
     },
     watch : {
