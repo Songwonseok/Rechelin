@@ -1,55 +1,29 @@
 <template>
   <div id="app">
-  <v-app id="inspire">
-    <v-card>
-      <v-toolbar flat color="orange" dark>
-         <v-toolbar-title>  <i class="fas fa-utensils fa-3x" > </i> 음식점 검색 </v-toolbar-title>
-       
-      </v-toolbar>
-      <v-tabs vertical>
-        <v-tab>
-          <v-icon left>mdi-account</v-icon>
-          음식점 검색
-        </v-tab>
-        <v-tab>
-          <v-icon left>mdi-lock</v-icon>
-          랜덤 음식점 룰렛
-        </v-tab>
-        <!-- <v-tab>
-          <v-icon left>mdi-access-point</v-icon>
-          회원가입
-        </v-tab> -->
-  
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-            .............................
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-            <!-- <user-page></user-page> -->
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <p>
-                Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.
-              </p>
-  
-              <p class="mb-0">
-                Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at tortor in tellus interdum sagittis.
-              </p>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-      </v-tabs>
-    </v-card>
-  </v-app>
+<b-row class="text-center">
+   <b-col> 
+      <v-card class="mx-auto" max-width="300" tile>
+          <v-list rounded>
+            <v-subheader>REPORTS</v-subheader>
+            <v-list-item-group v-model="item" color="primary">
+              <v-list-item>
+                <v-list-item-content router-link :to="{name: 'createReview'}">
+                  검색
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  랜덤음식추천
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-card>   
+</b-col>
+<b-col cols="10">
+<router-view></router-view>
+  </b-col>
+  </b-row>
 </div>
 </template>
 
