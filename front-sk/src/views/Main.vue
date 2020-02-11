@@ -1,8 +1,10 @@
 <template>
+ <v-container >
   <div>
     <v-app id="inspire" class ="rootMain">
       <!-- 네브바 -->
         <div v-if="checkLogin" >
+          
         <div style="text-align: center !important;">
           <v-btn color="warning" id="find" dark style="position: relative; top: 250px; z-index:1;" @click="open">Find
             Restaurant</v-btn>
@@ -99,7 +101,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-
+      
         <div>
           <v-carousel cycle show-arrows-on-hover hide-delimiters v-ripple="true" class="text-center">
             <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
@@ -107,83 +109,37 @@
           </v-carousel>
         </div>
         <!-- 탭부분 -->
-        <v-tabs color="orange" v-model="tabs" grow>
-          <v-tab><i class="fas fa-user fa-2x"></i> &nbsp;&nbsp;유저 페이지</v-tab>
-          <v-tab><i class="fas fa-utensils fa-2x"></i> &nbsp;&nbsp;음식점 검색</v-tab>
-          <v-tab><i class="fas fa-mail-bulk fa-2x"></i> &nbsp;&nbsp;리뷰 등록</v-tab>
-          <v-tab>미정</v-tab>
-          <v-tab>미정</v-tab>
-        </v-tabs>
-
-       <v-tabs-items v-model="tabs">
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. -->
-              <!-- <side-menu-user></side-menu-user> -->
-              
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-
-        <v-tab-item>
-          <v-card flat>
-            <v-card-title class="headline">음식점 검색</v-card-title>
-            <v-card-text> 
-              <side-menu-food></side-menu-food>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-
-        <v-tab-item>
-          
-          <v-card flat>
-            <v-card-title class="headline">리뷰</v-card-title>
-             
-            <v-card-text>
-              
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-      </v-tabs-items>
-
-
-
-        <!-- 음식창과 검색창 -->
-
-
-
-      <!-- 사진이랑 유저 랭킹 -->
-      <!-- <v-container class="grey lighten-5" style="
-    margin-top: 400px;
-"> -->
-        <!-- <v-row no-gutters>
-          <v-col cols="9">
-            <v-row no-gutters>
-
-                <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
-                </v-card>
-
-            </v-row>
-          </v-col>
-        </v-row> -->
-
-<!-- -------------------------리뷰 작성하기 ------------------------------------- -->
-<!-- 
-        <div class="text-center">
-
-            <br><br>
-            <span style="font-size:30px"> 리뷰 작성하기</span><br>
-
-        </div> -->
-<!-- 
-      </v-container> -->
+         <v-tabs
+    fixed-tabs
+    background-color="#ff7f00"
+    dark
+  >
+    <v-tab router-link :to="{name: 'user'}">
+      유저페이지
+    </v-tab>
+    <v-tab  router-link :to="{name: 'food'}">
+      음식점
+    </v-tab>
+    <v-tab router-link :to="{name: 'review'}">
+      리뷰
+    </v-tab>
+    <v-tab>
+      피드 페이지(예정)
+    </v-tab>
+  </v-tabs>
+       
+       <div>
+         <router-view></router-view>
+       </div>
+        
+        
   </div>
 
  
   </v-app>
 
   </div>
+  </v-container>
 </template>
 
 
@@ -201,9 +157,6 @@
   // import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
   import SearchApi from '../../src/apis/UserApi.js';
-  
-  import sideMenuFood from './sideMenu/sideMenuFood.vue';
-  import sideMenuReview from './sideMenu/sideMenuReview.vue';
 
   export default {
     created() {
@@ -212,31 +165,9 @@
         .dispatch('LOADING_USERDATA');
     },
     watch : {
-      tabs(t){
-        console.log(t);
-        if(t===0){
-           //유저 페이지 
-           if(sessionStorage.getItem("userEmail"))
-              this.$router.push({ path : "sideMenuUserPage"})
-           else
-              this.$router.push({ path: "sideMenuLogin" });
-        }else if(t==1){
-           //음식점 검색
-            this.$router.push({ path: "sideMenuFood" });
-        }else if(t==2){
-          //리뷰 등록 
-          this.$router.push({ path :'sideMenuReview'});
-        }else if(t==3){
-          //미정
-        }else if(t==4){
-          //미정
-        }
-      }
+     
     },
     components : {
-      // sideMenuUser,
-      // sideMenuFood,
-      // sideMenuReview,
     },
     data() {
       return {
@@ -428,6 +359,7 @@
 </script>
 
 <style scoped>
+
   .rootMain{
     height: 400px;
 

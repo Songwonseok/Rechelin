@@ -173,9 +173,9 @@
         getUser(){
             
             UserApi.requestEmail(this.email,res=>{
-                this.nickname = res.nickname
-                this.phone = res.phone
-                this.profile = res.profile
+                this.nickname = res.object.nickname
+                this.phone = res.object.phone
+                this.profile = res.object.profile
                 console.log('***유저정보 가져오기 성공')              
             },error=>{  
                 console.log('유저정보 가져오기 실패')

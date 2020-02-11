@@ -34,6 +34,8 @@ import sideMenuUserPage from './views/sideMenu/sideMenuUserPage.vue';
 export default [
     // ERROR PAGE
     // 404 PAGE
+
+    
     {
         path: '*',
         redirect: '/404'
@@ -44,8 +46,45 @@ export default [
     },
     {
         path: '/',
-        name: 'sideMenuLogin',
-        component: sideMenuLogin,
+        name: 'main',
+        component: Main,
+        children: [
+            {
+                path: 'user',
+                name: 'user',
+                component: sideMenuUserPage,
+                children : [
+                    {
+                        path: '/login',
+                        name: 'login',
+                        component: Login
+                    },
+                    {
+                        path: '/signup',
+                        name: 'signup',
+                        component: signUpForm
+                    }
+                ]
+            },
+            {
+                path: 'food',
+                name: 'food',
+                component: sideMenuFood,
+                children: []
+            },
+            {
+                path: 'review',
+                name: 'review',
+                component: sideMenuReview,
+                children: [
+                    {
+                        path: 'create',
+                        name: 'createReview',
+                        component: reviewPage
+                    }
+                ]
+            }
+        ]
       
     },
     { // 유저페이지
