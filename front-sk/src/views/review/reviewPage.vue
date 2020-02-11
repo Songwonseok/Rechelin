@@ -32,7 +32,7 @@
 
 
 
-                        <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example_adr"
+                        <b-modal ref="my-modal" style="text-align: center; margin-bottom: 10px;" id="bv-modal-example_adr"
                             class="modalStore" hide-footer>
                             <template v-slot:modal-title>음식점 주소 등록하기</template>
                             <div class="d-block text-center">
@@ -518,23 +518,27 @@ export default {
                     alert('리뷰를 작성해주세요~~')
                 }
             },
-            clickEvent(record, index) {
+            clickEvent(recode, index) {
             // 'record' will be the row data from items
             // `index` will be the visible row number (available in the v-model 'shownItems')
             
-            console.log("통신하기전 : ")
-            console.log(this.$store.state.googleStorePlace);
-            console.log(record);
-            console.log(this.$store.state.googleStorePlace[index]);
-             //Q : 리뷰 항목을 다 건네줘야 하는건지?
-                
+            /**modal창닫고 table index infomation fetch**/
+            this.$bvModal.hide('bv-modal-example_adr');
+            this.store_address = this.$store.state.googleStorePlace[index].address;
+            this.store_name = this.$store.state.googleStorePlace[index].sname;   
+            this.address="";
+            
+            let list = [...this.maps]
+            list = []
+            this.maps = [...list]
+            
+
                  StoreApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
                  this.store_num = res.data.object.num;
                  this.store_pic = res.data.object.img;
                  console.log('res 위');
                  console.log(res);
-                 this.address="";
-                 this.map = [];
+                 
               
                  })
             },
