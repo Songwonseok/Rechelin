@@ -115,7 +115,7 @@
           <v-tab>미정</v-tab>
         </v-tabs>
 
-      <v-tabs-items v-model="tabs">
+       <v-tabs-items v-model="tabs">
         <v-tab-item>
           <v-card flat>
             <v-card-text>
@@ -149,44 +149,43 @@
 
 
 
-      <!-- 음식창과 검색창 -->
+        <!-- 음식창과 검색창 -->
 
 
 
-      <!-- 사진이랑 유저 랭킹 -->
-      <v-container class="grey lighten-5" style="
-    margin-top: 400px;
-">
-        <v-row no-gutters>
-          <v-col cols="9">
-            <v-row no-gutters>
+        <!-- 사진이랑 유저 랭킹 -->
+        <v-container class="grey lighten-5" style="
+    margin-top: 400px;">
+          <v-row no-gutters>
+            <v-col cols="9">
+              <v-row no-gutters>
 
-              <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
-              </v-card>
+                <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
+                </v-card>
 
-            </v-row>
-          </v-col>
-        </v-row>
+              </v-row>
+            </v-col>
+          </v-row>
 
 
-        <div class="text-center">
+          <div class="text-center">
 
-          <br><br>
-          <span style="font-size:30px"> 리뷰 작성하기</span><br>
+            <br><br>
+            <span style="font-size:30px"> 리뷰 작성하기</span><br>
 
-        </div>
+          </div>
 
-      </v-container>
-  </div>
+        </v-container>
+      </div>
 
-  <div v-else>
+      <div v-else>
 
-    <img src="https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg" @click="checkLoginState"
-      alt="Trulli" width="500" height="333"><br>
+        <img src="https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg" @click="checkLoginState"
+          alt="Trulli" width="500" height="333"><br>
 
-  </div>
- 
-  </v-app>
+      </div>
+
+    </v-app>
 
   </div>
 </template>
@@ -203,7 +202,7 @@
   import {
     mapState
   } from 'vuex'
-  //import userSearch from '../../src/components/common/userSearch';
+  // import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
   import sideMenuUser from './sideMenu/sideMenuUser.vue';
   import sideMenuFood from './sideMenu/sideMenuFood.vue';
@@ -441,15 +440,7 @@
 
     margin-top: 0px;
   }
-
-  .mb-2 {
-    height: 50px !important;
-  }
-
-  #mainTop {
-    background: #ff7f00;
-  }
-
+  
   #find {
     -webkit-transform: scale(1.2);
     -moz-transform: scale(1.2);
@@ -465,14 +456,25 @@
 
   }
 
-  #find:hover {
+   #find:hover {
     -webkit-transform: scale(1.5);
     -moz-transform: scale(1.5);
     -ms-transform: scale(1.5);
     -o-transform: scale(1.5);
     transform: scale(1.5);
-    background: white;
-    color: #ff7f00;
-    outline-color: #ff7f00
+    background: white !important;
+    color: #ff7f00 !important;
+    outline-color: #ff7f00 !important;
   }
+
+  .mb-2 {
+    height: 50px !important;
+  }
+
+  #mainTop {
+    background: #ff7f00;
+  }
+
+
+ 
 </style>

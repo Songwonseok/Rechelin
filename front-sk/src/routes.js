@@ -38,6 +38,13 @@ export default [
         path: '/',
         name: 'Main',
         component: Main,
+        children: [
+            {
+                path: 'reviewPage',
+                name: 'review',
+                component: reviewPage
+            }
+        ]
       
     },
     { // 유저페이지

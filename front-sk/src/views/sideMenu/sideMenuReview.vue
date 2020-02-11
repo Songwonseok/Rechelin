@@ -13,10 +13,10 @@
             리뷰 등록
         </v-tab>
             
-        <!-- <v-tab>
+        <v-tab>
           <v-icon left>mdi-access-point</v-icon>
           회원가입
-        </v-tab> -->
+        </v-tab>
   
         <v-tab-item>
           <v-card flat>
@@ -29,7 +29,7 @@
           <v-card flat>
             <v-card-text>
               
-            <!-- <user-page></user-page> -->
+            <user-page></user-page>
             </v-card-text>
           </v-card>
         </v-tab-item>
