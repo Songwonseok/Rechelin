@@ -26,12 +26,12 @@
               <v-chip draggable @click="insertTags('locations', 4, '고속터미널')">고속터미널</v-chip>
               <v-chip draggable @click="insertTags('locations', 5, '가로수길')">가로수길</v-chip>
               <v-chip draggable @click="insertTags('locations', 6, '서래마을')">서래마을</v-chip>
-              <v-chip draggable @click="insertTags('locations', 7, '건대')">건대</v-chip>
 
 
 
               <v-divider></v-divider>
               강북
+              <v-chip draggable @click="insertTags('locations', 7, '건대')">건대</v-chip>
               <v-chip draggable @click="insertTags('locations', 8, '종로')">종로</v-chip>
               <v-chip draggable @click="insertTags('locations', 9, '삼청동')">삼청동</v-chip>
               <v-chip draggable @click="insertTags('locations', 10, '서촌')">서촌</v-chip>
@@ -141,7 +141,7 @@
             <v-card-title class="headline">리뷰</v-card-title>
              
             <v-card-text>
-              
+              <sideMenuReview></sideMenuReview>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -216,10 +216,7 @@
         console.log(t);
         if(t===0){
            //유저 페이지 
-           if(sessionStorage.getItem("userEmail"))
-              this.$router.push({ path : "sideMenuUserPage"})
-           else
-              this.$router.push({ path: "sideMenuLogin" });
+           this.$router.push({ path: "sideMenuUser" });
         }else if(t==1){
            //음식점 검색
             this.$router.push({ path: "sideMenuFood" });

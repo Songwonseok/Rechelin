@@ -29,10 +29,11 @@
               .............................////랜덤음식
               음식점 리스트 뿌리기 테스트
               <br />
-              <v-card-title class="headline">
+                <v-card-title class="headline">
                 <!-- <v-chip  @click:close="keyword = ''">{{keyword}}</v-chip> -->
-                <v-combobox v-model="keyword" chips clearable label="위치를 선택하세요" solo></v-combobox>
+                <v-combobox v-model="keyword" chips clearable label="위치를 '하나만' 선택하세요" solo></v-combobox>
               </v-card-title>
+              
               <v-card-text>
                 <v-divider></v-divider>
                 <h3>강남</h3>
@@ -128,5 +129,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.v-application .primary {
+    background-color: #ff7f00 !important;
+    border-color: #ff7f00 !important;
+}
 </style>
