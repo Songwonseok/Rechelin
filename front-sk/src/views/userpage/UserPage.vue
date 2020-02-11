@@ -16,8 +16,12 @@
         <template v-if="myEmail != UserInfo.email" >
             <div>
               <button @click="followRequest">Follow</button>
-            <button @click="followRequest">UnFollow</button>
-            <button @click="followRequest">요청됨</button>
+            </div>- 
+            <div>
+              <button @click="followRequest">UnFollow</button>
+            </div>
+            <div>
+              <button @click="followRequest">요청됨</button>
             </div>
         </template>
         
@@ -121,6 +125,7 @@
       /**TODO - follow 요청 버튼 작동하기 */
       },
       getFanList(){
+        console.log(this.id)
         FollowApi.requestFanList(this.id, res=>{
           this.fanList = res;
           console.log('fan 성공')

@@ -83,9 +83,9 @@ public class AcountServiceImpl implements AcountService {
 	public boolean update(User request) {
 		User user = userDao.findByEmail(request.getEmail());
 		if(user!=null) {
-			
 //			request.setPw(passwordEncoder.encode(request.getPw()));
 			user.updateUser(request);
+			// profile과 비밀번호 제외하고 업데이트
 			userDao.save(user);
 			return true;
 		}

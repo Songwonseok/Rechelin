@@ -205,7 +205,12 @@
   } from 'vuex'
   //import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
+<<<<<<< HEAD
   import sideMenuUser from './sideMenu/sideMenuUser.vue';
+=======
+  import SearchApi from '../../src/apis/UserApi.js';
+  import sideMenuUser from './sideMenu/sideMenuUser.vue'; 
+>>>>>>> feature-review
   import sideMenuFood from './sideMenu/sideMenuFood.vue';
   import sideMenuReview from './sideMenu/sideMenuReview.vue';
 
@@ -302,7 +307,7 @@
         this.history.nickname = this.search;
 
 
-        UserApi.searchUserHistory(this.history, res => {
+        SearchApi.searchUserHistory(this.history, res => {
 
           if (this.inputStatus == true) this.inputStatus = false;
           else {
