@@ -125,6 +125,7 @@
       /**TODO - follow 요청 버튼 작동하기 */
       },
       getFanList(){
+        console.log(this.id)
         FollowApi.requestFanList(this.id, res=>{
           this.fanList = res;
           console.log('fan 성공')
