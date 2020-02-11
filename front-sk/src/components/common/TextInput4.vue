@@ -120,7 +120,7 @@ export default {
       UserApi.requestEmail(data, res=>{
            console.log(res);
            
-           this.$emit('statusEmail', res.status); 
+           this.$emit('statusEmail', res.data.status); 
       })
       
     } 
