@@ -28,19 +28,42 @@
 </template>
 
 <script>
+import random from "../../views/stores/random.vue";
+import StoreApi from "../../apis/StoreApi";
 
 export default {
-  data(){
+  data() {
     return {
-      randomList:[]
-    }
+      keyword: "",
+      randomList: []
+    };
   },
-    components :{
-      
+  components: {
+    random
+  },
+  methods: {
+    insertTags(name) {
+      if(name == this.keyword) this.keyword = '';
+      else this.keyword = name;
+    },
+    getRandom() {
+      if (this.keyword != "") {
+        StoreApi.requestRandom(
+          this.keyword,
+          res => {
+            this.randomList = res;
+          },
+          error => {
+            alert("랜덤 음식점 리스트 가져오기 실패");
+          }
+        );
+      } else {
+        alert("위치를 선택해주세요");
+      }
     }
-}
+  }
+};
 </script>
 
 <style>
-
 </style>

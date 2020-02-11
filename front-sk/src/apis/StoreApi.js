@@ -42,8 +42,21 @@ const requestAddPlace = (data, callback, errorCallback) => {
     console.log(data);
 }
 
+const requestRandom = (data, callback, errorCallback) => {
+    data = "이태원"
+    console.log(data)
+    Axios.get(URL + '/store/random/' + data, auth)
+        .then(response => {
+            console.log(response)
+            callback(response.data.object)
+        }).catch(exp => {
+            errorCallback(exp);
+        })
+}
+
 const StoreApi = {
     requestAddPlace: (data, callback, errorCallback) => requestAddPlace(data, callback, errorCallback),
+    requestRandom: (data, callback, errorCallback) => requestRandom(data, callback, errorCallback),
 
 }
 

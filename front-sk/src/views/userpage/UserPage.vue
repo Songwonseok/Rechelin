@@ -161,10 +161,10 @@
           UserApi.requestEmail( this.id,res=>{
             console.log("****")
             console.log(res)
-            this.UserInfo.email = res.email;
-            this.UserInfo.nickname = res.nickname;
-            this.UserInfo.phone = res.phone;
-            this.UserInfo.profile = res.profile;
+            this.UserInfo.email = res.object.email;
+            this.UserInfo.nickname = res.object.nickname;
+            this.UserInfo.phone = res.object.phone;
+            this.UserInfo.profile = res.object.profile;
            
           },error =>{
             alert('정보 가져오기 실패 !');

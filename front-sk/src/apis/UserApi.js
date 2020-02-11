@@ -50,7 +50,7 @@ const requestEmail = (data, callback, errorCallback) => {
         .then(response => {
             console.log(response);
             // if (response.data.status == true)
-                callback(response.data);
+            callback(response.data);
             console.log('성공')
 
         }).catch(exp => {
