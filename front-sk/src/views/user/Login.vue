@@ -175,7 +175,7 @@
                             
                             console.log('login form 안 '+res.object)
                             console.log(res.object);
-                            this.$router.push({ name: "Main" });
+                            this.$router.push({ path : "sideMenuUserPage" });
                         }
                         else
                             this.$router.push({ path: '/' });

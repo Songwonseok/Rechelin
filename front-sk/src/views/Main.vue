@@ -1,15 +1,13 @@
 <template>
   <div>
-    <!-- 네브바 -->
-  <div v-if="checkLogin"> 
-    <div id="mainTop">
-      <div id="mainWithImage" style="text-align: center !important;">
-
+    <v-app id="inspire" class ="rootMain">
+      <!-- 네브바 -->
+        <div v-if="checkLogin" >
+        <div style="text-align: center !important;">
           <v-btn color="warning" id="find" dark style="position: relative; top: 250px; z-index:1;" @click="open">Find
             Restaurant</v-btn>
-
+        </div>
         <v-dialog v-model="openSearch" max-width="600">
-          
           <v-card>
             <v-card-title class="headline">
               <v-combobox v-model="newSearch" chips clearable label="Your restaurant" multiple solo>
@@ -101,30 +99,28 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-app id="inspire">
 
+        <div>
           <v-carousel cycle show-arrows-on-hover hide-delimiters v-ripple="true" class="text-center">
             <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
             </v-carousel-item>
           </v-carousel>
-           <v-tabs 
-           color="orange"
-           v-model="tabs"
-           grow>
-                        <v-tab><i class="fas fa-user fa-2x"></i> &nbsp;&nbsp;유저 페이지</v-tab>
-                        <v-tab><i class="fas fa-utensils fa-2x" ></i> &nbsp;&nbsp;음식점 검색</v-tab>
-                        <v-tab><i class="fas fa-mail-bulk fa-2x"></i> &nbsp;&nbsp;리뷰 등록</v-tab>
-                        <v-tab>미정</v-tab>
-                        <v-tab>미정</v-tab>
-           </v-tabs>
-
+        </div>
+        <!-- 탭부분 -->
+        <v-tabs color="orange" v-model="tabs" grow>
+          <v-tab><i class="fas fa-user fa-2x"></i> &nbsp;&nbsp;유저 페이지</v-tab>
+          <v-tab><i class="fas fa-utensils fa-2x"></i> &nbsp;&nbsp;음식점 검색</v-tab>
+          <v-tab><i class="fas fa-mail-bulk fa-2x"></i> &nbsp;&nbsp;리뷰 등록</v-tab>
+          <v-tab>미정</v-tab>
+          <v-tab>미정</v-tab>
+        </v-tabs>
 
       <v-tabs-items v-model="tabs">
         <v-tab-item>
           <v-card flat>
             <v-card-text>
               <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. -->
-              <side-menu-user></side-menu-user>
+              <!-- <side-menu-user></side-menu-user> -->
               
             </v-card-text>
           </v-card>
@@ -133,151 +129,60 @@
         <v-tab-item>
           <v-card flat>
             <v-card-title class="headline">음식점 검색</v-card-title>
-            <v-card-text>
-             <side-menu-food></side-menu-food>
+            <v-card-text> 
+              <side-menu-food></side-menu-food>
             </v-card-text>
           </v-card>
         </v-tab-item>
-        
+
         <v-tab-item>
+          
           <v-card flat>
-            <v-card-title class="headline">An even better title</v-card-title>
+            <v-card-title class="headline">리뷰</v-card-title>
+             
             <v-card-text>
-             <side-menu-review></side-menu-review>
+              <sideMenuReview></sideMenuReview>
             </v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
-        </v-app>
-        <hr>
-      </div>
-    </div>
-    <!-- 음식창과 검색창 -->
 
-    <!-- <v-row align="start" no-gutters style="height: 130px;" class="mainSearch ">
-      <v-col>
 
-      </v-col>
-      <v-col> -->
-    <!-- <div class="search"> -->
-    <!-- <input type="text" class="searchTerm" placeholder="What are you looking for?"> -->
-    <!--User가 최근 검색한 history를 보여줌 -->
-    <!-- <div v-if="inputStatus">
-            <div class="input-container">
-              <b-form-input class="searchTerm" type="text" v-on:keyup.enter="changeInput" v-model="search"
-                list="this.$store.state.recentUser"></b-form-input>
-              <datalist id="this.$store.state.recentUser">
-                <option v-for="user in this.$store.state.recentUser" v-bind:key="user">{{user}}</option>
-              </datalist>
-            </div>
-          </div> -->
-    <!--User 정보 전체를 보여줌 -->
-    <!-- <div v-else>
 
-            <div class="input-container">
+      <!-- 음식창과 검색창 -->
 
-              <b-form-input class="searchTerm" type="text" v-on:keyup.enter="changeInput2" v-model="search"
-                list="this.$store.state.searchUser.nickname" />
-              <datalist id="this.$store.state.searchUser.nickname">
-                <option v-for="user in this.$store.state.searchUser.nickname" v-bind:key="user">{{user}}</option>
 
-              </datalist>
-            </div>
-          </div> -->
-    <!-- <button type="submit" class="searchButton">
 
-          </button> -->
-    <!-- </div> -->
-    <!-- </v-col>
-      <v-col>
-      </v-col> -->
-    <!-- </v-row> -->
-
-    <!-- 사진이랑 유저 랭킹 -->
-    <v-container class="grey lighten-5" style="
+      <!-- 사진이랑 유저 랭킹 -->
+      <!-- <v-container class="grey lighten-5" style="
     margin-top: 400px;
-">
-      <v-row no-gutters>
-        <v-col cols="9">
-          <v-row no-gutters>
-           
-                  <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
+"> -->
+        <!-- <v-row no-gutters>
+          <v-col cols="9">
+            <v-row no-gutters>
 
-                    <!-- <v-img height="200" :src="store.picture">
+              <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
+              </v-card>
 
-                      <v-expand-transition>
-                        <div v-if="hover" class="d-flex transition-fast-in-fast-out v-card--reveal white--text"
-                          style="height: 100%;">
-                          식당 상세 정보
-                        </div>
-                      </v-expand-transition>
+            </v-row>
+          </v-col>
+        </v-row> -->
 
+<!-- -------------------------리뷰 작성하기 ------------------------------------- -->
+<!-- 
+        <div class="text-center">
 
-                    </v-img> -->
+          <br><br>
+          <span style="font-size:30px"> 리뷰 작성하기</span><br>
 
-                    <!-- <v-card-title>{{store.name}}</v-card-title>
-
-                    <v-card-text>
-                      <v-row align="center" class="mx-0">
-                        <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-
-                        <div class="grey--text ml-4">4.5 (413)</div>
-                      </v-row>
-
-                      <div class="my-4 subtitle-1 black--text">
-                        {{store.address}}
-                      </div>
-                      <v-chip-group column>
-                        <v-chip v-for="(h, i) in store.hashtag" :key="i">#{{h}}</v-chip>
-                      </v-chip-group>
-                    </v-card-text> -->
-
-                  </v-card>
-                <!-- </v-hover> -->
-              <!-- </v-col>
-              <v-responsive v-if="n === 2" :key="`width-${index}`" width="100%"></v-responsive>
-            </template>  -->
-          </v-row>
-        </v-col>
-
-        <!-- <v-col cols="3">
-          <v-row align="center">
-         
-              <v-list flat=true avatar=true rounded=true>
-                <v-subheader>
-                  <v-icon>{{icons.Crown}}</v-icon>이달의 리뷰왕<v-icon>{{icons.Crown}}</v-icon>
-                </v-subheader>
-                <v-list-item-group v-model="item" color="primary">
-                  <v-list-item v-for="(item, i) in items" :key="i">
-                    <v-list-item-avatar v-if="item.avatar">
-                      <v-img :src="item.avatar"></v-img>
-                    </v-list-item-avatar>
-                    <v-list-item-content>
-                      <v-list-item-title> {{i+1}}등: {{item.title}}</v-list-item-title>
-                      <v-list-item-subtitle></v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-
-              </v-list>
-            </v-card> -->
-
-          </v-row>
-
-
-
-        <!-- </v-col> 
-
-      </v-row> -->
-    </v-container>
+        </div> -->
+<!-- 
+      </v-container> -->
   </div>
 
+ 
+  </v-app>
 
-  <div v-else>
-    
-    <img src="https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg" @click="checkLoginState" alt="Trulli" width="500" height="333"><br>
-    
-  </div>
   </div>
 </template>
 
@@ -287,16 +192,15 @@
     mdiMagnify,
     mdiAccountCircle,
     mdiForum,
-    mdiCrown
+    mdiCrown,
+    mdiPlus
   } from '@mdi/js'
   import {
     mapState
   } from 'vuex'
   //import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
-  import sideMenuUser from './sideMenu/sideMenuUser.vue'; 
-  import sideMenuFood from './sideMenu/sideMenuFood.vue';
-  import sideMenuReview from './sideMenu/sideMenuReview.vue';
+ 
 
   export default {
     created() {
@@ -307,15 +211,26 @@
     watch : {
       tabs(t){
         console.log(t);
-        if(t===1){
-           this.$router.push({ path: '/Login' })
+        if(t===0){
+           //유저 페이지 
+           this.$router.push({ path: "sideMenuUser" });
+        }else if(t==1){
+           //음식점 검색
+            this.$router.push({ path: "sideMenuFood" });
+        }else if(t==2){
+          //리뷰 등록 
+          this.$router.push({ path :'sideMenuReview'});
+        }else if(t==3){
+          //미정
+        }else if(t==4){
+          //미정
         }
       }
     },
     components : {
-      sideMenuUser,
-      sideMenuFood,
-      sideMenuReview,
+      // sideMenuUser,
+      // sideMenuFood,
+      // sideMenuReview,
     },
     data() {
       return {
@@ -330,7 +245,8 @@
           Magnify: mdiMagnify,
           AccountCircle: mdiAccountCircle,
           Forum: mdiForum,
-          Crown: mdiCrown
+          Crown: mdiCrown,
+          Plus: mdiPlus,
         },
         loading: false,
         selection: 1,
@@ -358,8 +274,8 @@
           moods: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           facility: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         },
-        tabs : null,
-        checkLogin : false,
+        tabs: 0,
+        checkLogin: true,
       }
     },
 
@@ -497,7 +413,7 @@
         }
 
       },
-      checkLoginState(){
+      checkLoginState() {
         this.checkLogin = true;
       }
     },
@@ -506,67 +422,73 @@
 </script>
 
 <style scoped>
- #mainWithImage{
-   position: relative;
- }
- #inspire{
-   position: absolute;
-   width : 100%;
-   top: 0px;
-   right: 0px;
- }
-   .btn b-form-tags-button py-0 btn-outline-secondary {
-        height: 30px !important;
-    }
+  .rootMain{
+    height: 400px;
 
-    .form-control {
-        position: absolute;
-        z-index: 1;
-        top: 285px;
-        left: 300px;
-        height: 50px;
-        width: 1000px;
+  }
+  #inspire {
+    width: 100%;
+    right: 0px;
+    margin-bottom: 100px;
+    position: relative;
+    bottom: 100px;
 
-    }
-    #inspire {
-      right: 0px;
-      top: 0px;
-      position: absolute;
-    }
-    .mb-2 {
-        height: 50px !important;
-    }
+  }
 
-    #mainWithImage {
-        padding-top: 0px;
-        position: relative;
-    }
+  .btn b-form-tags-button py-0 btn-outline-secondary {
+    height: 30px !important;
+  }
 
-    #mainTop {
-        background: #ff7f00;
-    }
-    #find {
-    -webkit-transform:scale(1.2);
-    -moz-transform:scale(1.2);
-    -ms-transform:scale(1.2); 
-    -o-transform:scale(1.2);  
-    transform:scale(1.2);
-    -webkit-transition:.3s;
-    -moz-transition:.3s;
-    -ms-transition:.3s;
-    -o-transition:.3s;
-    transition:.3s;
-    background:#ff7f00;
+  .v-tabs v-tabs--grow theme--light {
+    margin-top: 0px;
+  }
 
-}
-    #find:hover {
-	-webkit-transform:scale(1.5);
-	-moz-transform:scale(1.5);
-	-ms-transform:scale(1.5);	
-	-o-transform:scale(1.5);
-	transform:scale(1.5);
+  .form-control {
+    position: absolute;
+    z-index: 1;
+    top: 285px;
+    left: 300px;
+    height: 50px;
+    width: 1000px;
+
+  }
+
+  #mainTab {
+
+    margin-top: 0px;
+  }
+
+  .mb-2 {
+    height: 50px !important;
+  }
+
+  #mainTop {
+    background: #ff7f00;
+  }
+
+  #find {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+    background: #ff7f00;
+
+  }
+
+  #find:hover {
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    transform: scale(1.5);
     background: white;
     color: #ff7f00;
     outline-color: #ff7f00
-}
+  }
 </style>
