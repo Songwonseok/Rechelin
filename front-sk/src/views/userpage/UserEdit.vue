@@ -47,6 +47,7 @@
 <script>
     import PV from 'password-validator'
     import UserApi from '../../apis/UserApi'
+    import ImgurApi from '../../apis/ImgurApi'
     import router from '../../routes.js'
     import {
         mdiPencil
@@ -68,8 +69,7 @@
                 },
 
                 isSubmit: true,
-                svgPath: mdiPencil
-
+                svgPath: mdiPencil,
             }
         },
         watch: {
@@ -99,7 +99,7 @@
 
                 if (this.pw1.length > 0 && !this.passwordSchema.validate(this.pw1)) {
                     this.error.pw1 = '영문, 숫자 포함 8자리 이상이어야 합니다'
-                } else this.error.PW = false;
+                } else this.error.pw1 = false;
                 if (this.pw2.length > 0 && this.pw1 != this.pw2) {
                     this.error.confirmPW = '비밀번호가 일치하지 않습니다'
                 } else this.error.confirmPW = false;
@@ -113,7 +113,6 @@
 
             },
             edit() {
-
                 if (this.isSubmit) {
                     let {
                         email,
@@ -130,12 +129,13 @@
                         "profile": image
                     }
                     this.isSubmit = false;
+                    console.log('Edit 들어가기전!!!!!!!!!!')
                     UserApi.requestEdit(data, res => {
 
                         alert('회원 정보 수정에 성공');
-                        this.$router.push({
+                        // this.$router.push({
                             // name: `UserPage`
-                        })
+                        // })
                     }, error => {
 
                         console.log("회원 정보 수정 실패 !!!");
@@ -148,32 +148,34 @@
             },
             // 프로필 이미지 변경
             load(e) {
-                var files = e.target.files || e.dataTransfer.files;
-                console.log(e.target.files[0])
-                if (!files.length) return;
-                this.createImage(files[0]);
-                console.log(files[0].mozFullPath)
+                this.createImage(e.target.files[0]);
+                
             },
             createImage(file) {
-                let image = new Image();
-                let reader = new FileReader();
+               ImgurApi.uploadProfile(file, res =>{
+                    // img url - res.link에 저장
+                     // 2) Imgur에 저장된 사진 링크를 가져오기
+                    this.profile = res.data.link
+                    
+                    console.log(this.email+" "+this.profile)
+                    // 3) 사진링크를 User의 profile 링크로 수정하기
+                    UserApi.requestUpload(this.email, this.profile, res =>{
+                        console.log('프로필 수정 성공')
+                    }, error =>{
+                        alert('프로필 업로드 실패')
+                    })
 
-                reader.onload = (e) => {
-
-                   // this.EditUser.picture = e.target.result;
-                    // 파일 경로
-                    console.log(e.target.result)
-                    this.image = e.target.result;
-                }
-                reader.readAsDataURL(file);
+                }, error =>{
+                    alert('Imgur 업로드 실패!')
+                })
             },
     
         getUser(){
             
             UserApi.requestEmail(this.email,res=>{
-                this.nickname = res.object.nickname
-                this.phone = res.object.phone
-                this.profile = res.object.profile
+                this.nickname = res.nickname
+                this.phone = res.phone
+                this.profile = res.profile
                 console.log('***유저정보 가져오기 성공')              
             },error=>{  
                 console.log('유저정보 가져오기 실패')

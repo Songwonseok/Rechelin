@@ -3,7 +3,7 @@
   <v-app id="inspire">
     <v-card>
       <v-toolbar flat color="orange" dark>
-         <v-toolbar-title>  <i class="fas fa-utensils fa-3x" > </i></v-toolbar-title> 음식점 검색
+         <v-toolbar-title>  <i class="fas fa-utensils fa-3x" > </i> 음식점 검색 </v-toolbar-title>
        
       </v-toolbar>
       <v-tabs vertical>
@@ -23,12 +23,7 @@
         <v-tab-item>
           <v-card flat>
             <v-card-text>
-              <!-- <router-link to="/login">Go to Foo</router-link> -->
-              <!-- <login-bar></login-bar> -->
-              
-              <!-- <p class="mb-0">
-                Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
-              </p> -->
+            .............................
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -61,6 +56,11 @@
 <script>
 
 export default {
+  data(){
+    return {
+      randomList:[]
+    }
+  },
     components :{
       
     }

@@ -109,14 +109,14 @@
     import GoogleLogin from '../../components/user/snsLogin/Google.vue'
     import NaverLogin from '../../components/user/snsLogin/Naver.vue'
     import UserApi from '../../apis/UserApi'
-    import JoinPage from './Join.vue';
+    // import JoinPage from './Join.vue';
     import ImgurApi from '../../apis/ImgurApi'
 
     export default {
         components: {
             KakaoLogin,
             GoogleLogin,
-            JoinPage,
+            // JoinPage,
             NaverLogin,
         },
         created(){
@@ -172,9 +172,10 @@
                         //통신을 통해 전달받은 값 콘솔에 출력
                         console.log(res.data);
                         if(res.data == "success") {
+                            
                             console.log('login form 안 '+res.object)
                             console.log(res.object);
-                            this.$router.push({ name: "Main" });
+                            this.$router.push({ path : "sideMenuUserPage" });
                         }
                         else
                             this.$router.push({ path: '/' });

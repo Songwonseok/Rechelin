@@ -14,6 +14,7 @@ import com.web.curation.model.DTO.QReview;
 import com.web.curation.model.DTO.QStore;
 import com.web.curation.model.DTO.QStoretags;
 import com.web.curation.model.DTO.Review;
+import com.web.curation.model.DTO.Store;
 import com.web.curation.model.DTO.Storetags;
 import com.web.curation.model.DTO.User;
 
@@ -91,6 +92,14 @@ implements CustomRepository{
 						storetags.review.store.num.eq(num))
 				.orderBy(storetags.hashtag.keyword.count().desc())
 				.limit(2).fetch();
+	}
+
+	@Override
+	public List<Store> random(long num) {
+		return queryFactory.selectFrom(store).where(store.num.in(
+				JPAExpressions.select(review.store.num).from(review).where(review.rnum.in(
+						JPAExpressions.select(storetags.review.rnum).from(storetags).where(storetags.hashtag.num.eq(num)).groupBy(storetags.review.rnum)))))
+				.fetch();
 	}
 
 	

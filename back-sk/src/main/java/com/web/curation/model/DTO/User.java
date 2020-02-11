@@ -84,10 +84,8 @@ import lombok.NoArgsConstructor;
 	}
 	
 	public void updateUser(User a) {
-		this.pw = a.getPw();
 		this.nickname = a.getNickname();
 		this.phone = a.getPhone();
-		this.profile = a.getProfile();
 		this.role = a.getRole();
 	}
 	

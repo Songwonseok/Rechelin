@@ -205,70 +205,110 @@
                         <star-rating v-model="kindness" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
-                        <!-- 장단점 -->
-                        <h4>장점</h4>
-                        <v-textarea label="장점 20자 이내" auto-grow outlined :counter="20" rows="3" row-height="30" shaped>
-                        </v-textarea>
-
-                        <div class="error-text" v-if="error.props">
-                            {{error.props}}
-                        </div>
-                        <h4>단점</h4>
-                        <v-textarea label="단점 20자 이내" auto-grow outlined :counter="20" rows="3" row-height="30" shaped>
-                        </v-textarea>
-
-                        <div class="error-text" v-if="error.cons">
-                            {{error.cons}}
-                        </div>
-                        <!--  총점 -->
-                        <h5>그래서 이 음식점의 총평을 평점으로 매긴다면?</h5>
-                        <star-rating v-model="rating" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
-                            :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
-                        </star-rating>
-                        <!-- 제출 -->
-                        <div ref="finalSubmit" style="text-align:right; box-shadow: 3px;">
-                            <v-btn depressed large name="submit" id="submit" @click="reviewConfirm"
-                                style="color: #ff7f00 !important; background:#ff7f00 ;" value="review 등록">리뷰 등록</v-btn>
-                        </div>
-                    </b-col>
-                </b-row>
+                          <h4>장점</h4>
+                         <v-textarea
+          label="장점 20자 이내"
+          auto-grow
+          outlined
+          :counter="20"
+          rows="3"
+          row-height="30"
+          shaped
+        ></v-textarea>
+                         
+            <div class="error-text" v-if="error.props">
+                        {{error.props}}
+            </div>
+            <h4>단점</h4>
+                               <v-textarea
+          label="단점 20자 이내"
+          auto-grow
+          outlined
+          :counter="20"
+          rows="3"
+          row-height="30"
+          shaped
+        ></v-textarea>
+   
+            <div class="error-text" v-if="error.cons">
+                        {{error.cons}}
+            </div>
+            <h5>그래서 이 음식점의 총평을 평점으로 매긴다면?</h5>
+             <star-rating v-model="rating" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
+                    :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+           
+              <div ref="finalSubmit">
+              <v-btn depressed large name="submit" id="submit" @click="reviewConfirm" style="color: #ff7f00 !important; background:#ff7f00 ;"
+              value="review 등록" >리뷰 등록</v-btn>
+              </div>
+              </b-col>
+               </b-row>
             </b-container>
         </div>
     </div>
 </template>
 
 <script>
-    import UserApi from '../../apis/UserApi'
-    import PV from 'password-validator'
-    import ImgurApi from '../../apis/ImgurApi'
-    import StarRating from 'vue-star-rating'
-    import {
-        mdiPencil,
-        mdiCamera,
-        mdiNoodles
-    } from '@mdi/js'
-    import {
-        jump
-    } from '../../assets/js/animejs';
+
+import UserApi from '../../apis/UserApi'
+import StoreApi from '../../apis/UserApi'
+import PV from 'password-validator'
+import ImgurApi from '../../apis/ImgurApi'
+import StarRating from 'vue-star-rating'
+  import {
+    mdiPencil,
+    mdiCamera,
+    mdiNoodles
+  } from '@mdi/js'
+  import {jump} from '../../assets/js/animejs';
 
 
 
-    export default {
+export default {
+   
+    created() {
 
-        created() {
+      this.titleSchema
+         .is().min(10)
+         .is().max(100)
+      
+      this.propsSchema
+         .is().min(10)
+         .is().max(20)
+      this.consSchema
+         .is().min(10)
+         .is().max(20)
+      this.getProfile();
+      
+    },
+    mounted() {
+        this.gojump();
+    },
+    watch : {
+        reviewTitle : function(v){
+            this.checkForm();
+        },
+        props : function(v){
+            this.checkForm_props();
+        },
+        cons : function(v){
+            this.checkForm_cons();
+        }
+    },
+    computed() {
+     
+    },
 
-            this.titleSchema
-                .is().min(10)
-                .is().max(100)
-
-            this.propsSchema
-                .is().min(10)
-                .is().max(20)
-            this.consSchema
-                .is().min(10)
-                .is().max(20)
-            this.getProfile();
-
+    components: {
+        StarRating
+    },
+    methods : {
+        check_area(){
+            this.area = [];
+        },
+        check_age(){
+            this.age = [];
+            
         },
         mounted() {
             this.gojump();
@@ -513,10 +553,10 @@
                         'user': {
                             'id': Number(sessionStorage.getItem("userid")),
                         },
-                        'weak': this.cons,
-                    }
-                    console.log(data);
-                    UserApi.requestAddReview(data, res => {
+                        'weak' : this.cons,
+                        }
+                        console.log(data);
+                    StoreApi.requestAddReview(data, res=>{
 
                         console.log("reviewPage 등록 성공");
                     })
@@ -527,18 +567,17 @@
                 }
             },
             clickEvent(record, index) {
-                // 'record' will be the row data from items
-                // `index` will be the visible row number (available in the v-model 'shownItems')
-
-                console.log("통신하기전 : ")
-                console.log(this.$store.state.googleStorePlace[index]);
-                //Q : 리뷰 항목을 다 건네줘야 하는건지?
-
-                UserApi.requestAddPlace(this.$store.state.googleStorePlace[index], res => {
-                    console.log(res.data.object.num, '???')
-                    this.store_num = res.data.object.num;
-                    this.store_pic = res.data.object.img;
-                })
+            // 'record' will be the row data from items
+            // `index` will be the visible row number (available in the v-model 'shownItems')
+            
+            console.log("통신하기전 : ")
+            console.log(this.$store.state.googleStorePlace[index]);
+             //Q : 리뷰 항목을 다 건네줘야 하는건지?
+                
+                 StoreApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
+                 this.store_num = res.data.object.num;
+                 this.store_pic = res.data.object.img;
+                 })
             },
             checkForm() {
                 //리뷰 제목(0자이상 10자 이하)
@@ -624,6 +663,7 @@
             }
         })
     }
+}
 </script>
 
 <style scoped>

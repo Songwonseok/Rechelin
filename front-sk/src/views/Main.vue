@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-app id="inspire">
+    <v-app id="inspire" class ="rootMain">
       <!-- 네브바 -->
-      <div v-if="checkLogin">
+        <div v-if="checkLogin" >
         <div style="text-align: center !important;">
           <v-btn color="warning" id="find" dark style="position: relative; top: 250px; z-index:1;" @click="open">Find
             Restaurant</v-btn>
@@ -120,8 +120,8 @@
           <v-card flat>
             <v-card-text>
               <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. -->
-              <side-menu-user></side-menu-user>
-
+              <!-- <side-menu-user></side-menu-user> -->
+              
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -153,39 +153,35 @@
 
 
 
-        <!-- 사진이랑 유저 랭킹 -->
-        <v-container class="grey lighten-5" style="
-    margin-top: 400px;">
-          <v-row no-gutters>
-            <v-col cols="9">
-              <v-row no-gutters>
+      <!-- 사진이랑 유저 랭킹 -->
+      <!-- <v-container class="grey lighten-5" style="
+    margin-top: 400px;
+"> -->
+        <!-- <v-row no-gutters>
+          <v-col cols="9">
+            <v-row no-gutters>
 
                 <v-card :loading="loading" class="mx-auto my-12 storeRank" max-width="374">
                 </v-card>
 
-              </v-row>
-            </v-col>
-          </v-row>
+            </v-row>
+          </v-col>
+        </v-row> -->
 
-
-          <div class="text-center">
+<!-- -------------------------리뷰 작성하기 ------------------------------------- -->
+<!-- 
+        <div class="text-center">
 
             <br><br>
             <span style="font-size:30px"> 리뷰 작성하기</span><br>
 
-          </div>
+        </div> -->
+<!-- 
+      </v-container> -->
+  </div>
 
-        </v-container>
-      </div>
-
-      <div v-else>
-
-        <img src="https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg" @click="checkLoginState"
-          alt="Trulli" width="500" height="333"><br>
-
-      </div>
-
-    </v-app>
+ 
+  </v-app>
 
   </div>
 </template>
@@ -204,7 +200,8 @@
   } from 'vuex'
   // import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
-  import sideMenuUser from './sideMenu/sideMenuUser.vue';
+  import SearchApi from '../../src/apis/UserApi.js';
+  
   import sideMenuFood from './sideMenu/sideMenuFood.vue';
   import sideMenuReview from './sideMenu/sideMenuReview.vue';
 
@@ -214,10 +211,29 @@
         .$store
         .dispatch('LOADING_USERDATA');
     },
-    components: {
-      sideMenuUser,
-      sideMenuFood,
-      sideMenuReview,
+    watch : {
+      tabs(t){
+        console.log(t);
+        if(t===0){
+           //유저 페이지 
+           this.$router.push({ path: "sideMenuUser" });
+        }else if(t==1){
+           //음식점 검색
+            this.$router.push({ path: "sideMenuFood" });
+        }else if(t==2){
+          //리뷰 등록 
+          this.$router.push({ path :'sideMenuReview'});
+        }else if(t==3){
+          //미정
+        }else if(t==4){
+          //미정
+        }
+      }
+    },
+    components : {
+      // sideMenuUser,
+      // sideMenuFood,
+      // sideMenuReview,
     },
     data() {
       return {
@@ -261,8 +277,8 @@
           moods: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           facility: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         },
-        tabs: null,
-        checkLogin: false,
+        tabs: 0,
+        checkLogin: true,
       }
     },
 
@@ -301,7 +317,7 @@
         this.history.nickname = this.search;
 
 
-        UserApi.searchUserHistory(this.history, res => {
+        SearchApi.searchUserHistory(this.history, res => {
 
           if (this.inputStatus == true) this.inputStatus = false;
           else {
@@ -409,6 +425,10 @@
 </script>
 
 <style scoped>
+  .rootMain{
+    height: 400px;
+
+  }
   #inspire {
     width: 100%;
     right: 0px;

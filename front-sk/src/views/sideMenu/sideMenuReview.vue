@@ -4,8 +4,8 @@
     <v-card>
       <v-toolbar flat color="orange" dark>
         
-         <v-toolbar-title>  <i class="fas fa-mail-bulk fa-3x" > </i></v-toolbar-title> 리뷰등록
-       
+         <v-toolbar-title>  <i class="fas fa-mail-bulk fa-3x" > </i>리뷰등록 </v-toolbar-title>
+        
       </v-toolbar>
       <v-tabs vertical>
         <v-tab>

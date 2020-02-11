@@ -1,7 +1,9 @@
 package com.web.curation.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +67,40 @@ public class StoreServiceImpl implements StoreService {
 		
 		return list;
 	}
+
+	@Override
+	public List<Store> random(String keyword) {
+		// 1) 키워드 찾고
+		Hashtag tag = hashTagDao.findByKeyword(keyword);
+		System.out.println(tag.toString());
+		// 2) 리스트 뽑아오기
+		List<Store> Alllist = storeDao.random(tag.getNum());
+		System.out.println("________________");
+		for (Store store : Alllist) {
+			System.out.println(store);
+		}
+		// 3) 랜덤으로 10개만 가져오기
+		int r, size = Alllist.size(), limit = 10;
+		List<Store> list = new ArrayList<Store>();
+		boolean[] dul = new boolean[size];
+		if(size < limit) limit = size;
+		
+		
+		while(list.size() < limit) {
+			r = (int) (Math.random()*size);
+//			System.out.print(r+" ");
+			if(dul[r]) continue;
+			
+			list.add(Alllist.get(r));
+			dul[r] = true;
+		}
+		
+		
+		return list;
+	}
+	
+	
+	
 	
 	
 	

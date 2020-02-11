@@ -23,6 +23,14 @@ import reviewDetail from './views/review/reviewDetail.vue';
 import updateNewPw from './views/user/updateNewPw.vue';
 import userFeed from './views/feed/userFeed.vue';
 
+
+/*side menu*/
+import sideMenuLogin from './views/sideMenu/sideMenuLogin.vue';
+import sideMenuReview from './views/sideMenu/sideMenuReview.vue';
+import sideMenuFood from './views/sideMenu/sideMenuFood.vue';
+import sideMenuUserPage from './views/sideMenu/sideMenuUserPage.vue';
+
+
 export default [
     // ERROR PAGE
     // 404 PAGE
@@ -36,15 +44,8 @@ export default [
     },
     {
         path: '/',
-        name: 'Main',
-        component: Main,
-        children: [
-            {
-                path: 'reviewPage',
-                name: 'review',
-                component: reviewPage
-            }
-        ]
+        name: 'sideMenuLogin',
+        component: sideMenuLogin,
       
     },
     { // 유저페이지
@@ -83,7 +84,8 @@ export default [
     {
         path: '/main',
         name: 'Main',
-        component: Main
+        component: Main,
+       
     },
     {
         path : '/signUpForm',
@@ -144,6 +146,26 @@ export default [
         name : 'userFeed',
         component : userFeed,
     },
+    {
+        path : '/sideMenuLogin',
+        name : 'sideMenuLogin',
+        component : sideMenuLogin,
+    },
+    {
+        path : '/sideMenuReview',
+        name : 'sideMenuReview',
+        component : sideMenuReview,
+    },
+    {
+        path : '/sideMenuFood',
+        name : 'sideMenuFood',
+        component : sideMenuFood,
+    },
+    {
+        path : '/sideMenuUserPage',
+        name : 'sideMenuUserPage',
+        component : sideMenuUserPage,
+    }
+    
   
-
 ]
