@@ -27,7 +27,7 @@
                         </v-text-field>
 
                         <h4>음식점 주소 </h4>
-                        <v-text-field v-model="address" :rules="nameRules" label="store address" required>
+                        <v-text-field v-model="store_address" :rules="nameRules" label="store address" required>
                         </v-text-field>
 
 
@@ -36,24 +36,11 @@
                             class="modalStore" hide-footer>
                             <template v-slot:modal-title>음식점 주소 등록하기</template>
                             <div class="d-block text-center">
-                                <!--Main Modal Page-->
-                                <div v-if="eye">
+                                    <v-icon>{{icons.noodles}}</v-icon>음식점을 검색해주세요
                                     검색 완료한 후 enter를 눌러주세요!
-                                    <b-form-input id="address_search" @keyup="fetchAdr" type="text">
+                                    <b-form-input id="address_search" @keyup.enter="fetchAdr" type="text" v-model="address">
                                     </b-form-input>
-                                    <b-table striped hover :items="map" @row-clicked="clickEvent"></b-table>
-                                </div>
-
-                                <div v-else>
-                                    <p>
-                                        <v-icon>{{icons.noodles}}</v-icon>음식점을 검색해주세요
-                                    </p>
-                                    <hr>
-                                    <b-form-input id="address_search2" @keyup="fetchAdr" type="text" v-model="address">
-                                    </b-form-input>
-                                    <b-table striped hover :items="map" @row-clicked="clickEvent">
-                                    </b-table>
-                                </div>
+                                    <b-table striped hover :items="maps" @row-clicked=" clickEvent"  ></b-table>
                             </div>
                             <div style="text-align: center;">
                                 <v-btn block color="#ff7f00" @click="$bvModal.hide('bv-modal-example_adr')">EXIT</v-btn>
@@ -293,46 +280,30 @@ export default {
         },
         cons : function(v){
             this.checkForm_cons();
+        },
+        googleStorePlaceView : function(){
+            
+            let list = [...this.maps]
+            list = [...this.$store.state.googleStorePlaceView]
+            this.maps = [...list]
+            console.log('har')
+            
+              
         }
     },
-    computed() {
-     
+    computed : {
+        googleStorePlaceView(){
+            return this.$store.state.googleStorePlaceView;
+        }
     },
-
+    
+       
+    
     components: {
         StarRating
     },
     methods : {
-        check_area(){
-            this.area = [];
-        },
-        check_age(){
-            this.age = [];
-            
-        },
-        mounted() {
-            this.gojump();
-        },
-        watch: {
-            reviewTitle: function (v) {
-                this.checkForm();
-            },
-            props: function (v) {
-                this.checkForm_props();
-            },
-            cons: function (v) {
-                this.checkForm_cons();
-            }
-        },
-        computed() {
-
-        },
-
-        components: {
-            StarRating
-        },
-        methods: {
-            check_area(n, name) {
+        check_area(n, name) {
                 if (!this.hashtags.locations[n]) {
                     this.hashtags.locations[n] = !this.hashtags.locations[n]
                     let list = [...this.area]
@@ -354,31 +325,9 @@ export default {
                     this.allTags = [...list2]
                 }
             },
-            check_age(n, name) {
-
-                if (!this.hashtags.ages[n]) {
-                    this.hashtags.ages[n] = !this.hashtags.ages[n]
-                    let list = [...this.age]
-                    list.push(name)
-                    this.age = [...list]
-                    console.log(this.age)
-                     let list2 = [...this.allTags]
-                    list2.push(name)
-                    this.allTags = [...list2]
-                } else {
-                    let pos = this.age.indexOf(name)
-                    this.hashtags.locations[n] = !this.hashtags.locations[n]
-                    let list = [...this.age]
-                    list.splice(pos, 1)
-                    this.age = [...list]
-                    var pos2 = this.allTags.indexOf(name)
-                    let list2 = [...this.allTags]
-                    list2.splice(pos2, 1)
-                    this.allTags = [...list2]
-                }
+            
 
 
-            },
             gojump() {
                 jump(this.$refs.finalSubmit);
             },
@@ -506,20 +455,23 @@ export default {
                 console.log(this.rating);
             },
             fetchAdr() {
-
+                console.log(this.address);
                 //검색시
                 this
                     .$store
                     .dispatch('FETCH_ADR', this.address)
-
-
-
-                if (this.eye == false) this.eye = true;
-                else this.eye = false
+                
+                
+                
+                console.log(this.$store.state.googleStorePlace);
+                console.log(this.$store.state.googleStorePlaceView);
+                // if (this.eye == false) this.eye = true;
+                // else this.eye = false
 
                 //값 init
+                // this.map = this.$store.state.googleStorePlaceView
+               
 
-                this.map = this.$store.state.googleStorePlaceView
                 console.log(this.$store.state.googleStorePlace);
 
 
@@ -571,12 +523,19 @@ export default {
             // `index` will be the visible row number (available in the v-model 'shownItems')
             
             console.log("통신하기전 : ")
+            console.log(this.$store.state.googleStorePlace);
+            console.log(record);
             console.log(this.$store.state.googleStorePlace[index]);
              //Q : 리뷰 항목을 다 건네줘야 하는건지?
                 
                  StoreApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
                  this.store_num = res.data.object.num;
                  this.store_pic = res.data.object.img;
+                 console.log('res 위');
+                 console.log(res);
+                 this.address="";
+                 this.map = [];
+              
                  })
             },
             checkForm() {
@@ -660,10 +619,11 @@ export default {
                 pencil: mdiPencil,
                 camera: mdiCamera,
                 noodles: mdiNoodles
-            }
+            },
+            store_address : '',
         })
     }
-}
+
 </script>
 
 <style scoped>

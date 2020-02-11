@@ -1,15 +1,11 @@
 <template>
   <div id="app">
-    
     <Header></Header>
+    <Main></Main>
    <!-- <transition v-bind:name="transitionName" mode="out-in">  -->
      <transition name="page">
-      <Main></Main>
+      <router-view></router-view>
      </transition> 
-<router-view></router-view>
-
-
-
   </div>
 </template>
 <script>

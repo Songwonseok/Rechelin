@@ -200,7 +200,7 @@ export default {
     text-decoration: none;
     display: inline-block;
     font-size: 10px;
-    margin: 7px 2px;
+    margin: 4px 2px;
     cursor: pointer;
     color: cornflowerblue;
     height: 40px;

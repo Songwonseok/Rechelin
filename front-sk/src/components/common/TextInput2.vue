@@ -195,7 +195,7 @@ export default {
     width : 20%;
 }
 .spa2 {
-      background-color: aliceblue;
+         background-color: aliceblue;
     border: none;
     color: white;
     padding: 7px 50px;
@@ -208,7 +208,7 @@ export default {
     color: cornflowerblue;
     height: 40px;
     margin-top: 10px;
-    idth : 20%;
+    width : 20%;
 }
 .pl-3, .px-3 {
     padding-left: 1rem !important;

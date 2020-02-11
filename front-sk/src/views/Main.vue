@@ -141,7 +141,7 @@
             <v-card-title class="headline">리뷰</v-card-title>
              
             <v-card-text>
-              <sideMenuReview></sideMenuReview>
+              
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -216,7 +216,10 @@
         console.log(t);
         if(t===0){
            //유저 페이지 
-           this.$router.push({ path: "sideMenuUser" });
+           if(sessionStorage.getItem("userEmail"))
+              this.$router.push({ path : "sideMenuUserPage"})
+           else
+              this.$router.push({ path: "sideMenuLogin" });
         }else if(t==1){
            //음식점 검색
             this.$router.push({ path: "sideMenuFood" });

@@ -102,7 +102,9 @@ export default {
 
     },
     SET_GOOGLEMAP_TOTAL(state, googlemap_total) {
+        
         state.googleStorePlace = googlemap_total;
+        
     },
     SET_GOOGLEMAP(state, googlemap) {
         state.googleStorePlaceView = googlemap;
