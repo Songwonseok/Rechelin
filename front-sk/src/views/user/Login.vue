@@ -126,21 +126,31 @@
                     UserApi.requestLogin(data, res => {
                         //통신을 통해 전달받은 값 콘솔에 출력
                         console.log(res.data);
-                        if (res.data == "success") {
+                        if (res.status === true) {
 
                             console.log('login form 안 ' + res.object)
                             console.log(res.object);
+                            this.$alert("로그인 성공하셨습니다.","success","success");
                             this.$router.push({
-                                path: "main"
+                                name: "popular"
                             });
-                        } else
+                        } else{
+                            this.$alert('아이디 혹은 비밀번호가 틀렸습니다',"warning","waring")
                             this.$router.push({
-                                path: '/'
+                                name: 'login'
                             });
-                            alert('아이디 혹은 비밀번호가 틀렸습니다')
+                            
                         //요청이 끝나면 버튼 활성화
                         this.isSubmit = true;
+
+
+                        }
+
                     }, error => {
+                         this.$alert('아이디 혹은 비밀번호가 틀렸습니다',"warning","warning")
+                            this.$router.push({
+                                name: 'login'
+                            });
                         this.isSubmit = true;
                     })
                 }
