@@ -76,12 +76,12 @@ export default [
                         component: signUpForm
                     },
                     {
-                        path: '/findPW',
+                        path: '/findpw',
                         name: 'findPW',
                         component: searchPassword
                     },
                     {
-                        path: '/signupConfirm',
+                        path: '/signupconfirm',
                         name: 'signupconfirm',
                         component: signUpConfirm
                     }
@@ -93,14 +93,31 @@ export default [
                 component: sideMenuFood,
                 children: [
                     {
-                        path : 'storeSearch',
+                        path : '/storesearch',
                         name : 'storeSearch',
                         component : storeSearch
                     },
                     {
-                        path: 'random',
+                        path: '/random',
                         name: 'random',
                         component: random
+                    },
+                    {
+                        path: '/storedetail/:id',
+                        name: 'storeDetail',
+                        component: storeDetail,
+                        children: [
+                            {
+                                path: 'reviews',
+                                name: 'storeReviews',
+                                component: storeReviews
+                            },
+                            {
+                                path: 'comments',
+                                name: 'comments',
+                                component: comments
+                            }
+                        ]
                     }
 
                 ]
@@ -185,23 +202,6 @@ export default [
         path: '/userSearch',
         name: 'userSearch',
         component: userSearch,
-    },
-    { // 음식점 상세페이지
-        path: '/storeDetail/:id',
-        name: 'storeDetail',
-        component: storeDetail,
-        children: [{
-                path: 'reviews',
-                name: 'reviewsOfstore',
-                component: storeReviews,
-
-            },
-            {
-                path: '/comments',
-                name: 'comments',
-                component: comments
-            },
-        ]
     },
 
     {

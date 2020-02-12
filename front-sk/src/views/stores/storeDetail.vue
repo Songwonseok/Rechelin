@@ -29,7 +29,7 @@
             <v-btn class="ma-2" outlined fab color="indigo">
               <v-icon>{{icons.pencilOutline}}</v-icon>
             </v-btn>
-            |
+            
             <v-btn class="ma-2" outlined fab color="indigo" @click="likeStore">
               <v-icon>{{icons.bookmark}}</v-icon>
             </v-btn>
@@ -90,7 +90,8 @@
     },
     computed: {
       storeInfoSave() {
-        return this.$store.state.tempStores[1]
+        console.log(this.$store.state.storeInfo, '???')
+        return this.$store.state.storeInfo
       },
 
 
