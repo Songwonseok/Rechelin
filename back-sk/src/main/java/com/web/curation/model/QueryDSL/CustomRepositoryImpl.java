@@ -10,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.curation.model.DTO.Hashtag;
 import com.web.curation.model.DTO.QFollow;
 import com.web.curation.model.DTO.QHashtag;
+import com.web.curation.model.DTO.QLikecheck;
 import com.web.curation.model.DTO.QReview;
 import com.web.curation.model.DTO.QStore;
 import com.web.curation.model.DTO.QStoretags;
@@ -28,6 +29,8 @@ implements CustomRepository{
 	private final QReview review = QReview.review;
 	private final QFollow follow = QFollow.follow;
 	private final QHashtag hashtag = QHashtag.hashtag;
+	private final QLikecheck likecheck = QLikecheck.likecheck;
+	
 	
 	public CustomRepositoryImpl(JPAQueryFactory queryFactory) {
 		super(Storetags.class);
@@ -101,6 +104,15 @@ implements CustomRepository{
 						JPAExpressions.select(storetags.review.rnum).from(storetags).where(storetags.hashtag.num.eq(num))
 						.groupBy(storetags.review.rnum)))))
 				.fetch();
+	}
+
+	@Override
+	public List<Review> likeBest() {
+		return queryFactory.selectFrom(review).where(review.rnum.in(
+				JPAExpressions.select(likecheck.review.rnum).from(likecheck)
+								.groupBy(likecheck.review)
+								.orderBy(likecheck.review.count().desc())))
+				.limit(6).fetch();
 	}
 
 	

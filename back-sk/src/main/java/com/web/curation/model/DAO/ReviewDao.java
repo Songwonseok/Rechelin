@@ -15,4 +15,6 @@ public interface ReviewDao extends JpaRepository<Review, Long>, CustomRepository
 	List<Review> findAllByStore(Store store);
 	List<Review> findAllByUser(User user);
 	List<Review> findTop30ByOrderByRnumDesc();
+	List<Review> findTop6ByOrderByViewsDesc();
+	List<Review> findTop6ByOrderByTotalDesc();
 }

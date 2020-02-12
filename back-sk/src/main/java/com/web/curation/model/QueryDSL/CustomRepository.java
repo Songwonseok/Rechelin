@@ -11,6 +11,7 @@ import com.web.curation.model.DTO.User;
 public interface CustomRepository {
 	List<Storetags> storeTags(long num);
 	List<Review> feedList(User email);
+	List<Review> likeBest(); 
 	
 	List<Hashtag> foodtags(long num);
 	List<Hashtag> loctags(long num);

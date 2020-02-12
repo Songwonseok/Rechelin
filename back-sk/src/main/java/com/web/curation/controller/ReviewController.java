@@ -234,4 +234,40 @@ public class ReviewController {
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	@GetMapping("review/viewsTop")
+	@ApiOperation(value = "조회수 높은 리뷰 TOP6 ")
+	public Object getviewsTop() {
+		final BasicResponse result = new BasicResponse();
+
+		result.status = true;
+		result.data = "조회수 높은 리뷰 TOP6 조회 성공";
+		result.object = service.getviewsTop();
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping("review/liekTop")
+	@ApiOperation(value = "좋아요 높은 리뷰 TOP6 ")
+	public Object getlikeTop() {
+		final BasicResponse result = new BasicResponse();
+
+		result.status = true;
+		result.data = "좋아요 높은 리뷰 TOP6 조회 성공";
+		result.object = service.getlikeTop();
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping("review/scoreTop")
+	@ApiOperation(value = "평점 높은 리뷰 TOP6 ")
+	public Object getscoreTop() {
+		final BasicResponse result = new BasicResponse();
+
+		result.status = true;
+		result.data = "조회수 높은 리뷰 TOP6 조회 성공";
+		result.object = service.getscoreTop();
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 }

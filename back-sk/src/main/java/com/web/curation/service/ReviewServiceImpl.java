@@ -220,4 +220,22 @@ public class ReviewServiceImpl implements ReviewService {
 		return list;
 	}
 
+	@Override
+	public List<Review> getviewsTop() {
+		List<Review> list = dao.findTop6ByOrderByViewsDesc();
+		return list;
+	}
+
+
+	@Override
+	public List<Review> getlikeTop() {
+		List<Review> list = dao.likeBest();
+		return list;
+	}
+
+	@Override
+	public List<Review> getscoreTop() {
+		List<Review> list = dao.findTop6ByOrderByTotalDesc();
+		return list;
+	}
 }
