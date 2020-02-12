@@ -67,7 +67,58 @@
 </template>
 
 <script>
+    import ReviewApi from '../../apis/ReviewApi.js';
     export default {
+        created() {
+                ReviewApi
+                    .requestfetchLikeList()
+                    .then(response => {
+                        console.log(response);
+                        var LikeList = new Array();
+
+                        for (let i = 0; i < response.data.object.length; i++) {
+                            var item = {};
+                            if (response.data.object[i].picture) 
+                                item['src'] = response
+                                    .data
+                                    .object[i]
+                                    .picture;
+                            else 
+                                item['src'] = "https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_1280.jpg"
+                            item['title'] = response
+                                .data
+                                .object[i]
+                                .title;
+                            let content = response
+                                .data
+                                .object[i]
+                                .str + response
+                                .data
+                                .object[i]
+                                .weak;
+                            item['black_text_content'] = content;
+                            item['address'] = response
+                                .data
+                                .object[i]
+                                .store
+                                .address;
+                            let HashString = response
+                                .data
+                                .object[i]
+                                .hashtag;
+                            let HashSplit = HashString.split(' ');
+                            let HashList = [];
+                            for (let z in HashSplit) 
+                                HashList.push(HashSplit[z]);
+                            item['tag'] = HashList;
+                            JSON.stringify(item);
+                            LikeList.push(item);
+                        }
+                       
+                        this.bestReviews = LikeList;
+
+                    })
+            },
         data() {
             return {
                 loading_card: false,

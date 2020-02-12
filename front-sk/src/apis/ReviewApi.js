@@ -63,7 +63,9 @@ function requestfetchScoreList(){
     return Axios.get(URL + `/review/scoreTop`, auth);
 }
 
-
+function requestfetchLikeList(){
+    return Axios.get(URL + `/review/likeTop`, auth);
+}
 
 const ReviewApi = {
     requestMyReviewList: (data, callback, errorCallback) => requestMyReviewList(data, callback, errorCallback),
@@ -71,6 +73,7 @@ const ReviewApi = {
     requestAddReview: (data, callback, errorCallback) => requestAddReview(data, callback, errorCallback),
     requestfetcViewsrList,
     requestfetchScoreList,
+    requestfetchLikeList,
 }
 
 export default ReviewApi
