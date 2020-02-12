@@ -10,7 +10,7 @@
         </v-col>
       </v-row>
       <!-- 식당 상세정보 -->
-
+dsfafsdadfdfsadsfsdfdsdfs
     </div>
     <hr>
     <v-row no-gutters>

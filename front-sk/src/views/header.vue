@@ -91,7 +91,7 @@
       UserLogout() {
         this.$store.dispatch('logout')
         this.$router.push({
-          path: "/"
+          name: "login"
         })
       },
       userpageGo() {
