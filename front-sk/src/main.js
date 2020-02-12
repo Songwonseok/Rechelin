@@ -20,15 +20,18 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 // app.js
 import "./vee-validate";
 //aws 
-import Amplify, * as AmplifyModules from 'aws-amplify'
-import { AmplifyPlugin } from 'aws-amplify-vue'
-import awsconfig from './aws-exports'
+// import Amplify, * as AmplifyModules from 'aws-amplify'
+// import { AmplifyPlugin } from 'aws-amplify-vue'
+// import awsconfig from './aws-exports'
 
 import VueLoading from 'vuejs-loading-plugin'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-Amplify.configure(awsconfig)
+// Amplify.configure(awsconfig)
 import VueStar from 'vue-star'
 Vue.component('VueStar', VueStar)
+import VueSimpleAlert from "vue-simple-alert";
+
+Vue.use(VueSimpleAlert, { reverseButtons: true });
 
 //강제 업데이트
 

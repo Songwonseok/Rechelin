@@ -66,16 +66,20 @@ export default {
     getRandom() {
       if (this.keyword != "") {
         StoreApi.requestRandom(
+          
           this.keyword,
           res => {
+            this.$alert("랜덤 음식점 리스트 가져오기 성공","success","success",);
             this.randomList = res;
           },
           error => {
-            alert("랜덤 음식점 리스트 가져오기 실패");
+            this.$alert("랜덤 음식점 리스트 가져오기 실패","Error","warning",);
+            //alert("랜덤 음식점 리스트 가져오기 실패");
           }
         );
       } else {
-        alert("위치를 선택해주세요");
+        this.$alert("위치를 선택해주세요","Error","warning",);
+        //alert("위치를 선택해주세요");
       }
     }
   }

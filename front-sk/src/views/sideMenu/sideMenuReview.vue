@@ -31,7 +31,9 @@
 <script>
 
 export default {
-  
+    created(){
+      this.$store.state.data+=1;
+    },
     components :{
 
     }

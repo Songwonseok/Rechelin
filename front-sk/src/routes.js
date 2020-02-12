@@ -14,8 +14,13 @@ import signUpForm from './views/user/signUpForm.vue';
 import signUpConfirm from './views/user/signUpConfirm.vue';
 import searchPassword from './views/user/searchPw.vue';
 import userSearch from './components/common/userSearch.vue';
+
+
+/**store search **/
 import storeDetail from './views/stores/storeDetail'
 import storeReviews from './views/stores/storeReviews'
+import storeSearch from './views/stores/storeSearch.vue'
+
 import comments from './views/stores/comments'
 import random from './views/stores/random.vue'
 import reviewPage from './views/review/reviewPage.vue';
@@ -29,6 +34,7 @@ import sideMenuLogin from './views/sideMenu/sideMenuLogin.vue';
 import sideMenuReview from './views/sideMenu/sideMenuReview.vue';
 import sideMenuFood from './views/sideMenu/sideMenuFood.vue';
 import sideMenuUserPage from './views/sideMenu/sideMenuUserPage.vue';
+import bestReviewList from './views/review/bestReviewList.vue';
 import sideMenuFeed from './views/sideMenu/sideMenuFeed.vue';
 
 
@@ -49,7 +55,13 @@ export default [
         path: '/',
         name: 'main',
         component: Main,
-        children: [{
+        children: [
+            {
+                path: 'popular',
+                name : 'popular',
+                component : bestReviewList,
+            },
+            {
                 path: 'user',
                 name: 'user',
                 component: sideMenuUserPage,
@@ -62,6 +74,16 @@ export default [
                         path: '/signup',
                         name: 'signup',
                         component: signUpForm
+                    },
+                    {
+                        path: '/findPW',
+                        name: 'findPW',
+                        component: searchPassword
+                    },
+                    {
+                        path: '/signupConfirm',
+                        name: 'signupconfirm',
+                        component: signUpConfirm
                     }
                 ]
             },
@@ -69,7 +91,13 @@ export default [
                 path: 'food',
                 name: 'food',
                 component: sideMenuFood,
-                children: [{
+                children: [
+                    {
+                        path : 'storeSearch',
+                        name : 'storeSearch',
+                        component : storeSearch
+                    },
+                    {
                         path: 'random',
                         name: 'random',
                         component: random

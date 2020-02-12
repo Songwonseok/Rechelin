@@ -5,27 +5,33 @@
         <v-card class="mx-auto" max-width="300" tile>
           <v-list rox unded>
             <v-subheader>REPORTS</v-subheader>
-            <v-list-item-group color="primary">
+            <v-list-item-group color="warning">
               <v-list-item router-link :to="{name: 'login'}">
-                <v-list-item-content >
-                  로그인
+                <v-list-item-content>
+                  <span><v-icon>{{mdiLogin}}</v-icon>로그인</span>
+                 
                 </v-list-item-content>
               </v-list-item>
               <v-list-item router-link :to="{name: 'signup'}">
                 <v-list-item-content>
-                  회원가입
+                   <span><v-icon>{{mdiAccountPlus}}</v-icon>회원가입</span>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item router-link :to="{name: 'userpage', params : {
                 id: userid
               }}">
                 <v-list-item-content>
-                  유저페이지
+                  <span><v-icon>{{mdiAccountDetails}}</v-icon>유저페이지</span>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item>
                 <v-list-item-content>
-                  회원정보수정
+                  <span><v-icon>{{mdiAccountEdit}}</v-icon>회원정보수정</span>
+                </v-list-item-content>
+              </v-list-item>
+               <v-list-item router-link :to="{name:'findPW'}" >
+                <v-list-item-content>
+                  <span><v-icon>{{mdiKey}}</v-icon>비밀번호변경</span>
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
@@ -40,10 +46,28 @@
 </template>
 
 <script>
+  import {
+   mdiCheckBold,
+   mdiLogin,
+   mdiAccountPlus,
+   mdiAccountDetails,
+   mdiAccountEdit,
+   mdiKey
+  } from '@mdi/js'
+  
   export default {
+    created(){
+      this.$store.state.data +=1;
+    },
     data() {
       return {
-        userid : sessionStorage.getItem('userid')
+        userid : sessionStorage.getItem('userid'),
+        // icons
+        mdiLogin,
+        mdiAccountPlus,
+        mdiAccountDetails,
+        mdiAccountEdit,
+        mdiKey
       }
     },
    
