@@ -32,7 +32,7 @@
 
         <v-tab v-if="!passwordRemove">
           <v-icon left>mdi-lock</v-icon>
-          비밀번호 찾기
+          비밀번호 변경
         </v-tab>
 
 

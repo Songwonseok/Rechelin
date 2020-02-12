@@ -1,108 +1,49 @@
-
 <template>
-    <div class="user" style=" display: flex;" id="login" >
-        <div class="wrapC" style="
-    text-align: center;
-">
-
-            <!--
-            <h3>이미지 가져오기 테스트</h3>
-            <template v-if="this.profile != ''">
-            사진있어요 
-               <img :src="profile" style="max-width:30%" >
-
-            </template>
-            <template v-else>
-                사진없어요
-            </template>
-            
-
-
-            <h3>사진업로드 테스트</h3>
-            <div class="uploadProfile">
-                <input type="file" name="fileToUpload" id="fileToUpload" accept=".gif, .jpg, .png"
-                    @change="getProfileForm">   change을 통해서 파일의 변화를 감지 
-                <button @click="upload">제출</button>
+    <div class="user" id="app">
+        
+	<div id="wrapper">
+        
+		<div id="table">
+			<h1 class="active" style="color: #ff7f00; text-align:left;">Login</h1>
+		</div>
+		<div id="signin">
+			
+				<div class="form-group">
+					<label for="username">Email</label>
+					<input type="text"  v-model="email" id="username"  required @keyup.enter="login" autofocus>
+                    <div class="error-text" v-if="error.email" style="color:#ff7f00;">
+                {{error.email}}
             </div>
-            -->
-
-           
-
-            <div class="input-with-label">
-                <input v-model="email" 
-                v-bind:class="{error : error.email, 
-                complete:!error.email&&email.length!==0}"
-                       @keyup.enter="login"
-                       id="email" placeholder="이메일을 입력하세요."
-                       type="text" style="
-            background-color: white;
-            color: black;
-            border: 2px solid #008Cy
-            BA;"/>
-                <label for="email">이메일</label>
-                <div class="error-text" v-if="error.email">
-                    {{error.email}}
+				</div>
+				<div class="form-group">
+					<label for="pass">Password</label>
+					<input type="password" id="pass" @keyup.enter="login" v-model="password">
+					<span id="showpwd" class="fa fa-eye-slash"></span>
+                     <div class="error-text" v-if="error.password" style="color:#ff7f00;">
+                {{error.password}}
                 </div>
-            </div>
-
-            <div class="input-with-label">
-                <input v-model="password" type="password"
-                       v-bind:class="{error : error.password, 
-                       complete:!error.password&&password.length!==0}"
-                       id="password"
-                       @keyup.enter="login"
-                       placeholder="비밀번호를 입력하세요." style="background-color: white; color: black; border: 2px solid rgb(0, 140, 186);"/>
-                <label for="password">비밀번호</label>
-                <div class="error-text" v-if="error.password">
-                    {{error.password}}
-
-                </div>
-            </div>
-            <button class="btn btn--back btn--login" 
-            v-on:click="login" :disabled="!isSubmit"
-                    :class="{disabled : !isSubmit}">
-                로그인
-
-            </button>
-
-
-            <div class="sns-login" style="
-    text-align: center;">
-                <div class="text">
-                    <p>SNS 간편 로그인</p>
-                    <div class="bar"></div>
-                </div>
-
-
-                <!-- 소셜 로그인 -->
-                <NaverLogin :component="component" />       
-                <!-- <kakaoLogin :component="component"/> -->
-                <!-- <GoogleLogin :component="component"/> -->
-
-            </div>
-            <div class="add-option">
-                <div class="text">
-                    
-                    <div class="bar"></div>
-                </div>
-                <div class="wrap">
-                    <p>비밀번호를 잊으셨나요? </p>
-                    <router-link v-bind:to="{name:'searchPassword'}" class="btn--text">👉비밀번호 찾기</router-link>
-                </div>
-                <div class="wrap">
-                    <p>아직 회원이 아니신가요? </p>
-                    <router-link v-bind:to="{name:'signUpForm'}" class="btn--text">👉가입하기</router-link>
-                </div>
-            </div>
-        </div>
-
+				</div>
+	
+				
+                    <v-btn block @click="login" color="#ff7f00" :disabled="!isSubmit" :class="{disabled : !isSubmit}">SignIn</v-btn>
+                    <hr>
+                    <div style="text-align: left">
+                    <h4 >Social Login</h4>
+                     <NaverLogin :component="component" />
+                    </div>
+                    <hr>
+		<router-link :to="{name: 'findPW'}" id="froget-pass">Forget Password?</router-link>
+        <router-link :to="{name: 'signup'}" id="froget-pass">회원가입 안하셨나요?</router-link>
+		
+    </div>
+		
+	</div>
     </div>
 </template>
 
 <script>
-     /*eslint-disable*/
-    import '../../assets/css/style.scss'
-    import '../../assets/css/user.scss'
+    /*eslint-disable*/
+
     import PV from 'password-validator'
     import * as EmailValidator from 'email-validator';
     import KakaoLogin from '../../components/user/snsLogin/Kakao.vue'
@@ -119,7 +60,7 @@
             // JoinPage,
             NaverLogin,
         },
-        created(){
+        created() {
 
             this.component = this;
 
@@ -129,7 +70,7 @@
                 .is().max(100)
                 .has().digits()
                 .has().letters();
-                
+
             //this.getProfile();
         },
         watch: {
@@ -141,7 +82,17 @@
             },
         },
         methods: {
-            checkForm(){
+            goSignUp() {
+                this.$router.push({
+                    name: 'signup'
+                })
+            },
+            goFindPW() {
+                this.$router.push({
+                    name: 'findPW'
+                })
+            },
+            checkForm() {
                 if (this.email.length >= 0 && !EmailValidator.validate(this.email))
                     this.error.email = "이메일 형식이 아닙니다."
                 else this.error.email = false;
@@ -157,90 +108,98 @@
                     if (v) isSubmit = false;
                 })
                 this.isSubmit = isSubmit;
-            }
-            ,login(){
+            },
+            login() {
 
-                if (this.isSubmit) {    
-                    let {email,password} = this;
+                if (this.isSubmit) {
+                    let {
+                        email,
+                        password
+                    } = this;
                     let data = {
-                        email,password
+                        email,
+                        password
                     }
 
                     //요청 후에는 버튼 비활성화
                     this.isSubmit = false;
-                    UserApi.requestLogin( data,res=>{
+                    UserApi.requestLogin(data, res => {
                         //통신을 통해 전달받은 값 콘솔에 출력
                         console.log(res.data);
-                        if(res.data == "success") {
-                            
-                            console.log('login form 안 '+res.object)
+                        if (res.data == "success") {
+
+                            console.log('login form 안 ' + res.object)
                             console.log(res.object);
-                            this.$router.push({ path : "sideMenuUserPage" });
-                        }
-                        else
-                            this.$router.push({ path: '/' });
+                            this.$router.push({
+                                path: "main"
+                            });
+                        } else
+                            this.$router.push({
+                                path: '/'
+                            });
+                            alert('아이디 혹은 비밀번호가 틀렸습니다')
                         //요청이 끝나면 버튼 활성화
                         this.isSubmit = true;
-                    },error=>{  
+                    }, error => {
                         this.isSubmit = true;
                     })
                 }
 
-              
+
 
             },
-            getProfile(){
+            getProfile() {
                 // Axios로 사진 가져오기
                 // console.log('프로필 가져오기!!!')
 
                 let email = "ssafy@naver.com";
                 let data = {
-                        email
-                    }
-                UserApi.requestProfile( email,res=>{
+                    email
+                }
+                UserApi.requestProfile(email, res => {
                     // console.log(res)
                     this.profile = res.object.profile
                     // console.log(this.profile);
                     // console.log('프로필 가져오기 성공')
-                        
-                    },error=>{  
-                        // console.log('프로필 가져오기 실패')
-                    })
+
+                }, error => {
+                    // console.log('프로필 가져오기 실패')
+                })
             },
-            upload(){
+            upload() {
                 console.log('이미지 업로드 @@')
                 // console.log(this.selectedImage)
 
 
-                ImgurApi.uploadProfile(this.selectedImage, res =>{
+                ImgurApi.uploadProfile(this.selectedImage, res => {
                     // img url - res.link에 저장
-                     // 2) Imgur에 저장된 사진 링크를 가져오기
-                    
+                    // 2) Imgur에 저장된 사진 링크를 가져오기
+
                     // this.imageUrl = res.data.link
                     this.imageUrl = "https://i.imgur.com/91WnlBF.png" // ######TEST 용
                     // console.log(this.imageUrl)
                     this.email = "ssafy@naver.com" // ######TEST 용
-                    
-                    
+
+
                     // 3) 사진링크를 User의 profile 링크로 수정하기
-                    UserApi.requestUpload(this.email, this.imageUrl, res =>{
+                    UserApi.requestUpload(this.email, this.imageUrl, res => {
                         // status로 판단
                         console.log(res)
-                        if(res.status == true)
+                        if (res.status == true)
                             console.log('프로필 업로드 성공!')
-                    }, error =>{
+                    }, error => {
                         alert('프로필 업로드 실패')
                     })
 
-                }, error =>{
+                }, error => {
                     alert('Imgur 업로드 실패!')
                 })
-                
+
             },
-            getProfileForm(event){
+            getProfileForm(event) {
                 this.selectedImage = event.target.files[0];
             }
-            
+
         },
         data: () => {
             return {
@@ -262,49 +221,193 @@
 </script>
 
 <style scoped>
-.btn.disabled {
-    /* background: #ccc; */
-    /* display: inline-block; */
-    padding: 3px 25px;
-    font-size: 20px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #FF9800;
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0 9px #999;
+    @keyframes signIn {
+        0% {
+            opacity: 0;
+            -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            -ms-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3);
+        }
+
+        20% {
+            -webkit-transform: scale3d(1.1, 1.1, 1.1);
+            -ms-transform: scale3d(1.1, 1.1, 1.1);
+            transform: scale3d(1.1, 1.1, 1.1);
+        }
+
+        40% {
+            -webkit-transform: scale3d(0.9, 0.9, 0.9);
+            -ms-transform: scale3d(0.9, 0.9, 0.9);
+            transform: scale3d(0.9, 0.9, 0.9);
+        }
+
+        60% {
+            opacity: 1;
+            -webkit-transform: scale3d(1.03, 1.03, 1.03);
+            -ms-transform: scale3d(1.03, 1.03, 1.03);
+            transform: scale3d(1.03, 1.03, 1.03);
+        }
+
+        80% {
+            -webkit-transform: scale3d(0.97, 0.97, 0.97);
+            -ms-transform: scale3d(0.97, 0.97, 0.97);
+            transform: scale3d(0.97, 0.97, 0.97);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: scale3d(1, 1, 1);
+            -ms-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+
+    }
+
+    .user {
+
+        -webkit-animation: signIn 0.75s ease-in-out 0.5s;
+        animation: signIn 0.75s ease-in-out 0.5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        opacity: 0;
+    }
+    #wrapper {
+	width: 430px;
+	background: url(https://cdn.pixabay.com/photo/2012/02/29/12/17/break-18987__340.jpg);
+	margin: 25px auto;
+	padding: 64px;
+	background-size: cover;
+	position: relative;
+	z-index: 1;
+	box-shadow: 0px 15px 20px 0px rgba(128, 128, 128, 0.76);
 }
 
-.user#login .text .bar {
-    height: 1px;
-    background-color: #238bde;
-    float: right;
-    margin-top: 9px;
-    margin-bottom: 20px;
-}
-.user#login .add-option p {
-    float: initial;
+#wrapper:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	z-index: -1;
 }
 
-.user#login .add-option a {
-    color: #000;
-    float: unset;
-    font-weight: 600;
+#table {
+	margin-bottom: 6em;
 }
-.btn--back{
-    border-radius: 3px;
-    padding: 3px 25px;
-    font-size: 20px;
+
+#table a {
+	text-transform: uppercase;
+	margin-right: 40px;
+	padding: 11px 4px;
+	color: #bbb;
+	cursor: pointer
+}
+
+#table a.active {
+	border-bottom: 1.5px solid #ff7f00;
+	color: #fff;
+}
+
+label {
+	display: block;
+    font-size: 1.3rem;
+}
+
+form {
+	margin-bottom: 3.3em;
+}
+
+.form-group {
+	position: relative;
+	margin-bottom: 16px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 6px;
+	font-size: 14px;
+	margin-left: 14px;
+	color: #bbb;
+}
+
+input {
+	width: 100%;
+	background: rgba(0, 0, 0, 0.42);
+	outline: none;
+	padding: 10px 14px;
+	color: #fff;
+	border: none;
+	border-radius: 36px;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 16px;
+	transition: background 0.5s ease-in-out;
+}
+span#showpwd {
+    position: absolute;
+    top: 32px;
+    right: 16px;
     cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #238bde;
-    border: none;
-    border-radius: 20px;
+}
+input:focus {
+	background: rgba(0, 0, 0, 0.6);
+}
+
+
+#checkbox {
+	color: #fff;
+	cursor: pointer;
+	font-size: 16px
+}
+
+@-webkit-keyframes scalecheck {
+	0% {
+		transform: scale(0);
+	}
+	90% {
+		transform: scale(1.4);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.hr {
+	height: 1.4px;
+	background: rgba(128, 128, 128, 0.51);
+	border-radius: 17px;
+	margin-bottom: 33px;
+}
+
+#froget-pass {
+	text-align: center;
+	color: #bbb;
+	margin: 0;
+	display: block;
+}
+#froget-pass:hover {
+    font-size: 130%;
+    color: #ff7f00;
+}
+
+@media screen and (max-width :490px) {
+	body {
+		display: table;
+		width: 100%;
+	}
+	#wrapper {
+		width: auto;
+		height: 100vh;
+		margin: 0;
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
+@media screen and (max-width :490px) {
+	#wrapper {
+		padding: 28px;
+	}
 }
 </style>

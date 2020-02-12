@@ -5,62 +5,98 @@
         <div class="container">
           <div class="signup-content">
             <form method="POST" id="signup-form" class="signup-form">
-              <h2 class="form-title">Create account</h2>
+              <v-chip x-large class="ma-2" color="warning" label outlined>
+                <v-icon left>{{icons.AccountBox}}</v-icon>
+                Create account
+              </v-chip>
+
+              <hr>
+              <!-- 닉네임 -->
               <ValidationObserver ref="form" v-slot="{ passes }">
+                <v-chip class="ma-2" color="warning" outlined>
+                  <v-icon left>{{icons.AccountCircleOutline}}</v-icon>
+                  nickname
+                </v-chip>
                 <form @submit.prevent="passes(submit)">
                   <text-input2 v-model="name" rules="required|max:5" label="First Name" type="text" class="form-input"
-                    name="name" id="name" @statusName="changeName" v-bind:propsdata="disabledName"
+                    name="name" id="name" @satusName="changeName" :propsdata="disabledName"
                     placeholder="닉네임을 적어 주세요." />
                   <span>
+
+                    <!-- 이메일 -->
+
+
+                    <v-chip class="ma-2" color="warning" outlined>
+                      <v-icon left>{{icons.Email}}</v-icon>
+                      E-mail
+                    </v-chip>
                     <text-input3 v-model="email" rules="required|email" label="Email Address" name="email" type="email"
                       class="form-input" id="email" :disabled="disabledEmail" v-bind:propsdata="disabledEmail"
                       @statusEmail="changeEmail" placeholder="e-mail을 적어 주세요." />
-                    <!-- <input v-model="code"   class="codeInput" type="text" placeholder="Code">  <b-button variant="outline-primary">이메일 인증</b-button><b-button variant="outline-primary">인증번호 확인</b-button> -->
                   </span>
 
 
-                  <!-- <input v-model="code" type="text" placeholder="Code">  <b-button variant="outline-primary">인증</b-button> -->
 
-                  <!-- phone -->
+                  <!-- 핸드폰 -->
+
+                  <v-chip class="ma-2" color="warning" outlined>
+                    <v-icon left>{{icons.Cellphone}}</v-icon>
+                    Phone
+                  </v-chip>
                   <text-input v-model="phone" type="text"
                     :rules="{ required: true,  min:13, regex: /^\d{3}-\d{3,4}-\d{4}$/}" class="form-input" name="phone"
                     id="phone" placeholder="phone 번호를 적어 주세요." />
 
+                  <!-- 비밀번호 -->
+
+                  <v-chip class="ma-2" color="warning" outlined>
+                    <v-icon left>{{icons.LockQuestion}}</v-icon>
+                    Password
+                  </v-chip>
                   <text-input v-model="password" type="password" vid="pass"
                     :rules="{ required: true,  min:8, regex: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/ }"
                     class="form-input" name="password" id="password" placeholder="Password를 입력해주세요." />
+
+
+                  <v-chip class="ma-2" color="warning" outlined>
+                    <v-icon left>{{icons.LockQuestion}}</v-icon>
+                    Confirm Password
+                  </v-chip>
                   <text-input type="password" vid="confirmation" rules="required|confirmed:pass" class="form-input"
                     name="re_password" id="re_password" placeholder="Password를 확인해주세요." />
-                  <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                  <!-- <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label> -->
-                  <b-button id="show-btn"
-                    style="width: 100%;height: 15%;color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
-                    @click="$bvModal.show('bv-modal-example')">약관 보기</b-button>
+
+                  <!-- 약관동의 박스 -->
+
+                  <v-btn color="warning" id="show-btn" dark @click="$bvModal.show('bv-modal-example')"
+                    style="width: 350px; margin-bottom: 15px;">약관보기</v-btn>
+
+                  <!-- 약관 동의 모달 -->
                   <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example" hide-footer>
                     <template v-slot:modal-title>이용 약관</template>
                     <div class="d-block text-center">
-                      <h3>약관 동의 할꺼니? 동의 누르렴</h3>
+                      <h3>약관 동의 Format</h3>
                     </div>
-                    <b-button
-                      style="width: 100%;height: 20%; color: cornflowerblue;background-color: aliceblue; margin-bottom: 10px;"
-                      class="mt-3" block @click="$bvModal.hide('bv-modal-example')">닫기</b-button>
+                    <v-btn block color="warning" dark @click="$bvModal.hide('bv-modal-example')">Close</v-btn>
+
                   </b-modal>
-                  <b-form-radio-group id="radio-group" style="
-    text-align: center;
-    margin-bottom: 10px;
-" name="radio-sub-component" required data-errormessage-value-missing="Please, pick one">
+                  <b-form-radio-group id="radio-group" style="text-align: center; margin-bottom: 10px;"
+                    name="radio-sub-component" required data-errormessage-value-missing="Please, pick one">
+
                     <b-form-radio name="some-radios" value="A">약관 동의</b-form-radio>
                     <b-form-radio name="some-radios2" value="B">약관 동의하지 않음</b-form-radio>
+
                   </b-form-radio-group>
-                  <!-- <button class="form-submit" value="Sign up">Submit</button> -->
+
                   <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up" />
-                  <!-- <button class="form-submit">email 인증</button> -->
+
                 </form>
               </ValidationObserver>
             </form>
+
+
             <p class="loginhere">
               Have already an account ?
-              <a href="#" class="loginhere-link">Login here</a>
+              <router-link :to="{name: 'login'}">Login</router-link>
             </p>
           </div>
         </div>
@@ -70,6 +106,14 @@
 </template>
 
 <script>
+  import {
+    mdiAccountCircleOutline,
+    mdiAccountBox,
+    mdiEmail,
+    mdiCellphone,
+    mdiLockQuestion
+  } from '@mdi/js'
+
   import {
     ValidationProvider,
     ValidationObserver
@@ -136,6 +180,13 @@
         isEmailOk: '',
         disabledName: true,
         disabledEmail: true,
+        icons: {
+          AccountCircleOutline: mdiAccountCircleOutline,
+          Email: mdiEmail,
+          Cellphone: mdiCellphone,
+          LockQuestion: mdiLockQuestion,
+          AccountBox: mdiAccountBox
+        }
       }
     },
     computed: {
@@ -224,7 +275,7 @@
               validationData: [] // optional
             })
             .then(data => this.$router.push({
-              path: "/signUpConfirm"
+              name: "signupconfirm"
             }))
             .catch(err => console.log(err));
         } else {
@@ -239,6 +290,45 @@
 </script>
 
 <style lang="scss" scoped>
+  #submit {
+    background-color: white;
+    color: #ff7f00;
+    border-color: #ff7f00 !important;
+    border: 1px solid #ff7f00;
+    border-radius: 8px;
+    height: 50px;
+    width: 350px;
+    margin-top: 10px;
+  }
+
+  #submit:hover {
+    background-color: #ff7f00;
+    color: white;
+    border-color: #ff7f00 !important;
+    border: 1px solid #ff7f00;
+    border-radius: 8px;
+    height: 50px;
+    width: 350px;
+    margin-top: 10px;
+  }
+
+  .signup-content {
+    text-align: center;
+  }
+
+  #signup-form {
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
+
+  .form-title {
+    margin-bottom: 50px;
+  }
+
+  hr {
+    margin-bottom: 100px;
+  }
+
   .btn {
     border: 1px solid currentColor;
     border-radius: 999999px;

@@ -1,5 +1,4 @@
 <template>
- <v-container >
   <div>
     <v-app id="inspire" class ="rootMain">
       <!-- 네브바 -->
@@ -103,7 +102,7 @@
         </v-dialog>
       
         <div>
-          <v-carousel cycle show-arrows-on-hover hide-delimiters v-ripple="true" class="text-center">
+          <v-carousel height="450" cycle show-arrows-on-hover hide-delimiters v-ripple="true" class="text-center">
             <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
             </v-carousel-item>
           </v-carousel>
@@ -111,26 +110,28 @@
         <!-- 탭부분 -->
          <v-tabs
     fixed-tabs
-    background-color="#ff7f00"
+    background-color="transparent"
+    color="#ff7f00"
     dark
+
   >
-    <v-tab router-link :to="{name: 'user'}">
+    <v-tab router-link :to="{name: 'user'}" style="color:#ff7f00;">
       유저페이지
     </v-tab>
-    <v-tab  router-link :to="{name: 'food'}">
+    <v-tab  router-link :to="{name: 'food'}" style="color:#ff7f00;">
       음식점
     </v-tab>
-    <v-tab router-link :to="{name: 'review'}">
+    <v-tab router-link :to="{name: 'review'}" style="color:#ff7f00;">
       리뷰
     </v-tab>
-    <v-tab>
+    <v-tab style="color:#ff7f00;">
       피드 페이지(예정)
     </v-tab>
   </v-tabs>
        
-       <div>
+      <v-container>
          <router-view></router-view>
-       </div>
+       </v-container>
         
         
   </div>
@@ -139,7 +140,7 @@
   </v-app>
 
   </div>
-  </v-container>
+
 </template>
 
 
@@ -192,16 +193,16 @@
         openSearch: false,
         value: ['apple', 'orange'],
         items: [{
-            src: 'https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg',
+            src: 'https://cdn.pixabay.com/photo/2017/01/30/13/49/pancakes-2020863_1280.jpg',
           },
           {
-            src: 'https://cdn.pixabay.com/photo/2016/03/05/23/02/barbecue-1239434_1280.jpg',
+            src: 'https://cdn.pixabay.com/photo/2017/02/15/10/39/salad-2068220_1280.jpg',
           },
           {
-            src: 'https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_1280.jpg',
+            src: 'https://cdn.pixabay.com/photo/2017/03/10/13/57/cooking-2132874_1280.jpg',
           },
           {
-            src: 'https://cdn.pixabay.com/photo/2017/03/30/15/47/churros-2188871_1280.jpg',
+            src: 'https://cdn.pixabay.com/photo/2016/02/05/15/34/pasta-1181189_1280.jpg',
           },
         ],
         hashtags: {
@@ -313,7 +314,7 @@
             console.log(this.newSearch)
           } else {
             let pos = this.newSearch.indexOf(name)
-            this.hashtags.locations[n] = !this.hashtags.locations[n]
+            this.hashtags.ages[n] = !this.hashtags.ages[n]
             let list = [...this.newSearch]
             list.splice(pos, 1)
             this.newSearch = [...list]
