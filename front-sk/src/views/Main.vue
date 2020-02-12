@@ -28,12 +28,12 @@
               <v-chip draggable @click="insertTags('locations', 4, '고속터미널')">고속터미널</v-chip>
               <v-chip draggable @click="insertTags('locations', 5, '가로수길')">가로수길</v-chip>
               <v-chip draggable @click="insertTags('locations', 6, '서래마을')">서래마을</v-chip>
-              <v-chip draggable @click="insertTags('locations', 7, '건대')">건대</v-chip>
 
 
 
               <v-divider></v-divider>
               강북
+              <v-chip draggable @click="insertTags('locations', 7, '건대')">건대</v-chip>
               <v-chip draggable @click="insertTags('locations', 8, '종로')">종로</v-chip>
               <v-chip draggable @click="insertTags('locations', 9, '삼청동')">삼청동</v-chip>
               <v-chip draggable @click="insertTags('locations', 10, '서촌')">서촌</v-chip>
@@ -123,7 +123,7 @@
     <v-tab router-link :to="{name: 'review'}">
       리뷰
     </v-tab>
-    <v-tab>
+    <v-tab router-link :to="{name: 'feed'}">
       피드 페이지(예정)
     </v-tab>
   </v-tabs>
@@ -168,6 +168,8 @@
 
 
       this.$router.push({name : "popular"})
+    },
+    watch : {
     },
     components : {
      

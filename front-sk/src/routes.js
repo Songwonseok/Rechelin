@@ -22,7 +22,7 @@ import storeReviews from './views/stores/storeReviews'
 import storeSearch from './views/stores/storeSearch.vue'
 
 import comments from './views/stores/comments'
-
+import random from './views/stores/random.vue'
 import reviewPage from './views/review/reviewPage.vue';
 import reviewDetail from './views/review/reviewDetail.vue';
 import updateNewPw from './views/user/updateNewPw.vue';
@@ -35,12 +35,14 @@ import sideMenuReview from './views/sideMenu/sideMenuReview.vue';
 import sideMenuFood from './views/sideMenu/sideMenuFood.vue';
 import sideMenuUserPage from './views/sideMenu/sideMenuUserPage.vue';
 import bestReviewList from './views/review/bestReviewList.vue';
+import sideMenuFeed from './views/sideMenu/sideMenuFeed.vue';
+
 
 export default [
     // ERROR PAGE
     // 404 PAGE
 
-    
+
     {
         path: '*',
         redirect: '/404'
@@ -63,8 +65,7 @@ export default [
                 path: 'user',
                 name: 'user',
                 component: sideMenuUserPage,
-                children : [
-                    {
+                children: [{
                         path: '/login',
                         name: 'login',
                         component: Login
@@ -85,6 +86,11 @@ export default [
                         path : 'storeSearch',
                         name : 'storeSearch',
                         component : storeSearch
+                    },
+                    {
+                        path: 'random',
+                        name: 'random',
+                        component: random
                     }
 
                 ]
@@ -93,23 +99,30 @@ export default [
                 path: 'review',
                 name: 'review',
                 component: sideMenuReview,
-                children: [
-                    {
-                        path: 'create',
-                        name: 'createReview',
-                        component: reviewPage
-                    }
-                ]
-            }
+                children: [{
+                    path: 'create',
+                    name: 'createReview',
+                    component: reviewPage
+                }]
+            },
+            {
+                path: 'feed',
+                name: 'feed',
+                component: sideMenuFeed,
+                children: [{
+                    path: 'userFeed',
+                    name: 'userFeed',
+                    component: userFeed
+                }]
+            },
         ]
-      
+
     },
     { // 유저페이지
         path: '/userpage/:id',
         name: 'UserPage',
         component: UserPage,
-        children: [
-            {
+        children: [{
                 path: 'fans',
                 name: 'Fans',
                 component: Fans
@@ -141,87 +154,86 @@ export default [
         path: '/main',
         name: 'Main',
         component: Main,
-       
+
     },
     {
-        path : '/signUpForm',
-        name : 'signUpForm',
-        component : signUpForm,
+        path: '/signUpForm',
+        name: 'signUpForm',
+        component: signUpForm,
     },
     {
-        path : '/signUpConfirm',
-        name : 'signUpConfirm',
-        component : signUpConfirm,
+        path: '/signUpConfirm',
+        name: 'signUpConfirm',
+        component: signUpConfirm,
     },
     {
-        path : '/searchPassword',
-        name : 'searchPassword',
-        component : searchPassword,
+        path: '/searchPassword',
+        name: 'searchPassword',
+        component: searchPassword,
     },
     {
-        path : '/userSearch',
-        name : 'userSearch',
-        component : userSearch,
+        path: '/userSearch',
+        name: 'userSearch',
+        component: userSearch,
     },
     { // 음식점 상세페이지
         path: '/storeDetail/:id',
         name: 'storeDetail',
         component: storeDetail,
-        children: [
-            {
+        children: [{
                 path: 'reviews',
                 name: 'reviewsOfstore',
                 component: storeReviews,
-               
+
             },
             {
                 path: '/comments',
-                name : 'comments',
+                name: 'comments',
                 component: comments
             },
         ]
     },
 
     {
-        path : '/reviewPage',
-        name : 'reviewPage',
-        component : reviewPage,
+        path: '/reviewPage',
+        name: 'reviewPage',
+        component: reviewPage,
     },
     {
-        path : '/reviewDetail/:id',
-        name : 'reviewDetail',
-        component :reviewDetail
+        path: '/reviewDetail/:id',
+        name: 'reviewDetail',
+        component: reviewDetail
     },
     {
-        path : '/updateNewPw',
-        name : 'updateNewPw',
-        component : updateNewPw,
+        path: '/updateNewPw',
+        name: 'updateNewPw',
+        component: updateNewPw,
     },
     {
-        path : '/userFeed',
-        name : 'userFeed',
-        component : userFeed,
+        path: '/userFeed',
+        name: 'userFeed',
+        component: userFeed,
     },
     {
-        path : '/sideMenuLogin',
-        name : 'sideMenuLogin',
-        component : sideMenuLogin,
+        path: '/sideMenuLogin',
+        name: 'sideMenuLogin',
+        component: sideMenuLogin,
     },
     {
-        path : '/sideMenuReview',
-        name : 'sideMenuReview',
-        component : sideMenuReview,
+        path: '/sideMenuReview',
+        name: 'sideMenuReview',
+        component: sideMenuReview,
     },
     {
-        path : '/sideMenuFood',
-        name : 'sideMenuFood',
-        component : sideMenuFood,
+        path: '/sideMenuFood',
+        name: 'sideMenuFood',
+        component: sideMenuFood,
     },
     {
-        path : '/sideMenuUserPage',
-        name : 'sideMenuUserPage',
-        component : sideMenuUserPage,
+        path: '/sideMenuUserPage',
+        name: 'sideMenuUserPage',
+        component: sideMenuUserPage,
     }
-    
-  
+
+
 ]

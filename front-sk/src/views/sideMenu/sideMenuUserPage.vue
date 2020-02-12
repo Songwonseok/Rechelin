@@ -3,7 +3,7 @@
     <b-row class="text-center">
       <b-col>
         <v-card class="mx-auto" max-width="300" tile>
-          <v-list rounded>
+          <v-list rox unded>
             <v-subheader>REPORTS</v-subheader>
             <v-list-item-group color="primary">
               <v-list-item router-link :to="{name: 'login'}">
