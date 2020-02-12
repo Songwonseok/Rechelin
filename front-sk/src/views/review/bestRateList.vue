@@ -2,8 +2,8 @@
 
     <div>
         <br>
-            <h2 style="color:orange">👑 Best Views</h2>
-            <b-container class="bv-example-row">
+        <h2 style="color:orange">👀 Best Rate</h2>
+        <b-container class="bv-example-row">
                 <b-row >
                     
                         <div v-for="(bestReview, i) in bestReviews" v-bind:key="i+bestReview">
@@ -63,23 +63,16 @@
                 </b-row>
 
             </b-container>
+    </div>
+</template>
 
-            <best-like-list></best-like-list>
-            <best-rate-list></best-rate-list>
-        </div>
-    </template>
-
-    <script>
-        import bestLikeList from './bestLikeList.vue';
-        import bestRateList from './bestRateList.vue';
-        import ReviewApi from '../../apis/ReviewApi.js';
-        export default {
-            created() {
-                ReviewApi
-                    .requestfetcViewsrList()
-                    .then(response => {
-                       
-                        var viewsList = new Array();
+<script>
+    import ReviewApi from '../../apis/ReviewApi.js';
+    export default {
+        created(){
+            ReviewApi.requestfetchScoreList().then(
+                response =>{
+                   var rateList = new Array();
 
                         for (let i = 0; i < response.data.object.length; i++) {
                             var item = {};
@@ -117,45 +110,85 @@
                                 HashList.push(HashSplit[z]);
                             item['tag'] = HashList;
                             JSON.stringify(item);
-                            viewsList.push(item);
+                            rateList.push(item);
                         }
-                       
-                        this.bestReviews = viewsList;
-
-                    })
-            },
-            components: {
-                bestLikeList,
-                bestRateList
-            },
-            data() {
-                return {loading_card: false, selection_card: 1, bestReviews: []}
-
-            },
-            methods: {
-                reserve() {
-                    this.loading = true
-
-                    setTimeout(() => (this.loading = false), 2000)
-                }
-            },
-            watch: {
-                selection_card: function (v) {
-                    console.log(v);
+                        
+                        this.bestReviews = rateList;
 
                 }
+            )
+        },
+        data() {
+            return {
+                loading_card: false,
+                selection_card: 1,
+                bestReviews: [
+                    {
+                        src: 'https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg',
+                        title: '싱그러운 과일나라',
+                        black_text_content: '여기는 정말 좋당',
+                        address : '강남',
+                        tag: ['즐거운', '좋은', '재밌는']
+                    }, {
+                        src: 'https://cdn.pixabay.com/photo/2016/03/05/23/02/barbecue-1239434_1280.jpg',
+                        title: '싱그러운 과일나라2',
+                        black_text_content: '여기는 정말 좋당2',
+                        address : '대전',
+                        tag: ['행복한', '여유로운', '슬픈']
+                    }, {
+                        src: 'https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_1280.jpg',
+                        title: '싱그러운 과일나라3',
+                        black_text_content: '몰라아몰랑',
+                        address : '청주',
+                        tag: ['너는', '배고피', '멀캠자취생']
+                    },
+                     {
+                        src: 'https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg',
+                        title: '싱그러운 과일나라',
+                        black_text_content: '여기는 정말 좋당',
+                        address : '강남',
+                        tag: ['즐거운', '좋은', '재밌는']
+                    }, {
+                        src: 'https://cdn.pixabay.com/photo/2016/03/05/23/02/barbecue-1239434_1280.jpg',
+                        title: '싱그러운 과일나라2',
+                        black_text_content: '여기는 정말 좋당2',
+                        address : '대전',
+                        tag: ['행복한', '여유로운', '슬픈']
+                    }, {
+                        src: 'https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_1280.jpg',
+                        title: '싱그러운 과일나라3',
+                        black_text_content: '몰라아몰랑',
+                        address : '청주',
+                        tag: ['너는', '배고피', '멀캠자취생']
+                    }
+                ],
             }
 
+        },
+        methods: {
+            reserve() {
+                this.loading = true
+                
+                setTimeout(() => (this.loading = false), 2000)
+            },
+            
+        },
+        watch :{
+            selection_card : function(v){
+                console.log(v);
+              
+            }
         }
-    </script>
 
-    <style scoped="scoped">
-        .container > div {
-            padding-top: -20px;
-            padding-top: 3px;
-        }
+    }
+</script>
 
-        .v-card--reveal {
+<style scoped>
+.container > div {
+    padding-top: -20px;
+    padding-top: 3px;
+}
+.v-card--reveal {
             align-items: center;
             bottom: 0;
             justify-content: center;
@@ -163,4 +196,4 @@
             position: absolute;
             width: 100%;
         }
-    </style>
+</style>

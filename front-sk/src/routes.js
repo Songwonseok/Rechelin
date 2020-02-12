@@ -14,8 +14,13 @@ import signUpForm from './views/user/signUpForm.vue';
 import signUpConfirm from './views/user/signUpConfirm.vue';
 import searchPassword from './views/user/searchPw.vue';
 import userSearch from './components/common/userSearch.vue';
+
+
+/**store search **/
 import storeDetail from './views/stores/storeDetail'
 import storeReviews from './views/stores/storeReviews'
+import storeSearch from './views/stores/storeSearch.vue'
+
 import comments from './views/stores/comments'
 
 import reviewPage from './views/review/reviewPage.vue';
@@ -75,7 +80,14 @@ export default [
                 path: 'food',
                 name: 'food',
                 component: sideMenuFood,
-                children: []
+                children: [
+                    {
+                        path : 'storeSearch',
+                        name : 'storeSearch',
+                        component : storeSearch
+                    }
+
+                ]
             },
             {
                 path: 'review',
