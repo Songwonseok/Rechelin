@@ -13,6 +13,7 @@
 	<artifactId>webcuration</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>webcuration</name>
+	<packaging>jar</packaging>
 	<description>Web curation project for Spring Boot</description>
 
 	<properties>
