@@ -87,12 +87,22 @@ const requestAddReview = async(data, callback, errorCallback) => {
         })
 }
 
+const requestFeedList = (data, callback, errorCallback) => {
+    const params = new URLSearchParams();
+    params.append('email', "ssafy@naver.com");
+    Axios.post(URL + '/review/feed', params, auth)
+        .then(response => {
+            callback(response.data.object);
+        }).catch(exp => {
+            errorCallback(exp);
+        })
+}
 
 const ReviewApi = {
     requestMyReviewList: (data, callback, errorCallback) => requestMyReviewList(data, callback, errorCallback),
     requestBookmarkList: (data, callback, errorCallback) => requestBookmarkList(data, callback, errorCallback),
     requestAddReview: (data, callback, errorCallback) => requestAddReview(data, callback, errorCallback),
-
+    requestFeedList: (data, callback, errorCallback) => requestFeedList(data, callback, errorCallback),
 }
 
 export default ReviewApi

@@ -2,8 +2,8 @@ import Axios from "axios"
 import store from "../vuex/store"
 // import Api from "axios.js"
 
-// const URL = 'http://70.12.246.134:8080' // 김주연 ip
-const URL = 'http://70.12.246.51:8080' //  조장님 ip
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
+    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -157,7 +157,7 @@ const requestUserpage = (data, callback, errorCallback) => {
 
 function requestfetchUserList() {
     //return axios.get(config.baseUrl+'news/1.json');
-    return Axios.post(URL + `/account/list`, auth);
+    // return Axios.post(URL + `/account/list`, auth);
 }
 
 

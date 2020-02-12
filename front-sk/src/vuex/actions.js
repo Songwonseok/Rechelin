@@ -3,8 +3,8 @@ import Userapi from '../apis/UserApi.js';
 import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
-// const URL = 'http://70.12.246.134:8080' // 김주연 ip
-const URL = 'http://70.12.246.51:8080' //  조장님 ip
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
+    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -47,7 +47,7 @@ export default {
         SearchApi.requestFetchAdrData({ commit }, address).then(
             response => {
 
-                      
+
 
 
                 var aJsonArray = new Array(); //선택된 데이터만 
@@ -79,7 +79,7 @@ export default {
                 console.log(aJsonArray2); //db에 들어가는것
                 commit('SET_GOOGLEMAP_TOTAL', aJsonArray2);
                 commit('SET_GOOGLEMAP', aJsonArray);
-                
+
             }).catch(error => {
             console.log(error);
         })

@@ -187,13 +187,13 @@ public class ReviewController {
 	}
 
 	@PostMapping("/review/feed")
-	@ApiOperation(value = "피드 최근 리스트 가져오기")
+	@ApiOperation(value = "팔로우한 피드 최근 리스트")
 	public Object getcurrentFeed(@RequestParam String email) {
 		final BasicResponse result = new BasicResponse();
 
 		System.out.println("CONTROLLER" + email);
 		result.status = true;
-		result.data = "유저의 모든 북마크 리스트 조회 성공";
+		result.data = "팔로우한 피드 최근 리스트 가져오기 성공";
 		result.object = service.getcurrentFeed(email);
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
@@ -247,7 +247,7 @@ public class ReviewController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@GetMapping("review/liekTop")
+	@GetMapping("review/likeTop")
 	@ApiOperation(value = "좋아요 높은 리뷰 TOP6 ")
 	public Object getlikeTop() {
 		final BasicResponse result = new BasicResponse();
@@ -265,7 +265,7 @@ public class ReviewController {
 		final BasicResponse result = new BasicResponse();
 
 		result.status = true;
-		result.data = "조회수 높은 리뷰 TOP6 조회 성공";
+		result.data = "평점 높은 리뷰 TOP6 조회 성공";
 		result.object = service.getscoreTop();
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
