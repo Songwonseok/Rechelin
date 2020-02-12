@@ -27,12 +27,12 @@
               <v-chip draggable @click="insertTags('locations', 4, '고속터미널')">고속터미널</v-chip>
               <v-chip draggable @click="insertTags('locations', 5, '가로수길')">가로수길</v-chip>
               <v-chip draggable @click="insertTags('locations', 6, '서래마을')">서래마을</v-chip>
-              <v-chip draggable @click="insertTags('locations', 7, '건대')">건대</v-chip>
 
 
 
               <v-divider></v-divider>
               강북
+              <v-chip draggable @click="insertTags('locations', 7, '건대')">건대</v-chip>
               <v-chip draggable @click="insertTags('locations', 8, '종로')">종로</v-chip>
               <v-chip draggable @click="insertTags('locations', 9, '삼청동')">삼청동</v-chip>
               <v-chip draggable @click="insertTags('locations', 10, '서촌')">서촌</v-chip>
@@ -108,7 +108,7 @@
           </v-carousel>
         </div>
         <!-- 탭부분 -->
-         <v-tabs
+  <v-tabs
     fixed-tabs
     background-color="transparent"
     color="#ff7f00"
@@ -124,7 +124,7 @@
     <v-tab router-link :to="{name: 'review'}" style="color:#ff7f00;">
       리뷰
     </v-tab>
-    <v-tab style="color:#ff7f00;">
+    <v-tab router-link :to="{name: 'feed'}" style="color: #ff7f00">
       피드 페이지(예정)
     </v-tab>
   </v-tabs>
@@ -158,17 +158,20 @@
   // import userSearch from '../../src/components/common/userSearch';
   import UserApi from '../../src/apis/UserApi.js';
   import SearchApi from '../../src/apis/UserApi.js';
-
+  
   export default {
     created() {
       this
         .$store
         .dispatch('LOADING_USERDATA');
+
+
+      this.$router.push({name : "popular"})
     },
     watch : {
-     
     },
     components : {
+     
     },
     data() {
       return {

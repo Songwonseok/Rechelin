@@ -3,7 +3,7 @@
     <b-row class="text-center">
       <b-col>
         <v-card class="mx-auto" max-width="300" tile>
-          <v-list rounded>
+          <v-list rox unded>
             <v-subheader>REPORTS</v-subheader>
             <v-list-item-group color="warning">
               <v-list-item router-link :to="{name: 'login'}">
@@ -56,6 +56,9 @@
   } from '@mdi/js'
   
   export default {
+    created(){
+      this.$store.state.data +=1;
+    },
     data() {
       return {
         userid : sessionStorage.getItem('userid'),

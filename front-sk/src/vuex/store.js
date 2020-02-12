@@ -69,7 +69,7 @@ export default new Vuex.Store({
         reviewsOfstore: null,
         newReturnComment: null,
         reviewInfo: '',
-
+        data : 1,
     },
 
 

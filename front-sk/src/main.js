@@ -29,6 +29,9 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 // Amplify.configure(awsconfig)
 import VueStar from 'vue-star'
 Vue.component('VueStar', VueStar)
+import VueSimpleAlert from "vue-simple-alert";
+
+Vue.use(VueSimpleAlert, { reverseButtons: true });
 
 //강제 업데이트
 

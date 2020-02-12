@@ -7,10 +7,6 @@
       <router-view></router-view>
      </b-container>
      </transition>
-
-
-
-
   </div>
 </template>
 <script>
