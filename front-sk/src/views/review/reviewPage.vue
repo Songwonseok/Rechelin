@@ -487,7 +487,7 @@ export default {
                     this.store_num < 0
                 )
                     this.isSubmit = false //validation 나중ㅇ
-                this.isSubmit = true
+               
                 if (this.isSubmit) {
                     console.log(this.store_num);
                     var data = {
@@ -509,13 +509,14 @@ export default {
                         }
                         console.log(data);
                     StoreApi.requestAddReview(data, res=>{
-
+                         this.$alert("리뷰 등록 되셨습니다.","success","success",);
                         console.log("reviewPage 등록 성공");
                     })
                     console.log('all complete');
 
                 } else {
-                    alert('리뷰를 작성해주세요~~')
+                    this.$alert("리뷰를 작성해주세요.","Warning","warning",);
+                    //alert('리뷰를 작성해주세요~~')
                 }
             },
             clickEvent(recode, index) {
@@ -524,6 +525,7 @@ export default {
             
             /**modal창닫고 table index infomation fetch**/
             this.$bvModal.hide('bv-modal-example_adr');
+            this.$alert("등록 되셨습니다.","success","success",);
             this.store_address = this.$store.state.googleStorePlace[index].address;
             this.store_name = this.$store.state.googleStorePlace[index].sname;   
             this.address="";
