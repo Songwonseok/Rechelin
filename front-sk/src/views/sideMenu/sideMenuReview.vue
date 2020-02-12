@@ -5,11 +5,7 @@
       <v-card class="mx-auto" max-width="300" tile>
           <v-list rox unded>
             <v-subheader>REPORTS</v-subheader>
-<<<<<<< HEAD
-            <v-list-item-group v-model="item" color="primary" >
-=======
             <v-list-item-group  color="primary">
->>>>>>> 1d49eb95088034c2ad83381ecca3beea92afae71
               <v-list-item router-link :to="{name: 'createReview'}">
                 <v-list-item-content>
                   리뷰등록
