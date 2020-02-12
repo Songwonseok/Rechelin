@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -23,10 +27,12 @@ public class Review {
 	
 	@ManyToOne
 	@JoinColumn(name= "store_num")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Store store;
 	
 	@ManyToOne
 	@JoinColumn(name= "user_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User user; 
 	
 	private String str;
@@ -34,9 +40,13 @@ public class Review {
 	private String picture;
 	private String title;
 	private String hashtag;	
+	
+	@ColumnDefault("0") //default 0
 	private int views; //auto 
+	
 	@Column(name = "wdate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private String wdate;	//auto 
+	
 	@Column(name="score_total")
 	private int total;
 	@Column(name="score_taste")
@@ -46,18 +56,14 @@ public class Review {
 	@Column(name="score_kindness")
 	private int kindness;
 	
-//	@Autowired
-//	StoreDao sdao;
-//	@Autowired
-//	UserDao udao;
 	public Review() {
 		
 	}
-	public Review( Store store, User email, String str, String weak, String picture, String title,
+	public Review( Store store, User user, String str, String weak, String picture, String title,
 			String hashtag, int total, int taste, int price, int kindness) {
 		super();
 		this.store = store;
-		this.user = email;
+		this.user = user;
 		this.str = str;
 		this.weak = weak;
 		this.picture = picture;

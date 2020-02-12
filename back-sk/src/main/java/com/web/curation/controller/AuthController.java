@@ -74,7 +74,7 @@ public class AuthController {
 			} else {
 				result.status = true;
 				result.data = "success";
-				result.object = new JwtAuthenticationResponse(jwt,tmp.getEmail(),tmp.getNickname());
+				result.object = new JwtAuthenticationResponse(jwt, tmp.getId(),tmp.getEmail(),tmp.getNickname());
 			}
 		}
 		System.out.println(result.object.toString());
@@ -126,7 +126,7 @@ public class AuthController {
 			String jwt = tokenProvider.generateToken(authentication);
 			
 			
-			return "redirect:http://localhost:3000/#/token?="+ jwt;			
+			return "redirect:http://localhost:3000/token?="+ jwt;			
 		}else {
 			// 로그인 실패
 			return "redirect:http://localhost:3000/#/404";

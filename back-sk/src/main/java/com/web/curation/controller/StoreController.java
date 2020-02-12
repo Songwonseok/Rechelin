@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +43,7 @@ public class StoreController {
 	StoreDao storeDao;
 	@RequestMapping(value="/store/review", method = {RequestMethod.GET, RequestMethod.POST})
 	@ApiOperation(value = "리뷰 식당검색")
-	public Object register(@RequestParam String sname, @RequestParam String address, @RequestParam String img, @RequestParam String lat,
-			@RequestParam String lng) {
-		
-		Store store = new Store(sname, address, img, lat, lng);
+	public Object register(@RequestBody Store store) {
 		System.out.println(store.getSname());
 		System.out.println(store.getAddress());
 		System.out.println(store.getLat());
@@ -117,5 +115,20 @@ public class StoreController {
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	
+	@GetMapping("/store/random/{keyword}")
+	@ApiOperation(value="랜덤 음식 추천")
+	public Object random(@PathVariable(required = true) final String keyword) {
+		final BasicResponse result = new BasicResponse();
+		
+		result.status = true;
+		result.data = "성공";
+		result.object = service.random(keyword);
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+		
+	}
+	
 
 }

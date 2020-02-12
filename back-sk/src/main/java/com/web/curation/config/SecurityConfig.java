@@ -87,23 +87,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt token으로 인증하므로 세션은 필요없으므로 생성안함
                     .and()
                 .authorizeRequests() //다음 리퀘스트에 대한 사용권한 체크
-//                    .antMatchers("/",
-//                        "/favicon.ico",
-//                        "/**/*.png",
-//                        "/**/*.gif",
-//                        "/**/*.svg",
-//                        "/**/*.jpg",
-//                        "/**/*.html",
-//                        "/**/*.css",
-//                        "/**/*.js")
-//                        .permitAll() // 위 경로는 누구나 접근 가능
-//                    .antMatchers("/auth/**") //auth 로 시작하는 경로 누구나 접근가능
-//                        .permitAll()
-//                    .antMatchers("/account/changePW","/main/**,/signUpForm/**","/account/selectName/**")
-//                        .permitAll() // 위 경로 누구나 접근가능
+                    .antMatchers("/",
+                        "/favicon.ico",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.jpg",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js")
+                        .permitAll() // 위 경로는 누구나 접근 가능
+                    .antMatchers("/auth/**") //auth 로 시작하는 경로 누구나 접근가능
+                        .permitAll()
+                    .antMatchers("/account/changePW","/main/**,/signUpForm/**","/account/selectName/**", "/account/selectEmail/**")
+                        .permitAll() // 위 경로 누구나 접근가능
                     .anyRequest()
                     	.permitAll();
-//                        .authenticated(); //그 외 나머지 요청은 모두 인증된 회원만 접근가능
+//                   	.authenticated();//그 외 나머지 요청은 모두 인증된 회원만 접근가능
 
         // Add our custom JWT security filter
         http.addFilterBefore(JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

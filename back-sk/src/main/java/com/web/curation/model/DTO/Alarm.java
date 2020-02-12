@@ -1,6 +1,17 @@
 package com.web.curation.model.DTO;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 @Entity
@@ -12,13 +23,16 @@ public class Alarm {
 	
 	@ManyToOne
 	@JoinColumn(name= "fan")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User fan;
 	
 	@ManyToOne
 	@JoinColumn(name= "star")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User star;
 	
 	@Column(name="checking")
+	@ColumnDefault("0") //default 0
 	private int checking;
 	
 	public Alarm() {}

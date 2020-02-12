@@ -7,17 +7,22 @@ import org.springframework.stereotype.Service;
 
 import com.web.curation.model.DAO.BookmarkDao;
 import com.web.curation.model.DAO.CommentDao;
+import com.web.curation.model.DAO.HashtagDao;
 import com.web.curation.model.DAO.LikecheckDao;
 import com.web.curation.model.DAO.ReviewDao;
 import com.web.curation.model.DAO.StoreDao;
+import com.web.curation.model.DAO.StoreLikeDao;
+import com.web.curation.model.DAO.StoreTagsDao;
 import com.web.curation.model.DAO.UserDao;
 import com.web.curation.model.DTO.Bookmark;
 import com.web.curation.model.DTO.Comments;
+import com.web.curation.model.DTO.Hashtag;
 import com.web.curation.model.DTO.Likecheck;
 import com.web.curation.model.DTO.Review;
 import com.web.curation.model.DTO.Store;
+import com.web.curation.model.DTO.Storetags;
 import com.web.curation.model.DTO.User;
-import com.web.curation.model.querydsl.CustomRepositoryImpl;
+import com.web.curation.model.QueryDSL.CustomRepositoryImpl;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -33,14 +38,39 @@ public class ReviewServiceImpl implements ReviewService {
 	private UserDao userdao;
 	@Autowired
 	private StoreDao storedao;
+	@Autowired
+	private HashtagDao hashdao;
+	@Autowired
+	private StoreLikeDao SLikedao;
+	@Autowired
+	private StoreTagsDao STagsdao;
 	
 	@Autowired
 	private CustomRepositoryImpl custom;
 	
 	@Override
 	public void register(Review review) {
-		review.setViews(0);
 		dao.save(review);
+		
+		// review num 가져오기
+		Review tmp = dao.findTopByStoreAndUserOrderByRnumDesc(review.getStore(), review.getUser());
+		
+		// 1) review.hashtag을 가져와서 hashtag에 일치하는 값 확인
+		String hashtag = review.getHashtag();
+		String[] tagList = hashtag.split(" "); // 해시태그 분리
+		
+		for(int i=0; i<tagList.length; i++) {
+			Hashtag tag = hashdao.findByKeyword(tagList[i]);
+			if(tag ==null) continue; // 없는 태그가 나오면 DB에 추가?
+			
+			System.out.println("********************");
+			System.out.println(tag.toString());
+			Storetags st = new Storetags();
+			st.setHashtag(tag);
+			st.setReview(tmp);
+			// hastag 객체와 review객체를 StoreTags에 저장
+			STagsdao.save(st);
+		}
 	}
 
 	@Override
@@ -175,6 +205,19 @@ public class ReviewServiceImpl implements ReviewService {
 		Store s = storedao.findByNum(store_num);
 		Review rr = new Review(s, u, str, weak, picture, title, hashtag, score_total, score_taste, score_price, score_kindness);
 		dao.save(rr);
+	}
+
+	@Override
+	public List<Review> getMyReview(String email) {
+		User user = userdao.findByEmail(email);
+		List<Review> list = dao.findAllByUser(user);
+		return list;
+	}
+
+	@Override
+	public List<Review> getCurReview() {
+		List<Review> list = dao.findTop30ByOrderByRnumDesc();
+		return list;
 	}
 
 }

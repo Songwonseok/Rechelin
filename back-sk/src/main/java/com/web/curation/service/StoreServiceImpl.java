@@ -1,10 +1,9 @@
 package com.web.curation.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,7 @@ public class StoreServiceImpl implements StoreService {
 	HashtagDao hashTagDao;
 	
 	public Store register(Store request) {
+		System.out.println(request.getSname());
 		Store store = storeDao.findBySnameAndAddress(request.getSname(), request.getAddress());
 		if(store == null) {
 			storeDao.save(request);
@@ -59,52 +59,51 @@ public class StoreServiceImpl implements StoreService {
 	public List<Hashtag> storeTags(long num) {
 		
 		List<Hashtag> list = new ArrayList<>();
-		list.addAll(topThree(storeTagsDao.foodtags(num)));
-		list.addAll(topThree(storeTagsDao.loctags(num)));
-		list.addAll(topThree(storeTagsDao.withtags(num)));
-		list.addAll(topThree(storeTagsDao.moodtags(num)));
-		list.addAll(topThree(storeTagsDao.factags(num)));
+		list.addAll(storeTagsDao.foodtags(num));
+		list.addAll(storeTagsDao.loctags(num));
+		list.addAll(storeTagsDao.withtags(num));
+		list.addAll(storeTagsDao.moodtags(num));
+		list.addAll(storeTagsDao.factags(num));
+		
+		return list;
+	}
+
+	@Override
+	public List<Store> random(String keyword) {
+		// 1) 키워드 찾고
+		Hashtag tag = hashTagDao.findByKeyword(keyword);
+		System.out.println(tag.toString());
+		// 2) 리스트 뽑아오기
+		List<Store> Alllist = storeDao.random(tag.getNum());
+		System.out.println("________________");
+		for (Store store : Alllist) {
+			System.out.println(store);
+		}
+		// 3) 랜덤으로 10개만 가져오기
+		int r, size = Alllist.size(), limit = 10;
+		List<Store> list = new ArrayList<Store>();
+		boolean[] dul = new boolean[size];
+		if(size < limit) limit = size;
+		
+		
+		while(list.size() < limit) {
+			r = (int) (Math.random()*size);
+//			System.out.print(r+" ");
+			if(dul[r]) continue;
+			
+			list.add(Alllist.get(r));
+			dul[r] = true;
+		}
+		
 		
 		return list;
 	}
 	
-	public List<Hashtag> topThree(List<Hashtag> list){
-		List<Hashtag> hlist = new ArrayList<>();
-		HashMap<Long,Integer> map = new HashMap<>();
-		int[][] arr;
-		int index = 0;
-		for(Hashtag h : list) {
-			if(!map.containsKey(h.getNum()))
-				map.put(h.getNum(), index++);
-		}
-		
-		arr = new int[map.size()][2];
-		
-		for(int i=0;i<arr.length;i++) {
-			arr[i][0] = i;
-		}
-		
-		for(Hashtag h : list) {
-			arr[map.get(h.getNum())][0] = (int)h.getNum(); 
-			arr[map.get(h.getNum())][1]++; 
-		}
-		
-		//정렬
-		Arrays.sort(arr, new Comparator<int[]>() {
-			public int compare(int[] o1, int[] o2) {
-				return Integer.compare(o2[1], o1[1]);
-			}
-		});
-		
-		//태그가 3개가 안되는지 체크
-		int n =3;
-		if(map.size() <3) {
-			n = map.size();
-		}
 	
-		for(int i=0;i<n;i++) {
-			hlist.add(hashTagDao.findByNum(arr[i][0]));
-		}
-		return hlist;
-	}
+	
+	
+	
+	
+	
+	
 }
