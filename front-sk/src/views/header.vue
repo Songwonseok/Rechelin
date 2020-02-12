@@ -99,7 +99,7 @@
       },
       mainGo() {
         this.$router.push({
-          name: "popular"
+          name: "/popular"
         })
       },
       notificationGet() {
