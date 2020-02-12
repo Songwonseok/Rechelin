@@ -74,6 +74,16 @@ export default [
                         path: '/signup',
                         name: 'signup',
                         component: signUpForm
+                    },
+                    {
+                        path: '/findPW',
+                        name: 'findPW',
+                        component: searchPassword
+                    },
+                    {
+                        path: '/signupConfirm',
+                        name: 'signupconfirm',
+                        component: signUpConfirm
                     }
                 ]
             },

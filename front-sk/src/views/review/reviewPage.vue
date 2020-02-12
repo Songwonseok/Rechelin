@@ -247,6 +247,7 @@ import StarRating from 'vue-star-rating'
     mdiCamera,
     mdiNoodles
   } from '@mdi/js'
+  
   import {jump} from '../../assets/js/animejs';
 
 

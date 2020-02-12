@@ -8,19 +8,18 @@
     v-slot="{ errors, required, ariaInput, ariaMsg }"
   >
     <input
-      class="w-full py-2 px-3 leading-normal bg-transparent border-b"
-      :class="{ 'border-gray-700': !errors[0], 'border-red-600': errors[0], 'has-value': hasValue }"
       :id="name"
       :type="type"
       :placeholder="placeholder"
       ref="input"
       v-model="innerValue"
       v-bind="ariaInput"
+      style="text-align: center; width:350px;"
     >
-
-    <span class="spa" v-if="propsdata" v-on:click="nameFunction" >인증</span>
-    <span class="spa2" :disabled="propsdata" v-else> 인증 되셨습니다.</span>
-
+  <div id="nickButton">
+    <v-btn color="warning" dark v-if="propsdata" v-on:click="nameFunction" style="width:350px;">중복확인</v-btn>
+    <v-btn color="warning" v-else :disabled="propsdata" dark style="width:350px;">{{CheckBold}}</v-btn>
+</div>
     <p></p>
     <label
       class="absolute block inset-0 w-full px-2 py-2 leading-normal"
@@ -41,7 +40,9 @@
 </template>
 
 <script>
-
+  import {
+   mdiCheckBold
+  } from '@mdi/js'
 import { ValidationProvider } from "vee-validate";
 import UserApi from '../../apis/UserApi';
 export default {
@@ -95,6 +96,9 @@ export default {
   },
   data: () => ({
     innerValue: "",
+    icons: {
+      CheckBold : mdiCheckBold
+    }
   }),
   computed: {
     hasValue() {
@@ -135,11 +139,17 @@ export default {
 
 
 <style lang="scss" scoped>
+#nickButton {
+  margin-top: 15px;
+}
 .TextInput {
   padding-bottom: 18px;
   input {
     z-index: 99999;
     padding-top: 1.4rem;
+    background-color: rgba(2, 2, 2, 0.07);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
 
     &.has-value,
     &:focus {
@@ -179,7 +189,7 @@ export default {
     text-align: center;
 }
 .spa {
-        background-color: aliceblue;
+    background-color: aliceblue;
     border: none;
     color: white;
     padding: 7px 50px;

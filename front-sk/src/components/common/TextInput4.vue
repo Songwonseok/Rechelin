@@ -8,18 +8,21 @@
     v-slot="{ errors, required, ariaInput, ariaMsg }"
   >
     <input
-      class="w-full py-2 px-3 leading-normal bg-transparent border-b"
-      :class="{ 'border-gray-700': !errors[0], 'border-red-600': errors[0], 'has-value': hasValue }"
       :id="name"
       :type="type"
       :placeholder="placeholder"
       ref="input"
       v-model="innerValue"
       v-bind="ariaInput"
+      style="text-align: center; width:350px;"
     >
-    <span class="spa"  v-if="propsdata"  v-on:click="emailFunction">아이디 확인</span>
-    <span class="spa2" v-else :disabled="propsdata" > 확인 되셨습니다.</span>
-    <p></p>
+     <div id="searchEmail">
+    <v-btn color="warning" dark v-if="propsdata" @click="emailFunction" style="width:350px;">이메일확인</v-btn>
+    <v-btn color="warning" v-else :disabled="propsdata" dark style="width:350px;">{{CheckBold}}</v-btn>
+    </div>
+    
+    
+    
     <label
       class="absolute block inset-0 w-full px-2 py-2 leading-normal"
       @click="$refs.input.focus()"
@@ -131,11 +134,18 @@ export default {
 
 
 <style lang="scss" scoped>
+#searchEmail {
+  margin-top: 15px;
+}
 .TextInput {
   padding-bottom: 18px;
   input {
     z-index: 99999;
     padding-top: 1.4rem;
+    background-color: rgba(2, 2, 2, 0.07);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+
 
     &.has-value,
     &:focus {

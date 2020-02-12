@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <Header></Header>
-    <transition name="page">
+
+ <transition name="page">
+   <b-container class="bv-example-row">
       <router-view></router-view>
+     </b-container>
      </transition>
   </div>
 </template>
@@ -99,5 +102,7 @@
 </script>
 
 <style>
-
+.container {
+  max-width: 1500px !important;
+}
 </style>
