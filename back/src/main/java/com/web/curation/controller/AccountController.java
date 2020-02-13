@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
+import com.web.curation.model.DAO.ReviewDao;
+import com.web.curation.model.DTO.Review;
 import com.web.curation.model.DTO.User;
 import com.web.curation.service.AcountService;
 import com.web.curation.service.JwtService;
+import com.web.curation.service.ReviewService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -37,7 +40,9 @@ public class AccountController {
 	@Autowired
 	private AcountService service;
 	
-
+	@Autowired
+	ReviewService serv;
+	
 	@Autowired
 	private JwtService jwtService;
  
@@ -106,7 +111,10 @@ public class AccountController {
 		result.data = "success";
 		List<User> ulist = service.selectAll();
 		result.object = ulist;
-
+		
+		System.out.println("실행!");
+		
+		
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     

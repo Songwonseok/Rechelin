@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
         authenticationManagerBuilder //인증 객체 생성 제공 
                 //스프링 시큐리티 인증용.
-                //userRepository를 통해 영속성으로 저장된 인증정보를 검색한 후 존재하지 않는다면 exception 반환
+                //userDao를 통해 영속성으로 저장된 인증정보를 검색한 후 존재하지 않는다면 exception 반환
                 //있다면 UserDetails 객체 반환
                 .userDetailsService(customUserDetailService) 
                 .passwordEncoder(passwordEncoder()); //패스워드 암호화 구현체
