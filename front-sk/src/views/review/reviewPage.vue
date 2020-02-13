@@ -23,11 +23,13 @@
                                     style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 주소 등록
                                 </v-btn>
                             </span></h4>
-                        <v-text-field v-model="store_name" :rules="nameRules" label="store name" required>
+                        <v-text-field v-model="store_name"  label="store name" required>
+                        <!-- <v-text-field v-model="store_name" :rules="nameRules" label="store name" required> -->
                         </v-text-field>
 
                         <h4>음식점 주소 </h4>
-                        <v-text-field v-model="store_address" :rules="nameRules" label="store address" required>
+                        <v-text-field v-model="store_address" label="store address" required>
+                        <!-- <v-text-field v-model="store_address" :rules="nameRules" label="store address" required> -->
                         </v-text-field>
 
 

@@ -26,6 +26,8 @@
               <p>장점: {{tweet.str}}</p>
               <p>단점: {{tweet.weak}}</p>
             </div>
+            <!-- 해시 태그 리스트 -->
+            
           </div>
         </article>
       </div>
