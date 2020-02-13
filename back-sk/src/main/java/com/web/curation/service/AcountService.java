@@ -13,6 +13,7 @@ public interface AcountService {
 	public List<User> selectAll();
 	public User selectEmail(String email);
 	public User selectName(String nickname);
+	public User selectId(long id);
 	public boolean uploadProfile(String email,String profile);
 	public User getProfile(String email);
 	public String EncodePW(String Pw) ;

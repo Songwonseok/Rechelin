@@ -39,6 +39,8 @@ export default new Vuex.Store({
         
         //스토어 정보
         storeInfo : '',
+        // store hash tag 정보
+        storeHashtags: null,
 
         // 로그인 상태 관리 파트 && 유저 email과 닉네임
         accessToken: sessionStorage.getItem("userToken"),
@@ -77,7 +79,7 @@ export default new Vuex.Store({
         storeList : [
 
         ],
-        storeFlag : 0,
+        directiveStoreDetail : '',
     },
 
 

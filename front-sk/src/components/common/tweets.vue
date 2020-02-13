@@ -6,12 +6,18 @@
           <div class="media-left">
             <figure class="image">
               <!-- TODO : 사진 누르면 프로필 넘어가도록-->
-              <template v-if="tweet.user.profile == null">
-                <img src="../../assets/images/ssafy.jpg" />
-              </template>
-              <template v-else>
-                <img :src="tweet.user.profile">
-              </template>
+               <v-list-item router-link :to="{name: 'userpage', params : {id: 15}}">
+                <v-list-item-content>
+                  <template v-if="tweet.user.profile == null">
+                    <img src="../../assets/images/ssafy.jpg" />
+                  </template>
+                  <template v-else>
+                    <img :src="tweet.user.profile">
+                  </template>
+                </v-list-item-content>
+              </v-list-item>
+              
+              
             </figure>
               <p><small>@{{tweet.user.nickname}}</small></p>
               <p>총점 : {{tweet.total}}</p> 

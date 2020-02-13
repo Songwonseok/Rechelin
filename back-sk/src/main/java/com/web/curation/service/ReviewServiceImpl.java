@@ -60,8 +60,7 @@ public class ReviewServiceImpl implements ReviewService {
 		String[] tagList = hashtag.split(" "); // 해시태그 분리
 		
 		for(int i=0; i<tagList.length; i++) {
-			String s  = "신촌";
-			Hashtag tag = hashdao.findByKeyword(s);
+			Hashtag tag = hashdao.findByKeyword(tagList[i]);
 			List<Hashtag> tt = hashdao.findAll();
 			for (Hashtag hashtag2 : tt) {
 				System.out.println(hashtag2.toString());

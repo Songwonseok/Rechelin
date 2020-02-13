@@ -31,7 +31,8 @@ export default {
   components: {},
   methods: {
     storeDetail() {
-      this.$store.dispatch('storeinfoGet', 1)
+      this.$store.dispatch('storeHashtags', 1)
+      
     }
   }
 };

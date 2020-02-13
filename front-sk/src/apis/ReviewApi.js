@@ -37,7 +37,7 @@ const requestBookmarkList = (data, callback, errorCallback) => {
         })
 }
 const requestAddReview = async(data, callback, errorCallback) => {
-
+    console.log('review add');
     let options = {
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
         url: URL + '/review/register',

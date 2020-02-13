@@ -10,6 +10,14 @@ apply plugin: "org.springframework.boot"
 
 //create a single Jar with all dependencies
 
+apply plugin: 'war'
+war {
+    baseName = 'market2'    
+}
+ 
+dependencies {
+providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+}
 
 
 group = 'com.web.curation'

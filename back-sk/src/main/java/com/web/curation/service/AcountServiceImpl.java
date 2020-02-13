@@ -210,5 +210,11 @@ public class AcountServiceImpl implements AcountService {
 		}else return false;
 	}
 
+	@Override
+	public User selectId(long id) {
+		User user = userDao.findById(id);
+		return user;
+	}
+
 
 }
