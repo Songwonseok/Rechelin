@@ -9,7 +9,7 @@ const auth = {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
     }
 }
-const requestAddPlace = (data, callback, errorCallback) => {
+const requestAddPlace = (data, callback, efrrorCallback) => {
     console.log('requestAddPlace first')
     console.log(data);
     // var params = {

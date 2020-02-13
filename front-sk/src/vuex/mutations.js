@@ -50,6 +50,7 @@ export default {
         sessionStorage.removeItem("userid")
     },
     login(state, payload) {
+        this.state.userid = payload.userid
         this.state.userEmail = payload.useremail
         this.state.userNickname = payload.usernickname
         this.state.accessToken = payload.token
@@ -70,12 +71,13 @@ export default {
         this.state.notifications = payload
     },
     // 스토어 관련
-    storeinfoGet(state, data){
+    storeinfoGet(state, data) {
         this.state.storeInfo = data.resData
-        router.push({name: 'storeDetail', 
-        params: {
-            id: data.id
-        }
+        router.push({
+            name: 'storeDetail',
+            params: {
+                id: data.id
+            }
         })
     },
 

@@ -91,44 +91,42 @@ export default [
                         name: 'signupconfirm',
                         component: signUpConfirm
                     },
+                    {
+                        path: '/userpage/:id',
+                        name: 'userpage',
+                        component: UserPage,
+                        children: [{
+                                path: 'fans',
+                                name: 'fans',
+                                component: Fans
+                            },
+                            {
+                                path: 'stars',
+                                name: 'stars',
+                                component: Stars
+                            },
+                            {
+                                path: 'bookmarks',
+                                name: 'bookmarks',
+                                component: UserReviews
+                            }
+                        ]
+                    },
+                    {
+                        path: 'edit',
+                        name: 'useredit',
+                        component: UserEdit
+                    },
+                    {
+                        path: '/updatepw',
+                        name: 'updatepw',
+                        component: updateNewPw
+                    }
+
 
                 ]
             },
 
-
-            // 음식점 목록, 검색 라우터 children
-            {
-                path: 'userDetail',
-                name: 'userDetail',
-                component: sideMenuUserPage,
-                children: [{ // 유저페이지
-                    path: '/userpage/:id',
-                    name: 'userpage',
-                    component: UserPage,
-                    children: [{
-                            path: 'fans',
-                            name: 'Fans',
-                            component: Fans
-                        },
-                        {
-                            path: 'stars',
-                            name: 'Stars',
-                            component: Stars
-                        },
-                        {
-                            path: 'reviews',
-                            name: 'UserReviews',
-                            component: UserReviews
-                        },
-                        {
-                            path: 'edit',
-                            name: "UserEdit",
-                            component: UserEdit
-                        },
-
-                    ]
-                }]
-            },
             {
                 path: 'food',
                 name: 'food',

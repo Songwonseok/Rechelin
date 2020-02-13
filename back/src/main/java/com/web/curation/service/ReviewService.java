@@ -20,8 +20,6 @@ public interface ReviewService {
 	public boolean clickBookmark(Bookmark book);
 	public List<Bookmark> getBookmark(String email);
 	public List<Review> getcurrentFeed(String email);
-	public void register(long store_num, String user_email, String str, String weak, String picture, String title,
-			String hashtag, int score_total, int score_taste, int score_price, int score_kindness);
 	public List<Review> getMyReview(String email);
 	public List<Review> getCurReview();
 	public List<Review> getviewsTop();

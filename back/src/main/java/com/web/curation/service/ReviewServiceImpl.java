@@ -48,13 +48,15 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private CustomRepositoryImpl custom;
 	
+	
+	
 	@Override
 	public void register(Review review) {
 		dao.save(review);
 		
 		// review num 가져오기
 		Review tmp = dao.findTopByStoreAndUserOrderByRnumDesc(review.getStore(), review.getUser());
-		
+		System.out.println(tmp.getRnum());
 		// 1) review.hashtag을 가져와서 hashtag에 일치하는 값 확인
 		String hashtag = review.getHashtag();
 		String[] tagList = hashtag.split(" "); // 해시태그 분리
@@ -198,14 +200,6 @@ public class ReviewServiceImpl implements ReviewService {
 		return list;
 	}
 
-	@Override
-	public void register(long store_num, String user_email, String str, String weak, String picture, String title,
-			String hashtag, int score_total, int score_taste, int score_price, int score_kindness) {
-		User u = userdao.findByEmail(user_email);
-		Store s = storedao.findByNum(store_num);
-		Review rr = new Review(s, u, str, weak, picture, title, hashtag, score_total, score_taste, score_price, score_kindness);
-		dao.save(rr);
-	}
 
 	@Override
 	public List<Review> getMyReview(String email) {
@@ -238,4 +232,5 @@ public class ReviewServiceImpl implements ReviewService {
 		List<Review> list = dao.findTop6ByOrderByTotalDesc();
 		return list;
 	}
+
 }
