@@ -112,18 +112,27 @@
           </div>
           <!-- 탭부분 -->
           <v-tabs fixed-tabs="fixed-tabs" background-color="transparent" color="#ff7f00">
-            <v-tab router-link="router-link" :to="{name: 'user'}" style="color: #ff7f00;">
-              유저페이지
-            </v-tab>
-            <v-tab router-link="router-link" :to="{name: 'food'}" style="color: #ff7f00;">
+            <template v-if="userid==null">
+              <v-tab router-link="router-link" :to="{name: 'user'}"  style="color: #ff7f00;">
+                로그인
+              </v-tab>
+           </template>
+           <template v-else>
+              <v-tab @click="valid('userDetail')"  style="color: #ff7f00;">
+                  유저페이지
+              </v-tab>
+            </template>
+
+            <v-tab @click="valid('food')" style="color: #ff7f00;">
               음식점
             </v-tab>
-            <v-tab router-link="router-link" :to="{name: 'review'}" style="color: #ff7f00;">
+            <v-tab @click="valid('review')" style="color: #ff7f00;">
               리뷰
             </v-tab>
-            <v-tab style="color: #ff7f00;">
+            <v-tab @click="valid('feed')" style="color: #ff7f00;">
               피드 페이지(예정)
             </v-tab>
+
           </v-tabs>
 
           <div>
@@ -222,6 +231,9 @@
       Stores() {
         return this.tempStores
       },
+       userid(){
+        return this.$store.state.accessToken
+      },
       storeList(){
             return this.$store.state.storeList
       },
@@ -231,6 +243,20 @@
        Loading
     },
     methods: {
+      valid(name){
+        // session에 값이 있는지 확인해서 있으면 탭 이동
+        let accessToken = sessionStorage.getItem("userToken");
+        console.log('유효한지판단!!!!!!!')
+        console.log(accessToken);
+
+        if(accessToken!=null){
+          this.$router.push({name : name});  
+        }else{
+          this.$alert('로그인 하세요 !',"warning","warning")
+           this.$router.push('/login');  
+        }
+
+      },
       reserve() {
         this.loading = true
 
