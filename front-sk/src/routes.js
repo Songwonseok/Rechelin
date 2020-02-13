@@ -55,18 +55,14 @@ export default [
         path: '/',
         name: 'main',
         component: Main,
-<<<<<<< HEAD
-        children: [{
-=======
         children: [
             // main page 첫 화면
             {
->>>>>>> 1c0a1ba7574c929290eddc2d273f06cb24022985
                 path: 'popular',
                 name: 'popular',
                 component: bestReviewList,
             },
-            
+
 
             // user 탭
             {
@@ -97,8 +93,7 @@ export default [
                         path: '/userpage/:id',
                         name: 'userpage',
                         component: UserPage,
-                        children: [
-                            {
+                        children: [{
                                 path: 'fans',
                                 name: 'fans',
                                 component: Fans
@@ -115,12 +110,12 @@ export default [
                             }
                         ]
                     }
-                    
+
 
                 ]
             },
-            
-            
+
+
             // 음식점 목록, 검색 라우터 children
             {
                 path: 'userDetail',
@@ -158,18 +153,10 @@ export default [
                 path: 'food',
                 name: 'food',
                 component: sideMenuFood,
-<<<<<<< HEAD
                 children: [{
-                        path: 'storeSearch',
+                        path: '/storesearch',
                         name: 'storeSearch',
                         component: storeSearch
-=======
-                children: [
-                    {
-                        path : '/storesearch',
-                        name : 'storeSearch',
-                        component : storeSearch
->>>>>>> 1c0a1ba7574c929290eddc2d273f06cb24022985
                     },
                     {
                         path: '/random',
@@ -180,8 +167,7 @@ export default [
                         path: '/storedetail/:id',
                         name: 'storeDetail',
                         component: storeDetail,
-                        children: [
-                            {
+                        children: [{
                                 path: 'reviews',
                                 name: 'storeReviews',
                                 component: storeReviews
@@ -191,13 +177,13 @@ export default [
                                 name: 'comments',
                                 component: comments
                             },
-                            
+
                         ]
                     }
 
                 ]
             },
-            
+
 
             // review router children
             {
@@ -211,7 +197,7 @@ export default [
                 }]
             },
 
-            
+
             // feed router children
             {
                 path: 'feed',
@@ -223,13 +209,6 @@ export default [
                     component: userFeed
                 }]
             },
-<<<<<<< HEAD
-        ]
-
-    },
-
-
-=======
 
         ]
 
@@ -239,7 +218,6 @@ export default [
         name: "UserEdit",
         component: UserEdit
     },
->>>>>>> 1c0a1ba7574c929290eddc2d273f06cb24022985
     {
         path: '/signUpConfirm',
         name: 'signUpConfirm',

@@ -192,10 +192,7 @@
       return {
         loading: false,
         selection: 1,
-<<<<<<< HEAD
-=======
         searchBtnActive: false,
->>>>>>> 1c0a1ba7574c929290eddc2d273f06cb24022985
         newSearch: [],
         openSearch: false,
         value: ['apple', 'orange'],
@@ -337,10 +334,6 @@
         console.log(accessToken);
 
         if(accessToken!=null){
-<<<<<<< HEAD
-          console.log(name);
-=======
->>>>>>> 1c0a1ba7574c929290eddc2d273f06cb24022985
           this.$router.push({name : name});  
         }else{
           this.$alert('로그인 하세요 !',"warning","warning")
