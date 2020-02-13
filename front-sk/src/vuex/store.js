@@ -73,7 +73,11 @@ export default new Vuex.Store({
         reviewsOfstore: null,
         newReturnComment: null,
         reviewInfo: '',
-        data: 1,
+        data : 1,
+        storeList : [
+
+        ],
+        storeFlag : 0,
     },
 
 
