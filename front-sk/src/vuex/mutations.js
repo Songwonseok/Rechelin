@@ -81,8 +81,9 @@ export default {
         })
     },
 
-    tagsGet(state, payload) {
-
+    storeHashtags(state, hashtags) {
+        this.state.storeHashtags = hashtags
+       
     },
     // 리뷰의 댓글관련
     commentsOfreview(state, payload) {

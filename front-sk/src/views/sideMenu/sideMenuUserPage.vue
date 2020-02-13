@@ -50,7 +50,6 @@
     },
     data() {
       return {
-        userid : sessionStorage.getItem('userid'),
         // icons
         mdiLogin,
         mdiAccountPlus,
@@ -59,6 +58,11 @@
         mdiKey
       }
     },
+    methods: {
+      userid() {
+        return sessionStorage.getItem('userid')
+      }
+    }
   }
 </script>
 <style>
