@@ -6,7 +6,7 @@
           <v-list rox unded>
             <v-subheader>REPORTS</v-subheader>
             <v-list-item-group color="warning">
-              <template v-if="userid==null">
+              <template v-if=" userToken==null">
                 <v-list-item router-link :to="{name: 'login'}">
                 <v-list-item-content>
                   <span><v-icon>{{mdiLogin}}</v-icon>로그인</span>
@@ -81,9 +81,12 @@
       }
     },
     computed: {
-      userid(){
+      userToken(){
         return this.$store.state.accessToken
       },
+      userid(){
+        return this.$store.state.userid
+      }
     }
   }
 </script>
