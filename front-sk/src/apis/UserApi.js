@@ -4,8 +4,8 @@ import router from '../main.js';
 
 // import Api from "axios.js"
 // const URL = "http://54.180.160.87:8080" //aws
- const URL = 'http://70.12.246.134:8080' // 김주연 ip
- //const URL = 'http://54.180.160.87:8080'  //new DB ip
+ //const URL = 'http://70.12.246.134:8080' // 김주연 ip
+ const URL = 'http://54.180.160.87:8080'  //new DB ip
 //const URL = 'http://70.12.246.51:8080' //  조장님 ip
 const auth = {
     headers: {
