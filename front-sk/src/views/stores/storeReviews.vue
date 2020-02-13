@@ -8,7 +8,7 @@
                 <v-card id="reviews" class="mx-auto" max-width="600" outlined>
                     <v-list-item three-line>
                         <v-list-item-content>
-
+<!-- 
                             <div class="overline mb-4">{{review.store.sname}}</div>
                             <v-list-item-title class="headline mb-1">  {{review.title}}</v-list-item-title>
                             <div  v-if ="review.picture === null  || reveiw.picture ===''">
@@ -16,7 +16,7 @@
                             </div>
                             <div v-else>
                                 <img :src="review.picture" style="height: 300px">   
-                            </div>
+                            </div> -->
 
                              글쓴이: {{review.user.nickname}}
                              <br>총점 {{review.total}}
@@ -138,7 +138,7 @@
 
         },
         mounted() {
-            this.reviewsScroll();
+            // this.reviewsScroll();
             for (let n = 0; n < this.allReviews.length; n++) {
                 this.visible.push(false)
             }

@@ -71,7 +71,14 @@ export default {
     },
     // 스토어 관련
     storeinfoGet(state, payload) {
-        this.state.dining = payload
+        this.state.storeInfo = payload
+        console.log(payload)
+        router.push({
+            name: 'storeDetail',
+            params: {
+                id: payload
+            }
+        })
     },
 
     tagsGet(state, payload) {

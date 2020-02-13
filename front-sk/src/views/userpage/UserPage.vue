@@ -43,11 +43,11 @@
         }}"  @click="userReviews" ><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
           </li>
           <li>
-            <router-link :to="{name:'Fans', params: { fans : this.fanList}}">
+            <router-link :to="{name:'fans', params: { fans : this.fanList}}">
               <strong>{{fanList.length}}</strong><span>Followers</span></router-link>
           </li>
           <li>
-            <router-link :to="{name: 'Stars', params: { stars: this.starList}}"><strong>
+            <router-link :to="{name: 'stars', params: { stars: this.starList}}"><strong>
                 {{starList.length}}</strong><span>Following</span></router-link>
           </li>
         </ul> 
@@ -185,7 +185,7 @@
       // this.$store.dispatch('userStars', this.$route.params.id)
       // // console.log(this.userInfo)
       // this.$router.push({
-      //   name: 'UserReviews',
+      //   name: 'bookmarks',
       //   params: {
       //     bookmarks: this.UserInfo.stores,
       //     reviews: this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들

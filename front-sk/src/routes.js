@@ -55,11 +55,20 @@ export default [
         path: '/',
         name: 'main',
         component: Main,
+<<<<<<< HEAD
         children: [{
+=======
+        children: [
+            // main page 첫 화면
+            {
+>>>>>>> 1c0a1ba7574c929290eddc2d273f06cb24022985
                 path: 'popular',
                 name: 'popular',
                 component: bestReviewList,
             },
+            
+
+            // user 탭
             {
                 path: 'user',
                 name: 'user',
@@ -75,17 +84,44 @@ export default [
                         component: signUpForm
                     },
                     {
-                        path: '/findPW',
+                        path: '/findpw',
                         name: 'findPW',
                         component: searchPassword
                     },
                     {
-                        path: '/signupConfirm',
+                        path: '/signupconfirm',
                         name: 'signupconfirm',
                         component: signUpConfirm
+                    },
+                    {
+                        path: '/userpage/:id',
+                        name: 'userpage',
+                        component: UserPage,
+                        children: [
+                            {
+                                path: 'fans',
+                                name: 'fans',
+                                component: Fans
+                            },
+                            {
+                                path: 'stars',
+                                name: 'stars',
+                                component: Stars
+                            },
+                            {
+                                path: 'bookmarks',
+                                name: 'bookmarks',
+                                component: UserReviews
+                            }
+                        ]
                     }
+                    
+
                 ]
             },
+            
+            
+            // 음식점 목록, 검색 라우터 children
             {
                 path: 'userDetail',
                 name: 'userDetail',
@@ -122,19 +158,48 @@ export default [
                 path: 'food',
                 name: 'food',
                 component: sideMenuFood,
+<<<<<<< HEAD
                 children: [{
                         path: 'storeSearch',
                         name: 'storeSearch',
                         component: storeSearch
+=======
+                children: [
+                    {
+                        path : '/storesearch',
+                        name : 'storeSearch',
+                        component : storeSearch
+>>>>>>> 1c0a1ba7574c929290eddc2d273f06cb24022985
                     },
                     {
-                        path: 'random',
+                        path: '/random',
                         name: 'random',
                         component: random
+                    },
+                    {
+                        path: '/storedetail/:id',
+                        name: 'storeDetail',
+                        component: storeDetail,
+                        children: [
+                            {
+                                path: 'reviews',
+                                name: 'storeReviews',
+                                component: storeReviews
+                            },
+                            {
+                                path: 'comments',
+                                name: 'comments',
+                                component: comments
+                            },
+                            
+                        ]
                     }
 
                 ]
             },
+            
+
+            // review router children
             {
                 path: 'review',
                 name: 'review',
@@ -145,6 +210,9 @@ export default [
                     component: reviewPage
                 }]
             },
+
+            
+            // feed router children
             {
                 path: 'feed',
                 name: 'feed',
@@ -155,27 +223,23 @@ export default [
                     component: userFeed
                 }]
             },
+<<<<<<< HEAD
         ]
 
     },
 
 
-    {
-        path: '/components',
-        name: 'Components',
-        component: Components
-    },
-    {
-        path: '/main',
-        name: 'Main',
-        component: Main,
+=======
+
+        ]
 
     },
     {
-        path: '/signUpForm',
-        name: 'signUpForm',
-        component: signUpForm,
+        path: '/userpage/edit',
+        name: "UserEdit",
+        component: UserEdit
     },
+>>>>>>> 1c0a1ba7574c929290eddc2d273f06cb24022985
     {
         path: '/signUpConfirm',
         name: 'signUpConfirm',
@@ -190,23 +254,6 @@ export default [
         path: '/userSearch',
         name: 'userSearch',
         component: userSearch,
-    },
-    { // 음식점 상세페이지
-        path: '/storeDetail/:id',
-        name: 'storeDetail',
-        component: storeDetail,
-        children: [{
-                path: 'reviews',
-                name: 'reviewsOfstore',
-                component: storeReviews,
-
-            },
-            {
-                path: '/comments',
-                name: 'comments',
-                component: comments
-            },
-        ]
     },
 
     {
