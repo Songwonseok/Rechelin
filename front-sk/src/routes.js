@@ -91,11 +91,6 @@ export default [
                         name: 'signupconfirm',
                         component: signUpConfirm
                     },
-<<<<<<< HEAD
-                    
-
-=======
->>>>>>> 88bbe4afbeead6a180a5b70c66ce381d614aa885
 
                 ]
             },
