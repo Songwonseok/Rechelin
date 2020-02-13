@@ -137,6 +137,8 @@
         })
       }
       ,getUser(){
+        console.log('<<<<<<<<<<<<<<<<<<<<<<<<')
+        console.log(this.uid)
           UserApi.requestId( this.id,res=>{
             console.log("****")
             console.log(res)
