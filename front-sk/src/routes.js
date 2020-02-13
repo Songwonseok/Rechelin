@@ -91,38 +91,6 @@ export default [
                         name: 'signupconfirm',
                         component: signUpConfirm
                     },
-                    {
-                        path: '/userpage/:id',
-                        name: 'userpage',
-                        component: UserPage,
-                        children: [{
-                                path: 'fans',
-                                name: 'fans',
-                                component: Fans
-                            },
-                            {
-                                path: 'stars',
-                                name: 'stars',
-                                component: Stars
-                            },
-                            {
-                                path: 'bookmarks',
-                                name: 'bookmarks',
-                                component: UserReviews
-                            }
-                        ] 
-                    },
-                    {
-                        path: 'edit',
-                        name: 'useredit',
-                        component: UserEdit
-                    },
-                    {
-                        path: '/updatepw',
-                        name: 'updatepw',
-                        component: updateNewPw
-                    }
-
 
                 ]
             },
@@ -171,9 +139,9 @@ export default [
                         component: storeSearch
                     },
                     {
-                        path : '/storesearchN',
-                        name : 'storeSearchN',
-                        component : storeSearchN,
+                        path: '/storesearchN',
+                        name: 'storeSearchN',
+                        component: storeSearchN,
                     },
                     {
                         path: '/random',
