@@ -201,6 +201,7 @@
           outlined
           :counter="20"
           rows="3"
+          v-model = "props"
           row-height="30"
           shaped
         ></v-textarea>
@@ -213,6 +214,7 @@
           label="단점 20자 이내"
           auto-grow
           outlined
+          v-model = "cons"
           :counter="20"
           rows="3"
           row-height="30"
@@ -260,14 +262,14 @@ export default {
     created() {
 
       this.titleSchema
-         .is().min(10)
-         .is().max(100)
+         .is().min(0)
+         .is().max(10)
       
       this.propsSchema
-         .is().min(10)
+         .is().min(0)
          .is().max(20)
       this.consSchema
-         .is().min(10)
+         .is().min(0)
          .is().max(20)
       this.getProfile();
       
@@ -487,11 +489,7 @@ export default {
                     this.props + " " + this.flavor + " " + this.price + " " + this.kindness +
                     this.reviewTitle + " " + this.store_num)
 
-                if (hashtag.length < 0 || this.rating < 0 || this.flavor < 0 || this.price < 0 || this.kindness < 0 ||
-                    this.store_num < 0
-                )
-                    
-               this.isSubmit = true;
+               
                 if (this.isSubmit) {
                     console.log(this.store_num);
                     var data = {
@@ -514,7 +512,11 @@ export default {
                         console.log(data);
                     ReviewApi.requestAddReview(data, res=>{
                          this.$alert("리뷰 등록 되셨습니다.","success","success",);
+                        
                         console.log("reviewPage 등록 성공");
+                    
+                        this.$store.state.directiveStoreDetail = this.store_num;
+                        this.$router.push({name : "storeDetail", params : {id  : this.store_num}})
                     })
                     console.log('all complete');
 
@@ -540,11 +542,12 @@ export default {
             
 
                  StoreApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
-                 this.store_num = res.data.object.num;
-                 this.store_pic = res.data.object.img;
-                 console.log('res 위');
-                 console.log(res);
-                 
+                    
+                    this.store_num = res.data.object.num;
+                    this.store_pic = res.data.object.img;
+                    console.log('res 위');
+                    console.log(res);
+
               
                  })
             },
