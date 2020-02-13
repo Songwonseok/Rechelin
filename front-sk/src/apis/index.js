@@ -1,8 +1,8 @@
 import axios from 'axios';
-
+const URL = "http://54.180.160.87:8080" //aws
 function requestfetchUserList(){
     //return axios.get(config.baseUrl+'news/1.json');
-    return axios.get(`http://70.12.246.51:8080/account/list`);
+    return axios.get(URL+`/account/list`);
 }
 
 export {
