@@ -3,9 +3,9 @@ import Userapi from '../apis/UserApi.js';
 import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
-// const URL = 'http://70.12.246.134:8080' // 김주연 ip
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
 // const URL = 'http://70.12.246.51:8080' //  조장님 ip
-const URL = "http://54.180.160.87:8080" // aws
+// const URL = "http://54.180.160.87:8080" // aws
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
