@@ -4,9 +4,9 @@ import router from '../main.js';
 
 // import Api from "axios.js"
 // const URL = "http://54.180.160.87:8080" //aws
-const URL = 'http://70.12.246.134:8080' // 김주연 ip
-    //const URL = 'http://54.180.160.87:8080'  //new DB ip
-    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
+ //const URL = 'http://70.12.246.134:8080' // 김주연 ip
+ const URL = 'http://54.180.160.87:8080'  //new DB ip
+//const URL = 'http://70.12.246.51:8080' //  조장님 ip
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -223,6 +223,20 @@ const requestUpdatePw = async(data, callback, errorCallback) => {
         })
 }
 
+const requestId = async(data, callback, errorCallback) => {
+    const params = new URLSearchParams();
+    params.append('id', data);
+
+    Axios.post(URL + '/account/selectId', params)
+        .then(response => {
+            callback(response.data);
+            console.log('성공')
+        }).catch(exp => {
+            errorCallback(exp);
+            console.log('실패')
+        })
+}
+
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestEdit: (data, callback, errorCallback) => requestEdit(data, callback, errorCallback),
@@ -234,6 +248,7 @@ const UserApi = {
     requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
     requestUpdatePw: (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
+    requestId: (data, callback, errorCallback) => requestId(data, callback, errorCallback),
 
 }
 

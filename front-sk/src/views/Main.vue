@@ -122,13 +122,13 @@
             </v-tab>
           
 
-            <v-tab @click="valid('food')" style="color: #ff7f00;">
+            <v-tab @click="valid('random')" style="color: #ff7f00;">
               음식점
             </v-tab>
-            <v-tab @click="valid('review')" style="color: #ff7f00;">
+            <v-tab @click="valid('createReview')" style="color: #ff7f00;">
               리뷰
             </v-tab>
-            <v-tab @click="valid('feed')" style="color: #ff7f00;">
+            <v-tab @click="valid('userFeed')" style="color: #ff7f00;">
               피드 페이지(예정)
             </v-tab>
 

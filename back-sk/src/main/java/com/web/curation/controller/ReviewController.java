@@ -48,7 +48,7 @@ public class ReviewController {
 		
 		result.status = true;
 		result.data = "리뷰 등록 성공";
-		result.object = null;
+		result.object = review;
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}

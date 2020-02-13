@@ -79,7 +79,7 @@ export default new Vuex.Store({
         storeList : [
 
         ],
-        storeFlag : 0,
+        directiveStoreDetail : '',
     },
 
 

@@ -201,6 +201,7 @@
           outlined
           :counter="20"
           rows="3"
+          v-model = "props"
           row-height="30"
           shaped
         ></v-textarea>
@@ -213,6 +214,7 @@
           label="단점 20자 이내"
           auto-grow
           outlined
+          v-model = "cons"
           :counter="20"
           rows="3"
           row-height="30"
@@ -240,7 +242,8 @@
 <script>
 
 import UserApi from '../../apis/UserApi'
-import StoreApi from '../../apis/UserApi'
+import StoreApi from '../../apis/StoreApi'
+import ReviewApi from '../../apis/ReviewApi'
 import PV from 'password-validator'
 import ImgurApi from '../../apis/ImgurApi'
 import StarRating from 'vue-star-rating'
@@ -259,14 +262,14 @@ export default {
     created() {
 
       this.titleSchema
-         .is().min(10)
-         .is().max(100)
+         .is().min(0)
+         .is().max(10)
       
       this.propsSchema
-         .is().min(10)
+         .is().min(0)
          .is().max(20)
       this.consSchema
-         .is().min(10)
+         .is().min(0)
          .is().max(20)
       this.getProfile();
       
@@ -472,7 +475,7 @@ export default {
                 // else this.eye = false
 
                 //값 init
-                // this.map = this.$store.state.googleStorePlaceView
+                this.map = this.$store.state.googleStorePlaceView
                
 
                 console.log(this.$store.state.googleStorePlace);
@@ -486,10 +489,6 @@ export default {
                     this.props + " " + this.flavor + " " + this.price + " " + this.kindness +
                     this.reviewTitle + " " + this.store_num)
 
-                if (hashtag.length < 0 || this.rating < 0 || this.flavor < 0 || this.price < 0 || this.kindness < 0 ||
-                    this.store_num < 0
-                )
-                    this.isSubmit = false //validation 나중ㅇ
                
                 if (this.isSubmit) {
                     console.log(this.store_num);
@@ -511,9 +510,13 @@ export default {
                         'weak' : this.cons,
                         }
                         console.log(data);
-                    StoreApi.requestAddReview(data, res=>{
+                    ReviewApi.requestAddReview(data, res=>{
                          this.$alert("리뷰 등록 되셨습니다.","success","success",);
+                        
                         console.log("reviewPage 등록 성공");
+                    
+                        this.$store.state.directiveStoreDetail = this.store_num;
+                        this.$router.push({name : "storeDetail", params : {id  : this.store_num}})
                     })
                     console.log('all complete');
 
@@ -539,11 +542,12 @@ export default {
             
 
                  StoreApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
-                 this.store_num = res.data.object.num;
-                 this.store_pic = res.data.object.img;
-                 console.log('res 위');
-                 console.log(res);
-                 
+                    
+                    this.store_num = res.data.object.num;
+                    this.store_pic = res.data.object.img;
+                    console.log('res 위');
+                    console.log(res);
+
               
                  })
             },
@@ -594,7 +598,7 @@ export default {
             maps: [],
             address: '',
             eye: false,
-            isSubmit: '', //form 완료시 toggle
+            isSubmit: true, //form 완료시 toggle
             reviewTitle: '',
             store_num: '',
             user_email: 'ssafy@ssafy.com', //temp
