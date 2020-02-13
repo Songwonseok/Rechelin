@@ -1,0 +1,97 @@
+plugins {
+	//id 'org.springframework.boot' version '2.2.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+  id "org.springframework.boot" version "2.2.4.RELEASE"
+}
+
+apply plugin: "org.springframework.boot"
+
+//create a single Jar with all dependencies
+
+
+
+group = 'com.web.curation'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+implementation 'commons-io:commons-io:2.6'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.2.2.RELEASE'
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.6.1'
+    implementation 'org.json:json:20180813'
+    implementation 'org.projectlombok:lombok:1.18.10'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.2.2.RELEASE'
+    implementation 'ch.qos.logback:logback-core:1.2.3'
+    implementation 'com.fasterxml:classmate:1.5.1'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'com.github.scribejava:scribejava-core:2.8.1'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.auth0:java-jwt:3.4.0'
+    implementation 'org.javassist:javassist:3.23.1-GA'
+    implementation 'org.springframework.security:spring-security-config:5.0.6.RELEASE'
+    implementation 'io.jsonwebtoken:jjwt:0.9.0'
+    
+//
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile("com.querydsl:querydsl-jpa") // querydsl
+    compile("com.querydsl:querydsl-apt") // querydsl
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+
+def querydslSrcDir = 'src/main/generated'
+
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    jpa = true
+    querydslSourcesDir = querydslSrcDir
+}
+
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', querydslSrcDir]
+        }
+    }
+}
+
+
+
+
+test {
+	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+
