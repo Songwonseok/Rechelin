@@ -12,6 +12,10 @@
               <v-list-item router-link :to="{name: 'random'}">
                 <v-list-item-content >랜덤음식추천</v-list-item-content>
               </v-list-item>
+                <v-list-item @click="storeDetail">
+                <v-list-item-content >음식점 상세페이지(임시)</v-list-item-content>
+              </v-list-item>
+              
             </v-list-item-group>
           </v-list>
         </v-card>
@@ -24,7 +28,12 @@
 </template>
 <script>
 export default {
-  components: {}
+  components: {},
+  methods: {
+    storeDetail() {
+      this.$store.dispatch('storeinfoGet', 1)
+    }
+  }
 };
 </script>
 <style>

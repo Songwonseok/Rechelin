@@ -24,4 +24,8 @@ public interface ReviewService {
 			String hashtag, int score_total, int score_taste, int score_price, int score_kindness);
 	public List<Review> getMyReview(String email);
 	public List<Review> getCurReview();
+	public List<Review> getviewsTop();
+	public List<Review> getlikeTop();
+	public List<Review> getscoreTop();
+	
 }

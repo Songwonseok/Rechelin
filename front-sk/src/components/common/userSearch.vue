@@ -32,9 +32,9 @@
 import SearchApi from '../../apis/SearchApi';
 export default {
     created() {
-        this
-            .$store
-            .dispatch('LOADING_USERDATA');
+        // this
+        //     .$store
+        //     .dispatch('LOADING_USERDATA');
 
          //this.$store.dispatch('LOADING_RECENTUSERDATA', 유저 email);
     },

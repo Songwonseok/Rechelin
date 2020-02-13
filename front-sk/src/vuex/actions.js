@@ -3,8 +3,9 @@ import Userapi from '../apis/UserApi.js';
 import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
-// const URL = 'http://70.12.246.134:8080' // 김주연 ip
-const URL = 'http://70.12.246.51:8080' //  조장님 ip
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
+// const URL = 'http://70.12.246.51:8080' //  조장님 ip
+// const URL = "http://54.180.160.87:8080" // aws
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -46,10 +47,6 @@ export default {
     FETCH_ADR({ commit }, address) { //google 에서부터 음식점 주소를 FETCH 해옴
         SearchApi.requestFetchAdrData({ commit }, address).then(
             response => {
-
-                      
-
-
                 var aJsonArray = new Array(); //선택된 데이터만 
 
                 var aJsonArray2 = new Array(); //전체 데이터 
@@ -79,7 +76,7 @@ export default {
                 console.log(aJsonArray2); //db에 들어가는것
                 commit('SET_GOOGLEMAP_TOTAL', aJsonArray2);
                 commit('SET_GOOGLEMAP', aJsonArray);
-                
+
             }).catch(error => {
             console.log(error);
         })
@@ -190,12 +187,14 @@ export default {
     },
     storeinfoGet({ commit }, payload) {
         const params = new URLSearchParams();
-        params.append('id', payload.id)
+        console.log(payload)
+        params.append('num', payload)
         Axios.post(URL + '/store/selectOne', params, auth)
             .then(res => {
                 console.log('요청 성공')
                 console.log(res.data.object, '=========================')
                 commit('storeinfoGet', res.data.object)
+                
             }).catch(exp => {
                 console.log('실패')
             })
@@ -231,7 +230,7 @@ export default {
                 commit('reviewsGet', res.data.object);
                 console.log(res, '??????')
                 router.push({
-                    name: 'reviewsOfstore',
+                    name: 'storeReviews',
                     params: {
                         reviews: res.data.object
                     }

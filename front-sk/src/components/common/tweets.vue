@@ -5,13 +5,26 @@
         <article class="media">
           <div class="media-left">
             <figure class="image">
-              <img :src="tweet.img">
+              <!-- TODO : 사진 누르면 프로필 넘어가도록-->
+              <template v-if="tweet.user.profile == null">
+                <img src="../../assets/images/ssafy.jpg" />
+              </template>
+              <template v-else>
+                <img :src="tweet.user.profile">
+              </template>
             </figure>
+              <p><small>@{{tweet.user.nickname}}</small></p>
+              <p>총점 : {{tweet.total}}</p> 
+              <p>맛 : {{tweet.taste}}</p>
+              <p>가격 : {{tweet.price}}</p>
+              <p>친절함 : {{tweet.kindness}}</p>
+               
           </div>
           <div class="media-content">
             <div class="content">
-              <p><strong>{{tweet.name}}</strong> <small>{{tweet.handle}}</small></p>
-              <p>{{tweet.tweet}}</p>
+              <p><strong>{{tweet.title}}</strong></p>
+              <p>장점: {{tweet.str}}</p>
+              <p>단점: {{tweet.weak}}</p>
             </div>
           </div>
         </article>
@@ -23,7 +36,7 @@
 export default {
     data(){
         return {
-        //  user_type : 'all',
+          tagList:[]
         }
     },
      props: {

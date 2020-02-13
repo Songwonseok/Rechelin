@@ -35,12 +35,16 @@ export default new Vuex.Store({
         confirmation: '',
         randomNumber: '',
         isUser: false,
-
+        
+        
+        //스토어 정보
+        storeInfo : '',
 
         // 로그인 상태 관리 파트 && 유저 email과 닉네임
         accessToken: sessionStorage.getItem("userToken"),
         userEmail: sessionStorage.getItem("userEmail"),
         userNickname: sessionStorage.getItem("userNickname"),
+        userid: sessionStorage.getItem("userid"),
         // 유저페이지에서 갈때 정보
         userPageInfo: {
             nickname: '',
@@ -69,7 +73,7 @@ export default new Vuex.Store({
         reviewsOfstore: null,
         newReturnComment: null,
         reviewInfo: '',
-        data : 1,
+        data: 1,
     },
 
 
