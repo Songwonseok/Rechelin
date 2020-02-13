@@ -70,14 +70,12 @@ export default {
         this.state.notifications = payload
     },
     // 스토어 관련
-    storeinfoGet(state, payload) {
-        this.state.storeInfo = payload
-        console.log(payload)
-        router.push({
-            name: 'storeDetail',
-            params: {
-                id: payload
-            }
+    storeinfoGet(state, data){
+        this.state.storeInfo = data.resData
+        router.push({name: 'storeDetail', 
+        params: {
+            id: data.id
+        }
         })
     },
 

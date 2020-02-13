@@ -1,5 +1,7 @@
 import Axios from "axios"
 import store from "../vuex/store"
+import router from '../main.js';
+
 // import Api from "axios.js"
 // const URL = "http://54.180.160.87:8080" //aws
  const URL = 'http://70.12.246.134:8080' // 김주연 ip
@@ -115,14 +117,30 @@ const requestProfile = (data, callback, errorCallback) => {
 
 }
 
-
 const requestEdit = (data, callback, errorCallback) => {
-    Axios.put(URL + '/account/update', data, auth)
+
+    let options = {
+        headers: {
+            'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
+        },
+        url : URL + '/account/update',
+        method: 'put',
+        data: JSON.stringify(data)
+    }
+    
+    
+    Axios(options)
         .then(response => {
             if (response.data.status == true)
                 callback(response.data.object);
-
+                alert('회원 정보 수정에 성공');
             console.log('회원정보 수정 성공')
+            router.push(
+                { name: 'userpage',
+                params: {
+                    id: sessionStorage.getItem('userid')
+                }}
+            )
         }).catch(exp => {
             errorCallback(exp);
             console.log('실패')

@@ -185,15 +185,19 @@ export default {
             })
 
     },
-    storeinfoGet({ commit }, payload) {
+    storeinfoGet({ commit }, num) {
         const params = new URLSearchParams();
-        console.log(payload)
-        params.append('num', payload)
+        console.log(num)
+        params.append('num', num)
         Axios.post(URL + '/store/selectOne', params, auth)
             .then(res => {
                 console.log('요청 성공')
                 console.log(res.data.object, '=========================')
-                commit('storeinfoGet', res.data.object)
+                let data = {
+                    resData: res.data.object,
+                    id: num
+                }
+                commit('storeinfoGet', data)
                 
             }).catch(exp => {
                 console.log('실패')

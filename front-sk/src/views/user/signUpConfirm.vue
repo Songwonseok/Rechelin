@@ -84,7 +84,7 @@
                 this.$store.state.info.phone = this.$store.state.phone,
                 alert("인증에 성공하셨습니다.");
               this.$router.push({
-                path: '/'
+                name: 'userpage'
               })
               console.log(this.$store.state.info)
 
