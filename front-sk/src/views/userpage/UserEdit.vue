@@ -1,27 +1,45 @@
 <template>
-    <div style="text-align:center;">
+    <b-container class="bv-example-row" style="padding-top: 100px !important; padding-bottom: 100px;">
+        <h3 style="margin-top: 30px; margin-bottom: 50px;">
+            <v-icon large>{{mdiInformationOutline}}</v-icon>
+            Edit User Information</h3>
+        <b-row>
+            <b-col>
+                <template v-if="profile==null">
+                    <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="nickname"
+                        style="height: 300px; width:300px;" />
+                </template>
+                <template v-else>
 
-        <h1 style="margin-top: 20px; margin-bottom: 20px;">회원정보 수정 페이지</h1>
+                    <img class="avatar" :src="profile" :alt="nickname" style="height: 300px; width:300px;" />
 
-        <div>
-            <template v-if="profile==null">
-            <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="nickname" style="height: 300px; width:300px;" />
-          </template>
-          <template v-else>
-            <img class="avatar" :src="profile" :alt="nickname" style="height: 300px; width:300px;"/>
-          </template>
+                </template>
+                <br>
+                <b-form-file v-model="file" @change="load" ref="file-input" class="mb-2" accpt=".jpg, .jpeg, .png"
+                    style="width: 300px;"></b-form-file>
 
-            <input type="file" @change="load" accept=".jpg, .jpeg, .png, .gif">
+            </b-col>
+            <b-col>
+                <p class="changed-info">닉네임 변경</p>
 
+                <b-form-input v-model="nickname" placeholder="Enter your nickname" @keyup.enter="edit"
+                    style="width: 300px;"></b-form-input>
+                <!-- 닉네임 변경 : <input v-model="nickname" type="text" id="nickname" @keyup.enter="edit"
+                > -->
+                <p class="changed-info">핸드폰 번호 변경</p>
 
-        </div>
+                <b-form-input id="phone" v-model="phone" placeholder="Enter your phone" @keyup.enter="edit"
+                    style="width: 300px;"></b-form-input>
 
-        <div style="margin-top: 10px;">
-            닉네임 변경 : <input v-model="nickname" type="text" id="nickname" @keyup.enter="edit"
-                >
-        </div>
-
-        <div style="margin-top: 10px;">
+                <div style="padding-top: 30px;" ref="finalSubmit">
+                <v-btn class="ma-2" color="warning" @click="edit" 
+                style="color: #ff7f00 !important; ">
+                    <v-icon left>{{ svgPath }}</v-icon>
+                    EDIT
+                </v-btn>
+                </div>
+            </b-col>
+            <!-- <div style="margin-top: 10px;">
             비밀번호 변경: <input v-model="pw1" type="password" id="pw1" @keyup.enter="edit">
         </div>
         <div v-if="error.pw1">{{error.pw1}}</div>
@@ -29,19 +47,12 @@
         <div style="margin-top: 10px;">
             비밀번호 확인: <input v-model="pw2" type="password" id="pw2" @keyup.enter="edit">
             <div v-if="error.confirmPW">{{error.confirmPW}}</div>
-        </div>
+        </div> -->
 
-        <div style="margin-top: 10px;">
-            핸드폰 번호 변경: <input v-model="phone" type="text" id="phone" >
-        </div>
-        <v-btn class="ma-2" tile outlined color="success" @click="edit">
-            <v-icon left>{{ svgPath }}</v-icon>
-            EDIT
-        </v-btn>
-        <!-- TODO : 취소 버튼 눌르면 이전 페이지로 이동 -->
+            <!-- TODO : 취소 버튼 눌르면 이전 페이지로 이동 -->
 
-
-    </div>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -50,8 +61,10 @@
     import ImgurApi from '../../apis/ImgurApi'
     import router from '../../routes.js'
     import {
-        mdiPencil
+        mdiPencil,
+        mdiInformationOutline
     } from '@mdi/js'
+    import {jump} from '../../../public/js/animejs';
 
     export default {
         data() {
@@ -70,6 +83,7 @@
 
                 isSubmit: true,
                 svgPath: mdiPencil,
+                mdiInformationOutline
             }
         },
         watch: {
@@ -93,6 +107,9 @@
             // 해당 회원이 자기 자신인지 아닌지 확인하는 함수 만들기 : button에 v-if!만들기
         },
         methods: {
+            gojump() {
+                jump(this.$refs.finalSubmit);
+            },
             checkForm() {
                 // 기존에 있는 닉네임인지
                 // 기존에 등록된 휴대폰 번호인지 확인
@@ -115,32 +132,25 @@
             edit() {
                 if (this.isSubmit) {
                     let {
-                        email,
                         nickname,
-                        pw1,
                         phone,
-                        image
                     } = this;
                     let data = {
-                        "email": email,
                         "nickname": nickname,
-                        "pw": pw1,
+                        'user': {
+                            'id': sessionStorage.getItem("userid")
+                        },
                         "phone": phone,
-                        "profile": image
                     }
                     this.isSubmit = false;
                     console.log('Edit 들어가기전!!!!!!!!!!')
                     UserApi.requestEdit(data, res => {
-
-                        alert('회원 정보 수정에 성공');
-                        // this.$router.push({
-                            // name: `UserPage`
-                        // })
+                    
                     }, error => {
 
                         console.log("회원 정보 수정 실패 !!!");
                         alert('회원 정보 수정 실패 !!')
-                        // 로그인 실패시 버튼 비활성화
+                        // 로그인 패시 버튼 비활성화
                         this.isSubmit = false;
                     })
                     // axios 보낸는 장소
@@ -149,38 +159,38 @@
             // 프로필 이미지 변경
             load(e) {
                 this.createImage(e.target.files[0]);
-                
+
             },
             createImage(file) {
-               ImgurApi.uploadProfile(file, res =>{
+                ImgurApi.uploadProfile(file, res => {
                     // img url - res.link에 저장
-                     // 2) Imgur에 저장된 사진 링크를 가져오기
+                    // 2) Imgur에 저장된 사진 링크를 가져오기
                     this.profile = res.data.link
-                    
-                    console.log(this.email+" "+this.profile)
+
+                    console.log(this.email + " " + this.profile)
                     // 3) 사진링크를 User의 profile 링크로 수정하기
-                    UserApi.requestUpload(this.email, this.profile, res =>{
+                    UserApi.requestUpload(this.email, this.profile, res => {
                         console.log('프로필 수정 성공')
-                    }, error =>{
+                    }, error => {
                         alert('프로필 업로드 실패')
                     })
 
-                }, error =>{
+                }, error => {
                     alert('Imgur 업로드 실패!')
                 })
             },
-    
-        getUser(){
-            
-            UserApi.requestEmail(this.email,res=>{
-                this.nickname = res.object.nickname
-                this.phone = res.object.phone
-                this.profile = res.object.profile
-                console.log('***유저정보 가져오기 성공')              
-            },error=>{  
-                console.log('유저정보 가져오기 실패')
-            })
-        }
+
+            getUser() {
+
+                UserApi.requestEmail(this.email, res => {
+                    this.nickname = res.object.nickname
+                    this.phone = res.object.phone
+                    this.profile = res.object.profile
+                    console.log('***유저정보 가져오기 성공')
+                }, error => {
+                    console.log('유저정보 가져오기 실패')
+                })
+            }
 
         },
         created() {
@@ -190,6 +200,25 @@
                 .has().digits()
                 .has().letters();
             this.getUser();
+           
+        },
+        mounted() {
+            this.gojump()
         }
     }
 </script>
+
+<style scoped>
+    .v-btn__content {
+        color: #ff7f00 !important;
+    }
+
+    img {
+        padding-bottom: 30px;
+        padding-top: 30px;
+    }
+    .changed-info {
+        text-align: left;
+        padding-top: 20px;
+    }
+</style>

@@ -15,12 +15,12 @@
                   <span><v-icon>{{mdiAccountDetails}}</v-icon>유저페이지</span>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item>
-                <v-list-item-content  router-link :to="{name: 'UserEdit'}">
+              <v-list-item router-link :to="{name: 'useredit'}">
+                <v-list-item-content>
                   <span><v-icon>{{mdiAccountEdit}}</v-icon>회원정보수정</span>
                 </v-list-item-content>
               </v-list-item>
-               <v-list-item>
+               <v-list-item router-link :to="{name:'updatepw'}" >
                 <v-list-item-content>
                   <span><v-icon>{{mdiKey}}</v-icon>비밀번호변경</span>
                 </v-list-item-content>
