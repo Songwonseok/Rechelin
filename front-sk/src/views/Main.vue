@@ -112,16 +112,22 @@
           </div>
           <!-- 탭부분 -->
           <v-tabs fixed-tabs="fixed-tabs" background-color="transparent" color="#ff7f00">
-            <template v-if="userid==null">
-              <v-tab router-link="router-link" :to="{name: 'user'}"  style="color: #ff7f00;">
-                로그인
-              </v-tab>
+            <v-tab router-link="router-link" :to="{name: 'user'}"  style="color: #ff7f00;">
+                <template v-if="userid==null">
+                  로그인
+                </template>
+                <template v-else>
+                  유저페이지
+                </template>
+            </v-tab>
+            <!-- <template v-if="userid==null">
+              
            </template>
            <template v-else>
               <v-tab @click="valid('userDetail')"  style="color: #ff7f00;">
                   유저페이지
               </v-tab>
-            </template>
+            </template> -->
 
             <v-tab @click="valid('food')" style="color: #ff7f00;">
               음식점
