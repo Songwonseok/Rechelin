@@ -27,4 +27,5 @@ public interface ReviewService {
 	public List<Review> getviewsTop();
 	public List<Review> getlikeTop();
 	public List<Review> getscoreTop();
+	
 }

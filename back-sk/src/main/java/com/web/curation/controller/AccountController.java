@@ -59,29 +59,6 @@ public class AccountController {
     @ApiOperation(value = "수정하기")
     public Object update(@RequestBody User request) {
     	final BasicResponse result = new BasicResponse();
-    	User user = service.selectEmail(request.getEmail());
-    	User user2 = service.selectName(request.getNickname());
-    	
-    	if(user2 != null & user.getId() != user2.getId()) {
-    		result.status = false;
-    		result.data = "닉네임이 중복됩니다.";
-    		return new ResponseEntity<>(result, HttpStatus.OK);
-    	}
-    	
-    	
-    	if(request.getPw().equals("")) {
-    		request.setPw(user.getPw());
-    	}
-    	if(request.getNickname().equals("")) {
-    		request.setNickname(user.getNickname());
-    	}
-    	if(request.getPhone().equals("")) {
-    		request.setPhone(user.getPhone());
-    	}
-    	if(request.getProfile().equals("")) {
-    		request.setProfile(user.getProfile());
-    	}
-    	
     	
     	if(service.update(request)) {
     		result.status = true;
@@ -227,19 +204,10 @@ public class AccountController {
 			@RequestParam(required = true) String password) {
 		final BasicResponse result = new BasicResponse();
 		System.out.println("비밀번호 변경 !!!!!!!!!!!!!");
-		User user = service.selectEmail(email);
-		if(user!=null) {
-			// update 호출
-			user.setPw(service.EncodePW(password));
-			if(service.update(user)) {
-				result.status = true;
-				result.data = "비밀번호바꾸기 성공";
-				result.object = new JSONObject(user).toMap();				
-			}else {
-				result.status = false;
-				result.data = "비밀번호바꾸기 실패";
-			}
-			
+		if(service.changePW(email, password)) {
+			result.status = true;
+			result.data = "비밀번호바꾸기 성공";
+			result.object = service.selectEmail(email);
 		}else {
 			result.status = false;
 			result.data = "존재하지않는 email입니다";

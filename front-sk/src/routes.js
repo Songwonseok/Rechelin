@@ -20,6 +20,8 @@ import userSearch from './components/common/userSearch.vue';
 import storeDetail from './views/stores/storeDetail'
 import storeReviews from './views/stores/storeReviews'
 import storeSearch from './views/stores/storeSearch.vue'
+import storeSearchN from './views/stores/storeSearchN';
+
 
 import comments from './views/stores/comments'
 import random from './views/stores/random.vue'
@@ -59,16 +61,16 @@ export default [
             // main page 첫 화면
             {
                 path: 'popular',
-                name : 'popular',
-                component : bestReviewList,
+                name: 'popular',
+                component: bestReviewList,
             },
-            
+
 
             // user 탭
             {
                 path: 'user',
                 name: 'user',
-                component: sideMenuUserPage,
+                component: sideMenuLogin,
                 children: [{
                         path: '/login',
                         name: 'login',
@@ -89,44 +91,57 @@ export default [
                         name: 'signupconfirm',
                         component: signUpConfirm
                     },
-                    {
-                        path: '/userpage/:id',
-                        name: 'userpage',
-                        component: UserPage,
-                        children: [
-                            {
-                                path: 'fans',
-                                name: 'fans',
-                                component: Fans
-                            },
-                            {
-                                path: 'stars',
-                                name: 'stars',
-                                component: Stars
-                            },
-                            {
-                                path: 'bookmarks',
-                                name: 'bookmarks',
-                                component: UserReviews
-                            }
-                        ]
-                    }
-                    
 
                 ]
             },
-            
-            
+
+
             // 음식점 목록, 검색 라우터 children
+            {
+                path: 'userDetail',
+                name: 'userDetail',
+                component: sideMenuUserPage,
+                children: [{ // 유저페이지
+                    path: '/userpage/:id',
+                    name: 'userpage',
+                    component: UserPage,
+                    children: [{
+                            path: 'fans',
+                            name: 'Fans',
+                            component: Fans
+                        },
+                        {
+                            path: 'stars',
+                            name: 'Stars',
+                            component: Stars
+                        },
+                        {
+                            path: 'reviews',
+                            name: 'UserReviews',
+                            component: UserReviews
+                        },
+                        {
+                            path: 'edit',
+                            name: "UserEdit",
+                            component: UserEdit
+                        },
+
+                    ]
+                }]
+            },
             {
                 path: 'food',
                 name: 'food',
                 component: sideMenuFood,
-                children: [
+                children: [{
+                        path: '/storesearch',
+                        name: 'storeSearch',
+                        component: storeSearch
+                    },
                     {
-                        path : '/storesearch',
-                        name : 'storeSearch',
-                        component : storeSearch
+                        path: '/storesearchN',
+                        name: 'storeSearchN',
+                        component: storeSearchN,
                     },
                     {
                         path: '/random',
@@ -137,8 +152,7 @@ export default [
                         path: '/storedetail/:id',
                         name: 'storeDetail',
                         component: storeDetail,
-                        children: [
-                            {
+                        children: [{
                                 path: 'reviews',
                                 name: 'storeReviews',
                                 component: storeReviews
@@ -148,13 +162,13 @@ export default [
                                 name: 'comments',
                                 component: comments
                             },
-                            
+
                         ]
                     }
 
                 ]
             },
-            
+
 
             // review router children
             {
@@ -168,7 +182,7 @@ export default [
                 }]
             },
 
-            
+
             // feed router children
             {
                 path: 'feed',

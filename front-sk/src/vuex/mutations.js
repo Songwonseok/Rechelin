@@ -43,9 +43,11 @@ export default {
         state.accessToken = null
         state.userEmail = null
         state.userNickname = null
+        state.userid = null
         sessionStorage.removeItem("userToken")
         sessionStorage.removeItem("userEmail")
         sessionStorage.removeItem("userNickname")
+        sessionStorage.removeItem("userid")
     },
     login(state, payload) {
         this.state.userEmail = payload.useremail
@@ -62,61 +64,57 @@ export default {
     },
     userFans(state, payload) {
         this.state.userPageInfo.fans = payload
-        
+
     },
     notificationGet(state, payload) {
         this.state.notifications = payload
     },
     // 스토어 관련
-    storeinfoGet(state, payload){
-        this.state.storeInfo = payload
-        console.log(payload)
+    storeinfoGet(state, data){
+        this.state.storeInfo = data.resData
         router.push({name: 'storeDetail', 
         params: {
-            id: payload
+            id: data.id
         }
         })
     },
 
     tagsGet(state, payload) {
-    
+
     },
     // 리뷰의 댓글관련
     commentsOfreview(state, payload) {
         state.reviewInfo = payload.reviewInfo
         state.commentsOfreview = payload.comments
     },
-     createComment(state, payload) {
+    createComment(state, payload) {
         let list = [...state.commentsOfreview]
         list.push(payload)
         state.commentsOfreview = [...list]
         state.newReturnComment = payload
-        
-     },
-     commentDelete(state, comment) {
+
+    },
+    commentDelete(state, comment) {
         let pos = state.commentsOfreview.indexOf(comment)
         let list = [...state.commentsOfreview]
         list.splice(pos, 1)
         state.commentsOfreview = [...list];
-     },
-     // 리뷰 관련
+    },
+    // 리뷰 관련
     reviewsGet(state, payload) {
         state.reviewsOfstore = payload
-     },
+    },
     reviewDetail(state, payload) {
         state.reviewDetail = payload
 
     },
     SET_GOOGLEMAP_TOTAL(state, googlemap_total) {
-        
+
         state.googleStorePlace = googlemap_total;
-        
+
     },
     SET_GOOGLEMAP(state, googlemap) {
         state.googleStorePlaceView = googlemap;
     }
 
 }
-        
-    
-

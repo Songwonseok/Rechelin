@@ -6,8 +6,9 @@
         <div v-if="checkLogin">
 
           <div style="text-align: center !important;">
-            <v-btn color="warning" id="find" dark="dark" style="position: relative; top: 250px; z-index:1;"
-              @click="open">Find Restaurant</v-btn>
+            <v-btn color="white" id="find" dark="dark" style="position: relative; top: 250px; z-index:1; border-style: solid;
+    border-color: orange;"
+              @click="open"  @click.stop="openSearch = true"><font color="orange">Find Restaurant</font></v-btn>
           </div>
           <v-dialog v-model="openSearch" max-width="600">
             <v-card>
@@ -89,7 +90,13 @@
 
               </v-card-text>
               <div class="my-2 searchBtn">
-                <!-- <v-btn color="warning" @click="searchBtnClick" :disabled="searchBtnActive" dark="dark">검색</v-btn> -->
+                  <loading :active.sync="isLoading" 
+            :can-cancel="true" 
+            :on-cancel="onCancel"
+            :is-full-page="fullPage">
+        <iframe src="https://giphy.com/embed/cNZ484UmnwifimoS5q" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cNZ484UmnwifimoS5q"></a></p>
+            </loading>
+                <v-btn color="warning" @click="searchBtnClick" :disabled="searchBtnActive" dark="dark">검색</v-btn>
               </div>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -105,9 +112,17 @@
           </div>
           <!-- 탭부분 -->
           <v-tabs fixed-tabs="fixed-tabs" background-color="transparent" color="#ff7f00">
-            <v-tab @click="valid('user')"  style="color: #ff7f00;">
-              유저페이지
-            </v-tab>
+            <template v-if="userid==null">
+              <v-tab router-link="router-link" :to="{name: 'user'}"  style="color: #ff7f00;">
+                로그인
+              </v-tab>
+           </template>
+           <template v-else>
+              <v-tab @click="valid('userDetail')"  style="color: #ff7f00;">
+                  유저페이지
+              </v-tab>
+            </template>
+
             <v-tab @click="valid('food')" style="color: #ff7f00;">
               음식점
             </v-tab>
@@ -117,18 +132,7 @@
             <v-tab @click="valid('feed')" style="color: #ff7f00;">
               피드 페이지(예정)
             </v-tab>
-            <!-- <v-tab router-link="router-link" :to="{name: 'user'}" style="color: #ff7f00;">
-              유저페이지
-            </v-tab>
-            <v-tab router-link="router-link" :to="{name: 'food'}" style="color: #ff7f00;">
-              음식점
-            </v-tab>
-            <v-tab router-link="router-link" :to="{name: 'review'}" style="color: #ff7f00;">
-              리뷰
-            </v-tab>
-            <v-tab router-link="router-link" :to="{name: 'feed'}" style="color: #ff7f00;">
-              피드 페이지(예정)
-            </v-tab> -->
+
           </v-tabs>
 
           <div>
@@ -158,6 +162,8 @@
   import UserApi from '../../src/apis/UserApi.js';
   import SearchApi from '../../src/apis/UserApi.js';
   import StoreApi from '../../src/apis/StoreApi.js';
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
   export default {
     created() {
       this
@@ -177,13 +183,19 @@
         } else if (this.newSearch.length == 0) {
           this.searchBtnActive = true;
         }
+      },
+      storeList : function(v){
+                console.log('storeList')
+                console.log(this.$store.state.storeList);
+               
+               
       }
     },
     data() {
       return {
         loading: false,
         selection: 1,
-        searchBtnActive: false,
+
         newSearch: [],
         openSearch: false,
         value: ['apple', 'orange'],
@@ -209,19 +221,104 @@
         },
         tabs: 0,
         checkLogin: true,
+        dialog : false,
+         isLoading: false,
+        
       }
     },
     computed: {
       ...mapState(['tempStores']),
       Stores() {
         return this.tempStores
-      }
+      },
+       userid(){
+        return this.$store.state.accessToken
+      },
+      storeList(){
+            return this.$store.state.storeList
+      },
+      
+    },
+    components : {
+       Loading
     },
     methods: {
+      valid(name){
+        // session에 값이 있는지 확인해서 있으면 탭 이동
+        let accessToken = sessionStorage.getItem("userToken");
+        console.log('유효한지판단!!!!!!!')
+        console.log(accessToken);
+
+        if(accessToken!=null){
+          this.$router.push({name : name});  
+        }else{
+          this.$alert('로그인 하세요 !',"warning","warning")
+           this.$router.push('/login');  
+        }
+
+      },
       reserve() {
         this.loading = true
 
         setTimeout(() => (this.loading = false), 2000)
+      },
+      searchBtnClick(){
+        console.log('hi')
+         this.isLoading = true;
+        this.$store.state.storeFlag +=1;
+        
+        
+        
+        StoreApi.requestStoreList().then(response=>{
+          console.log(response);
+         
+          let searchList = new Array();
+          for(let i =0; i<response.data.object.length; i++){
+            //tags 합치기
+            let tagsString;  
+            for(let j =0; j<response.data.object[i].tags.length; j++){
+                  tagsString += response.data.object[i].tags[j].keyword;
+            }//end of for loop
+
+            let find = false;
+            for(let j=0; j<this.newSearch.length; j++){
+              if(tagsString.includes(this.newSearch[j])){
+                find = false;
+              }else if(!tagsString.includes(this.newSearch[j])){
+                find = true;
+              }
+            }//end of for loop 
+
+            if(find == false){
+              let item = {};
+              item['sname'] = response.data.object[i].store.sname;
+              item['address'] = response.data.object[i].store.address;
+              item['img'] = response.data.object[i].store.img;
+              item['lat'] = response.data.object[i].store.lat;
+              item['lng'] = response.data.object[i].store.lng;
+              JSON.stringify(item);
+              searchList.push(item);
+
+            }
+            
+          }//end for first for loop
+          
+
+          this.$store.state.storeList = searchList;
+          console.log('Main search store data fetch')
+          console.log(this.$store.state.storeList);
+          this.openSearch = false
+          this.isLoading = false
+          if(this.$store.state.storeList.length==0)
+            this.$router.push({name : "storeSearchN"})
+          else
+           this.$router.push({name : "storeSearch"})
+
+        }, error =>{
+          this.isLoading =false;
+          this.$alert("데이터를 불러오지 못헀습니다.","warning","warning");
+          this.openSearch = false;
+        })
       },
       changeInput() { //if-else 
         if (this.inputStatus == true) this.inputStatus = false;
@@ -313,22 +410,37 @@
             list.splice(pos, 1)
             this.newSearch = [...list]
           }
+        } else if (cate === "moods"){
+          if (!this.hashtags.moods[n]) {
+            this.hashtags.moods[n] = !this.hashtags.moods[n]
+            let list = [...this.newSearch]
+            list.push(name)
+            this.newSearch = [...list]
+            console.log(this.newSearch)
+          } else {
+            let pos = this.newSearch.indexOf(name)
+            this.hashtags.moods[n] = !this.hashtags.moods[n]
+            let list = [...this.newSearch]
+            list.splice(pos, 1)
+            this.newSearch = [...list]
+          }
+        } else if (cate === "facility"){
+          if (!this.hashtags.facility[n]) {
+            this.hashtags.facility[n] = !this.hashtags.facility[n]
+            let list = [...this.newSearch]
+            list.push(name)
+            this.newSearch = [...list]
+            console.log(this.newSearch)
+          } else {
+            let pos = this.newSearch.indexOf(name)
+            this.hashtags.facility[n] = !this.hashtags.facility[n]
+            let list = [...this.newSearch]
+            list.splice(pos, 1)
+            this.newSearch = [...list]
+          }
         }
       },
-      valid(name){
-        // session에 값이 있는지 확인해서 있으면 탭 이동
-        let accessToken = sessionStorage.getItem("userToken");
-        console.log('유효한지판단!!!!!!!')
-        console.log(accessToken);
-
-        if(accessToken!=null){
-          this.$router.push({name : name});  
-        }else{
-          this.$alert('로그인 하세요 !',"warning","warning")
-           this.$router.push('/login');  
-        }
-
-      }
+      
     }
   }
         
@@ -373,6 +485,7 @@
   }
 
   #find {
+    
     -webkit-transform: scale(1.2);
     -moz-transform: scale(1.2);
     -ms-transform: scale(1.2);
