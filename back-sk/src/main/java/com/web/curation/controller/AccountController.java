@@ -154,6 +154,24 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
+    @PostMapping("/account/selectId")
+    @ApiOperation(value = "id로 유저찾기")
+    public Object selectId(@RequestParam(required = true) final long id) {
+    	final BasicResponse result = new BasicResponse();
+
+    	User user = service.selectId(id);
+    	
+		if (user != null) {
+			result.status = true;
+			result.data = "성공";
+			result.object = new JSONObject(user).toMap();
+		} else {
+			result.status = false;
+			result.data = "유저가 없습니다.";
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    
     @PostMapping(value = "/account/uploadProfile")
 	public Object upload(@RequestParam(required = true) final String email,
 			@RequestParam(required = true) String profile) {

@@ -4,7 +4,6 @@
       <b-col>
         <v-card class="mx-auto" max-width="300" tile>
           <v-list rox unded>
-            <v-subheader>REPORTS</v-subheader>
             <v-list-item-group color="warning">
               <template v-if=" userToken==null">
                 <v-list-item router-link :to="{name: 'login'}">
