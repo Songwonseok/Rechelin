@@ -9,6 +9,7 @@ public interface AcountService {
 	public User signup(User request); 
 	public boolean delete(String email);
 	public boolean update(User request);
+	public boolean changePW(String email,String password);
 	public List<User> selectAll();
 	public User selectEmail(String email);
 	public User selectName(String nickname);
