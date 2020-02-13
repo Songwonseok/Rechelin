@@ -35,7 +35,10 @@ export default new Vuex.Store({
         confirmation: '',
         randomNumber: '',
         isUser: false,
-
+        
+        
+        //스토어 정보
+        storeInfo : '',
 
         // 로그인 상태 관리 파트 && 유저 email과 닉네임
         accessToken: sessionStorage.getItem("userToken"),

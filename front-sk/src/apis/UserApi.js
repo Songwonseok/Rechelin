@@ -1,15 +1,14 @@
 import Axios from "axios"
 import store from "../vuex/store"
 // import Api from "axios.js"
-
-const URL = 'http://70.12.246.134:8080' // 김주연 ip
-    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
+// const URL = "http://54.180.160.87:8080" //aws
+ const URL = 'http://70.12.246.134:8080' // 김주연 ip
+//const URL = 'http://70.12.246.51:8080' //  조장님 ip
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
     }
 }
-
 const requestsignUp = async(data, callback, errorCallback) => {
     let options = {
         headers: { 'Content-Type': 'application/json' },
@@ -34,10 +33,13 @@ const requestName = (data, callback, errorCallback) => {
     params.append('nickname', data);
     Axios.post(URL + '/account/selectName', params)
         .then(response => {
+           
             console.log(response)
             callback(response.data);
+           
             console.log('성공')
         }).catch(exp => {
+            alert('이미 존재하는 닉네임이 있습니다')
             errorCallback(exp);
             console.log('실패')
         })
@@ -49,11 +51,13 @@ const requestEmail = (data, callback, errorCallback) => {
     Axios.post(URL + '/account/selectEmail', params)
         .then(response => {
             console.log(response);
+            
             // if (response.data.status == true)
             callback(response.data);
             console.log('성공')
 
         }).catch(exp => {
+            alert('이미 존재하는 메일이 있습니다.')
             errorCallback(exp);
             console.log('실패')
         })

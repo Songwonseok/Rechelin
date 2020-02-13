@@ -89,7 +89,7 @@
 
               </v-card-text>
               <div class="my-2 searchBtn">
-                <v-btn color="warning" @click="searchBtnClick" :disabled="searchBtnActive" dark="dark">검색</v-btn>
+                <!-- <v-btn color="warning" @click="searchBtnClick" :disabled="searchBtnActive" dark="dark">검색</v-btn> -->
               </div>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -183,7 +183,7 @@
       return {
         loading: false,
         selection: 1,
-
+        searchBtnActive: false,
         newSearch: [],
         openSearch: false,
         value: ['apple', 'orange'],
