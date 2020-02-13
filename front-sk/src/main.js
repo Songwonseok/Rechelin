@@ -42,6 +42,10 @@ import InfiniteLoading from 'vue-infinite-loading';
 Vue.use(InfiniteLoading, { /* options */ });
 
 //
+
+import VueKinesis from 'vue-kinesis'
+Vue.use(VueKinesis)
+
 Vue.use(VueLoading)
 Vue.use(VueLoading, {
     dark: true, // default false

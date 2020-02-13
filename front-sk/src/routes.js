@@ -20,6 +20,8 @@ import userSearch from './components/common/userSearch.vue';
 import storeDetail from './views/stores/storeDetail'
 import storeReviews from './views/stores/storeReviews'
 import storeSearch from './views/stores/storeSearch.vue'
+import storeSearchN from './views/stores/storeSearchN';
+
 
 import comments from './views/stores/comments'
 import random from './views/stores/random.vue'
@@ -157,6 +159,11 @@ export default [
                         path: '/storesearch',
                         name: 'storeSearch',
                         component: storeSearch
+                    },
+                    {
+                        path : '/storesearchN',
+                        name : 'storeSearchN',
+                        component : storeSearchN,
                     },
                     {
                         path: '/random',

@@ -283,7 +283,10 @@
           console.log(this.$store.state.storeList);
           this.openSearch = false
           this.isLoading = false
-          this.$router.push({name : "storeSearch"})
+          if(this.$store.state.storeList.length==0)
+            this.$router.push({name : "storeSearchN"})
+          else
+           this.$router.push({name : "storeSearch"})
 
         }, error =>{
           this.isLoading =false;
