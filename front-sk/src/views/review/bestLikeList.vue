@@ -8,7 +8,7 @@
                     
                         <div v-for="(bestReview, i) in bestReviews" v-bind:key="i+bestReview">
                             <v-hover v-slot:default="{ hover }">
-                            <v-card :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350">
+                            <v-card :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" height = "600">
                                 <v-img height="250" :src="bestReview.src">
                                     <!--      -->
                                 <v-expand-transition> 

@@ -93,7 +93,7 @@ export default [
                 component: sideMenuFood,
                 children: [
                     {
-                        path : 'storeSearch',
+                        path : '/storeSearch',
                         name : 'storeSearch',
                         component : storeSearch
                     },

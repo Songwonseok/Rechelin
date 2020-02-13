@@ -37,8 +37,9 @@ Vue.use(VueSimpleAlert, { reverseButtons: true });
 
 
 // infinite scroll
-var infiniteScroll =  require('vue-infinite-scroll');
-Vue.use(infiniteScroll)
+import InfiniteLoading from 'vue-infinite-loading';
+
+Vue.use(InfiniteLoading, { /* options */ });
 
 //
 Vue.use(VueLoading)

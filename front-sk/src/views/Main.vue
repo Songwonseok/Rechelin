@@ -8,7 +8,7 @@
           <div style="text-align: center !important;">
             <v-btn color="white" id="find" dark="dark" style="position: relative; top: 250px; z-index:1; border-style: solid;
     border-color: orange;"
-              @click="open"><font color="orange">Find Restaurant</font></v-btn>
+              @click="open"  @click.stop="openSearch = true"><font color="orange">Find Restaurant</font></v-btn>
           </div>
           <v-dialog v-model="openSearch" max-width="600">
             <v-card>
@@ -90,6 +90,12 @@
 
               </v-card-text>
               <div class="my-2 searchBtn">
+                  <loading :active.sync="isLoading" 
+            :can-cancel="true" 
+            :on-cancel="onCancel"
+            :is-full-page="fullPage">
+        <iframe src="https://giphy.com/embed/cNZ484UmnwifimoS5q" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cNZ484UmnwifimoS5q"></a></p>
+            </loading>
                 <v-btn color="warning" @click="searchBtnClick" :disabled="searchBtnActive" dark="dark">검색</v-btn>
               </div>
               <v-card-actions>
@@ -147,6 +153,8 @@
   import UserApi from '../../src/apis/UserApi.js';
   import SearchApi from '../../src/apis/UserApi.js';
   import StoreApi from '../../src/apis/StoreApi.js';
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
   export default {
     created() {
       this
@@ -166,6 +174,12 @@
         } else if (this.newSearch.length == 0) {
           this.searchBtnActive = true;
         }
+      },
+      storeList : function(v){
+                console.log('storeList')
+                console.log(this.$store.state.storeList);
+               
+               
       }
     },
     data() {
@@ -198,13 +212,23 @@
         },
         tabs: 0,
         checkLogin: true,
+        dialog : false,
+         isLoading: false,
+        
       }
     },
     computed: {
       ...mapState(['tempStores']),
       Stores() {
         return this.tempStores
-      }
+      },
+      storeList(){
+            return this.$store.state.storeList
+      },
+      
+    },
+    components : {
+       Loading
     },
     methods: {
       reserve() {
@@ -213,8 +237,15 @@
         setTimeout(() => (this.loading = false), 2000)
       },
       searchBtnClick(){
+        console.log('hi')
+         this.isLoading = true;
+        this.$store.state.storeFlag +=1;
+        
+        
+        
         StoreApi.requestStoreList().then(response=>{
           console.log(response);
+         
           let searchList = new Array();
           for(let i =0; i<response.data.object.length; i++){
             //tags 합치기
@@ -241,12 +272,23 @@
               item['lng'] = response.data.object[i].store.lng;
               JSON.stringify(item);
               searchList.push(item);
+
             }
+            
           }//end for first for loop
           
 
-          console.log(searchList);
+          this.$store.state.storeList = searchList;
+          console.log('Main search store data fetch')
+          console.log(this.$store.state.storeList);
+          this.openSearch = false
+          this.isLoading = false
+          this.$router.push({name : "storeSearch"})
 
+        }, error =>{
+          this.isLoading = false;
+          this.$alert("데이터를 불러오지 못헀습니다.","warning","warning");
+          this.openSearch = false;
         })
       },
       changeInput() { //if-else 
@@ -368,7 +410,12 @@
             this.newSearch = [...list]
           }
         }
-      }
+      },
+       onCancel() {
+                // eslint-disable-next-line no-console
+              console.log('User cancelled the loader.')
+            }
+      
     }
   }
         

@@ -1,47 +1,95 @@
 <template>
-    <div id="app">
-        <v-app id="inspire">
-            <v-layout row="row">
-                <v-flex xs12="xs12" sm6="sm6" offset-sm3="offset-sm3">
-                    <v-card>
-                        <v-card-media
-                            src="https://vuetifyjs.com/static/doc-images/cards/sunshine.jpg"
-                            height="200px"></v-card-media>
-                        <v-card-title primary-title="primary-title">
-                            <div>
-                                <div class="headline">Top western road trips</div>
-                                <span class="grey--text">1,000 miles of wonder</span>
-                            </div>
-                        </v-card-title>
-                        <v-card-actions>
-                            <v-btn flat="flat">Share</v-btn>
-                            <v-btn flat="flat" color="purple">Explore</v-btn>
-                            <v-spacer></v-spacer>
-                            <v-btn icon="icon" @click.native="show = !show">
-                                 <v-btn flat="flat" color="purple">{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-btn>
-                            </v-btn>
-                        </v-card-actions>
-                        <v-slide-y-transition>
-                            <v-card-text v-show="show">
-                                I'm a thing. But, like most politicians, he promised more than he could deliver.
-                                You won't have time for sleeping, soldier, not with all the bed making you'll be
-                                doing. Then we'll go with that data file! Hey, you add a one and two zeros to
-                                that or we walk! You're going to do his laundry? I've got to find a way to
-                                escape.
-                            </v-card-text>
-                        </v-slide-y-transition>
-                    </v-card>
-                </v-flex>
-            </v-layout>
-        </v-app>
-    </div>
+ <div id="app">
+  <v-app id="inspire">
+
+
+ <b-container class="bv-example-row">
+                <b-row >
+                    
+                        <div v-for="(store, i) in this.$store.state.storeList" v-bind:key="i+store">
+                             <v-hover v-slot:default="{ hover }">
+    <v-card
+      class="mx-auto mr-2 mb-2"
+      max-width="370" height ="300"
+    >
+      <v-img
+        class="white--text align-end"
+        height="200px"
+        :src="`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${store.img}&sensor=true&key=AIzaSyDC4sonH281FHJ-YyPmeXLRdBYuqcjUkGE`">
+      <v-expand-transition>
+      <div
+                                        v-if="hover"
+                                        class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
+                                        style="height: 100%;">
+        <v-card-title>{{store.sname}}</v-card-title>
+        </div>
+         </v-expand-transition>
+      </v-img>
+  
+      <v-card-subtitle class="pb-0">{{store.sname}}</v-card-subtitle>
+  
+      <v-card-text class="text--primary">
+  
+        <div>{{store.address}}</div>
+      </v-card-text>
+  
+      <v-card-actions>
+        <v-btn
+          color="orange"
+          text
+        >
+          Share
+        </v-btn>
+  
+        <v-btn
+          color="orange"
+          text
+        >
+          Explore
+        </v-btn>
+      </v-card-actions>
+      
+    </v-card>
+ </v-hover>
+        </div>
+                </b-row>
+ </b-container>
+
+
+
+  </v-app>
+</div>
 </template>
 
 <script>
     export default {
-      
-        data: () => ({show: false})
+        
+        watch : {
+            storeListwatch : function(v){
+                this.data = this.$store.state.storeList;
+            }
+        },
+        computed : {
+            storeListwatch(){
+                return this.$store.state.storeList
+            }
+        },
+        data(){
+            return {
+               data : [],
+            }
+        },
+
     }
 </script>
 
-<style></style>
+<style scoped>
+.v-card--reveal {
+            align-items: center;
+            bottom: 0;
+            justify-content: center;
+            opacity: 0.5;
+            position: absolute;
+            width: 100%;
+        }
+</style>
