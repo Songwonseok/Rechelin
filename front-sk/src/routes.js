@@ -109,7 +109,17 @@ export default [
                                 name: 'bookmarks',
                                 component: UserReviews
                             }
-                        ]
+                        ] 
+                    },
+                    {
+                        path: 'edit',
+                        name: 'useredit',
+                        component: UserEdit
+                    },
+                    {
+                        path: '/updatepw',
+                        name: 'updatepw',
+                        component: updateNewPw
                     }
                     
 

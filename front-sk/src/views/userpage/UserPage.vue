@@ -3,7 +3,7 @@
     <div class="content-profile-page">
       <div class="profile-user-page card">
         <div class="img-user-profile">
-          <img class="profile-bgHome" src="" />
+          <img class="profile-bgHome" src="https://cdn.pixabay.com/photo/2016/03/27/21/34/restaurant-1284351_1280.jpg" />
           <template v-if="UserInfo.profile==null">
             <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="UserInfo.nickname" />
           </template>
@@ -16,7 +16,7 @@
         <template v-if="myEmail != UserInfo.email" >
             <div>
               <button @click="followRequest">Follow</button>
-            </div>- 
+            </div>
             <div>
               <button @click="followRequest">UnFollow</button>
             </div>
@@ -30,17 +30,19 @@
           <h1>{{UserInfo.nickname}}</h1>
           <p>{{UserInfo.email}}</p>
           <!-- 자기 자신일때만  Edit 보여주기-->
-          <router-link :to="{name: 'UserEdit'}"><strong v-if="myEmail == UserInfo.email"> Edit</strong></router-link>
+          <router-link :to="{name: 'useredit'}" style="color: #ff7f00;"><strong v-if="myEmail == UserInfo.email"> Edit</strong></router-link>
         </div>
 
 
 
          <ul class="data-user">
          <li>
-            <router-link :to="{name: 'UserReviews', params: {
+            <router-link 
+            :to="{name: 'bookmarks', 
+            params: {
           bookmarks: this.bookmarkList, 
           reviews : this.reviewList, // 향후 db에서 받아오는 값으로 수정할 애들
-        }}"  @click="userReviews" ><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
+        }}" ><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
           </li>
           <li>
             <router-link :to="{name:'fans', params: { fans : this.fanList}}">
@@ -68,7 +70,8 @@
   } from 'vuex'
   import {
     mdiPencil,
-    mdiAccountCircle
+    mdiAccountCircle,
+    
   } from '@mdi/js'
   import UserApi from '../../apis/UserApi'
   import FollowApi from '../../apis/FollowApi'
@@ -81,7 +84,8 @@
         svgPath: mdiPencil,
         accountIcon: mdiAccountCircle,
         // id : this.$route.params.id, // URL에서 가져온 User
-        id : this.$store.state.userEmail,
+        id : sessionStorage.getItem('userid'),
+        email: sessionStorage.getItem('userEmail'),
         UserInfo:{ // id로 가져온 정보들
           email:'',
           nickname:'',
@@ -96,35 +100,10 @@
       }
     },
     computed: {
-      // ...mapState(['allUsers', 'userPageInfo']),
-      // UserInfo() {
-      //   return this.allUsers[0]
-      // },
-      // userInfo() {
-      //   return this.userPageInfo
-      // },
-      // UserBookMark() {
-      //   return this.allUsers
-      // },
     },
     methods: {
-
-      // UserFan() {
-      //   this.$router.push({
-      //     name: 'Fans',
-      //     params: {
-      //       fans: this.UserInfo.fans
-      //     }
-      //   }).catch(err => {});
+      // followRequest() {
       // },
-      followRequest() {
-      //   var payload = {
-      //     fan: this.$store.state.userEmail,
-      //     star: this.$store.state.userPageInfo.email
-      //   }
-      //   this.$store.dispatch('followRequest', payload)
-      /**TODO - follow 요청 버튼 작동하기 */
-      },
       getFanList(){
         console.log(this.id)
         FollowApi.requestFanList(this.id, res=>{
@@ -133,8 +112,8 @@
         }, error=>{
           alert('FanList가져오기 실패')
         })
-      }
-      ,getStarList(){
+      },
+      getStarList(){
         FollowApi.requestStarList(this.id, res=>{
           this.starList = res;
           console.log('star 성공')
@@ -142,23 +121,23 @@
         }, error=>{
           alert('StarList가져오기 실패')
         })
-      }
-      ,getBookmarkList(){
+      },
+      getBookmarkList(){
         ReviewApi.requestBookmarkList(this.id, res=>{
-          this.starList = res;
+          this.bookmarkList = res;
         }, error=>{
           alert('BookmarkList 가져오기 실패')
         })
       }
       ,getReviewList(){
-         ReviewApi.requestMyReviewList(this.id, res=>{
+         ReviewApi.requestMyReviewList(this.email, res=>{
           this.reviewList = res;
         }, error=>{
           alert('ReviewList 가져오기 실패')
         })
       }
       ,getUser(){
-          UserApi.requestEmail( this.id,res=>{
+          UserApi.requestEmail( this.email,res=>{
             console.log("****")
             console.log(res)
             this.UserInfo.email = res.object.email;
@@ -172,29 +151,13 @@
 
           
         },
-        userReviews(){
-          
-        }
-      
+
 
     },
     created() {
-      //  this.$store.dispatch('userFans', this.$route.params.id)
-
-      // // stars 찾기
-      // this.$store.dispatch('userStars', this.$route.params.id)
-      // // console.log(this.userInfo)
-      // this.$router.push({
-      //   name: 'bookmarks',
-      //   params: {
-      //     bookmarks: this.UserInfo.stores,
-      //     reviews: this.UserInfo.stores, // 향후 db에서 받아오는 값으로 수정할 애들
-      //   }
-      // })
-
       this.getUser();
-      this.getFanList();
-      this.getStarList();
+      // this.getFanList();
+      // this.getStarList();
       this.getBookmarkList();
       this.getReviewList();
     },
@@ -210,7 +173,7 @@
 
   a {
     text-decoration: none;
-    color: #3498db;
+    color: #ff7f00;
   }
 
   .content-profile-page {
@@ -254,8 +217,8 @@
     font-weight: bold;
     cursor: pointer;
     width: 7em;
-    background: #3498db;
-    border: 1px solid #2487c9;
+    background: #ff7f00;
+    border: 1px solid #ff7f00;
     color: #fff;
     outline: none;
     border-radius: 0 .6em .6em 0;
@@ -263,9 +226,9 @@
   }
 
   .profile-user-page button:hover {
-    background: #51a7e0;
+    background: #ff7f00;
     transition: background .2s ease-in-out;
-    border: 1px solid #2487c9;
+    border: 1px solid #ff7f00;
   }
 
   .profile-user-page .user-profile-data,
@@ -355,12 +318,12 @@
 
   .profile-user-page .data-user li a:hover {
     background: rgba(0, 0, 0, 0.05);
-    border-bottom: .2em solid #3498db;
-    color: #3498db;
+    border-bottom: .2em solid #ff7f00;
+    color: #ff7f00;
   }
 
   .profile-user-page .data-user li a:hover span {
-    color: #3498db;
+    color: #ff7f00;
   }
 
   footer h4 {
@@ -375,6 +338,6 @@
 
   footer h4 a {
     text-decoration: none;
-    color: #3498db;
+    color: #ff7f00;
   }
 </style>
