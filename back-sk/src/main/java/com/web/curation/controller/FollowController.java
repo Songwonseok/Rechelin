@@ -103,6 +103,8 @@ public class FollowController {
 	@PostMapping("/follow/fanList")
 	@ApiOperation(value = "팔로워 리스트")
 	public Object fanList(@RequestParam(required = true) final String email) {
+		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<");
+		System.out.println(email);
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";

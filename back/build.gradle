@@ -3,21 +3,9 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
-  id "org.springframework.boot" version "2.2.4.RELEASE"
 }
-
-apply plugin: "org.springframework.boot"
 
 //create a single Jar with all dependencies
-
-apply plugin: 'war'
-war {
-    baseName = 'market2'    
-}
- 
-dependencies {
-providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-}
 
 
 group = 'com.web.curation'
