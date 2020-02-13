@@ -5,18 +5,26 @@
             <h2 style="color:orange">👑 Best Views</h2>
             <b-container class="bv-example-row">
                 <b-row >
-                    
+                        
                         <div v-for="(bestReview, i) in bestReviews" v-bind:key="i+bestReview">
                             <v-hover v-slot:default="{ hover }">
                             <v-card :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" height = "600">
-                                <v-img height="250" :src="bestReview.src">
-                                    <!--      -->
+                                
+                                    <!--   router-link="router-link" :to="{name: 'storeDetail', params : {id : bestReview.rnum}}" -->
+                                    <!-- 페이지이동  -->
+                                
+                                <v-img height="250" :src="bestReview.src"
+                                    router-link="router-link" :to="{name: 'storeDetail', params : {id : bestReview.rnum}}">
+
+                                
                                 <v-expand-transition> 
                                     <div
                                         v-if="hover"
                                         class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
-                                        style="height: 100%;">
+                                        style="height: 100%;"
+                                        >
                                         {{bestReview.title}}
+                                        
                                     </div>
                                 </v-expand-transition>
                                 </v-img>
