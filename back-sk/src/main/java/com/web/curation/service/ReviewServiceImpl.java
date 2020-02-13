@@ -60,7 +60,13 @@ public class ReviewServiceImpl implements ReviewService {
 		String[] tagList = hashtag.split(" "); // 해시태그 분리
 		
 		for(int i=0; i<tagList.length; i++) {
-			Hashtag tag = hashdao.findByKeyword(tagList[i]);
+			String s  = "신촌";
+			Hashtag tag = hashdao.findByKeyword(s);
+			List<Hashtag> tt = hashdao.findAll();
+			for (Hashtag hashtag2 : tt) {
+				System.out.println(hashtag2.toString());
+			}
+			System.out.println(tagList[i] +" "+ tag.toString());
 			if(tag ==null) continue; // 없는 태그가 나오면 DB에 추가?
 			
 			System.out.println("********************");

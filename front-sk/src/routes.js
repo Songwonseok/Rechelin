@@ -55,16 +55,15 @@ export default [
         path: '/',
         name: 'main',
         component: Main,
-        children: [
-            {
+        children: [{
                 path: 'popular',
-                name : 'popular',
-                component : bestReviewList,
+                name: 'popular',
+                component: bestReviewList,
             },
             {
                 path: 'user',
                 name: 'user',
-                component: sideMenuUserPage,
+                component: sideMenuLogin,
                 children: [{
                         path: '/login',
                         name: 'login',
@@ -88,14 +87,45 @@ export default [
                 ]
             },
             {
+                path: 'userDetail',
+                name: 'userDetail',
+                component: sideMenuUserPage,
+                children: [{ // 유저페이지
+                    path: '/userpage/:id',
+                    name: 'userpage',
+                    component: UserPage,
+                    children: [{
+                            path: 'fans',
+                            name: 'Fans',
+                            component: Fans
+                        },
+                        {
+                            path: 'stars',
+                            name: 'Stars',
+                            component: Stars
+                        },
+                        {
+                            path: 'reviews',
+                            name: 'UserReviews',
+                            component: UserReviews
+                        },
+                        {
+                            path: 'edit',
+                            name: "UserEdit",
+                            component: UserEdit
+                        },
+
+                    ]
+                }]
+            },
+            {
                 path: 'food',
                 name: 'food',
                 component: sideMenuFood,
-                children: [
-                    {
-                        path : 'storeSearch',
-                        name : 'storeSearch',
-                        component : storeSearch
+                children: [{
+                        path: 'storeSearch',
+                        name: 'storeSearch',
+                        component: storeSearch
                     },
                     {
                         path: 'random',
@@ -128,33 +158,8 @@ export default [
         ]
 
     },
-    { // 유저페이지
-        path: '/userpage/:id',
-        name: 'UserPage',
-        component: UserPage,
-        children: [{
-                path: 'fans',
-                name: 'Fans',
-                component: Fans
-            },
-            {
-                path: 'stars',
-                name: 'Stars',
-                component: Stars
-            },
-            {
-                path: 'reviews',
-                name: 'UserReviews',
-                component: UserReviews
-            }
 
-        ]
-    },
-    {
-        path: '/userpage/edit',
-        name: "UserEdit",
-        component: UserEdit
-    },
+
     {
         path: '/components',
         name: 'Components',

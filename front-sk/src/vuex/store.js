@@ -41,6 +41,7 @@ export default new Vuex.Store({
         accessToken: sessionStorage.getItem("userToken"),
         userEmail: sessionStorage.getItem("userEmail"),
         userNickname: sessionStorage.getItem("userNickname"),
+        userid: sessionStorage.getItem("userid"),
         // 유저페이지에서 갈때 정보
         userPageInfo: {
             nickname: '',
@@ -69,7 +70,7 @@ export default new Vuex.Store({
         reviewsOfstore: null,
         newReturnComment: null,
         reviewInfo: '',
-        data : 1,
+        data: 1,
     },
 
 

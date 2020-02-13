@@ -105,9 +105,18 @@
           </div>
           <!-- 탭부분 -->
           <v-tabs fixed-tabs="fixed-tabs" background-color="transparent" color="#ff7f00">
-            <v-tab @click="valid('user')"  style="color: #ff7f00;">
-              유저페이지
-            </v-tab>
+           
+           <template v-if="userid==null">
+              <v-tab router-link="router-link" :to="{name: 'user'}"  style="color: #ff7f00;">
+                로그인
+              </v-tab>
+           </template>
+           <template v-else>
+              <v-tab @click="valid('userDetail')"  style="color: #ff7f00;">
+                  유저페이지
+              </v-tab>
+            </template>
+
             <v-tab @click="valid('food')" style="color: #ff7f00;">
               음식점
             </v-tab>
@@ -183,7 +192,6 @@
       return {
         loading: false,
         selection: 1,
-
         newSearch: [],
         openSearch: false,
         value: ['apple', 'orange'],
@@ -215,6 +223,9 @@
       ...mapState(['tempStores']),
       Stores() {
         return this.tempStores
+      },
+      userid(){
+        return this.$store.state.accessToken
       }
     },
     methods: {
@@ -322,6 +333,7 @@
         console.log(accessToken);
 
         if(accessToken!=null){
+          console.log(name);
           this.$router.push({name : name});  
         }else{
           this.$alert('로그인 하세요 !',"warning","warning")
