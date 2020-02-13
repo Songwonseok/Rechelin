@@ -89,27 +89,27 @@ export default [
                         name: 'signupconfirm',
                         component: signUpConfirm
                     },
-                    {
-                        path: '/userpage/:id',
-                        name: 'userpage',
-                        component: UserPage,
-                        children: [{
-                                path: 'fans',
-                                name: 'fans',
-                                component: Fans
-                            },
-                            {
-                                path: 'stars',
-                                name: 'stars',
-                                component: Stars
-                            },
-                            {
-                                path: 'bookmarks',
-                                name: 'bookmarks',
-                                component: UserReviews
-                            }
-                        ]
-                    }
+                    // {
+                    //     path: '/userpage/:id',
+                    //     name: 'userpage',
+                    //     component: UserPage,
+                    //     children: [{
+                    //             path: 'fans',
+                    //             name: 'fans',
+                    //             component: Fans
+                    //         },
+                    //         {
+                    //             path: 'stars',
+                    //             name: 'stars',
+                    //             component: Stars
+                    //         },
+                    //         {
+                    //             path: 'bookmarks',
+                    //             name: 'bookmarks',
+                    //             component: UserReviews
+                    //         }
+                    //     ]
+                    // }
 
 
                 ]
