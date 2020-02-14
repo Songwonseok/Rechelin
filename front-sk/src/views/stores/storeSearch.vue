@@ -93,5 +93,6 @@
         opacity: 0.5;
         position: absolute;
         width: 100%;
+        z-index: 2 !important;
     }
 </style>

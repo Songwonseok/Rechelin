@@ -1,14 +1,14 @@
 <template>
   <div>
       
-  <v-app id="inspire">
+  <v-app id="footer">
       <v-card
       color="white lighten-4"
       flat
       height="200px"
       tile
     >
-    
+  
       </v-card>
     <v-footer
       dark
@@ -66,6 +66,9 @@ export default {
 </script>
 
 <style scoped>
-
+.v-application--wrap{
+  z-index:-1 !important;
+  position: relative !important;
+}
 
 </style>

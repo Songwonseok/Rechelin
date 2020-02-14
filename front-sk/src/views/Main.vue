@@ -149,7 +149,7 @@
           </div>
 
 
-       <footer-tag></footer-tag>
+        <footer-tag></footer-tag>
         </div>
 
       </v-app>
