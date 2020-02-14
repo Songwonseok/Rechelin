@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.DTO.Alarm;
 import com.web.curation.model.DTO.User;
 import com.web.curation.service.FollowService;
 
@@ -34,8 +33,8 @@ public class FollowController {
 
 	@PostMapping("/follow/accept")
 	@ApiOperation(value = "팔로우 승낙")
-	public Object addFollow(@RequestParam(required = true) final String fan,
-			@RequestParam(required = true) final String star) {
+	public Object addFollow(@RequestParam(required = true) final long fan,
+			@RequestParam(required = true) final long star) {
 
 		final BasicResponse result = new BasicResponse();
 
@@ -59,8 +58,8 @@ public class FollowController {
 
 	@DeleteMapping("/follow/decline")
 	@ApiOperation(value = "팔로우 거절")
-	public Object declineFollow(@RequestParam(required = true) final String fan,
-			@RequestParam(required = true) final String star) {
+	public Object declineFollow(@RequestParam(required = true) final long fan,
+			@RequestParam(required = true) final long star) {
 
 		final BasicResponse result = new BasicResponse();
 		if (service.declineFollow(fan, star)) {
@@ -75,8 +74,8 @@ public class FollowController {
 
 	@PostMapping("/follow/request")
 	@ApiOperation(value = "팔로우 요청")
-	public Object reqFollow(@RequestParam(required = true) final String fan,
-			@RequestParam(required = true) final String star) {
+	public Object reqFollow(@RequestParam(required = true) final long fan,
+			@RequestParam(required = true) final long star) {
 
 		final BasicResponse result = new BasicResponse();
 		if (service.requestFollow(fan, star)) {
@@ -91,42 +90,42 @@ public class FollowController {
 
 	@PostMapping("/follow/starList")
 	@ApiOperation(value = "팔로잉 리스트")
-	public Object starList(@RequestParam(required = true) final String email) {
+	public Object starList(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";
-		List<User> list = service.starList(email);
+		List<User> list = service.starList(id);
 		result.object = list;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@PostMapping("/follow/fanList")
 	@ApiOperation(value = "팔로워 리스트")
-	public Object fanList(@RequestParam(required = true) final String email) {
+	public Object fanList(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";
-		List<User> list = service.fanList(email);
+		List<User> list = service.fanList(id);
 		result.object = list;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@PostMapping("/follow/alarmList")
 	@ApiOperation(value = "알림 리스트")
-	public Object alarmList(@RequestParam(required = true) final String email) {
+	public Object alarmList(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";
-		result.object = service.alarmList(email);
+		result.object = service.alarmList(id);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@PostMapping("/follow/alarmCheck")
 	@ApiOperation(value = "알람 읽음표시로 변경")
-	public Object alarmCheck(@RequestParam(required = true) final String email) {
+	public Object alarmCheck(@RequestParam(required = true) final long id) {
 		
 		final BasicResponse result = new BasicResponse();
-		if(service.alarmCheck(email)) {
+		if(service.alarmCheck(id)) {
 			result.status = true;
 			result.data = "알림 읽음";
 		}else {
@@ -138,9 +137,9 @@ public class FollowController {
 
 	@PostMapping("/follow/newAlarm")
 	@ApiOperation(value = "새 알림 확인")
-	public Object newAlarm(@RequestParam(required = true) final String email) {
+	public Object newAlarm(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
-		if(service.newAlarm(email)) {
+		if(service.newAlarm(id)) {
 			result.status = true;
 			result.data = "새 알림이 있습니다.";
 		}else {

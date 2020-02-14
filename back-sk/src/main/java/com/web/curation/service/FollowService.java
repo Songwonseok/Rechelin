@@ -6,21 +6,21 @@ import com.web.curation.model.DTO.Alarm;
 import com.web.curation.model.DTO.User;
 
 public interface FollowService {
-	public boolean addFollow(String fan, String star);
+	public boolean addFollow(long fan, long star);
 
-	public boolean requestFollow(String fan, String star);
+	public boolean requestFollow(long fan, long star);
 
-	public List<User> starList(long fnum);
+	public List<User> starList(long id);
 
-	public List<User> fanList(long snum);
+	public List<User> fanList(long id);
 
-	public List<Alarm> alarmList(String email);
+	public List<Alarm> alarmList(long id);
 
-	public boolean declineFollow(String fan, String star);
+	public boolean declineFollow(long fan, long star);
 
-	public boolean alarmCheck(String email); 
+	public boolean alarmCheck(long id); 
 	
-	public boolean newAlarm(String email);
+	public boolean newAlarm(long id);
 	 
 	 
 }

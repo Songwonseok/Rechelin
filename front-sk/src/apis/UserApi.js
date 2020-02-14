@@ -3,10 +3,10 @@ import store from "../vuex/store"
 import router from '../main.js';
 
 // import Api from "axios.js"
-// const URL = "http://54.180.160.87:8080" //aws
- const URL = 'http://70.12.246.134:8080' // 김주연 ip
+const URL = "http://54.180.160.87:8080" //aws
+//  const URL = 'http://70.12.246.134:8080' // 김주연 ip
  //const URL = 'http://54.180.160.87:8080'  //new DB ip
-// const URL = 'http://70.12.246.51:8080' //  조장님 ip
+
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -36,10 +36,10 @@ const requestName = (data, callback, errorCallback) => {
     params.append('nickname', data);
     Axios.post(URL + '/account/selectName', params)
         .then(response => {
-           
+
             console.log(response)
             callback(response.data);
-           
+
             console.log('성공')
         }).catch(exp => {
             alert('이미 존재하는 닉네임이 있습니다')
@@ -54,7 +54,7 @@ const requestEmail = (data, callback, errorCallback) => {
     Axios.post(URL + '/account/selectEmail', params)
         .then(response => {
             console.log(response);
-            
+
             // if (response.data.status == true)
             callback(response.data);
             console.log('성공')
@@ -121,26 +121,27 @@ const requestEdit = (data, callback, errorCallback) => {
 
     let options = {
         headers: {
-            'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
         },
-        url : URL + '/account/update',
+        url: URL + '/account/update',
         method: 'put',
         data: JSON.stringify(data)
     }
-    
-    
+
+
     Axios(options)
         .then(response => {
             if (response.data.status == true)
                 callback(response.data.object);
-                alert('회원 정보 수정에 성공');
+            alert('회원 정보 수정에 성공');
             console.log('회원정보 수정 성공')
-            router.push(
-                { name: 'userpage',
+            router.push({
+                name: 'userpage',
                 params: {
                     id: sessionStorage.getItem('userid')
-                }}
-            )
+                }
+            })
         }).catch(exp => {
             errorCallback(exp);
             console.log('실패')
@@ -222,7 +223,6 @@ const requestUpdatePw = async(data, callback, errorCallback) => {
         })
 }
 
-
 const requestId = async(data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append('id', data);
@@ -248,6 +248,7 @@ const UserApi = {
     requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
     requestUpdatePw: (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
+    requestId: (data, callback, errorCallback) => requestId(data, callback, errorCallback),
 
 }
 
