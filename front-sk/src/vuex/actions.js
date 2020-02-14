@@ -207,8 +207,13 @@ export default {
                     comments: res.data.object
                 }
                 commit('commentsOfreview', data)
-                console.log('요청 성공')
-                router.push({ name: 'comments' })
+                Axios.get(URL+ `/review/detail/${review}`)
+                .then(res => {
+                    commit('reviewDetail', res.data.object)
+                    router.push({ name: 'comments' })
+                })
+                console.log('요청 성공', res.data.object)
+                
             }).catch(exp => {
                 console.log('실패')
             })

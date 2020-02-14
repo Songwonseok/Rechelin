@@ -102,8 +102,8 @@
           
         },
         methods: {
-            reviewDetail(review) {
-                this.$store.dispatch('commentsOfreview', review)
+            reviewDetail(num) {
+                this.$store.dispatch('commentsOfreview', num)
 
             },
             canReivewDelete(user) {

@@ -85,6 +85,7 @@ export default {
     commentsOfreview(state, payload) {
         state.reviewInfo = payload.reviewInfo
         state.commentsOfreview = payload.comments
+
     },
     createComment(state, payload) {
         let list = [...state.commentsOfreview]
