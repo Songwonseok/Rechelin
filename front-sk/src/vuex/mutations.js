@@ -73,12 +73,7 @@ export default {
     // 스토어 관련
     storeinfoGet(state, data) {
         this.state.storeInfo = data.resData
-        router.push({
-            name: 'storeDetail',
-            params: {
-                id: data.id
-            }
-        })
+
     },
 
     storeHashtags(state, hashtags) {
@@ -106,6 +101,8 @@ export default {
     // 리뷰 관련
     reviewsGet(state, payload) {
         state.reviewsOfstore = payload
+        console.log(state.reviewsOfstore, 'store============')
+
     },
     reviewDetail(state, payload) {
         state.reviewDetail = payload

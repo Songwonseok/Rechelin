@@ -268,15 +268,17 @@ export default {
                         }
                         commit('storeinfoGet', data)
                         Axios.get(URL + `/review/${num}`, auth)
-                        .then(responseTwo => {
-                            console.log('성공')
-                            commit('reviewsGet', responseTwo.data.object)
+                        .then(resTwo => {
+                            console.log('성공', resTwo)
+            
+                            commit('reviewsGet', resTwo.data.object)
                             router.push({
-                                name: 'storeReviews',
+                                name: 'storeDetail',
                                 params: {
-                                    reviews: responseTwo.data.object
+                                    id: num
                                 }
                             })
+                           
                         })
                     }).catch(exp => {
                         console.log('실패')
