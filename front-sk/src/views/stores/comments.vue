@@ -23,7 +23,10 @@
                     <span class="card__subtitle"> 조회수: {{reviewInfo.views}} | 작성일 :
                         {{reviewInfo.wdate}}
                     </span>
-                    <p>장점</p>
+                    <v-chip class="ma-2" color="warning" outlined>
+                        <v-icon left>mdi-server-plus</v-icon>
+                        장점
+                    </v-chip>
                     <p class="card__text">{{reviewInfo.str}}</p>
                     <p>단점</p>
                     <p class="card__text">단점 : {{reviewInfo.weak}}</p>
@@ -117,9 +120,6 @@
                 this.$nextTick((res) => {
 
                 })
-
-
-
             },
             samePerson(num) {
 
