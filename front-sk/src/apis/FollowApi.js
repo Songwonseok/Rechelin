@@ -15,7 +15,7 @@ const requestFanList = (data, callback, errorCallback) => {
     //}
     //export requestFanList
     const params = new URLSearchParams();
-    params.append('snum', data);
+    params.append('id', data);
 
     Axios.post(URL + '/follow/fanList', params, auth)
         .then(response => {
@@ -29,7 +29,7 @@ const requestFanList = (data, callback, errorCallback) => {
 
 const requestStarList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
-    params.append('fnum', data);
+    params.append('id', data);
 
     Axios.post(URL + '/follow/starList', params, auth)
         .then(response => {

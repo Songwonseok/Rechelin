@@ -92,8 +92,8 @@
               <div class="my-2 searchBtn">
                   <loading :active.sync="isLoading" 
             :can-cancel="true" 
-            :on-cancel="onCancel"
-            :is-full-page="fullPage">
+            
+            >
        <iframe src="https://giphy.com/embed/wzJFuHbmGxiYo" width="150" height="150" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/meme-journey-ara-wzJFuHbmGxiYo">음식점 가져오는 중 ...  </a></p>
             </loading>
                 <v-btn color="warning" @click="searchBtnClick" :disabled="searchBtnActive" dark="dark">검색</v-btn>
@@ -104,15 +104,17 @@
             </v-card>
           </v-dialog>
 
+            <UserRanking></UserRanking>
           <div>
             <v-carousel cycle="cycle" show-arrows-on-hover="show-arrows-on-hover" hide-delimiters="hide-delimiters"
               v-ripple="true" class="text-center">
               <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
             </v-carousel>
           </div>
-          <!-- 탭부분 -->
+
+          <!-- 탭부분  -->
           <v-tabs fixed-tabs="fixed-tabs" background-color="transparent" color="#ff7f00">
-            <v-tab router-link="router-link" :to="{name: 'user'}"  style="color: #ff7f00;">
+            <v-tab router-link :to="{name: 'user'}"  style="color: #ff7f00;">
                 <template v-if="userToken==null">
                   로그인
                 </template>
@@ -135,7 +137,15 @@
           </v-tabs>
 
           <div>
-            <router-view></router-view>
+            
+            
+            <router-view>
+                
+              
+            </router-view>
+          
+          
+          
           </div>
 
 
@@ -150,7 +160,7 @@
 
 <script>
   import FooterTag from "./footer.vue";
-
+  
   import {
     mdiMagnify,
     mdiAccountCircle,
@@ -167,6 +177,7 @@
   import StoreApi from '../../src/apis/StoreApi.js';
   import Loading from 'vue-loading-overlay';
   import 'vue-loading-overlay/dist/vue-loading.css';
+  import UserRanking from "./user/userRanking";
   export default {
     created() {
       this
@@ -245,6 +256,7 @@
     components : {
        Loading,
        FooterTag,
+       UserRanking,
     },
     methods: {
       valid(name){

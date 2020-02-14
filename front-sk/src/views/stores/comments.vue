@@ -7,16 +7,16 @@
             <b-row>
 
                 <b-col>
-                    <div v-if="reviewInfo.picture" class="card__image">
+                    <!-- <div v-if="reviewInfo.picture" class="card__image">
                         <b-carousel id="carousel-1" v-model="slide" :interval="4000" controls indicators
                             background="#ababab" img-width="300" img-height="480"
                             style="text-shadow: 1px 1px 2px #333;">
-                            <!-- Text slides with image -->
+                           
                             <b-carousel-slide v-for="(picture, index) in reviewInfo.picture" :key="index"
                                 :img-src="picture"></b-carousel-slide>
                         </b-carousel>
 
-                    </div>
+                    </div> -->
                 </b-col>
                 <b-col>
                     <h2 class="card__title"></h2>

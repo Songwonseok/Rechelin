@@ -8,8 +8,9 @@
             <v-list-item-group color="warning">
     
               
-              <v-list-item router-link :to="{name: 'userpage', params : {
-                id: userid
+              <v-list-item 
+              router-link :to="{name: 'userpage', params : {
+                                id: userid
               }}">
                 <v-list-item-content>
                   <span><v-icon>{{mdiAccountDetails}}</v-icon>유저페이지</span>
@@ -47,6 +48,7 @@
   export default {
     created(){
       this.$store.state.data +=1;
+      console.log(this.userid)
     },
     data() {
       return {
@@ -55,13 +57,12 @@
         mdiAccountPlus,
         mdiAccountDetails,
         mdiAccountEdit,
-        mdiKey
+        mdiKey,
+        userid: sessionStorage.getItem('userid')
       }
     },
-    methods: {
-      userid() {
-        return sessionStorage.getItem('userid')
-      }
+    computed: {
+     
     }
   }
 </script>
