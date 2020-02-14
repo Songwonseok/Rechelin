@@ -31,6 +31,13 @@ public class Storelike {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User user;
 
+	public Storelike() {}
+	
+	public Storelike(Store store, User user) {
+		this.store = store;
+		this.user = user;
+	}
+
 	public long getNum() {
 		return num;
 	}

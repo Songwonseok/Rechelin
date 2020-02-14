@@ -17,7 +17,7 @@
                                 <br>{{review.wdate}}
 
                                 <div v-if="canReivewDelete(review.user.email)">
-                                    <v-btn class="ma-2" x-small outlined color="indigo"
+                                    <v-btn class="ma-2" x-small outlined color="warning"
                                         @click="reviewDelete(review.rnum)">
                                         리뷰 삭제</v-btn>
                                 </div>

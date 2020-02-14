@@ -187,7 +187,7 @@ export default {
     },
     likeStore({ commit }, payload) {
 
-        Axios.post(URL + "/review/bookmark", payload, auth)
+        Axios.post(URL + "/review/bookmark", payload.user, auth)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
@@ -200,7 +200,7 @@ export default {
     commentsOfreview({ commit }, review) {
         console.log(review, "???")
             //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
-        Axios.get(URL + `/review/comment/${review}`, auth)
+        Axios.get(URL + `/review/comment/${review.rnum}`, auth)
             .then(res => {
                 var data = {
                     reviewInfo: review,

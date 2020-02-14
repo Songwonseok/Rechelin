@@ -62,7 +62,7 @@ implements CustomRepository{
 				.where(storetags.hashtag.category.eq("food"),
 						storetags.review.store.num.eq(num))
 				.orderBy(storetags.hashtag.keyword.count().desc())
-				.limit(3).fetch();
+				.limit(2).fetch();
 	}
 	
 	public List<Hashtag> loctags(long num){

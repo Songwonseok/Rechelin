@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -18,9 +17,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.web.curation.model.NaverLogin;
 import com.web.curation.model.DAO.RoleDao;
+import com.web.curation.model.DAO.StoreLikeDao;
 import com.web.curation.model.DAO.UserDao;
 import com.web.curation.model.DTO.Role;
 import com.web.curation.model.DTO.RoleName;
+import com.web.curation.model.DTO.Storelike;
 import com.web.curation.model.DTO.User;
 
 @Service
@@ -32,7 +33,11 @@ public class AcountServiceImpl implements AcountService {
 	RoleDao roleDao;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder; // 鍮꾨�踰덊샇 �븫�샇�솕
+	StoreLikeDao storeLikeDao;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder; // 비밀번호 암호화
+
 
 	NaverLogin naver;
 	
@@ -215,6 +220,12 @@ public class AcountServiceImpl implements AcountService {
 	public User selectId(long id) {
 		User user = userDao.findById(id);
 		return user;
+	}
+	
+	public List<Storelike> bookmarks(long id){
+		User user = userDao.findById(id);
+		List<Storelike> list = storeLikeDao.findAllByUser(user);
+		return list;
 	}
 
 	@Override

@@ -95,7 +95,7 @@
         })
       },
       userpageGo() {
-        this.$store.dispatch('userpageGo', this.$store.state.userEmail)
+        this.$store.dispatch('userpageGo', this.$store.state.userid)
       },
       mainGo() {
         this.$router.push({
@@ -103,14 +103,14 @@
         })
       },
       notificationGet() {
-        var payload = this.$store.state.userEmail
+        var payload = this.$store.state.userid
         this.$store.dispatch('notificationGet', payload)
         this.alarms = this.$store.state.notifications
       },
       followAccept(f, index) {
         var payload = {
           fan: f,
-          star: this.$store.state.userEmail
+          star: this.$store.state.userid
         }
         this.$store.dispatch('followAccept', payload)
         this.alarms.splice(index, 1)
@@ -118,7 +118,7 @@
       followDecline(f, index) {
         var payload = {
           fan: f,
-          star: this.$store.state.userEmail
+          star: this.$store.state.userid
         }
         this.$store.dispatch('followDecline', payload)
         this.alarms.splice(index, 1)
