@@ -7,7 +7,7 @@
             <!-- <v-subheader>REPORTS</v-subheader> -->
             <v-list-item-group color="primary">
               <v-list-item router-link :to="{name : 'storeSearch'}">
-                <v-list-item-content >검색</v-list-item-content>
+                <v-list-item-content >음식점 리스트</v-list-item-content>
               </v-list-item>
               <v-list-item router-link :to="{name: 'random'}">
                 <v-list-item-content >랜덤음식추천</v-list-item-content>
