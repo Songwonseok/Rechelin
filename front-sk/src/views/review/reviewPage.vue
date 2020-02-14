@@ -156,25 +156,17 @@
                         </b-modal> <br>
 
 
-                        <!--음식사진 -->
-                        <h4>음식 사진 업로드</h4>
-                        <!-- TODO : 이미지가 있는지 없는지 체크해서 보여주기 -->
-                        <template v-if="this.profile != ''">
-                            <!-- {{this.profile}}  -->
-
-                            <img :src="profile" style="max-width:30%">
-                        </template>
-
-                        <h4>사진업로드 미리보기</h4>
+                        
+                        <h4>사진업로드</h4>
                         <div class="uploadProfile">
                             <v-file-input @change="getProfileForm" label="File input" filled
                                 :prepend-icon="icons.camera" name="fileToUpload" id="fileToUpload"
                                 accept=".gif, .jpg, .png"></v-file-input>
                             <!--change을 통해서 파일의 변화를 감지 -->
-                            <v-btn @click="upload" class="ma-2" dark
+                            <!-- <v-btn @click="upload" class="ma-2" dark
                                 style="color: #ff7f00 !important; background:#ff7f00; left: 350px;">
                                 <v-icon left>{{icons.camera}}</v-icon>이미지업로드
-                            </v-btn>
+                            </v-btn> -->
                         </div> <br>
 
                     </b-col>
@@ -271,7 +263,6 @@ export default {
       this.consSchema
          .is().min(0)
          .is().max(20)
-      this.getProfile();
       
     },
     mounted() {
@@ -404,27 +395,10 @@ export default {
                     this.allTags = [...list2]
                 }
             },
-            getProfile() {
-                // Axios로 사진 가져오기
-                // console.log('프로필 가져오기!!!')
-
-                let email = "ssafy@naver.com";
-                let data = {
-                    email
-                }
-                UserApi.requestProfile(email, res => {
-                    // console.log(res)
-                    this.profile = res.object.profile
-                    // console.log(this.profile);
-                    console.log('프로필 가져오기 성공')
-
-                }, error => {
-                    // console.log('프로필 가져오기 실패')
-                })
-            },
-            upload(e) {
+           
+            upload() {
                 console.log('이미지 업로드 @@')
-                // console(e)
+                // console(this.selectedImage)
 
                 ImgurApi.uploadProfile(this.selectedImage, res => {
                     this.imageUrl = res.data.link
@@ -435,8 +409,11 @@ export default {
                 })
 
             },
-            getProfileForm(event) {
-                this.upload(event);
+            
+            getProfileForm(e) {
+                this.selectedImage = e;
+                this.upload()
+               
             },
             setRating(rating) {
                 this.rating = "You have Selected: " + rating + " stars";
@@ -467,7 +444,7 @@ export default {
             reviewConfirm() {
                 let hashtag = this.area + " " + this.age + " " + this.age + " " + this.atmosphere + " " + this.withWho;
                 console.log(hashtag.length);
-                console.log(hashtag + " " + this.profile + " " + this.rating + " " + this.cons +
+                console.log(hashtag + " " + this.imageUrl + " " + this.rating + " " + this.cons +
                     this.props + " " + this.flavor + " " + this.price + " " + this.kindness +
                     this.reviewTitle + " " + this.store_num)
 
@@ -476,7 +453,7 @@ export default {
                     console.log(this.store_num);
                     var data = {
                         'hashtag': hashtag,
-                        'picture': this.store_pic,
+                        'picture': this.imageUrl,
                         'score_kindness': this.kindness,
                         'score_price': this.price,
                         'score_taste': this.flavor,
@@ -568,7 +545,6 @@ export default {
             atmosphere: [],
             withWho: [],
             facility:[],
-            profile: '',
             mageUrl: '',
             selectedImage: '',
             rating: "",
