@@ -14,6 +14,7 @@ import com.web.curation.model.DTO.QLikecheck;
 import com.web.curation.model.DTO.QReview;
 import com.web.curation.model.DTO.QStore;
 import com.web.curation.model.DTO.QStoretags;
+import com.web.curation.model.DTO.QUser;
 import com.web.curation.model.DTO.Review;
 import com.web.curation.model.DTO.Store;
 import com.web.curation.model.DTO.Storetags;
@@ -30,6 +31,7 @@ implements CustomRepository{
 	private final QFollow follow = QFollow.follow;
 	private final QHashtag hashtag = QHashtag.hashtag;
 	private final QLikecheck likecheck = QLikecheck.likecheck;
+	private final QUser user = QUser.user;
 	
 	
 	public CustomRepositoryImpl(JPAQueryFactory queryFactory) {
@@ -113,6 +115,15 @@ implements CustomRepository{
 								.groupBy(likecheck.review)
 								.orderBy(likecheck.review.count().desc())))
 				.limit(6).fetch();
+	}
+
+	@Override
+	public List<User> topUser() {
+		return queryFactory.selectFrom(user).where(user.id.in(
+				JPAExpressions.select(review.user.id).from(review)
+								.groupBy(review.user)
+								.orderBy(review.user.count().desc())))
+				.limit(3).fetch();
 	}
 
 	

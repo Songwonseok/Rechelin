@@ -32,7 +32,7 @@ public class AcountServiceImpl implements AcountService {
 	RoleDao roleDao;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder; // 비밀번호 암호화
+	PasswordEncoder passwordEncoder; // 鍮꾨�踰덊샇 �븫�샇�솕
 
 	NaverLogin naver;
 	
@@ -40,32 +40,32 @@ public class AcountServiceImpl implements AcountService {
 		
 		User tmp = userDao.findByEmail(email);
 		if (tmp != null) {
-			// 비밀번호 일치 X
+			// 鍮꾨�踰덊샇 �씪移� X
 
 			System.out.println(password + " " + tmp.getPw());
 			
 			if (!passwordEncoder.matches(password, tmp.getPw())) {
-				System.out.println("비밀번호 틀림");
+				System.out.println("鍮꾨�踰덊샇 ��由�");
 				tmp.setPw("");
 			}
 			return tmp;
 		}
-		System.out.println("유저 존재X");
-		// DB에 존재 X
+		System.out.println("�쑀�� 議댁옱X");
+		// DB�뿉 議댁옱 X
 		return null;
 
 	}
 
 	public User signup(User request) {
 		if (userDao.findByEmail(request.getEmail()) != null) {
-			// 이메일 중복
+			// �씠硫붿씪 以묐났
 			request.setEmail("");
 		} else if (userDao.findByNickname(request.getNickname()) != null) {
-			// 닉네임 중복
+			// �땳�꽕�엫 以묐났
 			request.setNickname("");
 		}
-		request.setPw(EncodePW(request.getPw())); // 암호화
-		request.setProfile(null); // 처음 프로필을 만들어주지 않는다
+		request.setPw(EncodePW(request.getPw())); // �븫�샇�솕
+		request.setProfile(null); // 泥섏쓬 �봽濡쒗븘�쓣 留뚮뱾�뼱二쇱� �븡�뒗�떎
 		Role userRole = roleDao.findByName(RoleName.ROLE_USER);
 		request.setRole(Collections.singleton(userRole));
 		userDao.save(request);
@@ -85,7 +85,7 @@ public class AcountServiceImpl implements AcountService {
 		User user = userDao.findByEmail(request.getEmail());
 		if(user!=null) {
 			user.updateUser(request);
-			// profile과 비밀번호 제외하고 업데이트
+			// profile怨� 鍮꾨�踰덊샇 �젣�쇅�븯怨� �뾽�뜲�씠�듃
 			userDao.save(user);
 			return true;
 		}
@@ -106,11 +106,11 @@ public class AcountServiceImpl implements AcountService {
 	}
 
 	public boolean uploadProfile(long id,String profile) {
-		// 1) email 로  유저 찾기
+		// 1) email 濡�  �쑀�� 李얘린
 		User user = userDao.findById(id);
 		
 		if(user!=null) {
-			// 2) User정보 업데이트
+			// 2) User�젙蹂� �뾽�뜲�씠�듃
 			user.setProfile(profile);
 			// 3) userDao.save()
 			userDao.save(user);
@@ -149,9 +149,9 @@ public class AcountServiceImpl implements AcountService {
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
 			
-			if (responseCode == 200) { // 정상 호출
+			if (responseCode == 200) { // �젙�긽 �샇異�
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else { // 에러 발생
+			} else { // �뿉�윭 諛쒖깮
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
 			String inputLine;
@@ -162,7 +162,7 @@ public class AcountServiceImpl implements AcountService {
 				res.append(inputLine);
 			}
 			br.close();
-			if (responseCode == 200) { // 성공적으로 토큰을 가져온다면
+			if (responseCode == 200) { // �꽦怨듭쟻�쑝濡� �넗�겙�쓣 媛��졇�삩�떎硫�
 				System.out.println(res.toString());
 
 				JsonParser parser = new JsonParser();
@@ -177,19 +177,19 @@ public class AcountServiceImpl implements AcountService {
 				email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
 				String nickname = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
 				
-				// DB 에 존재하는지 확인
+				// DB �뿉 議댁옱�븯�뒗吏� �솗�씤
 				User user = userDao.findByEmail(email);
 				if (user == null) {
-					// DB에 계정 저장
+					// DB�뿉 怨꾩젙 ���옣
 					System.out.println("XXXX");
 					user = new User(email, nickname);
 					userDao.save(user);
 				}
 				System.out.println(user.toString());
 
-				//// DB에서 존재하는 이메일인지 체크
-				//// 없으면 DB 에저장
-				//// ===> login으로 바로 이동
+				//// DB�뿉�꽌 議댁옱�븯�뒗 �씠硫붿씪�씤吏� 泥댄겕
+				//// �뾾�쑝硫� DB �뿉���옣
+				//// ===> login�쑝濡� 諛붾줈 �씠�룞
 				
 				return user;
 			}
@@ -217,5 +217,10 @@ public class AcountServiceImpl implements AcountService {
 		return user;
 	}
 
+	@Override
+	public List<User> userTop() {
+		List<User> list = userDao.topUser();
+		return list;
+	}
 
 }

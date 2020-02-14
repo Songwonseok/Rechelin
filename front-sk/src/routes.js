@@ -72,7 +72,7 @@ export default [
                 component: bestReviewList,
             },
 
-           
+
 
             // user 탭
             {
@@ -261,7 +261,11 @@ export default [
         path: '/sideMenuUserPage',
         name: 'sideMenuUserPage',
         component: sideMenuUserPage,
-    }
-
+    },
+    {
+        path: '/social',
+        name: 'social',
+        component: updateNewPw,
+    },
 
 ]

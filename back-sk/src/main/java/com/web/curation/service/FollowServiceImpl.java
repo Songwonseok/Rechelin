@@ -126,11 +126,11 @@ public class FollowServiceImpl implements FollowService {
 		return false;
 	}
 
-	@Override
-	public int followStatus(long num) {
-		// 먼저 알람 테이블에 있는지 체크
-		
-		return 0;
-	}
+//	@Override
+//	public int followStatus(long num) {
+//		// 먼저 알람 테이블에 있는지 체크
+//		
+//		return 0;
+//	}
 
 }
