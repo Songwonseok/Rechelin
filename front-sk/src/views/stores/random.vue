@@ -57,7 +57,6 @@
       <random></random>
       <v-btn color="primary" @click="getRandom">랜덤 추천 시작</v-btn>
 
-
       <b-row v-for="item in randomList" :key="item.num" style="margin-bottom: 30px;"> 
         
         <v-card max-width="344" class="mx-auto" style="margin-top: 20px;">

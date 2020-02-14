@@ -16,11 +16,11 @@
     <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
     <tweets
       v-for="(tweet, $index) in tweet"
-      v-bind:key="$index+tweet"
+      :key="$index+tweet"
       :tweet="tweet"
       v-if="((tweet.user_type === user_type) || (user_type === 'all'))"
     />
-    <!-- </div> -->
+
     <div v-for="(item, $index) in list" :key="$index">{{item}}</div>
     <infinite-loading spinner="bubbles" :identifier="infiniteId" @infinite="infiniteHandler">
       <div slot="spinner">Loading...</div>
@@ -134,7 +134,8 @@ p {
   }
 }
 button {
-  background-color: #43c594;
+  background-color: #ff7f00;
+  border-radius: 8px;
   border: 0;
   color: #fff;
   padding: 15px 20px;
@@ -145,7 +146,8 @@ button {
     outline: none;
   }
   &.selected {
-    background-color: darken(#43c594, 15%);
+    border-radius: 8px;
+    background-color: darken(#ff7f00, 10%);
   }
 }
 #app {
