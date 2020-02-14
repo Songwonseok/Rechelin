@@ -6,9 +6,9 @@ import com.web.curation.model.TagsResponse;
 import com.web.curation.model.DTO.Search;
 
 public interface SearchService {
-	public boolean addUser(String email, String name); 
-	public boolean addStore(String email, String name); 
-	public List<Search> userList(String email);
-	public List<Search> storeList(String email);
+	public boolean addUser(long id, String name); 
+	public boolean addStore(long id, String name); 
+	public List<Search> userList(long id);
+	public List<Search> storeList(long id);
 	public List<TagsResponse> tagSearch();
 }

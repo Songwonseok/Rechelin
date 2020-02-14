@@ -72,10 +72,10 @@ public class AcountServiceImpl implements AcountService {
 		return request;
 	}
 
-	public boolean delete(String email) {
-		User user = userDao.findByEmail(email);
+	public boolean delete(long id) {
+		User user = userDao.findById(id);
 		if (user != null) {
-			userDao.delete(user);
+			userDao.deleteById(id);;
 			return true;
 		} else
 			return false;
@@ -105,9 +105,9 @@ public class AcountServiceImpl implements AcountService {
 		return userDao.findByNickname(nickname);
 	}
 
-	public boolean uploadProfile(String email,String profile) {
+	public boolean uploadProfile(long id,String profile) {
 		// 1) email 로  유저 찾기
-		User user = userDao.findByEmail(email);
+		User user = userDao.findById(id);
 		
 		if(user!=null) {
 			// 2) User정보 업데이트
@@ -121,8 +121,9 @@ public class AcountServiceImpl implements AcountService {
 	}
 
 	@Override
-	public User getProfile(String email) {
-		return userDao.findByEmail(email);
+	public User getProfile(long id) {
+		User user = userDao.findById(id);
+		return user;
 	}
 
 	public String EncodePW(String Pw) {
@@ -201,8 +202,8 @@ public class AcountServiceImpl implements AcountService {
 	}
 
 	@Override
-	public boolean changePW(String email, String password) {
-		User user = userDao.findByEmail(email);
+	public boolean changePW(long id, String password) {
+		User user = userDao.findById(id);
 		if(user!=null) {
 			user.setPw(EncodePW(password));
 			userDao.save(user);

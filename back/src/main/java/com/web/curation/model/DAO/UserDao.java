@@ -9,7 +9,7 @@ import com.web.curation.model.DTO.User;
 
 
 public interface UserDao extends JpaRepository<User, Long> {
-	Optional<User> findById(Long id);
+	User findById(long id);
 	User findUserByEmailAndPw(String email, String pw);
 	User findByNickname(String nickname);
 	User findByEmail(String email);

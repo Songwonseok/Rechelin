@@ -25,9 +25,9 @@ public class FollowServiceImpl implements FollowService {
 	@Autowired
 	AlarmDao alarmDao;
 
-	public boolean addFollow(String fan, String star) {
-		User f = userDao.findByEmail(fan);
-		User s = userDao.findByEmail(star);
+	public boolean addFollow(long fan, long star) {
+		User f = userDao.findById(fan);
+		User s = userDao.findById(star);
 		Alarm alarm = alarmDao.findByFanAndStar(f, s);
 		if (followDao.findByFanAndStar(f, s) == null) {
 			followDao.save(new Follow(f, s));
@@ -39,9 +39,9 @@ public class FollowServiceImpl implements FollowService {
 		}
 	}
 
-	public boolean declineFollow(String fan, String star) {
-		User f = userDao.findByEmail(fan);
-		User s = userDao.findByEmail(star);
+	public boolean declineFollow(long fan, long star) {
+		User f = userDao.findById(fan);
+		User s = userDao.findById(star);
 		Alarm alarm = alarmDao.findByFanAndStar(f, s);
 		if (alarm != null) {
 			alarmDao.delete(alarm);
@@ -51,10 +51,10 @@ public class FollowServiceImpl implements FollowService {
 		}
 	}
 
-	public boolean requestFollow(String fan, String star) {
-		User f = userDao.findByEmail(fan);
+	public boolean requestFollow(long fan, long star) {
+		User f = userDao.findById(fan);
 		f.getEmail();
-		User s = userDao.findByEmail(star);
+		User s = userDao.findById(star);
 		s.getEmail();
 		
 		if (alarmDao.findByFanAndStar(f, s) == null) {
@@ -65,8 +65,8 @@ public class FollowServiceImpl implements FollowService {
 		}
 	}
 
-	public List<User> starList(long fnum) {
-		User user =userDao.findById(fnum);
+	public List<User> starList(long id) {
+		User user =userDao.findById(id);
 		List<Follow> flist = followDao.findAllByFan(user);
 		System.out.println("*****"+flist.size());
 		List<User> ulist = new ArrayList<>();
@@ -77,8 +77,8 @@ public class FollowServiceImpl implements FollowService {
 		return ulist;
 	}
 
-	public List<User> fanList(long snum) {
-		User user =userDao.findById(snum);
+	public List<User> fanList(long id) {
+		User user =userDao.findById(id);
 		System.out.println("user"+ user.toString());
 		List<Follow> tmp = followDao.findAll();
 		System.out.println("전체 리스트 "+ tmp.size());
@@ -94,15 +94,15 @@ public class FollowServiceImpl implements FollowService {
 		return ulist;
 	}
 
-	public List<Alarm> alarmList(String email) {
-		User user =userDao.findByEmail(email);
+	public List<Alarm> alarmList(long id) {
+		User user =userDao.findById(id);
 		List<Alarm> alist = alarmDao.findAllByStar(user);
 		return alist;
 	}
 
 	@Override
-	public boolean alarmCheck(String email) {
-		User user = userDao.findByEmail(email);
+	public boolean alarmCheck(long id) {
+		User user = userDao.findById(id);
 		List<Alarm> list = alarmDao.findAllByStar(user);
 		if (list != null) {
 			for (Alarm a : list) {
@@ -114,8 +114,8 @@ public class FollowServiceImpl implements FollowService {
 		return false;
 	}
 
-	public boolean newAlarm(String email) {
-		User user = userDao.findByEmail(email);
+	public boolean newAlarm(long id) {
+		User user = userDao.findById(id);
 		List<Alarm> list = alarmDao.findAllByStar(user);
 		
 		for (Alarm a : list) {

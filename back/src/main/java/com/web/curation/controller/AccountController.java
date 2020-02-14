@@ -17,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.DAO.ReviewDao;
-import com.web.curation.model.DTO.Review;
 import com.web.curation.model.DTO.User;
 import com.web.curation.service.AcountService;
 import com.web.curation.service.JwtService;
-import com.web.curation.service.ReviewService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -40,17 +37,15 @@ public class AccountController {
 	@Autowired
 	private AcountService service;
 	
-	@Autowired
-	ReviewService serv;
-	
+
 	@Autowired
 	private JwtService jwtService;
  
 	@DeleteMapping("/account/delete")
     @ApiOperation(value = "삭제하기")
-    public Object delete(@RequestParam(required = true) final String email) {
+    public Object delete(@RequestParam(required = true) final long id) {
     	final BasicResponse result = new BasicResponse();
-    	if(service.delete(email)) {
+    	if(service.delete(id)) {
     		result.status = true;
     		result.data = "삭제 성공";    		
     	}else {
@@ -64,29 +59,6 @@ public class AccountController {
     @ApiOperation(value = "수정하기")
     public Object update(@RequestBody User request) {
     	final BasicResponse result = new BasicResponse();
-    	User user = service.selectEmail(request.getEmail());
-    	User user2 = service.selectName(request.getNickname());
-    	
-    	if(user2 != null & user.getId() != user2.getId()) {
-    		result.status = false;
-    		result.data = "닉네임이 중복됩니다.";
-    		return new ResponseEntity<>(result, HttpStatus.OK);
-    	}
-    	
-    	
-    	if(request.getPw().equals("")) {
-    		request.setPw(user.getPw());
-    	}
-    	if(request.getNickname().equals("")) {
-    		request.setNickname(user.getNickname());
-    	}
-    	if(request.getPhone().equals("")) {
-    		request.setPhone(user.getPhone());
-    	}
-    	if(request.getProfile().equals("")) {
-    		request.setProfile(user.getProfile());
-    	}
-    	
     	
     	if(service.update(request)) {
     		result.status = true;
@@ -111,10 +83,7 @@ public class AccountController {
 		result.data = "success";
 		List<User> ulist = service.selectAll();
 		result.object = ulist;
-		
-		System.out.println("실행!");
-		
-		
+
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
@@ -157,7 +126,7 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "성공";
+			result.data = "이메일로 유저 찾기 성공";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
@@ -176,7 +145,25 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "성공";
+			result.data = "닉네임으로 유저찾기 성공";
+			result.object = new JSONObject(user).toMap();
+		} else {
+			result.status = false;
+			result.data = "유저가 없습니다.";
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    
+    @PostMapping("/account/selectId")
+    @ApiOperation(value = "id로 유저찾기")
+    public Object selectId(@RequestParam(required = true) final long id) {
+    	final BasicResponse result = new BasicResponse();
+
+    	User user = service.selectId(id);
+    	
+		if (user != null) {
+			result.status = true;
+			result.data = "id로 유저찾기 성공";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
@@ -186,18 +173,15 @@ public class AccountController {
     }
     
     @PostMapping(value = "/account/uploadProfile")
-	public Object upload(@RequestParam(required = true) final String email,
+	public Object upload(@RequestParam(required = true) final long id,
 			@RequestParam(required = true) String profile) {
     	final BasicResponse result = new BasicResponse();
-    	JSONObject dummyUser = new JSONObject();
     	
-    	System.out.println(email+" "+profile);
-    	if(service.uploadProfile(email, profile)) {
+    	if(service.uploadProfile(id, profile)) {
     		result.status = true;
     		result.data = "프로필 등록 성공";
-    		dummyUser.put("email", email);
-    		dummyUser.put("profile", profile);
-    		result.object = dummyUser.toMap();
+    		User user = service.selectId(id);
+    		result.object = user;
     	}else {
     		result.status = false;
     		result.data = "프로필 등록 실패 ! - 존재하지않는 유저";
@@ -206,10 +190,10 @@ public class AccountController {
 	}
     
 	@PostMapping(value = "/account/getProfile")
-	public Object getProfile(@RequestParam(required = true) final String email) {
+	public Object getProfile(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 //		System.out.println("프로필 가져오기 !!!!!!!!!");
-		User user = service.getProfile(email);
+		User user = service.getProfile(id);
 		if(user!=null) {
 			// profile 이 없음
 			if(user.getProfile()==null) {
@@ -231,23 +215,14 @@ public class AccountController {
 	
 	@PostMapping("/account/changePW")
 	@ApiOperation(value = "비밀번호 변경")
-	public Object changePW(@RequestParam(required = true) final String email,
+	public Object changePW(@RequestParam(required = true) final long id,
 			@RequestParam(required = true) String password) {
 		final BasicResponse result = new BasicResponse();
 		System.out.println("비밀번호 변경 !!!!!!!!!!!!!");
-		User user = service.selectEmail(email);
-		if(user!=null) {
-			// update 호출
-			user.setPw(service.EncodePW(password));
-			if(service.update(user)) {
-				result.status = true;
-				result.data = "비밀번호바꾸기 성공";
-				result.object = new JSONObject(user).toMap();				
-			}else {
-				result.status = false;
-				result.data = "비밀번호바꾸기 실패";
-			}
-			
+		if(service.changePW(id, password)) {
+			result.status = true;
+			result.data = "비밀번호바꾸기 성공";
+			result.object = service.selectId(id);
 		}else {
 			result.status = false;
 			result.data = "존재하지않는 email입니다";
