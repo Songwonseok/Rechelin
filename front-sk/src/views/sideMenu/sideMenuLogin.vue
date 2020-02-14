@@ -28,6 +28,7 @@
               <v-list-item router-link :to="{name: 'userpage', params : {
                 id: userid
               }}">
+              <!-- back 단에서 email로 보내줘서 찾는데 front에서는 id로 찾아야 한다. 그래야 페이지를 넘길 수 있다.  -->
                 <v-list-item-content>
                   <span><v-icon>{{mdiAccountDetails}}</v-icon>유저페이지</span>
                 </v-list-item-content>

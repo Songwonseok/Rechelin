@@ -41,9 +41,9 @@
             <v-btn class="ma-2" outlined fab color="warning" @click="likeStore">
               <v-icon color="warning">{{icons.bookmark}}</v-icon>
             </v-btn>
-            <v-btn class="ma-2" outlined fab color="warning" @click="recent(storeInfoSave)">
+            <!-- <v-btn class="ma-2" outlined fab color="warning" @click="browserlocation">
               <v-icon color="warning">{{icons.mdiCrosshairsGps}}</v-icon>
-            </v-btn>
+            </v-btn> -->
           </div>
         </b-card-text>
          <b-card-text style="text-align: center;">
@@ -58,9 +58,7 @@
             <gmap-marker :position="{lat: parseFloat(storeInfoSave.lat), lng:parseFloat(storeInfoSave.lng)}" :clickable="true"
               :draggable="true" @click="center=m.position">
             </gmap-marker>
-            <gmap-marker :position="recentlocation" 
-              :draggable="true" @click="center=m.position">
-            </gmap-marker>
+        
           </gmap-map>
         </div>
       </v-col>
@@ -143,24 +141,6 @@
         }
         this.$store.dispatch('likeStore', payload)
       },
-      recent () {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (pos, storeInfoSave) {
-            var R = 6371.0710
-            var rlat1 = pos.coords.latitude * (Math.PI / 180)
-            var rlat2 = parseFloat(storeInfoSave.lat)* (Math.PI / 180)
-            var difflat = rlat2 - rlat1;
-            var difflon = (parseFloat(this.storeInfoSave.lng) -pos.coords.longitude) * (Math.PI / 180);
-            var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2)));
-
-        }
-
-        )
-        
-        return location
-
-    }
-      }
     },
     created() {
 

@@ -76,6 +76,11 @@ export default {
       tweet: []
     };
   },
+  computed :{
+    userid(){
+        return this.$store.state.userid
+      },
+  },
   methods: {
     update_source: function(user_type) {
       // eslint-disable-next-line no-console console.log(user_type);
@@ -94,7 +99,7 @@ export default {
             this.page += 1;
             // this     .list     .push(...data.hits);
             
-            ReviewApi.requestFeedList("ssafy@naver.com", res=>{
+            ReviewApi.requestFeedList(9, res=>{
               this.tweet = res;
               console.log(this.tweet)
             }, error=>{

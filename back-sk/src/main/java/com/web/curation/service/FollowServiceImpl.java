@@ -65,8 +65,8 @@ public class FollowServiceImpl implements FollowService {
 		}
 	}
 
-	public List<User> starList(String email) {
-		User user =userDao.findByEmail(email);
+	public List<User> starList(long fnum) {
+		User user =userDao.findById(fnum);
 		List<Follow> flist = followDao.findAllByFan(user);
 		System.out.println("*****"+flist.size());
 		List<User> ulist = new ArrayList<>();
@@ -77,8 +77,8 @@ public class FollowServiceImpl implements FollowService {
 		return ulist;
 	}
 
-	public List<User> fanList(String email) {
-		User user =userDao.findByEmail(email);
+	public List<User> fanList(long snum) {
+		User user =userDao.findById(snum);
 		System.out.println("user"+ user.toString());
 		List<Follow> tmp = followDao.findAll();
 		System.out.println("전체 리스트 "+ tmp.size());

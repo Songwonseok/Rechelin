@@ -1,7 +1,7 @@
 import Axios from "axios"
 
-const URL = "http://54.180.160.87:8080" //aws
-// const URL = 'http://70.12.246.134:8080' // 김주연 ip
+// const URL = "http://54.180.160.87:8080" //aws
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
     // const URL = 'http://70.12.246.51:8080' //  조장님 ip
 const auth = {
     headers: {
@@ -11,7 +11,7 @@ const auth = {
 
 const requestMyReviewList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
-    params.append('email', data);
+    params.append('num', data);
 
     Axios.post(URL + '/review/myList', params, auth)
         .then(response => {
@@ -25,7 +25,7 @@ const requestMyReviewList = (data, callback, errorCallback) => {
 
 const requestBookmarkList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
-    params.append('email', data);
+    params.append('num', data);
 
     Axios.post(URL + '/review/bookmark/getList', params, auth)
         .then(response => {
@@ -58,7 +58,7 @@ const requestAddReview = async(data, callback, errorCallback) => {
 
 const requestFeedList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
-    params.append('email', "ssafy@naver.com");
+    params.append('num', data);
     Axios.post(URL + '/review/feed', params, auth)
         .then(response => {
             callback(response.data.object);
