@@ -1,6 +1,6 @@
 import Axios from "axios"
 import store from "../vuex/store"
-
+// const URL = "http://54.180.160.87:8080" //aws
 const URL = 'http://70.12.246.134:8080' // 김주연 ip
     // const URL = 'http://70.12.246.51:8080' //  조장님 ip
 const auth = {
@@ -15,7 +15,7 @@ const requestFanList = (data, callback, errorCallback) => {
     //}
     //export requestFanList
     const params = new URLSearchParams();
-    params.append('email', data);
+    params.append('snum', data);
 
     Axios.post(URL + '/follow/fanList', params, auth)
         .then(response => {
@@ -29,7 +29,7 @@ const requestFanList = (data, callback, errorCallback) => {
 
 const requestStarList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
-    params.append('email', data);
+    params.append('fnum', data);
 
     Axios.post(URL + '/follow/starList', params, auth)
         .then(response => {

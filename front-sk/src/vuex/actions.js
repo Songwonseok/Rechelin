@@ -4,8 +4,8 @@ import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
 const URL = 'http://70.12.246.134:8080' // 김주연 ip
-// const URL = 'http://70.12.246.51:8080' //  조장님 ip
-// const URL = "http://54.180.160.87:8080" // aws
+    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
+    // const URL = "http://54.180.160.87:8080" // aws
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -114,18 +114,18 @@ export default {
             })
 
     },
-    userFans({ commit }, payload) {
+    // userFans({ commit }, payload) {
 
-        const params = new URLSearchParams();
-        params.append('email', payload);
-        Axios.post(URL + '/follow/fanList', params, auth)
-            .then(response => {
-                commit('userFans', response.data.object)
-            }).catch(exp => {
-                console.log('실패')
-            })
+    //     const params = new URLSearchParams();
+    //     params.append('email', payload);
+    //     Axios.post(URL + '/follow/fanList', params, auth)
+    //         .then(response => {
+    //             commit('userFans', response.data.object)
+    //         }).catch(exp => {
+    //             console.log('실패')
+    //         })
 
-    },
+    // },
     userStars({ commit }, payload) {
         const params = new URLSearchParams();
         params.append('email', payload);
@@ -185,37 +185,6 @@ export default {
             })
 
     },
-    storeinfoGet({ commit }, num) {
-        const params = new URLSearchParams();
-        console.log(num)
-        params.append('num', num)
-        Axios.post(URL + '/store/selectOne', params, auth)
-            .then(res => {
-                console.log('요청 성공')
-                console.log(res.data.object, '=========================')
-                let data = {
-                    resData: res.data.object,
-                    id: num
-                }
-                commit('storeinfoGet', data)
-                
-            }).catch(exp => {
-                console.log('실패')
-            })
-
-    },
-    tagsGet({ commit }, payload) {
-        const params = new URLSearchParams();
-        params.append('id', payload.id) // store id로 store에 걸린 tag 검색
-        Axios.post('', params)
-            .then(res => {
-                console.log('요청 성공')
-                commit('tagsGet', payload)
-            }).catch(exp => {
-                console.log('실패')
-            })
-
-    },
     likeStore({ commit }, payload) {
 
         Axios.post(URL + "/review/bookmark", payload, auth)
@@ -226,23 +195,7 @@ export default {
             })
 
     },
-    // 리뷰 관련
-    reviewsGet({ commit }, payload) {
-        Axios.get(URL + `/review/${payload}`, auth)
-            .then(res => {
-                console.log('성공')
-                commit('reviewsGet', res.data.object);
-                console.log(res, '??????')
-                router.push({
-                    name: 'storeReviews',
-                    params: {
-                        reviews: res.data.object
-                    }
-                })
-            }).catch(exp => {
-                console.log('실패')
-            })
-    },
+
     // 리뷰의 댓글 관련
     commentsOfreview({ commit }, review) {
         console.log(review, "???")
@@ -298,7 +251,40 @@ export default {
                 console.log('실패')
             })
     },
-    addStore({ commit }, storeInfo) {
+    storeHashtags({ commit }, num) {
+        console.log('들어옴??')
+        const params = new URLSearchParams();
+        params.append('num', num);
+        Axios.post(URL + '/store/tags', params, auth)
+            .then(res => {
+                console.log(res, 'hashtags')
+                commit('storeHashtags', res.data.object)
+                Axios.post(URL + '/store/selectOne', params, auth)
+                    .then(responseOne => {
+                        console.log(responseOne, 'storeInformation')
+                        let data = {
+                            resData: responseOne.data.object,
+                            id: num
+                        }
+                        commit('storeinfoGet', data)
+                        Axios.get(URL + `/review/${num}`, auth)
+                        .then(responseTwo => {
+                            console.log('성공')
+                            commit('reviewsGet', responseTwo.data.object)
+                            router.push({
+                                name: 'storeReviews',
+                                params: {
+                                    reviews: responseTwo.data.object
+                                }
+                            })
+                        })
+                    }).catch(exp => {
+                        console.log('실패')
+                    })
+
+            }).catch(exp => {
+                console.log('해쉬태그 가져오기 실패')
+            })
 
     }
 
