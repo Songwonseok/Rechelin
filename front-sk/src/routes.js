@@ -158,8 +158,9 @@ export default [
                         path: '/storedetail/:id',
                         name: 'storeDetail',
                         component: storeDetail,
-                        children: [{
-                                path: 'reviews',
+                        children: [
+                            {
+                                path: 'rev',
                                 name: 'storeReviews',
                                 component: storeReviews
                             },
