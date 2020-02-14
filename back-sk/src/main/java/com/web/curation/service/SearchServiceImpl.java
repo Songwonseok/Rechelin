@@ -30,9 +30,9 @@ public class SearchServiceImpl implements SearchService {
 	
 	@Autowired
 	UserDao userDao;
-	public boolean addUser(String email, String searchname) {
+	public boolean addUser(long id, String searchname) {
 		
-		User user = userDao.findByEmail(email);
+		User user = userDao.findById(id);
 		if(user != null) {
 			Search search = new Search(user, searchname, "user");
 			searchDao.save(search);
@@ -41,8 +41,8 @@ public class SearchServiceImpl implements SearchService {
 			return false;
 	}
 
-	public List<Search> userList(String email) {
-		User user = userDao.findByEmail(email);
+	public List<Search> userList(long id) {
+		User user = userDao.findById(id);
 		List<Search> allList = searchDao.findAllByUserAndCategoryOrderBySdateDesc(user,"user");
 		List<Search> list = new ArrayList<>();
 		HashSet<String> set = new HashSet<>();
@@ -58,8 +58,8 @@ public class SearchServiceImpl implements SearchService {
 		return list;
 	}
 
-	public boolean addStore(String email, String searchname) {
-		User user = userDao.findByEmail(email);
+	public boolean addStore(long id, String searchname) {
+		User user = userDao.findById(id);
 		if(user != null) {
 			Search search = new Search(user, searchname, "store");
 			searchDao.save(search);
@@ -68,8 +68,8 @@ public class SearchServiceImpl implements SearchService {
 			return false;
 	}
 
-	public List<Search> storeList(String email) {
-		User user = userDao.findByEmail(email);
+	public List<Search> storeList(long id) {
+		User user = userDao.findById(id);
 		List<Search> allList = searchDao.findAllByUserAndCategoryOrderBySdateDesc(user,"store");
 		List<Search> list = new ArrayList<>();
 		HashSet<String> set = new HashSet<>();

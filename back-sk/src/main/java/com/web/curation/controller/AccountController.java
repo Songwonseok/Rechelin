@@ -43,9 +43,9 @@ public class AccountController {
  
 	@DeleteMapping("/account/delete")
     @ApiOperation(value = "삭제하기")
-    public Object delete(@RequestParam(required = true) final String email) {
+    public Object delete(@RequestParam(required = true) final long id) {
     	final BasicResponse result = new BasicResponse();
-    	if(service.delete(email)) {
+    	if(service.delete(id)) {
     		result.status = true;
     		result.data = "삭제 성공";    		
     	}else {
@@ -173,18 +173,15 @@ public class AccountController {
     }
     
     @PostMapping(value = "/account/uploadProfile")
-	public Object upload(@RequestParam(required = true) final String email,
+	public Object upload(@RequestParam(required = true) final long id,
 			@RequestParam(required = true) String profile) {
     	final BasicResponse result = new BasicResponse();
-    	JSONObject dummyUser = new JSONObject();
     	
-    	System.out.println(email+" "+profile);
-    	if(service.uploadProfile(email, profile)) {
+    	if(service.uploadProfile(id, profile)) {
     		result.status = true;
     		result.data = "프로필 등록 성공";
-    		dummyUser.put("email", email);
-    		dummyUser.put("profile", profile);
-    		result.object = dummyUser.toMap();
+    		User user = service.selectId(id);
+    		result.object = user;
     	}else {
     		result.status = false;
     		result.data = "프로필 등록 실패 ! - 존재하지않는 유저";
@@ -193,10 +190,10 @@ public class AccountController {
 	}
     
 	@PostMapping(value = "/account/getProfile")
-	public Object getProfile(@RequestParam(required = true) final String email) {
+	public Object getProfile(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 //		System.out.println("프로필 가져오기 !!!!!!!!!");
-		User user = service.getProfile(email);
+		User user = service.getProfile(id);
 		if(user!=null) {
 			// profile 이 없음
 			if(user.getProfile()==null) {
@@ -218,14 +215,14 @@ public class AccountController {
 	
 	@PostMapping("/account/changePW")
 	@ApiOperation(value = "비밀번호 변경")
-	public Object changePW(@RequestParam(required = true) final String email,
+	public Object changePW(@RequestParam(required = true) final long id,
 			@RequestParam(required = true) String password) {
 		final BasicResponse result = new BasicResponse();
 		System.out.println("비밀번호 변경 !!!!!!!!!!!!!");
-		if(service.changePW(email, password)) {
+		if(service.changePW(id, password)) {
 			result.status = true;
 			result.data = "비밀번호바꾸기 성공";
-			result.object = service.selectEmail(email);
+			result.object = service.selectId(id);
 		}else {
 			result.status = false;
 			result.data = "존재하지않는 email입니다";
