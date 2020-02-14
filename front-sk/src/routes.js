@@ -158,8 +158,7 @@ export default [
                         path: '/storedetail/:id',
                         name: 'storeDetail',
                         component: storeDetail,
-                        children: [
-                            {
+                        children: [{
                                 path: 'rev',
                                 name: 'storeReviews',
                                 component: storeReviews
@@ -205,21 +204,21 @@ export default [
         ]
 
     },
-    {
-        path: '/userpage/edit',
-        name: "UserEdit",
-        component: UserEdit
-    },
-    {
-        path: '/signUpConfirm',
-        name: 'signUpConfirm',
-        component: signUpConfirm,
-    },
-    {
-        path: '/searchPassword',
-        name: 'searchPassword',
-        component: searchPassword,
-    },
+    // {
+    //     path: '/userpage/edit',
+    //     name: "UserEdit",
+    //     component: UserEdit
+    // },
+    // {
+    //     path: '/signUpConfirm',
+    //     name: 'signUpConfirm',
+    //     component: signUpConfirm,
+    // },
+    // {
+    //     path: '/searchPassword',
+    //     name: 'searchPassword',
+    //     component: searchPassword,
+    // },
     {
         path: '/userSearch',
         name: 'userSearch',
@@ -236,32 +235,32 @@ export default [
         name: 'reviewDetail',
         component: reviewDetail
     },
-    {
-        path: '/updateNewPw',
-        name: 'updateNewPw',
-        component: updateNewPw,
-    },
+    // {
+    //     path: '/updateNewPw',
+    //     name: 'updateNewPw',
+    //     component: updateNewPw,
+    // },
 
-    {
-        path: '/sideMenuLogin',
-        name: 'sideMenuLogin',
-        component: sideMenuLogin,
-    },
-    {
-        path: '/sideMenuReview',
-        name: 'sideMenuReview',
-        component: sideMenuReview,
-    },
-    {
-        path: '/sideMenuFood',
-        name: 'sideMenuFood',
-        component: sideMenuFood,
-    },
-    {
-        path: '/sideMenuUserPage',
-        name: 'sideMenuUserPage',
-        component: sideMenuUserPage,
-    },
+    // {
+    //     path: '/sideMenuLogin',
+    //     name: 'sideMenuLogin',
+    //     component: sideMenuLogin,
+    // },
+    // {
+    //     path: '/sideMenuReview',
+    //     name: 'sideMenuReview',
+    //     component: sideMenuReview,
+    // },
+    // {
+    //     path: '/sideMenuFood',
+    //     name: 'sideMenuFood',
+    //     component: sideMenuFood,
+    // },
+    // {
+    //     path: '/sideMenuUserPage',
+    //     name: 'sideMenuUserPage',
+    //     component: sideMenuUserPage,
+    // },
     {
         path: '/social',
         name: 'social',
