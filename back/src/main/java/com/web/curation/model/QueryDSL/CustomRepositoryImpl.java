@@ -56,7 +56,6 @@ implements CustomRepository{
 	
 	//식당의 카테고리별 태그 구하기
 	public List<Hashtag> foodtags(long num){
-		
 		return queryFactory.select(storetags.hashtag)
 				.from(storetags).groupBy(storetags.hashtag.keyword)
 				.where(storetags.hashtag.category.eq("food"),

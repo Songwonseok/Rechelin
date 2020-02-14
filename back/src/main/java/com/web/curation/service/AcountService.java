@@ -7,13 +7,15 @@ import com.web.curation.model.DTO.User;
 public interface AcountService {
 	public User login(String email,String password);
 	public User signup(User request); 
-	public boolean delete(String email);
+	public boolean delete(long id);
 	public boolean update(User request);
+	public boolean changePW(long id,String password);
 	public List<User> selectAll();
 	public User selectEmail(String email);
 	public User selectName(String nickname);
-	public boolean uploadProfile(String email,String profile);
-	public User getProfile(String email);
+	public User selectId(long id);
+	public boolean uploadProfile(long id,String profile);
+	public User getProfile(long id);
 	public String EncodePW(String Pw) ;
 	public User NaverLogin(String code, String state);
 }

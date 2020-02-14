@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -71,10 +72,10 @@ public class AcountServiceImpl implements AcountService {
 		return request;
 	}
 
-	public boolean delete(String email) {
-		User user = userDao.findByEmail(email);
+	public boolean delete(long id) {
+		User user = userDao.findById(id);
 		if (user != null) {
-			userDao.delete(user);
+			userDao.deleteById(id);;
 			return true;
 		} else
 			return false;
@@ -83,7 +84,6 @@ public class AcountServiceImpl implements AcountService {
 	public boolean update(User request) {
 		User user = userDao.findByEmail(request.getEmail());
 		if(user!=null) {
-//			request.setPw(passwordEncoder.encode(request.getPw()));
 			user.updateUser(request);
 			// profile과 비밀번호 제외하고 업데이트
 			userDao.save(user);
@@ -105,9 +105,9 @@ public class AcountServiceImpl implements AcountService {
 		return userDao.findByNickname(nickname);
 	}
 
-	public boolean uploadProfile(String email,String profile) {
+	public boolean uploadProfile(long id,String profile) {
 		// 1) email 로  유저 찾기
-		User user = userDao.findByEmail(email);
+		User user = userDao.findById(id);
 		
 		if(user!=null) {
 			// 2) User정보 업데이트
@@ -121,8 +121,9 @@ public class AcountServiceImpl implements AcountService {
 	}
 
 	@Override
-	public User getProfile(String email) {
-		return userDao.findByEmail(email);
+	public User getProfile(long id) {
+		User user = userDao.findById(id);
+		return user;
 	}
 
 	public String EncodePW(String Pw) {
@@ -198,6 +199,22 @@ public class AcountServiceImpl implements AcountService {
 			return null;
 		}
 		
+	}
+
+	@Override
+	public boolean changePW(long id, String password) {
+		User user = userDao.findById(id);
+		if(user!=null) {
+			user.setPw(EncodePW(password));
+			userDao.save(user);
+			return true;
+		}else return false;
+	}
+
+	@Override
+	public User selectId(long id) {
+		User user = userDao.findById(id);
+		return user;
 	}
 
 

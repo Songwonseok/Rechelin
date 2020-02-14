@@ -18,11 +18,12 @@ public interface ReviewService {
 	public void deleteComment(long num);
 	public List<Comments> getComment(long rnum);
 	public boolean clickBookmark(Bookmark book);
-	public List<Bookmark> getBookmark(String email);
-	public List<Review> getcurrentFeed(String email);
-	public List<Review> getMyReview(String email);
+	public List<Bookmark> getBookmark(long num);
+	public List<Review> getcurrentFeed(long num);
+	public List<Review> getMyReview(long num);
 	public List<Review> getCurReview();
 	public List<Review> getviewsTop();
 	public List<Review> getlikeTop();
 	public List<Review> getscoreTop();
+	
 }

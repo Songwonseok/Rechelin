@@ -48,21 +48,22 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private CustomRepositoryImpl custom;
 	
-	
-	
 	@Override
 	public void register(Review review) {
 		dao.save(review);
 		
 		// review num 가져오기
 		Review tmp = dao.findTopByStoreAndUserOrderByRnumDesc(review.getStore(), review.getUser());
-		System.out.println(tmp.getRnum());
+		
 		// 1) review.hashtag을 가져와서 hashtag에 일치하는 값 확인
 		String hashtag = review.getHashtag();
-		String[] tagList = hashtag.split(" "); // 해시태그 분리
+		String[] tagList = hashtag.split(","); // 해시태그 분리
 		
 		for(int i=0; i<tagList.length; i++) {
 			Hashtag tag = hashdao.findByKeyword(tagList[i]);
+			
+			System.out.println(tagList[i]); 
+			System.out.println(" "+ tag.toString());
 			if(tag ==null) continue; // 없는 태그가 나오면 DB에 추가?
 			
 			System.out.println("********************");
@@ -155,9 +156,9 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Bookmark> getBookmark(String email) {
+	public List<Bookmark> getBookmark(long num) {
 		// email을 통해 User를 찾는다
-		User user = userdao.findByEmail(email);
+		User user = userdao.findById(num);
 		List<Bookmark> list = bookdao.findAllByUser(user);
 		
 		return list;
@@ -179,10 +180,9 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Review> getcurrentFeed(String email) {
+	public List<Review> getcurrentFeed(long num) {
 		// email을 통해서 star 리스트를 가져온다.
-		User user = userdao.findByEmail(email);
-		System.out.println("SERVICE "+email);
+		User user = userdao.findById(num);
 		System.out.println(user.toString());
 		List<Review> list = dao.feedList(user);
 		for (Review review : list) {
@@ -200,10 +200,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return list;
 	}
 
+	
 
 	@Override
-	public List<Review> getMyReview(String email) {
-		User user = userdao.findByEmail(email);
+	public List<Review> getMyReview(long num) {
+		User user = userdao.findById(num);
 		List<Review> list = dao.findAllByUser(user);
 		return list;
 	}
@@ -232,5 +233,4 @@ public class ReviewServiceImpl implements ReviewService {
 		List<Review> list = dao.findTop6ByOrderByTotalDesc();
 		return list;
 	}
-
 }
