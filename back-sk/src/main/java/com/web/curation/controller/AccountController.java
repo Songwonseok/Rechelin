@@ -230,6 +230,15 @@ public class AccountController {
 		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/account/userTop")
+	@ApiOperation(value ="리뷰 작성순 랭킹")
+	public Object userTop() {
+		final BasicResponse result = new BasicResponse();
+		result.status = true;
+		result.data = "리뷰 작성순 랭킹 가져오기 성공";
+		result.object = service.userTop();
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 
 }

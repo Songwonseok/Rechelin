@@ -42,31 +42,31 @@ public class AccountController {
 	private JwtService jwtService;
  
 	@DeleteMapping("/account/delete")
-    @ApiOperation(value = "삭제하기")
+    @ApiOperation(value = "�궘�젣�븯湲�")
     public Object delete(@RequestParam(required = true) final long id) {
     	final BasicResponse result = new BasicResponse();
     	if(service.delete(id)) {
     		result.status = true;
-    		result.data = "삭제 성공";    		
+    		result.data = "�궘�젣 �꽦怨�";    		
     	}else {
     		result.status = false;
-    		result.data = "email이 존재하지 않습니다.";
+    		result.data = "email�씠 議댁옱�븯吏� �븡�뒿�땲�떎.";
     	}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
 	
 	@PutMapping("/account/update")
-    @ApiOperation(value = "수정하기")
+    @ApiOperation(value = "�닔�젙�븯湲�")
     public Object update(@RequestBody User request) {
     	final BasicResponse result = new BasicResponse();
     	
     	if(service.update(request)) {
     		result.status = true;
-    		result.data = "업데이트 성공";
+    		result.data = "�뾽�뜲�씠�듃 �꽦怨�";
     		result.object = new JSONObject(request).toMap();    		
     	}else {
     		result.status = false;
-    		result.data = "email이 존재하지않아요";    		
+    		result.data = "email�씠 議댁옱�븯吏��븡�븘�슂";    		
     	}
 		
 
@@ -76,7 +76,7 @@ public class AccountController {
 
 	
     @GetMapping("/account/list")
-    @ApiOperation(value = "유저보기")
+    @ApiOperation(value = "�쑀��蹂닿린")
     public Object selectAll() {
     	final BasicResponse result = new BasicResponse();
 		result.status = true;
@@ -88,7 +88,7 @@ public class AccountController {
     }
     
     @GetMapping("account/token")
-	@ApiOperation(value = "토큰값 확인")
+	@ApiOperation(value = "�넗�겙媛� �솗�씤")
 	public Object token(@RequestParam String token) {
 		final BasicResponse result = new BasicResponse();
 		
@@ -97,16 +97,16 @@ public class AccountController {
 			switch (status) {
 			case 0:
 				result.status = true;
-				result.data = "토큰이 유효합니다";
+				result.data = "�넗�겙�씠 �쑀�슚�빀�땲�떎";
 				break;
 
 			case 1:
 				result.status = false;
-				result.data = "토큰 만료";
+				result.data = "�넗�겙 留뚮즺";
 				break;
 			case 2:
 				result.status = false;
-				result.data = "토큰 변조";
+				result.data = "�넗�겙 蹂�議�";
 				break;
 			}
 
@@ -118,7 +118,7 @@ public class AccountController {
 	
     
     @PostMapping("/account/selectEmail")
-    @ApiOperation(value = "이메일로 유저찾기")
+    @ApiOperation(value = "�씠硫붿씪濡� �쑀��李얘린")
     public Object selectEmail(@RequestParam(required = true) final String email) {
     	User user = service.selectEmail(email);
     	System.out.println("^^^^^^^^^^^^^^"+email);
@@ -126,18 +126,18 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "이메일로 유저 찾기 성공";
+			result.data = "�씠硫붿씪濡� �쑀�� 李얘린 �꽦怨�";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
-			result.data = "유저가 없습니다.";
+			result.data = "�쑀��媛� �뾾�뒿�땲�떎.";
 			result.object = email;
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
     @PostMapping("/account/selectName")
-    @ApiOperation(value = "닉네임으로 유저찾기")
+    @ApiOperation(value = "�땳�꽕�엫�쑝濡� �쑀��李얘린")
     public Object selectName(@RequestParam(required = true) final String nickname) {
     	final BasicResponse result = new BasicResponse();
 
@@ -145,17 +145,17 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "닉네임으로 유저찾기 성공";
+			result.data = "�땳�꽕�엫�쑝濡� �쑀��李얘린 �꽦怨�";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
-			result.data = "유저가 없습니다.";
+			result.data = "�쑀��媛� �뾾�뒿�땲�떎.";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
     @PostMapping("/account/selectId")
-    @ApiOperation(value = "id로 유저찾기")
+    @ApiOperation(value = "id濡� �쑀��李얘린")
     public Object selectId(@RequestParam(required = true) final long id) {
     	final BasicResponse result = new BasicResponse();
 
@@ -163,11 +163,11 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "id로 유저찾기 성공";
+			result.data = "id濡� �쑀��李얘린 �꽦怨�";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
-			result.data = "유저가 없습니다.";
+			result.data = "�쑀��媛� �뾾�뒿�땲�떎.";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -179,12 +179,12 @@ public class AccountController {
     	
     	if(service.uploadProfile(id, profile)) {
     		result.status = true;
-    		result.data = "프로필 등록 성공";
+    		result.data = "�봽濡쒗븘 �벑濡� �꽦怨�";
     		User user = service.selectId(id);
     		result.object = user;
     	}else {
     		result.status = false;
-    		result.data = "프로필 등록 실패 ! - 존재하지않는 유저";
+    		result.data = "�봽濡쒗븘 �벑濡� �떎�뙣 ! - 議댁옱�븯吏��븡�뒗 �쑀��";
     	}
     	return new ResponseEntity<>(result, HttpStatus.OK);
 	}
@@ -192,44 +192,53 @@ public class AccountController {
 	@PostMapping(value = "/account/getProfile")
 	public Object getProfile(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
-//		System.out.println("프로필 가져오기 !!!!!!!!!");
+//		System.out.println("�봽濡쒗븘 媛��졇�삤湲� !!!!!!!!!");
 		User user = service.getProfile(id);
 		if(user!=null) {
-			// profile 이 없음
+			// profile �씠 �뾾�쓬
 			if(user.getProfile()==null) {
 				result.status = true;
-				result.data = "profile 존재 X";
+				result.data = "profile 議댁옱 X";
 			}else {
 				result.status = true;
-				result.data = "profile 가져오기 성공";
+				result.data = "profile 媛��졇�삤湲� �꽦怨�";
 				result.object = user;
 			}
 		}else {
-			// 존재하지 않는 유저
+			// 議댁옱�븯吏� �븡�뒗 �쑀��
 			result.status = false;
-			result.data = "email 존재 X";
+			result.data = "email 議댁옱 X";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
     
 	
 	@PostMapping("/account/changePW")
-	@ApiOperation(value = "비밀번호 변경")
+	@ApiOperation(value = "鍮꾨�踰덊샇 蹂�寃�")
 	public Object changePW(@RequestParam(required = true) final long id,
 			@RequestParam(required = true) String password) {
 		final BasicResponse result = new BasicResponse();
-		System.out.println("비밀번호 변경 !!!!!!!!!!!!!");
+		System.out.println("鍮꾨�踰덊샇 蹂�寃� !!!!!!!!!!!!!");
 		if(service.changePW(id, password)) {
 			result.status = true;
-			result.data = "비밀번호바꾸기 성공";
+			result.data = "鍮꾨�踰덊샇諛붽씀湲� �꽦怨�";
 			result.object = service.selectId(id);
 		}else {
 			result.status = false;
-			result.data = "존재하지않는 email입니다";
+			result.data = "議댁옱�븯吏��븡�뒗 email�엯�땲�떎";
 		}
 		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/account/userTop")
+	@ApiOperation(value ="리뷰 작성순 랭킹")
+	public Object userTop() {
+		final BasicResponse result = new BasicResponse();
+		result.status = true;
+		result.data = "리뷰 작성순 랭킹 가져오기 성공";
+		result.object = service.userTop();
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 
 }
