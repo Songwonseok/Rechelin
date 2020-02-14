@@ -140,7 +140,7 @@ export default {
     },
     notificationGet({ commit }, payload) {
         const params = new URLSearchParams();
-        params.append('email', payload)
+        params.append('id', payload)
         Axios.post(URL + '/follow/alarmList', params, auth)
             .then(res => {
 
