@@ -3,6 +3,7 @@ package com.web.curation.controller;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import com.web.curation.model.BasicResponse;
 import com.web.curation.model.DTO.User;
 import com.web.curation.service.AcountService;
 import com.web.curation.service.JwtService;
+import com.web.curation.service.ReviewService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -37,6 +39,8 @@ public class AccountController {
 	@Autowired
 	private AcountService service;
 	
+	@Autowired
+	private ReviewService rservice;
 
 	@Autowired
 	private JwtService jwtService;
