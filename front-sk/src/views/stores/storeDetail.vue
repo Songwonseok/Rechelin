@@ -135,7 +135,7 @@
     methods: {
       likeStore() {
         var payload = {
-          user: this.$store.state.userEmail,
+          user: this.$store.state.userid,
         }
         this.$store.dispatch('likeStore', payload)
       },
