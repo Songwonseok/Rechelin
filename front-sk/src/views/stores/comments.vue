@@ -1,23 +1,45 @@
 <template>
     <div>
         <div class="card card--big">
+            <router-link :to="{name: 'userpage', params: {
+                id: reviewInfo.user.id
+            }}"> 작성자 : {{reviewInfo.user.nickname}}</router-link>
+            <b-row>
 
-            <div class="card__image">
-                <div>사진들어갈 곳</div>
-                <img v-if="reviewInfo.picture" alt="">
-            </div>
-            <h2 class="card__title"></h2><span class="card__subtitle">{{reviewInfo.wdate}} by
-                {{reviewInfo.user.nickname}} </span>
-            <p class="card__text">{{reviewInfo.weak}}</p>
-            <div class="card__action-bar">
-                <h6>총점 ; {{reviewInfo.total}}</h6>
-                <h6>맛 ; {{reviewInfo.taste}}</h6>
-                <h6>가격 ; {{reviewInfo.price}}</h6>
-                <h6>친절도 ; {{reviewInfo.kindness}}</h6>
-                <h6>조회수 : {{reviewInfo.views}}</h6>
+                <b-col>
+                    <div v-if="reviewInfo.picture" class="card__image">
+                        <b-carousel id="carousel-1" v-model="slide" :interval="4000" controls indicators
+                            background="#ababab" img-width="300" img-height="480"
+                            style="text-shadow: 1px 1px 2px #333;">
+                            <!-- Text slides with image -->
+                            <b-carousel-slide v-for="(picture, index) in reviewInfo.picture" :key="index"
+                                :img-src="picture"></b-carousel-slide>
+                        </b-carousel>
 
-            </div>
+                    </div>
+                </b-col>
+                <b-col>
+                    <h2 class="card__title"></h2>
+                    <span class="card__subtitle"> 조회수: {{reviewInfo.views}} | 작성일 :
+                        {{reviewInfo.wdate}}
+                    </span>
+                    <p>장점</p>
+                    <p class="card__text">{{reviewInfo.str}}</p>
+                    <p>단점</p>
+                    <p class="card__text">단점 : {{reviewInfo.weak}}</p>
+                    해쉬태그 : {{reviewInfo.hashtag}}
+                    <div class="card__action-bar">
+                        <h6>총점 ; {{reviewInfo.total}}</h6>
+                        <h6>맛 ; {{reviewInfo.taste}}</h6>
+                        <h6>가격 ; {{reviewInfo.price}}</h6>
+                        <h6>친절도 ; {{reviewInfo.kindness}}</h6>
+
+                    </div>
+                </b-col>
+            </b-row>
         </div>
+
+
         <div class="card">
             <v-text-field v-model="newComment" :counter="30" label="comments" required @keyup.enter="submitComment">
             </v-text-field>
@@ -70,10 +92,10 @@
 
         },
         watch: {
-            newReturnComment: function() {
+            newReturnComment: function () {
                 this.comments.unshift(this.newReturnComment);
                 this.newComment = '';
-        }
+            }
         },
         methods: {
             submitComment() {
@@ -91,13 +113,13 @@
                     },
                 }
                 this.$store.dispatch('createComment', data)
-                
-                this.$nextTick((res)=> {
-                   
+
+                this.$nextTick((res) => {
+
                 })
-               
-                
-                
+
+
+
             },
             samePerson(num) {
 
