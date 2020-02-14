@@ -204,32 +204,32 @@ export default [
         ]
 
     },
-    // {
-    //     path: '/userpage/edit',
-    //     name: "UserEdit",
-    //     component: UserEdit
-    // },
-    // {
-    //     path: '/signUpConfirm',
-    //     name: 'signUpConfirm',
-    //     component: signUpConfirm,
-    // },
-    // {
-    //     path: '/searchPassword',
-    //     name: 'searchPassword',
-    //     component: searchPassword,
-    // },
+    {
+        path: '/userpage/edit',
+        name: "UserEdit",
+        component: UserEdit
+    },
+    {
+        path: '/signUpConfirm',
+        name: 'signUpConfirm',
+        component: signUpConfirm,
+    },
+    {
+        path: '/searchPassword',
+        name: 'searchPassword',
+        component: searchPassword,
+    },
     {
         path: '/userSearch',
         name: 'userSearch',
         component: userSearch,
     },
 
-    // {
-    //     path: '/reviewPage',
-    //     name: 'reviewPage',
-    //     component: reviewPage,
-    // },
+    {
+        path: '/reviewPage',
+        name: 'reviewPage',
+        component: reviewPage,
+    },
     {
         path: '/reviewDetail/:id',
         name: 'reviewDetail',
@@ -241,26 +241,30 @@ export default [
         component: updateNewPw,
     },
 
-    // {
-    //     path: '/sideMenuLogin',
-    //     name: 'sideMenuLogin',
-    //     component: sideMenuLogin,
-    // },
-    // {
-    //     path: '/sideMenuReview',
-    //     name: 'sideMenuReview',
-    //     component: sideMenuReview,
-    // },
-    // {
-    //     path: '/sideMenuFood',
-    //     name: 'sideMenuFood',
-    //     component: sideMenuFood,
-    // },
-    // {
-    //     path: '/sideMenuUserPage',
-    //     name: 'sideMenuUserPage',
-    //     component: sideMenuUserPage,
-    // }
-
+    {
+        path: '/sideMenuLogin',
+        name: 'sideMenuLogin',
+        component: sideMenuLogin,
+    },
+    {
+        path: '/sideMenuReview',
+        name: 'sideMenuReview',
+        component: sideMenuReview,
+    },
+    {
+        path: '/sideMenuFood',
+        name: 'sideMenuFood',
+        component: sideMenuFood,
+    },
+    {
+        path: '/sideMenuUserPage',
+        name: 'sideMenuUserPage',
+        component: sideMenuUserPage,
+    },
+    {
+        path: '/social',
+        name: 'social',
+        component: updateNewPw,
+    },
 
 ]
