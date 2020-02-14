@@ -7,7 +7,7 @@
             <!-- <v-subheader>REPORTS</v-subheader> -->
             <v-list-item-group color="primary">
               <v-list-item router-link :to="{name : 'storeSearch'}">
-                <v-list-item-content >음식점 리스트</v-list-item-content>
+                <v-list-item-content >음식점 리스트</v-list-item-content> <!--검색에서 음식점 리스트로 변경되었음-->
               </v-list-item>
               <v-list-item router-link :to="{name: 'random'}">
                 <v-list-item-content >랜덤음식추천</v-list-item-content>
@@ -31,8 +31,7 @@ export default {
   components: {},
   methods: {
     storeDetail() {
-      this.$store.dispatch('storeHashtags', 1)
-      
+      this.$store.dispatch('storeinfoGet', 1)
     }
   }
 };
