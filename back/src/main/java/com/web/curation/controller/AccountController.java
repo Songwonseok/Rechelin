@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
+import com.web.curation.model.DTO.Storelike;
 import com.web.curation.model.DTO.User;
 import com.web.curation.service.AcountService;
 import com.web.curation.service.JwtService;
@@ -230,6 +232,18 @@ public class AccountController {
 		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	@GetMapping("/account/bookmark/{id}")
+    @ApiOperation(value = "유저보기")
+    public Object bookmarks(@PathVariable(required = true) final long id) {
+    	final BasicResponse result = new BasicResponse();
+		result.status = true;
+		result.data = "success";
+		List<Storelike> blist = service.bookmarks(id);
+		result.object = blist;
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.web.curation.service;
 
 import java.util.List;
 
+import com.web.curation.model.DTO.Storelike;
 import com.web.curation.model.DTO.User;
 
 public interface AcountService {
@@ -18,4 +19,5 @@ public interface AcountService {
 	public User getProfile(long id);
 	public String EncodePW(String Pw) ;
 	public User NaverLogin(String code, String state);
+	public List<Storelike> bookmarks(long id);
 }
