@@ -140,7 +140,7 @@ export default {
     },
     notificationGet({ commit }, payload) {
         const params = new URLSearchParams();
-        params.append('id', payload)
+        params.append('email', payload)
         Axios.post(URL + '/follow/alarmList', params, auth)
             .then(res => {
 
@@ -200,7 +200,7 @@ export default {
     commentsOfreview({ commit }, review) {
         console.log(review, "???")
             //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
-        Axios.get(URL + `/review/comment/${review}`, auth)
+        Axios.get(URL + `/review/comment/${review.rnum}`, auth)
             .then(res => {
                 var data = {
                     reviewInfo: review,
