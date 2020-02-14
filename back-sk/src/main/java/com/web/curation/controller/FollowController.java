@@ -91,24 +91,22 @@ public class FollowController {
 
 	@PostMapping("/follow/starList")
 	@ApiOperation(value = "팔로잉 리스트")
-	public Object starList(@RequestParam(required = true) final String email) {
+	public Object starList(@RequestParam(required = true) final long fnum) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";
-		List<User> list = service.starList(email);
+		List<User> list = service.starList(fnum);
 		result.object = list;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@PostMapping("/follow/fanList")
 	@ApiOperation(value = "팔로워 리스트")
-	public Object fanList(@RequestParam(required = true) final String email) {
-		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<");
-		System.out.println(email);
+	public Object fanList(@RequestParam(required = true) final long snum) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		result.data = "success";
-		List<User> list = service.fanList(email);
+		List<User> list = service.fanList(snum);
 		result.object = list;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}

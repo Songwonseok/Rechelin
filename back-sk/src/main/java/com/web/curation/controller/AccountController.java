@@ -126,7 +126,7 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "성공";
+			result.data = "이메일로 유저 찾기 성공";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
@@ -145,7 +145,7 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "성공";
+			result.data = "닉네임으로 유저찾기 성공";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
@@ -163,7 +163,7 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "성공";
+			result.data = "id로 유저찾기 성공";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;

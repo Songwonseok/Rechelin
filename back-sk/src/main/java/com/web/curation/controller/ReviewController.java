@@ -176,25 +176,25 @@ public class ReviewController {
 
 	@PostMapping("/review/bookmark/getList")
 	@ApiOperation(value = "북마크 리스트 가져오기")
-	public Object getBookmark(@RequestParam String email) {
+	public Object getBookmark(@RequestParam long num) {
 		final BasicResponse result = new BasicResponse();
 
 		result.status = true;
 		result.data = "유저의 모든 북마크 리스트 조회 성공";
-		result.object = service.getBookmark(email);
+		result.object = service.getBookmark(num);
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@PostMapping("/review/feed")
 	@ApiOperation(value = "팔로우한 피드 최근 리스트")
-	public Object getcurrentFeed(@RequestParam String email) {
+	public Object getcurrentFeed(@RequestParam long num) {
 		final BasicResponse result = new BasicResponse();
 
-		System.out.println("CONTROLLER" + email);
+		System.out.println("CONTROLLER" + num);
 		result.status = true;
 		result.data = "팔로우한 피드 최근 리스트 가져오기 성공";
-		result.object = service.getcurrentFeed(email);
+		result.object = service.getcurrentFeed(num);
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
@@ -213,12 +213,12 @@ public class ReviewController {
 
 	@PostMapping("review/myList")
 	@ApiOperation(value = "내가 작성한 리뷰")
-	public Object getmyList(@RequestParam String email) {
+	public Object getmyList(@RequestParam long num) {
 		final BasicResponse result = new BasicResponse();
 
 		result.status = true;
 		result.data = "내가 작성한 모든 리뷰 리스트 조회 성공";
-		result.object = service.getMyReview(email);
+		result.object = service.getMyReview(num);
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
