@@ -50,10 +50,11 @@ export default {
         sessionStorage.removeItem("userid")
     },
     login(state, payload) {
-        this.state.userid = payload.userid
+        this.state.userid = payload.id
         this.state.userEmail = payload.useremail
         this.state.userNickname = payload.usernickname
         this.state.accessToken = payload.token
+        console.log(this.state.userid, '?????????????????????')
     },
     userpageGo(state, payload) {
         state.userPageInfo.nickname = payload.nickname
@@ -84,6 +85,7 @@ export default {
     commentsOfreview(state, payload) {
         state.reviewInfo = payload.reviewInfo
         state.commentsOfreview = payload.comments
+
     },
     createComment(state, payload) {
         let list = [...state.commentsOfreview]

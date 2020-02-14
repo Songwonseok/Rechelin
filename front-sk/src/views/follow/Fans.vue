@@ -12,7 +12,7 @@
     </v-toolbar>
     <v-list>
       <v-list-item v-for="(p, index) in UserFans" :key="index">
-        <v-list-item-content @click="goUserpage(p.id)">
+        <v-list-item-content v-if="p" @click="goUserpage(p.id)">
           <v-list-item-title v-text="p.nickname"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -27,13 +27,12 @@ import { mdiAccountMultipleCheckOutline } from '@mdi/js';
 
     computed: {
       UserFans() {
-
+        console.log( this.$route.params.fans, 'computed===========================')
         return this.$route.params.fans
       },
     },
     methods: {
        goUserpage(num) {
-        // this.$store.dispatch('userpageGo', email)
         this.$router.push({name: 'userpage', params: {
           id: num
         }})

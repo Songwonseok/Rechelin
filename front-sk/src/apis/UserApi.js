@@ -92,7 +92,7 @@ const requestLogin = (data, callback, errorCallback) => {
                 id: sessionStorage.getItem("userid"),
 
             }
-            store.dispatch('login', payload)
+            store.commit('login', payload)
         }).catch(exp => {
             console.log(exp)
             errorCallback(exp);
@@ -233,7 +233,7 @@ const requestId = async(data, callback, errorCallback) => {
             console.log('성공')
         }).catch(exp => {
             errorCallback(exp);
-            console.log('실패')
+            console.log('실패', exp)
         })
 }
 
@@ -261,6 +261,7 @@ const UserApi = {
     requestUserRanking,
     requestUserReviewCnt,
     requestId: (data, callback, errorCallback) => requestId(data, callback, errorCallback),
+    
 
 }
 

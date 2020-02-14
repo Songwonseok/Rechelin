@@ -3,39 +3,62 @@
         <div class="card card--big">
             <router-link :to="{name: 'userpage', params: {
                 id: reviewInfo.user.id
-            }}"> 작성자 : {{reviewInfo.user.nickname}}</router-link>
+            }}" style="color: #ff7f00 !important"> 
+             <v-chip class="ma-2" color="warning" outlined>
+                        <v-icon>{{mdiLeadPencil}}</v-icon>
+                        작성자
+                    </v-chip> {{reviewInfo.user.nickname}}</router-link>
             <b-row>
 
                 <b-col>
-                    <div v-if="reviewInfo.picture" class="card__image">
-                        <b-carousel id="carousel-1" v-model="slide" :interval="4000" controls indicators
-                            background="#ababab" img-width="300" img-height="480"
-                            style="text-shadow: 1px 1px 2px #333;">
-                            <!-- Text slides with image -->
-                            <b-carousel-slide v-for="(picture, index) in reviewInfo.picture" :key="index"
-                                :img-src="picture"></b-carousel-slide>
-                        </b-carousel>
-
-                    </div>
+                 <img src="https://cdn.pixabay.com/photo/2017/05/12/08/29/coffee-2306471_1280.jpg" alt="" style="width: 350px; height: 350px; margin-top: 50px !important;">
                 </b-col>
                 <b-col>
                     <h2 class="card__title"></h2>
-                    <span class="card__subtitle"> 조회수: {{reviewInfo.views}} | 작성일 :
-                        {{reviewInfo.wdate}}
-                    </span>
+                    <p class="card__subtitle"> 
+                        조회수: {{reviewInfo.views}} | 작성일 :{{reviewInfo.wdate}}
+                    </p>
+                    <div>
                     <v-chip class="ma-2" color="warning" outlined>
-                        <v-icon left>mdi-server-plus</v-icon>
+                        <v-icon>{{mdiEmoticonHappyOutline}}</v-icon>
                         장점
                     </v-chip>
+
                     <p class="card__text">{{reviewInfo.str}}</p>
-                    <p>단점</p>
-                    <p class="card__text">단점 : {{reviewInfo.weak}}</p>
-                    해쉬태그 : {{reviewInfo.hashtag}}
+                    <v-chip class="ma-2" color="warning" outlined>
+                        <v-icon>{{mdiEmoticonSadOutline}}</v-icon>
+                        단점
+                    </v-chip>
+                    <p class="card__text">{{reviewInfo.weak}}</p>
+                    </div>
+                    <v-chip class="ma-2" color="warning" outlined>
+                        <v-icon>{{mdiPound}}</v-icon>
+                       해쉬태그
+                    </v-chip>
+                     <p>  #{{reviewInfo.hashtag.split(',').join('#')}}</p>
                     <div class="card__action-bar">
-                        <h6>총점 ; {{reviewInfo.total}}</h6>
-                        <h6>맛 ; {{reviewInfo.taste}}</h6>
-                        <h6>가격 ; {{reviewInfo.price}}</h6>
-                        <h6>친절도 ; {{reviewInfo.kindness}}</h6>
+                         <v-chip class="ma-2" color="warning" outlined>
+                        <v-icon>{{mdiSigma}}</v-icon>
+                        총점
+                    </v-chip>
+                        <div ref="sumRating" class="sumRating" id="rating">
+                            {{reviewInfo.total}}
+                        </div>
+                         <v-chip class="ma-2" color="warning" outlined>
+                        <v-icon>{{ mdiEmoticonTongueOutline}}</v-icon>
+                        맛
+                    </v-chip>
+                        <div ref="tasteRating" class="tasteRating" id="rating">{{reviewInfo.taste}}</div>
+                         <v-chip class="ma-2" color="warning" outlined>
+                        <v-icon>{{mdiCurrencyUsd}}</v-icon>
+                        가격
+                    </v-chip> 
+                        <div ref="priceRating" class="priceRating" id="rating">{{reviewInfo.price}}</div>
+                         <v-chip class="ma-2" color="warning" outlined>
+                        <v-icon>{{mdiEmoticonOutline}}</v-icon>
+                        친절도
+                    </v-chip>
+                        <div ref="kindRating" class="kindRating" id="rating"> {{reviewInfo.kindness}}</div>
 
                     </div>
                 </b-col>
@@ -46,14 +69,14 @@
         <div class="card">
             <v-text-field v-model="newComment" :counter="30" label="comments" required @keyup.enter="submitComment">
             </v-text-field>
-            <v-btn text small @click="submitComment">댓글등록</v-btn>
+            <v-btn small color="warning" @click="submitComment" style="color: #ff7f00 !important">댓글등록</v-btn>
 
 
             <b-list-group v-for="(comment, index) in comments" :key="index">
-                <b-list-group-item>
-                    <strong>{{comment.user.id.nickname}}</strong> <br> {{comment.content}}
-                    <v-btn text icon v-if="samePerson(comment.user.id)" @click="commentDelete(comment)">
-                        <v-icon>{{mdiDelete}}</v-icon>
+                <b-list-group-item style="text-align: left;">
+                    <strong>익명 {{comment.user.id}}</strong> {{comment.content}}
+                    <v-btn icon v-if="samePerson(comment.user.id)" @click="commentDelete(comment)" >
+                        <v-icon color="warning">{{mdiDelete}}</v-icon>
                     </v-btn>
                 </b-list-group-item>
 
@@ -68,30 +91,54 @@
 
 <script>
     import {
-        mdiDelete
+        mdiDelete,
+        mdiEmoticonHappyOutline,
+        mdiEmoticonSadOutline,
+        mdiPound,
+        mdiSigma,
+        mdiCurrencyUsd,
+        mdiEmoticonTongueOutline,
+        mdiEmoticonOutline,
+        mdiLeadPencil
     } from '@mdi/js';
-    import Vue from 'vue'
-    Vue.nextTick();
+    import {normal} from '../../../public/js/animejs';
 
     export default {
         data() {
             return {
                 newComment: '',
+
+                comments: this.$store.state.commentsOfreview.reverse(),
+
+
                 //icons
                 mdiDelete,
-                comments: this.$store.state.commentsOfreview.reverse()
+                mdiEmoticonHappyOutline,
+                mdiEmoticonSadOutline,
+                mdiPound,
+                mdiSigma,
+                mdiCurrencyUsd,
+                mdiEmoticonTongueOutline,
+                mdiEmoticonOutline,
+                mdiLeadPencil
+                
             }
+        },
+        mounted() {
+            normal(this.$refs.sumRating, this.reviewInfo.total)
+            normal(this.$refs.tasteRating, this.reviewInfo.taste)
+            normal(this.$refs.priceRating, this.reviewInfo.price)
+            normal(this.$refs.kindRating, this.reviewInfo.kindness)
+            
         },
         computed: {
             reviewInfo() {
-                return this.$store.state.reviewInfo
+                return this.$store.state.reviewDetail
             },
             newReturnComment() {
                 return this.$store.state.newReturnComment
             }
-            // comments() {
-            //     return this.$store.state.commentsOfreview
-            // }
+
 
         },
         watch: {
@@ -141,7 +188,8 @@
                 this.comments = [...list]
 
 
-            }
+            },
+         
 
         },
 
@@ -159,5 +207,9 @@
             0 2px 2px 0 rgba(0, 0, 0, 0.14),
             0 1px 5px 0 rgba(0, 0, 0, 0.12),
             0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    #rating {
+        background-color: #FF7F00;
+        color: white !important;
     }
 </style>

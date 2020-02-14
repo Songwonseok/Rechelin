@@ -200,15 +200,20 @@ export default {
     commentsOfreview({ commit }, review) {
         console.log(review, "???")
             //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
-        Axios.get(URL + `/review/comment/${review.rnum}`, auth)
+        Axios.get(URL + `/review/comment/${review}`, auth)
             .then(res => {
                 var data = {
                     reviewInfo: review,
                     comments: res.data.object
                 }
                 commit('commentsOfreview', data)
-                console.log('요청 성공')
-                router.push({ name: 'comments' })
+                Axios.get(URL+ `/review/detail/${review}`)
+                .then(res => {
+                    commit('reviewDetail', res.data.object)
+                    router.push({ name: 'comments' })
+                })
+                console.log('요청 성공', res.data.object)
+                
             }).catch(exp => {
                 console.log('실패')
             })

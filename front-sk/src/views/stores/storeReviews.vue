@@ -27,7 +27,7 @@
 
                         <v-card-actions>
                             <v-btn text @click="reviewLike">싫어요 {{review.dislike}}</v-btn>
-                            <v-btn text @click="reviewDetail(review)">
+                            <v-btn text @click="reviewDetail(review.rnum)">
                                 리뷰 상세 보기
                             </v-btn>
 
@@ -102,8 +102,8 @@
           
         },
         methods: {
-            reviewDetail(review) {
-                this.$store.dispatch('commentsOfreview', review)
+            reviewDetail(num) {
+                this.$store.dispatch('commentsOfreview', num)
 
             },
             canReivewDelete(user) {
