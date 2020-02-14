@@ -13,7 +13,7 @@
         </div>
         <!--자기 자신이면 Follow button 숨기기 -->
         <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
-        <template v-if="myEmail != UserInfo.email" >
+        <template v-if="uid != id" >
             <div>
               <button @click="followRequest">Follow</button>
             </div>
@@ -30,7 +30,7 @@
           <h1>{{UserInfo.nickname}}</h1>
           <p>{{UserInfo.email}}</p>
           <!-- 자기 자신일때만  Edit 보여주기-->
-          <router-link :to="{name: 'useredit'}" style="color: #ff7f00;"><strong v-if="myEmail == UserInfo.email"> Edit</strong></router-link>
+          <router-link :to="{name: 'useredit'}" style="color: #ff7f00;"><strong v-if="id == uid"> Edit</strong></router-link>
         </div>
 
 
@@ -83,8 +83,8 @@
       return {
         svgPath: mdiPencil,
         accountIcon: mdiAccountCircle,
-        // id : this.$route.params.id, // URL에서 가져온 User
-        id : sessionStorage.getItem('userid'),
+        uid : this.$route.params.id, // URL에서 가져온 User
+        id : sessionStorage.getItem('userid'), // session id
         email: sessionStorage.getItem('userEmail'),
         UserInfo:{ // id로 가져온 정보들
           email:'',
@@ -96,7 +96,7 @@
         starList:[],
         bookmarkList:[],
         reviewList:[],
-        myEmail:this.$store.state.userEmail // session에 저장된 User
+        // myEmail:this.$store.state.userEmail // session에 저장된 User
       }
     },
     computed: {
@@ -137,7 +137,9 @@
         })
       }
       ,getUser(){
-          UserApi.requestEmail( this.email,res=>{
+        console.log('<<<<<<<<<<<<<<<<<<<<<<<<')
+        console.log(this.uid)
+          UserApi.requestId( this.id,res=>{
             console.log("****")
             console.log(res)
             this.UserInfo.email = res.object.email;

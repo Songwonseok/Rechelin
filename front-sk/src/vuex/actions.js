@@ -198,19 +198,16 @@ export default {
                     id: num
                 }
                 commit('storeinfoGet', data)
-                
-            }).catch(exp => {
-                console.log('실패')
-            })
+                Axios.post(URL+'/store/tags', params, auth)
+                .then(responseOne => {
+                    console.log(responseOne, 'hashtags')
+                    commit('storeHashtags', responseOne.data.object)
+                }).catch(exp => {
+                    console.log('실패')
+                })
 
-    },
-    tagsGet({ commit }, payload) {
-        const params = new URLSearchParams();
-        params.append('id', payload.id) // store id로 store에 걸린 tag 검색
-        Axios.post('', params)
-            .then(res => {
-                console.log('요청 성공')
-                commit('tagsGet', payload)
+                
+                
             }).catch(exp => {
                 console.log('실패')
             })
@@ -299,6 +296,31 @@ export default {
             })
     },
     addStore({ commit }, storeInfo) {
+
+    },
+    storeHashtags({commit}, num) {
+        console.log('들어옴??')
+        const params = new URLSearchParams();
+        params.append('num', num);
+        Axios.post(URL+'/store/tags', params, auth)
+        .then(res => {
+            console.log(res, 'hashtags')
+            commit('storeHashtags', res.data.object)
+            Axios.post(URL + '/store/selectOne', params, auth)
+            .then(responseOne => {
+                console.log(responseOne, 'storeInformation')
+                let data = {
+                    resData: responseOne.data.object,
+                    id: num
+                }
+                commit('storeinfoGet', data)
+            }).catch(exp => {
+                console.log('실패')
+            })
+
+        }).catch(exp => {
+            console.log('해쉬태그 가져오기 실패')
+        })
 
     }
 

@@ -5,18 +5,28 @@
             <h2 style="color:orange">👑 Best Views</h2>
             <b-container class="bv-example-row">
                 <b-row >
-                    
+                        <div v-if="bestReviews.length==0">
+                            <h2> 해당 리뷰가 존재하지 않습니다. </h2>
+                        </div>
                         <div v-for="(bestReview, i) in bestReviews" v-bind:key="i+bestReview">
                             <v-hover v-slot:default="{ hover }">
-                            <v-card :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" height = "600">
+                            <!-- 클릭했을때 상세 페이지로 이동 
+                                    router-link="router-link" :to="{name: 'storeDetail', params : {id : bestReview.rnum}}"
+                            -->
+                            <v-card :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" height = "600"
+                                    router-link="router-link" :to="{name: 'storeDetail', params : {id : bestReview.rnum}}">
+                                
                                 <v-img height="250" :src="bestReview.src">
-                                    <!--      -->
+
+                                
                                 <v-expand-transition> 
                                     <div
                                         v-if="hover"
                                         class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
-                                        style="height: 100%;">
+                                        style="height: 100%;"
+                                        >
                                         {{bestReview.title}}
+                                        
                                     </div>
                                 </v-expand-transition>
                                 </v-img>
@@ -94,6 +104,7 @@
                                 .data
                                 .object[i]
                                 .title;
+                            item['rnum'] = response.data.object[i].rnum;
                             let content = response
                                 .data
                                 .object[i]
@@ -121,7 +132,7 @@
                         }
                        
                         this.bestReviews = viewsList;
-
+                       
                     })
             },
             components: {
@@ -137,7 +148,8 @@
                     this.loading = true
 
                     setTimeout(() => (this.loading = false), 2000)
-                }
+                },
+                
             },
             watch: {
                 selection_card: function (v) {

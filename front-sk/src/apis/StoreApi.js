@@ -60,6 +60,7 @@ function requestStoreList(){
     return Axios.get(URL+`/search/tagSearch`,auth);
 }
 
+
 const StoreApi = {
     requestAddPlace: (data, callback, errorCallback) => requestAddPlace(data, callback, errorCallback),
     requestRandom: (data, callback, errorCallback) => requestRandom(data, callback, errorCallback),
