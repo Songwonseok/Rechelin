@@ -1,11 +1,18 @@
 import Login from './views/user/Login.vue'
 import Join from './views/user/Join.vue'
+
+/** user **/
 import FindPW from './views/user/FindPW.vue'
 import JoinDone from './views/user/JoinDone.vue'
+
+
 import PageNotFound from './views/PageNotFound.vue'
 import Components from './views/Components.vue'
+
+/**User Page **/
 import UserPage from './views/userpage/UserPage.vue'
 import UserEdit from './views/userpage/UserEdit.vue'
+
 import Fans from './views/follow/Fans'
 import Stars from './views/follow/Stars'
 import UserReviews from './views/userpage/UserReviews'
@@ -65,6 +72,7 @@ export default [
                 component: bestReviewList,
             },
 
+           
 
             // user 탭
             {

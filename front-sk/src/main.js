@@ -17,6 +17,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 // app.js
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import '@mdi/font/css/materialdesignicons.css'
 // app.js
 import "./vee-validate";
 // aws 

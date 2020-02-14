@@ -1,13 +1,12 @@
 <template>
   <div id="app">
-    <Header></Header>
-
+    <UserRanking></UserRanking>
+     <Header></Header>
+    
      <transition name="page">
      <b-container class="bv-example-row">
      <router-view></router-view>
-      
      </b-container>
-      
      </transition>
     
   </div>
@@ -30,7 +29,7 @@
     name: 'app',
     components : {
       Header,
-
+     
     },
     watch : {
         checkLogin : function(v){
@@ -110,4 +109,6 @@
 .container {
   max-width: 1500px !important;
 }
+
+
 </style>
