@@ -110,9 +110,10 @@
               <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
             </v-carousel>
           </div>
-          <!-- 탭부분 -->
+
+          <!-- 탭부분  -->
           <v-tabs fixed-tabs="fixed-tabs" background-color="transparent" color="#ff7f00">
-            <v-tab router-link="router-link" :to="{name: 'user'}"  style="color: #ff7f00;">
+            <v-tab router-link :to="{name: 'user'}"  style="color: #ff7f00;">
                 <template v-if="userToken==null">
                   로그인
                 </template>

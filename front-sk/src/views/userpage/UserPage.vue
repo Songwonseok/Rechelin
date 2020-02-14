@@ -83,7 +83,7 @@
       return {
         svgPath: mdiPencil,
         accountIcon: mdiAccountCircle,
-        uid : this.$route.params.id, // URL에서 가져온 User
+        // URL에서 가져온 User
         id : sessionStorage.getItem('userid'), // session id
         email: sessionStorage.getItem('userEmail'),
         UserInfo:{ // id로 가져온 정보들
@@ -100,13 +100,15 @@
       }
     },
     computed: {
-
+      // url에서 가져온 user id by 김현지
+      uid() {
+        return this.$route.params.id
+      }
     },
     methods: {
       followRequest() {
       },
       getFanList(){
-        console.log(this.id)
         FollowApi.requestFanList(this.uid, res=>{
           this.fanList = res;
           console.log('fan 성공')
@@ -138,11 +140,8 @@
         })
       }
       ,getUser(){
-        console.log('<<<<<<<<<<<<<<<<<<<<<<<<')
-        console.log(this.uid)
           UserApi.requestId( this.uid,res=>{
-            console.log("****")
-            console.log(res)
+            
             this.UserInfo.email = res.object.email;
             this.UserInfo.nickname = res.object.nickname;
             this.UserInfo.phone = res.object.phone;
@@ -164,7 +163,7 @@
       this.getStarList();
       this.getBookmarkList();
       this.getReviewList();
-      console.log("hello")
+      console.log(this.UserInfo, 'jhgjhgjhg')
     },
 
   }
