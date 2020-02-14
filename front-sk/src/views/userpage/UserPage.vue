@@ -139,7 +139,7 @@
       ,getUser(){
         console.log('<<<<<<<<<<<<<<<<<<<<<<<<')
         console.log(this.uid)
-          UserApi.requestId( this.id,res=>{
+          UserApi.requestId( this.uid,res=>{
             console.log("****")
             console.log(res)
             this.UserInfo.email = res.object.email;
@@ -158,8 +158,8 @@
     },
     created() {
       this.getUser();
-      // this.getFanList();
-      // this.getStarList();
+      this.getFanList();
+      this.getStarList();
       this.getBookmarkList();
       this.getReviewList();
     },
