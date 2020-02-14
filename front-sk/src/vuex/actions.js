@@ -4,8 +4,8 @@ import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
 const URL = 'http://70.12.246.134:8080' // 김주연 ip
-// const URL = 'http://70.12.246.51:8080' //  조장님 ip
-// const URL = "http://54.180.160.87:8080" // aws
+    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
+    // const URL = "http://54.180.160.87:8080" // aws
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -114,18 +114,18 @@ export default {
             })
 
     },
-    userFans({ commit }, payload) {
+    // userFans({ commit }, payload) {
 
-        const params = new URLSearchParams();
-        params.append('email', payload);
-        Axios.post(URL + '/follow/fanList', params, auth)
-            .then(response => {
-                commit('userFans', response.data.object)
-            }).catch(exp => {
-                console.log('실패')
-            })
+    //     const params = new URLSearchParams();
+    //     params.append('email', payload);
+    //     Axios.post(URL + '/follow/fanList', params, auth)
+    //         .then(response => {
+    //             commit('userFans', response.data.object)
+    //         }).catch(exp => {
+    //             console.log('실패')
+    //         })
 
-    },
+    // },
     userStars({ commit }, payload) {
         const params = new URLSearchParams();
         params.append('email', payload);
@@ -198,16 +198,16 @@ export default {
                     id: num
                 }
                 commit('storeinfoGet', data)
-                Axios.post(URL+'/store/tags', params, auth)
-                .then(responseOne => {
-                    console.log(responseOne, 'hashtags')
-                    commit('storeHashtags', responseOne.data.object)
-                }).catch(exp => {
-                    console.log('실패')
-                })
+                Axios.post(URL + '/store/tags', params, auth)
+                    .then(responseOne => {
+                        console.log(responseOne, 'hashtags')
+                        commit('storeHashtags', responseOne.data.object)
+                    }).catch(exp => {
+                        console.log('실패')
+                    })
 
-                
-                
+
+
             }).catch(exp => {
                 console.log('실패')
             })
@@ -298,29 +298,29 @@ export default {
     addStore({ commit }, storeInfo) {
 
     },
-    storeHashtags({commit}, num) {
+    storeHashtags({ commit }, num) {
         console.log('들어옴??')
         const params = new URLSearchParams();
         params.append('num', num);
-        Axios.post(URL+'/store/tags', params, auth)
-        .then(res => {
-            console.log(res, 'hashtags')
-            commit('storeHashtags', res.data.object)
-            Axios.post(URL + '/store/selectOne', params, auth)
-            .then(responseOne => {
-                console.log(responseOne, 'storeInformation')
-                let data = {
-                    resData: responseOne.data.object,
-                    id: num
-                }
-                commit('storeinfoGet', data)
-            }).catch(exp => {
-                console.log('실패')
-            })
+        Axios.post(URL + '/store/tags', params, auth)
+            .then(res => {
+                console.log(res, 'hashtags')
+                commit('storeHashtags', res.data.object)
+                Axios.post(URL + '/store/selectOne', params, auth)
+                    .then(responseOne => {
+                        console.log(responseOne, 'storeInformation')
+                        let data = {
+                            resData: responseOne.data.object,
+                            id: num
+                        }
+                        commit('storeinfoGet', data)
+                    }).catch(exp => {
+                        console.log('실패')
+                    })
 
-        }).catch(exp => {
-            console.log('해쉬태그 가져오기 실패')
-        })
+            }).catch(exp => {
+                console.log('해쉬태그 가져오기 실패')
+            })
 
     }
 

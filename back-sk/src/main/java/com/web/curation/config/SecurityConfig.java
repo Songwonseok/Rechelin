@@ -99,7 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                         .permitAll() // 위 경로는 누구나 접근 가능
                     .antMatchers("/auth/**") //auth 로 시작하는 경로 누구나 접근가능
                         .permitAll()
-                    .antMatchers("/account/changePW","/main/**,/signUpForm/**","/account/selectName/**", "/account/selectEmail/**")
+                    .antMatchers("/account/changePW","/main/**,/signUpForm/**","/account/selectName/**", "/account/selectEmail/**", "/account/selectId/**")
                         .permitAll() // 위 경로 누구나 접근가능
                     .anyRequest()
                     	.permitAll();

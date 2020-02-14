@@ -10,7 +10,7 @@ const auth = {
 
 const requestMyReviewList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
-    params.append('email', data);
+    params.append('num', data);
 
     Axios.post(URL + '/review/myList', params, auth)
         .then(response => {
@@ -24,7 +24,7 @@ const requestMyReviewList = (data, callback, errorCallback) => {
 
 const requestBookmarkList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
-    params.append('email', data);
+    params.append('num', data);
 
     Axios.post(URL + '/review/bookmark/getList', params, auth)
         .then(response => {
@@ -57,7 +57,7 @@ const requestAddReview = async(data, callback, errorCallback) => {
 
 const requestFeedList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
-    params.append('email', "ssafy@naver.com");
+    params.append('num', data);
     Axios.post(URL + '/review/feed', params, auth)
         .then(response => {
             callback(response.data.object);
