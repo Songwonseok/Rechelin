@@ -104,6 +104,7 @@
             </v-card>
           </v-dialog>
 
+            <UserRanking></UserRanking>
           <div>
             <v-carousel cycle="cycle" show-arrows-on-hover="show-arrows-on-hover" hide-delimiters="hide-delimiters"
               v-ripple="true" class="text-center">
@@ -111,6 +112,7 @@
             </v-carousel>
           </div>
           <!-- 탭부분 -->
+         
           <v-tabs fixed-tabs="fixed-tabs" background-color="transparent" color="#ff7f00">
             <v-tab router-link="router-link" :to="{name: 'user'}"  style="color: #ff7f00;">
                 <template v-if="userToken==null">
@@ -135,7 +137,15 @@
           </v-tabs>
 
           <div>
-            <router-view></router-view>
+            
+            
+            <router-view>
+                
+              
+            </router-view>
+          
+          
+          
           </div>
 
 
@@ -150,7 +160,7 @@
 
 <script>
   import FooterTag from "./footer.vue";
-
+  
   import {
     mdiMagnify,
     mdiAccountCircle,
@@ -167,6 +177,7 @@
   import StoreApi from '../../src/apis/StoreApi.js';
   import Loading from 'vue-loading-overlay';
   import 'vue-loading-overlay/dist/vue-loading.css';
+  import UserRanking from "./user/userRanking";
   export default {
     created() {
       this
@@ -245,6 +256,7 @@
     components : {
        Loading,
        FooterTag,
+       UserRanking,
     },
     methods: {
       valid(name){
