@@ -123,7 +123,7 @@ public class StoreServiceImpl implements StoreService {
 		User user = userDao.findById(id);
 		Store store = storeDao.findByNum(num);
 		Storelike storelike = storeLikeDao.findByUserAndStore(user, store);
-		if(storelike !=null) {
+		if(storelike ==null) {
 			return false;
 		}
 		storeLikeDao.delete(storelike);
