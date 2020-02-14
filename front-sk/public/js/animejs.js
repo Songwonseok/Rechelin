@@ -1,11 +1,12 @@
 import anime from 'animejs/lib/anime.es.js';
 
-function normal(element) {
+function normal(element, num) {
     anime({
         targets: element,
-        translateX: 250,
-        easing: 'easeInOutSine',
-        duration: 2500,
+        translateX: num*20,
+        width: '70%', // -> from '28px' to '100%',
+        easing: 'easeInOutQuad',
+        direction: 'alternate',
         loop: true,
       });
 }
@@ -40,7 +41,7 @@ function jump(element) {
 }
 function ratings(element) {
   anime({
-    targets: element,
+    targets: ['allRating', 'taste', 'price', 'kind'],
   translateX: [
     { value: 250, duration: 1000, delay: 500 },
     { value: 0, duration: 1000, delay: 500 }
@@ -68,6 +69,14 @@ function ratings(element) {
   });
 }
 
+function counting(element) {
+  anime({
+      targets: element,
+      value: [0, 5],
+      round: 1,
+      easing: 'easeInOutExpo'
+    });
+}
 
 
-export {normal, reverse, alternate, jump, ratings}
+export {normal, reverse, alternate, jump, ratings, counting}
