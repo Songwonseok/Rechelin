@@ -101,30 +101,14 @@
     },
     computed: {
     },
-    watch :{
-      // getUser: function () {
-      //   UserApi.requestId( this.uid,res=>{
-      //       console.log("****")
-      //       console.log(res)
-      //       this.UserInfo.email = res.object.email;
-      //       this.UserInfo.nickname = res.object.nickname;
-      //       this.UserInfo.phone = res.object.phone;
-      //       this.UserInfo.profile = res.object.profile;
-           
-      //     },error =>{
-      //       alert('정보 가져오기 실패 !');
-      //     })
-      // }
-    },
     methods: {
-      // followRequest() {
-      // },
+      followRequest() {
+      },
       getFanList(){
         console.log(this.id)
         FollowApi.requestFanList(this.uid, res=>{
           this.fanList = res;
           console.log('fan 성공')
-          
         }, error=>{
           alert('FanList가져오기 실패')
         })
@@ -148,8 +132,6 @@
       ,getReviewList(){
          ReviewApi.requestMyReviewList(this.uid, res=>{
           this.reviewList = res;
-          console.log('리뷰 성공')
-          console.log(this.reviewList)
         }, error=>{
           alert('ReviewList 가져오기 실패')
         })
@@ -174,12 +156,13 @@
 
 
     },
-    created() {
+    mounted() {
       this.getUser();
       this.getFanList();
       this.getStarList();
       this.getBookmarkList();
       this.getReviewList();
+      console.log("hello")
     },
 
   }
