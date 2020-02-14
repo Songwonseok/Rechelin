@@ -77,7 +77,6 @@
 <script>
   import * as VueGoogleMaps from 'vue2-google-maps';
   import {
-    
     haversine_distance
   } from '../../../public/js/location.js'
   import Vue from 'vue';
@@ -127,7 +126,6 @@
         return this.$store.state.storeInfo
       },
       Storehashtags() {
-        console.log(this.$store.state.storeHashtags, 'computed')
         return this.$store.state.storeHashtags
       }
 
@@ -143,8 +141,7 @@
       },
     },
     created() {
-
-      this.$store.dispatch('reviewsGet', 1)
+      
 
     },
     mounted() {
