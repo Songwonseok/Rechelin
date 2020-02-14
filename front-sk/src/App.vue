@@ -2,11 +2,14 @@
   <div id="app">
     <Header></Header>
 
- <transition name="page">
-   <b-container class="bv-example-row">
-      <router-view></router-view>
+     <transition name="page">
+     <b-container class="bv-example-row">
+     <router-view></router-view>
+      
      </b-container>
+      
      </transition>
+    
   </div>
 </template>
 <script>
@@ -22,10 +25,12 @@
   } from '@mdi/js'  
   import SignUp from "./views/user/signUpForm.vue";
   import Header from "./views/header.vue";
+
   export default {
     name: 'app',
     components : {
       Header,
+
     },
     watch : {
         checkLogin : function(v){

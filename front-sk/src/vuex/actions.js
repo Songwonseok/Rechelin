@@ -3,9 +3,9 @@ import Userapi from '../apis/UserApi.js';
 import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
-const URL = 'http://70.12.246.134:8080' // 김주연 ip
-    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
-    // const URL = "http://54.180.160.87:8080" // aws
+// const URL = 'http://70.12.246.134:8080' // 김주연 ip
+
+    const URL = "http://54.180.160.87:8080" // aws
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -268,15 +268,17 @@ export default {
                         }
                         commit('storeinfoGet', data)
                         Axios.get(URL + `/review/${num}`, auth)
-                        .then(responseTwo => {
-                            console.log('성공')
-                            commit('reviewsGet', responseTwo.data.object)
+                        .then(resTwo => {
+                            console.log('성공', resTwo)
+            
+                            commit('reviewsGet', resTwo.data.object)
                             router.push({
-                                name: 'storeReviews',
+                                name: 'storeDetail',
                                 params: {
-                                    reviews: responseTwo.data.object
+                                    id: num
                                 }
                             })
+                           
                         })
                     }).catch(exp => {
                         console.log('실패')

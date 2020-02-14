@@ -138,6 +138,8 @@
             <router-view></router-view>
           </div>
 
+
+       <footer-tag></footer-tag>
         </div>
 
       </v-app>
@@ -147,6 +149,8 @@
 </template>
 
 <script>
+  import FooterTag from "./footer.vue";
+
   import {
     mdiMagnify,
     mdiAccountCircle,
@@ -239,7 +243,8 @@
       
     },
     components : {
-       Loading
+       Loading,
+       FooterTag,
     },
     methods: {
       valid(name){
