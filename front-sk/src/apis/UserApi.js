@@ -3,8 +3,8 @@ import store from "../vuex/store"
 import router from '../main.js';
 
 // import Api from "axios.js"
-const URL = "http://54.180.160.87:8080" //aws
-//  const URL = 'http://70.12.246.134:8080' // 김주연 ip
+//const URL = "http://54.180.160.87:8080" //aws
+  const URL = 'http://70.12.246.134:8080' // 김주연 ip
  //const URL = 'http://54.180.160.87:8080'  //new DB ip
 
 const auth = {
@@ -237,6 +237,16 @@ const requestId = async(data, callback, errorCallback) => {
         })
 }
 
+function requestUserRanking(){
+    return Axios.get(URL+'/account/userTop',auth);
+}
+
+
+function requestUserReviewCnt(data){
+    const params = new URLSearchParams();
+    params.append('num', data);
+    return Axios.post(URL+'/review/myList', params, auth);
+}
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestEdit: (data, callback, errorCallback) => requestEdit(data, callback, errorCallback),
@@ -248,6 +258,8 @@ const UserApi = {
     requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
     requestUpdatePw: (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
+    requestUserRanking,
+    requestUserReviewCnt,
     requestId: (data, callback, errorCallback) => requestId(data, callback, errorCallback),
 
 }

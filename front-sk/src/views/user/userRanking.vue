@@ -45,8 +45,8 @@
       
   
     
-        <template v-for="(item, index) in items">
-          <v-subheader
+        <template v-for="(item,i) in topUserInfo" >
+          <!-- <v-subheader
             v-if="item.header"
             :key="item.header"
             v-text="item.header"
@@ -58,19 +58,22 @@
             :inset="item.inset"
               
           ></v-divider>
-  
+   -->
           <v-list-item
-            v-else
-            :key="item.title"
+          
+            :key="item.email"
             class="userList"
           >
             <v-list-item-avatar>
-              <v-img :src="item.avatar"></v-img>
+              <v-img :src="item.profile"></v-img>
             </v-list-item-avatar>
   
             <v-list-item-content>
-              <v-list-item-title v-html="item.title"></v-list-item-title>
+              <v-list-item-title v-html="item.nickname"></v-list-item-title>
+            </v-list-item-content>
             
+            <v-list-item-content>
+            {{crown[i]}} 등록된 리뷰 개수 : {{item.reviewLength}}
             </v-list-item-content>
           </v-list-item>
         </template>
@@ -83,8 +86,9 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              color="primary"
+              color="orange darken-1"
               text
+              style = "background-color : #FFC107"
               @click="dialog = false"
             >
               I accept
@@ -103,11 +107,14 @@
 // import userRankListDetail from './userRankListDetail.vue'
 import Vue from 'vue'
 import { KinesisContainer, KinesisElement } from 'vue-kinesis'
+import UserApi from '../../apis/UserApi.js';
 
 Vue.component('kinesis-container', KinesisContainer)
 Vue.component('kinesis-element', KinesisElement)
 export default {
-  
+  created(){
+      this.init();
+  },
   data: () => ({
     items: [
       { header: 'Today' },
@@ -130,16 +137,56 @@ export default {
       },
     ],
     dialog: false,
-      notifications: false,
-      sound: true,
-      widgets: false,
-    
+    notifications: false,
+    sound: true,
+    widgets: false,
+    topUserInfo : [],
+    reviewLength : 0,
+    crown : ['🥇', '🥈', '🥉']
   }),
   methods : {
     userRank(){
        // eslint-disable-next-line no-console
       console.log('clicked');
       this.$router.push({path : '/userRankListDetail'})
+    },
+    async fetchUserReviewList(data){
+        return UserApi.requestUserReviewCnt(data)
+       .then(response =>{
+         console.log(this);
+        this.reviewLength =response.data.object.length;
+        console.log('data fetch');
+        console.log(this.reviewLength);
+    })
+    },
+    async init(){
+ UserApi.requestUserRanking()
+    .then(async response => {
+      console.log(response);
+      let topUserList = new Array();
+      
+      for(let i = 0; i<response.data.object.length; i++){
+        let item = [];
+        item['header'] = 'today'
+        item['email'] = response.data.object[i].email;
+        item['nickname'] = response.data.object[i].nickname;
+        
+        
+        await this.fetchUserReviewList(response.data.object[i].id);
+        
+        console.log(this.reviewLength);
+        item['reviewLength'] = this.reviewLength;
+        if(response.data.object[i].profile)
+          item['profile'] = response.data.object[i].profile;
+        else
+          item['profile'] = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+        JSON.stringify(item);
+        topUserList.push(item);
+      }
+      this.topUserInfo = topUserList;
+      console.log('top user 받아오기');
+      console.log(this.topUserInfo);
+    })
     }
   }
 }
@@ -173,6 +220,7 @@ export default {
   right : 70px;
   width: 200px; /* Set a width if you like */
 }
+
 /* .userList{
   height : 30px;
 } */
