@@ -102,7 +102,19 @@
     computed: {
     },
     watch :{
-      
+      // getUser: function () {
+      //   UserApi.requestId( this.uid,res=>{
+      //       console.log("****")
+      //       console.log(res)
+      //       this.UserInfo.email = res.object.email;
+      //       this.UserInfo.nickname = res.object.nickname;
+      //       this.UserInfo.phone = res.object.phone;
+      //       this.UserInfo.profile = res.object.profile;
+           
+      //     },error =>{
+      //       alert('정보 가져오기 실패 !');
+      //     })
+      // }
     },
     methods: {
       // followRequest() {
