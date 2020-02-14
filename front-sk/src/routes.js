@@ -232,11 +232,7 @@ export default [
         name: 'updateNewPw',
         component: updateNewPw,
     },
-    {
-        path: '/userFeed',
-        name: 'userFeed',
-        component: userFeed,
-    },
+
     {
         path: '/sideMenuLogin',
         name: 'sideMenuLogin',

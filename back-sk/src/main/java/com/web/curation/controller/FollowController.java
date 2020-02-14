@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.DTO.Alarm;
 import com.web.curation.model.DTO.User;
 import com.web.curation.service.FollowService;
 
@@ -147,6 +146,14 @@ public class FollowController {
 			result.status = false;
 			result.data = "새 알림이 없습니다.";
 		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@PostMapping("/follow/status")
+	@ApiOperation(value = "팔로우 상태 확인")
+	public Object followStatus(@RequestParam(required = true) final long num) {
+		final BasicResponse result = new BasicResponse();
+		
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 

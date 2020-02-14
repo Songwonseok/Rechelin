@@ -21,6 +21,7 @@ public interface FollowService {
 	public boolean alarmCheck(String email); 
 	
 	public boolean newAlarm(String email);
+	public int followStatus(long num);
 	 
 	 
 }
