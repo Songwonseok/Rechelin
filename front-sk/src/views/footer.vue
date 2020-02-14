@@ -18,7 +18,7 @@
       <v-card
         flat
         tile
-        height = "700px"
+        height = "600px"
         class="orange lighten-1 white--text text-center"
       >
         <v-card-text>
