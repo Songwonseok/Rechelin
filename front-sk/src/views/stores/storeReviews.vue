@@ -121,9 +121,7 @@
             },
             addComments(num) {
                 this.$store.dispatch('commentsOfreview', num)
-                return new Promise((resolve, reject) => {
-                    resolve('성공')
-                })
+               
             },
             reviewLike(num) {
                 this.$store.dispatch('reviewLike', num)
