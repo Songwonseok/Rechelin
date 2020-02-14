@@ -185,34 +185,6 @@ export default {
             })
 
     },
-    storeinfoGet({ commit }, num) {
-        const params = new URLSearchParams();
-        console.log(num)
-        params.append('num', num)
-        Axios.post(URL + '/store/selectOne', params, auth)
-            .then(res => {
-                console.log('요청 성공')
-                console.log(res.data.object, '=========================')
-                let data = {
-                    resData: res.data.object,
-                    id: num
-                }
-                commit('storeinfoGet', data)
-                Axios.post(URL + '/store/tags', params, auth)
-                    .then(responseOne => {
-                        console.log(responseOne, 'hashtags')
-                        commit('storeHashtags', responseOne.data.object)
-                    }).catch(exp => {
-                        console.log('실패')
-                    })
-
-
-
-            }).catch(exp => {
-                console.log('실패')
-            })
-
-    },
     likeStore({ commit }, payload) {
 
         Axios.post(URL + "/review/bookmark", payload, auth)
@@ -223,23 +195,7 @@ export default {
             })
 
     },
-    // 리뷰 관련
-    reviewsGet({ commit }, payload) {
-        Axios.get(URL + `/review/${payload}`, auth)
-            .then(res => {
-                console.log('성공')
-                commit('reviewsGet', res.data.object);
-                console.log(res, '??????')
-                router.push({
-                    name: 'storeReviews',
-                    params: {
-                        reviews: res.data.object
-                    }
-                })
-            }).catch(exp => {
-                console.log('실패')
-            })
-    },
+
     // 리뷰의 댓글 관련
     commentsOfreview({ commit }, review) {
         console.log(review, "???")
@@ -295,9 +251,6 @@ export default {
                 console.log('실패')
             })
     },
-    addStore({ commit }, storeInfo) {
-
-    },
     storeHashtags({ commit }, num) {
         console.log('들어옴??')
         const params = new URLSearchParams();
@@ -314,6 +267,17 @@ export default {
                             id: num
                         }
                         commit('storeinfoGet', data)
+                        Axios.get(URL + `/review/${num}`, auth)
+                        .then(responseTwo => {
+                            console.log('성공')
+                            commit('reviewsGet', responseTwo.data.object)
+                            router.push({
+                                name: 'storeReviews',
+                                params: {
+                                    reviews: responseTwo.data.object
+                                }
+                            })
+                        })
                     }).catch(exp => {
                         console.log('실패')
                     })

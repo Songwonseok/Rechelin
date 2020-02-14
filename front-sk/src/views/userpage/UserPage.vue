@@ -100,6 +100,7 @@
       }
     },
     computed: {
+
     },
     methods: {
       followRequest() {
@@ -146,6 +147,7 @@
             this.UserInfo.nickname = res.object.nickname;
             this.UserInfo.phone = res.object.phone;
             this.UserInfo.profile = res.object.profile;
+
            
           },error =>{
             alert('정보 가져오기 실패 !');

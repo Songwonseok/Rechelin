@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <v-alert border="bottom" colored-border color="warning" elevation="2">
+      <v-alert border="bottom" colored-border color="warning" elevation="2" style="margin-top: 30px;">
         <h1>{{storeInfoSave.sname}}</h1>
       </v-alert>
 
@@ -19,39 +19,46 @@
     <v-row no-gutters>
       <v-col cols="12" sm="6" md="8">
         <b-card-text style="text-align: center;">
-          <div>
-            {{storeInfoSave.name}} <br>
+          <div style="margin-top: 30px;">
+            <br>
             {{storeInfoSave.address}}
             <br>
 
-            <span v-for="(h, index) in Storehashtags" :key="index">
+            <span v-for="(h, index) in Storehashtags" :key="index" >
 
-              <v-chip class="ma-2" color="orange" text-color="white">
-                <v-icon>{{icons.mdiPoundBox  }}</v-icon>
+              <v-chip class="ma-2" color="orange" text-color="white" style="margin-top: 20px !important;">
+                <v-icon>{{icons.mdiPoundBox}}</v-icon>
                 {{h.keyword}}
               </v-chip>
               
             </span>
           </div>
           <div>
-            <v-btn class="ma-2" outlined fab color="indigo">
-              <v-icon>{{icons.pencilOutline}}</v-icon>
+            <v-btn class="ma-2" outlined fab color="warning">
+              <v-icon color="warning">{{icons.pencilOutline}}</v-icon>
             </v-btn>
 
-            <v-btn class="ma-2" outlined fab color="indigo" @click="likeStore">
-              <v-icon>{{icons.bookmark}}</v-icon>
+            <v-btn class="ma-2" outlined fab color="warning" @click="likeStore">
+              <v-icon color="warning">{{icons.bookmark}}</v-icon>
             </v-btn>
+            <!-- <v-btn class="ma-2" outlined fab color="warning" @click="browserlocation">
+              <v-icon color="warning">{{icons.mdiCrosshairsGps}}</v-icon>
+            </v-btn> -->
           </div>
         </b-card-text>
+         <b-card-text style="text-align: center;">
+           {{distance}}
+            </b-card-text>
 
       </v-col>
       <v-col cols="6" md="4">
         <div>
-          <gmap-map :center="{'lat': storeInfoSave.lat, 'lng':storeInfoSave.lng}" :zoom="16"
+          <gmap-map :center="{lat: parseFloat(storeInfoSave.lat), lng:parseFloat(storeInfoSave.lng)}" :zoom="16"
             style="width: 500px; height: 300px">
-            <gmap-marker :position="{'lat': storeInfoSave.lat, 'lng':storeInfoSave.lng}" :clickable="true"
+            <gmap-marker :position="{lat: parseFloat(storeInfoSave.lat), lng:parseFloat(storeInfoSave.lng)}" :clickable="true"
               :draggable="true" @click="center=m.position">
             </gmap-marker>
+        
           </gmap-map>
         </div>
       </v-col>
@@ -69,11 +76,15 @@
 
 <script>
   import * as VueGoogleMaps from 'vue2-google-maps';
+  import {
+    haversine_distance
+  } from '../../../public/js/location.js'
   import Vue from 'vue';
   import {
     mdiBookmark,
     mdiPencilOutline,
-    mdiPoundBox 
+    mdiPoundBox,
+    mdiCrosshairsGps
   } from '@mdi/js';
 
   Vue.use(VueGoogleMaps, {
@@ -90,7 +101,8 @@
         icons: {
           bookmark: mdiBookmark,
           pencilOutline: mdiPencilOutline,
-          mdiPoundBox 
+          mdiPoundBox,
+          mdiCrosshairsGps
         },
         storeDetails: {
           num: '',
@@ -101,6 +113,11 @@
           lng: '',
         },
         hashtags: '',
+        distance: null,
+        recentlocation: {
+          lat: null,
+          lng: null,
+        },
       }
     },
     computed: {
@@ -109,7 +126,6 @@
         return this.$store.state.storeInfo
       },
       Storehashtags() {
-        console.log(this.$store.state.storeHashtags, 'computed')
         return this.$store.state.storeHashtags
       }
 
@@ -125,8 +141,7 @@
       },
     },
     created() {
-
-      this.$store.dispatch('reviewsGet', 1)
+      
 
     },
     mounted() {
