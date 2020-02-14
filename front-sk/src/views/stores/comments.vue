@@ -84,14 +84,12 @@
         },
         computed: {
             reviewInfo() {
-                return this.$store.state.reviewInfo
+                return this.$store.state.reviewDetail
             },
             newReturnComment() {
                 return this.$store.state.newReturnComment
             }
-            // comments() {
-            //     return this.$store.state.commentsOfreview
-            // }
+
 
         },
         watch: {
