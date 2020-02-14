@@ -10,9 +10,9 @@ public interface FollowService {
 
 	public boolean requestFollow(String fan, String star);
 
-	public List<User> starList(String email);
+	public List<User> starList(long fnum);
 
-	public List<User> fanList(String email);
+	public List<User> fanList(long snum);
 
 	public List<Alarm> alarmList(String email);
 

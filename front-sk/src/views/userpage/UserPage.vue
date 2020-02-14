@@ -100,13 +100,14 @@
       }
     },
     computed: {
+
     },
     methods: {
-      // followRequest() {
-      // },
+      followRequest() {
+      },
       getFanList(){
         console.log(this.id)
-        FollowApi.requestFanList(this.id, res=>{
+        FollowApi.requestFanList(this.uid, res=>{
           this.fanList = res;
           console.log('fan 성공')
         }, error=>{
@@ -114,7 +115,7 @@
         })
       },
       getStarList(){
-        FollowApi.requestStarList(this.id, res=>{
+        FollowApi.requestStarList(this.uid, res=>{
           this.starList = res;
           console.log('star 성공')
           console.log(this.starList);
@@ -123,14 +124,14 @@
         })
       },
       getBookmarkList(){
-        ReviewApi.requestBookmarkList(this.id, res=>{
+        ReviewApi.requestBookmarkList(this.uid, res=>{
           this.bookmarkList = res;
         }, error=>{
           alert('BookmarkList 가져오기 실패')
         })
       }
       ,getReviewList(){
-         ReviewApi.requestMyReviewList(this.email, res=>{
+         ReviewApi.requestMyReviewList(this.uid, res=>{
           this.reviewList = res;
         }, error=>{
           alert('ReviewList 가져오기 실패')
@@ -139,13 +140,14 @@
       ,getUser(){
         console.log('<<<<<<<<<<<<<<<<<<<<<<<<')
         console.log(this.uid)
-          UserApi.requestId( this.id,res=>{
+          UserApi.requestId( this.uid,res=>{
             console.log("****")
             console.log(res)
             this.UserInfo.email = res.object.email;
             this.UserInfo.nickname = res.object.nickname;
             this.UserInfo.phone = res.object.phone;
             this.UserInfo.profile = res.object.profile;
+
            
           },error =>{
             alert('정보 가져오기 실패 !');
@@ -156,12 +158,13 @@
 
 
     },
-    created() {
+    mounted() {
       this.getUser();
-      // this.getFanList();
-      // this.getStarList();
+      this.getFanList();
+      this.getStarList();
       this.getBookmarkList();
       this.getReviewList();
+      console.log("hello")
     },
 
   }

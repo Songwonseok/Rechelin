@@ -57,15 +57,13 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		// 1) review.hashtag을 가져와서 hashtag에 일치하는 값 확인
 		String hashtag = review.getHashtag();
-		String[] tagList = hashtag.split(" "); // 해시태그 분리
+		String[] tagList = hashtag.split(","); // 해시태그 분리
 		
 		for(int i=0; i<tagList.length; i++) {
 			Hashtag tag = hashdao.findByKeyword(tagList[i]);
-			List<Hashtag> tt = hashdao.findAll();
-			for (Hashtag hashtag2 : tt) {
-				System.out.println(hashtag2.toString());
-			}
-			System.out.println(tagList[i] +" "+ tag.toString());
+			
+			System.out.println(tagList[i]); 
+			System.out.println(" "+ tag.toString());
 			if(tag ==null) continue; // 없는 태그가 나오면 DB에 추가?
 			
 			System.out.println("********************");
@@ -158,9 +156,9 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Bookmark> getBookmark(String email) {
+	public List<Bookmark> getBookmark(long num) {
 		// email을 통해 User를 찾는다
-		User user = userdao.findByEmail(email);
+		User user = userdao.findById(num);
 		List<Bookmark> list = bookdao.findAllByUser(user);
 		
 		return list;
@@ -182,10 +180,9 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Review> getcurrentFeed(String email) {
+	public List<Review> getcurrentFeed(long num) {
 		// email을 통해서 star 리스트를 가져온다.
-		User user = userdao.findByEmail(email);
-		System.out.println("SERVICE "+email);
+		User user = userdao.findById(num);
 		System.out.println(user.toString());
 		List<Review> list = dao.feedList(user);
 		for (Review review : list) {
@@ -203,18 +200,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return list;
 	}
 
-	@Override
-	public void register(long store_num, String user_email, String str, String weak, String picture, String title,
-			String hashtag, int score_total, int score_taste, int score_price, int score_kindness) {
-		User u = userdao.findByEmail(user_email);
-		Store s = storedao.findByNum(store_num);
-		Review rr = new Review(s, u, str, weak, picture, title, hashtag, score_total, score_taste, score_price, score_kindness);
-		dao.save(rr);
-	}
+	
 
 	@Override
-	public List<Review> getMyReview(String email) {
-		User user = userdao.findByEmail(email);
+	public List<Review> getMyReview(long num) {
+		User user = userdao.findById(num);
 		List<Review> list = dao.findAllByUser(user);
 		return list;
 	}

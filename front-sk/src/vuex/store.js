@@ -79,6 +79,15 @@ export default new Vuex.Store({
         storeList : [
 
         ],
+
+        UserInfo:{ // id로 가져온 정보들
+            email:'',
+            nickname:'',
+            phone:'',
+            profile:''
+          },
+
+          
         directiveStoreDetail : '',
     },
 
