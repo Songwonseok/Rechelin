@@ -79,7 +79,9 @@ export default new Vuex.Store({
         storeList : [
 
         ],
+        storeList_paging : [
 
+        ],
         UserInfo:{ // id로 가져온 정보들
             email:'',
             nickname:'',
@@ -89,6 +91,7 @@ export default new Vuex.Store({
 
           
         directiveStoreDetail : '',
+        page : 0,
     },
 
 

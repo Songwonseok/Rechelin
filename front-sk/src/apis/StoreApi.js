@@ -61,6 +61,7 @@ function requestStoreList(){
 }
 
 
+
 const StoreApi = {
     requestAddPlace: (data, callback, errorCallback) => requestAddPlace(data, callback, errorCallback),
     requestRandom: (data, callback, errorCallback) => requestRandom(data, callback, errorCallback),

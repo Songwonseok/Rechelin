@@ -122,6 +122,22 @@
                     }
 
                     //요청 후에는 버튼 비활성화
+                    this.$store.state.userid = 1
+                    this.$store.state.userEmail = "tqbs1024@gmail.com"
+                    this.$store.state.userNickname = "ingyu"
+                    this.$store.state.accessToken = "!@#$%^&*()"
+
+                    sessionStorage.setItem("userToken", this.$store.state.accessToken)
+                    sessionStorage.setItem("userEmail", this.$store.state.userEmail)
+                    sessionStorage.setItem("userNickname", this.$store.state.userNickname)
+                    sessionStorage.setItem("userid", this.$store.state.userid)
+            
+this.$router.push({
+                                name: "popular"
+                            });
+                    this.isSubmit = true;
+                    /** finish **/
+
                     this.isSubmit = false;
                     UserApi.requestLogin(data, res => {
                         //통신을 통해 전달받은 값 콘솔에 출력
