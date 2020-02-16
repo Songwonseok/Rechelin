@@ -46,6 +46,12 @@ import sideMenuUserPage from './views/sideMenu/sideMenuUserPage.vue';
 import bestReviewList from './views/review/bestReviewList.vue';
 import sideMenuFeed from './views/sideMenu/sideMenuFeed.vue';
 
+/*admin page */
+import adminMenu from './views/sideMenu/sideMenuAdmin.vue';
+import adminUserList from './views/admin/adminUserList.vue';
+import adminContentList from './views/admin/adminContentList.vue';
+import adminStatistics from './views/admin/adminStatistics.vue';
+
 
 export default [
     // ERROR PAGE
@@ -200,7 +206,28 @@ export default [
                     component: userFeed
                 }]
             },
-
+            {
+                path: 'admin',
+                name: 'admin',
+                component : adminMenu,
+                children : [
+                    {
+                        path : 'adminUserList',
+                        name : 'adminUserList',
+                        component : adminUserList
+                    },
+                    {
+                        path : 'adminContentList',
+                        name : 'adminContentList',
+                        component : adminContentList
+                    },
+                    {
+                        path : 'adminStatistics',
+                        name : 'adminStatistics',
+                        component : adminStatistics
+                    }
+                ]
+            }
         ]
 
     },

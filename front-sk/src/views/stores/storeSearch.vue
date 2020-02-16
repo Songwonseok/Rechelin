@@ -1,13 +1,44 @@
 <template>
     <div id="app">
         <v-app id="inspire_store">
-            <div v-if="this.$store.state.storeList.length >= 1">
+        
+            <!--To do bar-->
+            <v-card
+      class="pa-4"
+      flat
+      height="300px"
+      img="https://cdn.vuetifyjs.com/images/toolbar/map.jpg"
+    >
+      <v-toolbar
+        dense
+        floating
+      >
+        <v-text-field
+          hide-details
+          prepend-icon="search"
+          @keyup.enter="storeListSearch"
+          single-line
+          v-model = "ssearch"
+        ></v-text-field>
+  
+        <v-btn icon>
+          <v-icon>my_location</v-icon>
+        </v-btn>
+  
+        <v-btn icon>
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </v-toolbar>
+    </v-card>
+    
+
+            <div v-if="this.$store.state.isClickBtnStore == true">
                 <b-container class="bv-example-row">
                     <b-row >
 
                         <div v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store">
                             <v-hover v-slot:default="{ hover }">
-                                <v-card class="mx-auto mr-2 mb-2" max-width="370" height="300">
+                                <v-card class="mx-auto mr-10 mb-2" max-width="500" width = "300" height="300">
                                     <v-img
                                         class="white--text align-end"
                                         height="200px"
@@ -47,7 +78,7 @@
                 <div class="text-center">
       <v-pagination
         v-model=page
-        :length= this.$store.state.storeList.length/6+1
+        :length= this.len
         @input="next"
       ></v-pagination>
     </div>
@@ -76,9 +107,11 @@
     Vue.component('kinesis-element', KinesisElement)
     export default {
         created() {
-            this.lenCalc;
+            this.lenCalc();
             this.page = this.len;
+            
         },
+
         watch: {
             storeListwatch: function (v) {
                 // this.data = this.$store.state.storeList;
@@ -94,18 +127,50 @@
                 console.log(this.storeRender);
 
 
+            },
+            fetchSearchStore : function(v){
+               console.log("fetchSearchStore");
+                let list = [...this.$store.state.storeList_paging];
+                
+                // list = this.$store.state.storeList
+                // .filter(post => {
+                //     return post
+                //         .toLowerCase()
+                //         .includes(this.search.toLowerCase())
+                // })
+                this.$store.state.storeList_paging = [];
+                console.log(this.$store.state.storeList);
+                for(let i=0; i<this.$store.state.storeList.length; i++){
+                    if(this.$store.state.storeList[i].sname.includes(this.ssearch)){
+                        console.log('isExistValue');
+                        this.$store.state.storeList_paging.push(
+                            this.$store.state.storeList[i]);
+                    }
+                }
+                list = [...this.$store.state.storeList_paging];
+                console.log(list);
+                this.$store.state.storeList_paging = [...list];
+
             }
+            
         },
         computed: {
+            
             storeListwatch() {
                 console.log('computed');
                 return this.$store.state.storeList
+            },
+            fetchSearchStore(){
+                return this.enterKey;
             }
+           
         },
         data() {
             return {
                 data: [],
                 len : 0,
+                search : '',
+                enterKey : 0,
             }
         },
         methods : {
@@ -118,17 +183,23 @@
             },
             lenCalc(){
                     if(this.$store.state.storeList.length%6!=0)
-                        this.len = Math.ceil(this.$store.state.storeList.length%6) + 1;
+                        this.len = Math.ceil(this.$store.state.storeList.length/6);
                     else
-                        this.len = Math.ceil(this.$store.state.storeList);
+                        this.len = Math.ceil(this.$store.state.storeList.length/6)-1;
                 
+            },
+            storeListSearch(){
+                this.enterKey += 1; 
             }
         }
     }
 </script>
 
 <style scoped="scoped">
-   
+    .inspire_store{
+        top : 200px;
+
+    }
     .v-card--reveal {
         align-items: center;
         bottom: 0;
