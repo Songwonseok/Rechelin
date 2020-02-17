@@ -22,28 +22,28 @@ import com.web.curation.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity( //보안 어노테이션
-    securedEnabled = true, //@Secured 가 붙은 클래스나 인터페이스의 메소드 액세스 제한
+@EnableGlobalMethodSecurity( //蹂댁븞 �뼱�끂�뀒�씠�뀡
+    securedEnabled = true, //@Secured 媛� 遺숈� �겢�옒�뒪�굹 �씤�꽣�럹�씠�뒪�쓽 硫붿냼�뱶 �븸�꽭�뒪 �젣�븳
     jsr250Enabled = true, //@RolesAllowed
     prePostEnabled = true //@PreAuthorize
 )
 
-//WebSecurityConfigurerAdapter : extends, customize by customize 제공
+//WebSecurityConfigurerAdapter : extends, customize by customize �젣怨�
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
     
-    //user, role 인증을 위해 users detail 가져오기
-    //loadUserByUsername으로 UserDetail 객체를 반환하는 userDetailService로 구성되어있음
+    //user, role �씤利앹쓣 �쐞�빐 users detail 媛��졇�삤湲�
+    //loadUserByUsername�쑝濡� UserDetail 媛앹껜瑜� 諛섑솚�븯�뒗 userDetailService濡� 援ъ꽦�릺�뼱�엳�쓬
     @Autowired
     CustomUserDetailsService customUserDetailService;  
 
-    //보안 resource에 인증되지 않은 접근 발생시 401 에러 return
-    //spring security의 AuthenticationEntryPoint interface를 implements
+    //蹂댁븞 resource�뿉 �씤利앸릺吏� �븡�� �젒洹� 諛쒖깮�떆 401 �뿉�윭 return
+    //spring security�쓽 AuthenticationEntryPoint interface瑜� implements
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
-    //(모든 요청의 Authorization header의)토큰이 필요한 필터
-    //filter는 RequestMatcher(해당 필터에 대한 Url, Method 설정 부분) 인터페이스 무조건 받음
-    //토큰과 관련된 users detail 가져옴(SecurityContext)
+    //(紐⑤뱺 �슂泥��쓽 Authorization header�쓽)�넗�겙�씠 �븘�슂�븳 �븘�꽣
+    //filter�뒗 RequestMatcher(�빐�떦 �븘�꽣�뿉 ���븳 Url, Method �꽕�젙 遺�遺�) �씤�꽣�럹�씠�뒪 臾댁“嫄� 諛쏆쓬
+    //�넗�겙怨� 愿��젴�맂 users detail 媛��졇�샂(SecurityContext)
     @Bean
     public JwtAuthenticationFilter JwtAuthenticationFilter(){
         return new JwtAuthenticationFilter();
@@ -51,17 +51,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
-        authenticationManagerBuilder //인증 객체 생성 제공 
-                //스프링 시큐리티 인증용.
-                //userDao를 통해 영속성으로 저장된 인증정보를 검색한 후 존재하지 않는다면 exception 반환
-                //있다면 UserDetails 객체 반환
+        authenticationManagerBuilder //�씤利� 媛앹껜 �깮�꽦 �젣怨� 
+                //�뒪�봽留� �떆�걧由ы떚 �씤利앹슜.
+                //userDao瑜� �넻�빐 �쁺�냽�꽦�쑝濡� ���옣�맂 �씤利앹젙蹂대�� 寃��깋�븳 �썑 議댁옱�븯吏� �븡�뒗�떎硫� exception 諛섑솚
+                //�엳�떎硫� UserDetails 媛앹껜 諛섑솚
                 .userDetailsService(customUserDetailService) 
-                .passwordEncoder(passwordEncoder()); //패스워드 암호화 구현체
+                .passwordEncoder(passwordEncoder()); //�뙣�뒪�썙�뱶 �븫�샇�솕 援ы쁽泥�
     }
 
-    //AuthenticationManager : 인증 공급자를 위한 컨테이너
-    //인증을 시도해서 성공하면 authentication 객체 반환
-    //실패 시 exception 반환
+    //AuthenticationManager : �씤利� 怨듦툒�옄瑜� �쐞�븳 而⑦뀒�씠�꼫
+    //�씤利앹쓣 �떆�룄�빐�꽌 �꽦怨듯븯硫� authentication 媛앹껜 諛섑솚
+    //�떎�뙣 �떆 exception 諛섑솚
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -79,14 +79,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .cors() //Cross Origin Resource Sharing
                     .and()
                 .csrf()
-                    .disable() //rest api이므로 csrf 보안이 필요 없으므로 disable 처리
-                .exceptionHandling() //예외처리
-                    .authenticationEntryPoint(unauthorizedHandler) //전달 예외 잡기
+                    .disable() //rest api�씠誘�濡� csrf 蹂댁븞�씠 �븘�슂 �뾾�쑝誘�濡� disable 泥섎━
+                .exceptionHandling() //�삁�쇅泥섎━
+                    .authenticationEntryPoint(unauthorizedHandler) //�쟾�떖 �삁�쇅 �옟湲�
                     .and()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt token으로 인증하므로 세션은 필요없으므로 생성안함
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt token�쑝濡� �씤利앺븯誘�濡� �꽭�뀡�� �븘�슂�뾾�쑝誘�濡� �깮�꽦�븞�븿
                     .and()
-                .authorizeRequests() //다음 리퀘스트에 대한 사용권한 체크
+                .authorizeRequests() //�떎�쓬 由ы�섏뒪�듃�뿉 ���븳 �궗�슜沅뚰븳 泥댄겕
                     .antMatchers("/",
                         "/favicon.ico",
                         "/**/*.png",
@@ -96,14 +96,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js")
-                        .permitAll() // 위 경로는 누구나 접근 가능
-                    .antMatchers("/auth/**") //auth 로 시작하는 경로 누구나 접근가능
+                        .permitAll() // �쐞 寃쎈줈�뒗 �늻援щ굹 �젒洹� 媛��뒫
+                    .antMatchers("/auth/**") //auth 濡� �떆�옉�븯�뒗 寃쎈줈 �늻援щ굹 �젒洹쇨��뒫
                         .permitAll()
-                    .antMatchers("/follow/alarmList","/account/changePW","/main/**,/signUpForm/**","/account/selectName/**", "/account/selectEmail/**")
-                        .permitAll() // 위 경로 누구나 접근가능
+                    .antMatchers("/account/changePW","/main/**,/signUpForm/**","/account/selectName/**", "/account/selectEmail/**", "/account/selectId/**"
+                    		, "/account/naverlogin/**", "/access_token/**")
+                    
+                        .permitAll() // �쐞 寃쎈줈 �늻援щ굹 �젒洹쇨��뒫
                     .anyRequest()
                     	.permitAll();
-//                   	.authenticated();//그 외 나머지 요청은 모두 인증된 회원만 접근가능
+//                   	.authenticated();//洹� �쇅 �굹癒몄� �슂泥��� 紐⑤몢 �씤利앸맂 �쉶�썝留� �젒洹쇨��뒫
 
         // Add our custom JWT security filter
         http.addFilterBefore(JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

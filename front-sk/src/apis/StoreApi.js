@@ -1,9 +1,9 @@
 import Axios from "axios"
 
-const URL = "http://54.180.160.87:8080" //aws
-// const URL = 'http://70.12.246.134:8080' // 김주연 ip
+// const URL = "http://54.180.160.87:8080" //aws
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
     // const URL = 'http://70.12.246.51:8080' //  조장님 ip
-  //new DB ip
+    //new DB ip
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -56,8 +56,8 @@ const requestRandom = (data, callback, errorCallback) => {
         })
 }
 
-function requestStoreList(){
-    return Axios.get(URL+`/search/tagSearch`,auth);
+function requestStoreList() {
+    return Axios.get(URL + `/search/tagSearch`, auth);
 }
 
 
@@ -65,6 +65,6 @@ const StoreApi = {
     requestAddPlace: (data, callback, errorCallback) => requestAddPlace(data, callback, errorCallback),
     requestRandom: (data, callback, errorCallback) => requestRandom(data, callback, errorCallback),
     requestStoreList,
-}  
+}
 
 export default StoreApi

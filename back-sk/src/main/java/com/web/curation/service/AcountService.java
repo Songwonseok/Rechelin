@@ -17,6 +17,5 @@ public interface AcountService {
 	public boolean uploadProfile(long id,String profile);
 	public User getProfile(long id);
 	public String EncodePW(String Pw) ;
-	public User NaverLogin(String code, String state);
 	public List<User> userTop();
 }
