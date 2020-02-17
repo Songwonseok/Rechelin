@@ -1,15 +1,17 @@
 <template>
   <div>
-       <div class="tweet">
+       <div class="tweet" style="border-radius: 10px; margin-bottom: 20px;">
       <div class="box">
+          
         <article class="media">
           <div class="media-left">
             <figure class="image">
               <!-- TODO : 사진 누르면 프로필 넘어가도록-->
-               <v-list-item router-link :to="{name: 'userpage', params : {id: 15}}">
+
+               <v-list-item router-link :to="{name: 'userpage', params : {id: tweet.user.id}}">
                 <v-list-item-content>
                   <template v-if="tweet.user.profile == null">
-                    <img src="../../assets/images/ssafy.jpg" />
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" />
                   </template>
                   <template v-else>
                     <img :src="tweet.user.profile">
@@ -19,28 +21,48 @@
               
               
             </figure>
-              <p><small>@{{tweet.user.nickname}}</small></p>
-              <p>총점 : {{tweet.total}}</p> 
-              <p>맛 : {{tweet.taste}}</p>
-              <p>가격 : {{tweet.price}}</p>
-              <p>친절함 : {{tweet.kindness}}</p>
-               
+            <router-link :to="{name: 'userpage', params: {
+                id: tweet.user.id
+            }}" style="color: #ff7f00 !important"> 
+             <v-chip class="ma-2" color="warning" outlined>
+                        <v-icon>{{mdiLeadPencil}}</v-icon>
+                        작성자
+                    </v-chip>{{tweet.user.nickname}}</router-link>
+
           </div>
+          
           <div class="media-content">
             <div class="content">
               <p><strong>{{tweet.title}}</strong></p>
               <p>장점: {{tweet.str}}</p>
               <p>단점: {{tweet.weak}}</p>
+              
+              <p>총점 : {{tweet.total}}</p> 
+              <p>맛 : {{tweet.taste}}</p>
+              <p>가격 : {{tweet.price}}</p>
+              <p>친절함 : {{tweet.kindness}}</p>
             </div>
             <!-- 해시 태그 리스트 -->
             
           </div>
         </article>
+
       </div>
     </div>
   </div>
 </template>
 <script>
+    import {
+        mdiDelete,
+        mdiEmoticonHappyOutline,
+        mdiEmoticonSadOutline,
+        mdiPound,
+        mdiSigma,
+        mdiCurrencyUsd,
+        mdiEmoticonTongueOutline,
+        mdiEmoticonOutline,
+        mdiLeadPencil
+    } from '@mdi/js';
 export default {
     data(){
         return {

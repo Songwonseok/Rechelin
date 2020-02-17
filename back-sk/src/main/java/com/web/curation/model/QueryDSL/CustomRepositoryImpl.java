@@ -119,11 +119,10 @@ implements CustomRepository{
 
 	@Override
 	public List<User> topUser() {
-		return queryFactory.selectFrom(user).where(user.id.in(
-				JPAExpressions.select(review.user.id).from(review)
-								.groupBy(review.user)
-								.orderBy(review.user.count().desc())))
-				.limit(3).fetch();
+		return queryFactory
+				.selectFrom(user).join(review).on(review.user.id.eq(user.id))
+								.groupBy(user.id).orderBy(user.id.count().desc())
+								.limit(3).fetch();
 	}
 
 	

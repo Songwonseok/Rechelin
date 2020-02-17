@@ -126,11 +126,44 @@ public class FollowServiceImpl implements FollowService {
 		return false;
 	}
 
-//	@Override
-//	public int followStatus(long num) {
-//		// 먼저 알람 테이블에 있는지 체크
-//		
-//		return 0;
-//	}
+	@Override
+	public int status(long fan, long star) {
+		
+		// 1) fan 이 star를 팔로워 하고 있는지 체크
+		User ff = userDao.findById(fan);
+		User ss = userDao.findById(star);
+		Follow follo = followDao.findByFanAndStar(ff,ss);
+		if(follo==null) {
+			// 팔로우 안되어있는 상태
+			
+			// 2) 알람에 있는지 체크
+			Alarm alarm = alarmDao.findByFanAndStar(ff, ss);
+			if(alarm==null) {
+				// 팔로우 안되어있는 상태
+				return 0;
+			}else {
+				// 요청중인 상태
+				return 1;
+			}
+			
+		}else {
+			// 이미 팔로우한 유저
+			return 2;
+		}
+		
+	}
+
+	@Override
+	public boolean unFollow(long fan, long star) {
+		User ff = userDao.findById(fan);
+		User ss = userDao.findById(star);
+		Follow f = followDao.findByFanAndStar(ff, ss);
+		if(f==null) return false;
+		else {
+			followDao.delete(f);
+			return true;
+		}
+	}
+
 
 }

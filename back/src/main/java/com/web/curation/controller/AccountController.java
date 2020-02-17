@@ -39,7 +39,7 @@ public class AccountController {
 	@Autowired
 	private AcountService service;
 	
-	@DeleteMapping("/account/delete")
+	@DeleteMapping("/account/delete/{id}")
     @ApiOperation(value = "삭제하기")
     public Object delete(@RequestParam(required = true) final long id) {
     	final BasicResponse result = new BasicResponse();

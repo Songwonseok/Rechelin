@@ -27,13 +27,13 @@
         <v-btn text @click="UserLogout">로그인</v-btn>  
       </div>
 
-      <v-btn fab dark small color="green" id="popover-target-1" @click="notificationGet" @mouseover="notificationGet">
+      <v-btn fab dark small overlap color="green" id="popover-target-1" @click="notificationGet" :content="messages" @mouseover="notificationGet">
         <v-icon>{{icons.Bell}}</v-icon>
       </v-btn>
       <b-popover target="popover-target-1" triggers="hover" placement="bottom">
         <template v-slot:title>팔로우 요청</template>
       
-        <b-list-group-item v-for="(alarm, index) in alarms" :key="index">{{alarm.nickname}}
+        <b-list-group-item v-for="(alarm, index) in alarms" :key="index">{{alarm.fan.nickname}}
           <div>
           <v-btn @click="followAccept(alarm.fan, index)">accept</v-btn>
           <v-btn @click="followDecline(alarm.fan, index)">decline</v-btn>
@@ -80,6 +80,7 @@
         },
         alarms: 'asdfasd',
         checkLogin : true,
+        messages : this.$store.state.notifications.length
       }
     },
     computed :{

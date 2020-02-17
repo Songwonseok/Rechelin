@@ -3,9 +3,9 @@ import Userapi from '../apis/UserApi.js';
 import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
-const URL = 'http://70.12.246.134:8080' // 김주연 ip
+// const URL = 'http://70.12.246.134:8080' // 김주연 ip
 
-// const URL = "http://54.180.160.87:8080" // aws
+const URL = "http://54.180.160.87:8080" // aws
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -140,10 +140,10 @@ export default {
     },
     notificationGet({ commit }, payload) {
         const params = new URLSearchParams();
-        params.append('email', payload)
+        params.append('id', payload)
         Axios.post(URL + '/follow/alarmList', params, auth)
             .then(res => {
-
+                console.log(res)
                 commit('notificationGet', res.data.object)
             }).catch(exp => {
                 console.log('실패')
@@ -166,6 +166,7 @@ export default {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
         params.append('star', payload.star)
+        console.log(payload.fan, payload.star)
         Axios.post(URL + '/follow/accept', params, auth)
             .then(res => {
                 console.log('요청 성공')
@@ -176,20 +177,36 @@ export default {
     followDecline({ commit }, payload) {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
-        params.append('star', payload.star)
+        params.append('star',payload.star)
+        console.log(payload)
         Axios.post(URL + '/follow/decline', params, auth)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
+               
                 console.log('실패')
             })
 
     },
     likeStore({ commit }, payload) {
-
-        Axios.post(URL + "/review/bookmark", payload.user, auth)
+        const params = new URLSearchParams();
+        params.append('id', payload.id)
+        params.append('snum', payload.snum)
+        Axios.post(URL + "/store/addBook", params, auth)
             .then(res => {
                 console.log('요청 성공')
+                console.log(res)
+                if (res.data.status==true) {
+                    console.log('북마크 등록')
+                    
+                } else {
+                    Axios.post(URL+"/store/removeBook",  params, auth)
+                    .then(res => {
+                        console.log('북마크 삭제')
+                    }).catch(exp => {
+                        console.log('북마크 삭제 실패')
+                    })
+                }
             }).catch(exp => {
                 console.log('실패')
             })

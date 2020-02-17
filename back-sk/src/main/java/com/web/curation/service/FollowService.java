@@ -7,6 +7,7 @@ import com.web.curation.model.DTO.User;
 
 public interface FollowService {
 	public boolean addFollow(long fan, long star);
+	public boolean unFollow(long fan, long star);
 
 	public boolean requestFollow(long fan, long star);
 
@@ -21,6 +22,7 @@ public interface FollowService {
 	public boolean alarmCheck(long id); 
 	
 	public boolean newAlarm(long id);
+	public int status(long fan, long star);
 	 
 	 
 }

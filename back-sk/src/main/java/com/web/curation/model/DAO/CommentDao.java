@@ -10,4 +10,5 @@ import com.web.curation.model.DTO.Review;
 public interface CommentDao extends JpaRepository<Comments, Long> {
 	Comments findByNum(long num);
 	List<Comments> findAllByReview (Review review);
+	int countByReview(Review review);
 }

@@ -14,17 +14,14 @@
         <!--자기 자신이면 Follow button 숨기기 -->
         <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
         <template v-if="uid != id" >
-            <div>
-              <button @click="followRequest">Follow</button>
+            <div v-if="followstatus==0 || followstatus==''">
+              <button @click="follow">Follow</button>
             </div>
-            <div>
-              <button @click="followRequest">UnFollow</button>
+            <div v-if="followstatus==1">
+              <button>요청됨</button>
             </div>
-            <div>
-         
-              <button style="width : 100px" @click="followRequest">
-                
-                요청됨 <v-icon dark right>mdi-checkbox-marked-circle</v-icon></button>
+            <div v-if="followstatus==2">
+              <button @click="unfollow">UnFollow</button>
             </div>
         </template>
         
@@ -100,6 +97,7 @@
         starList:[],
         bookmarkList:[],
         reviewList:[],
+        followstatus:'',
         // myEmail:this.$store.state.userEmail // session에 저장된 User
       }
     },
@@ -139,7 +137,20 @@
       }
     },
     methods: {
-      followRequest() {
+      follow() {
+        FollowApi.requestFollow(this.id, this.uid, res=>{
+          this.followstatus = 1;
+        }, error=>{
+          alert('팔로우 요청 실패!')
+        })
+      },
+      unfollow() {
+        FollowApi.requestunFollow(this.id, this.uid, res=>{
+          this.followstatus = 0;
+          this.getStarList();
+        }, error=>{
+          alert('언팔로우 요청 실패!')
+        })
       },
       getFanList(){
         FollowApi.requestFanList(this.uid, res=>{
@@ -189,6 +200,13 @@
 
           
         },
+        getStatus(){
+          FollowApi.requestStatus(this.id, this.uid, res=>{
+            this.followstatus = res;
+          }, error =>{
+            alert('follow status 확인 실패!');
+          })
+        }
 
 
     },
@@ -198,6 +216,7 @@
       this.getStarList();
       this.getBookmarkList();
       this.getReviewList();
+      this.getStatus();
       console.log(this.UserInfo, 'jhgjhgjhg')
     },
 
