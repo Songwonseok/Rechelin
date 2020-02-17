@@ -49,7 +49,7 @@
         code: '',
         pw: '',
         info: {
-          email: '',
+          id: '',
           pw: '',
         },
         mdiPencil,
@@ -79,9 +79,9 @@
       confirm() {
         console.log('hi');
         // After retrieveing the confirmation code from the user
-        this.info.email = sessionStorage.getItem('userEmail');
+        this.info.id = sessionStorage.getItem('userid');
         this.info.pw = this.pw;
-        alert("변경되었습니다.");
+        this.$alert("비밀번호가 변경되었습니다.", "success", "success");
 
         UserApi.requestUpdatePw(this.info, res => {
           console.log(res);
