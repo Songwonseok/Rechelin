@@ -11,11 +11,7 @@
                   
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  리뷰..?
-                </v-list-item-content>
-              </v-list-item>
+             
            
             </v-list-item-group>
           </v-list>
