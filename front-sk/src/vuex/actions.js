@@ -187,7 +187,7 @@ export default {
     },
     likeStore({ commit }, payload) {
 
-        Axios.post(URL + "/review/bookmark", payload, auth)
+        Axios.post(URL + "/review/bookmark", payload.user, auth)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {

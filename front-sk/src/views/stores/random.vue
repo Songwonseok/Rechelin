@@ -1,14 +1,22 @@
 <template>
   <div>
-    <v-card>
-         <v-card-title class="headline">
+    <v-card style="min-height: 480px;">
+      <v-card-title class="headline">
         <!-- <v-chip  @click:close="keyword = ''">{{keyword}}</v-chip> -->
-        <v-combobox v-model="keyword" chips clearable label="위치를 '하나만' 선택하세요" solo></v-combobox>
+        <v-combobox v-model="keyword" chips clearable label="위치를 '하나만' 선택하세요" solo style="margin-top: 20px;"></v-combobox>
       </v-card-title>
 
       <v-card-text>
         <v-divider></v-divider>
-        <h3>강남</h3>
+        <v-chip
+      class="ma-2"
+      color="orange"
+      text-color="white"
+      style="margin-bottom: 10px !important;"
+    >
+      강남
+      <v-icon right>mdi-star</v-icon>
+    </v-chip><br>
         <v-chip draggable @click="insertTags('강남')">강남</v-chip>
         <v-chip draggable @click="insertTags('잠실')">잠실</v-chip>
         <v-chip draggable @click="insertTags('사당')">사당</v-chip>
@@ -18,7 +26,16 @@
         <v-chip draggable @click="insertTags('서래마을')">서래마을</v-chip>
 
         <v-divider></v-divider>
-        <h3>강북</h3>
+        <v-divider></v-divider>
+        <v-chip
+      class="ma-2"
+      color="orange"
+      text-color="white"
+      style="margin-bottom: 10px !important;"
+    >
+      강북
+      <v-icon right>mdi-star</v-icon>
+    </v-chip><br>
         <v-chip draggable @click="insertTags('건대')">건대</v-chip>
         <v-chip draggable @click="insertTags('종로')">종로</v-chip>
         <v-chip draggable @click="insertTags('삼청동')">삼청동</v-chip>
@@ -40,55 +57,105 @@
       <random></random>
       <v-btn color="primary" @click="getRandom">랜덤 추천 시작</v-btn>
 
-      <template v-for="item in randomList">
-        <h3 v-bind:key="item.num">{{item.sname}}</h3>
-        {{item.address}}
-      </template>
+
+      <b-row v-for="item in randomList" :key="item.num" style="margin-bottom: 30px;"> 
+        
+        <v-card max-width="344" class="mx-auto" style="margin-top: 20px;">
+          <v-list-item>
+            
+            <v-list-item-content  >
+              <v-list-item-title class="headline" style="margin-top: 5px; margin-bottom: 10px;">
+                <v-btn @click="storeDetail(item.num)" text color="warning">
+                  <v-icon style="color: #ff7f00">{{mdiCity}}</v-icon><span style="color: #ff7f00">{{item.sname}}</span></v-btn>
+                </v-list-item-title>
+                  <gmap-map :center="{lat: parseFloat(item.lat), lng:parseFloat(item.lng)}" :zoom="16"
+              style="width: 300px; height: 194px">
+              <gmap-marker :position="{lat: parseFloat(item.lat), lng:parseFloat(item.lng)}" :clickable="true"
+                :draggable="true" @click="center=m.position">
+              </gmap-marker>
+          
+            </gmap-map>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-card-text>
+            {{item.address}}
+          </v-card-text>
+
+          <v-card-actions>
+
+            <v-btn icon>
+              <v-icon>{{mdiShareVariant}}</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </b-row>
     </v-card>
   </div>
 </template>
 
 <script>
-import StoreApi from "../../apis/StoreApi";
+  import StoreApi from "../../apis/StoreApi";
+    import * as VueGoogleMaps from 'vue2-google-maps';
+    import Vue from 'vue';
+     import {
+   mdiCity,
+   mdiShareVariant
+  } from '@mdi/js';
 
-export default {
-  data() {
-    return {
-      keyword: "",
-      randomList: []
-    };
-  },
-  methods: {
-    insertTags(name) {
-      if (name == this.keyword) this.keyword = "";
-      else this.keyword = name;
-    },
-    getRandom() {
-      if (this.keyword != "") {
-        StoreApi.requestRandom(
-          
-          this.keyword,
-          res => {
-            this.$alert("랜덤 음식점 리스트 가져오기 성공","success","success",);
-            this.randomList = res;
-          },
-          error => {
-            this.$alert("랜덤 음식점 리스트 가져오기 실패","Error","warning",);
-            //alert("랜덤 음식점 리스트 가져오기 실패");
-          }
-        );
-      } else {
-        this.$alert("위치를 선택해주세요","Error","warning",);
-        //alert("위치를 선택해주세요");
-      }
+  Vue.use(VueGoogleMaps, {
+    load: {
+      key: 'AIzaSyDC4sonH281FHJ-YyPmeXLRdBYuqcjUkGE',
+      v: 'OPTIONAL VERSION NUMBER',
+      libraries: 'places', //// If you need to use place input
     }
-  }
-};
+  });
+  export default {
+    data() {
+      return {
+        keyword: "",
+        randomList: [],
+
+        //icons
+        mdiCity,
+        mdiShareVariant
+      };
+    },
+    methods: {
+      insertTags(name) {
+        if (name == this.keyword) this.keyword = "";
+        else this.keyword = name;
+      },
+      getRandom() {
+        if (this.keyword != "") {
+          StoreApi.requestRandom(
+
+            this.keyword,
+            res => {
+              this.$alert("랜덤 음식점 리스트 가져오기 성공", "success", "success", );
+              this.randomList = res;
+            },
+            error => {
+              this.$alert("랜덤 음식점 리스트 가져오기 실패", "Error", "warning", );
+              //alert("랜덤 음식점 리스트 가져오기 실패");
+            }
+          );
+        } else {
+          this.$alert("위치를 선택해주세요", "Error", "warning", );
+          //alert("위치를 선택해주세요");
+        }
+      },
+      storeDetail(num) {
+      this.$store.dispatch('storeHashtags', num)
+      
+    }
+    }
+  };
 </script>
 
 <style scoped>
-.v-application .primary {
+  .v-application .primary {
     background-color: #ff7f00 !important;
     border-color: #ff7f00 !important;
-}
+  }
 </style>
