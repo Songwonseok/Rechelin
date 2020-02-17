@@ -204,7 +204,7 @@ public class ReviewController {
 	@ApiOperation(value = "식당의 모든 리뷰 가져오기")
 	public Object getReview(@PathVariable long snum) {
 		final BasicResponse result = new BasicResponse();
-
+		
 		result.status = true;
 		result.data = "식당의 모든 리뷰 리스트 조회 성공";
 		result.object = service.getReview(snum);
@@ -273,12 +273,12 @@ public class ReviewController {
 	}
 	
 	@GetMapping("review/likeCount/{rnum}")
-	@ApiOperation(value = "review의  좋아요 갯수")
+	@ApiOperation(value = "리뷰 좋아요, 싫어요 수")
 	public Object sumlike(@PathVariable long rnum) {
 		final BasicResponse result = new BasicResponse();
 		JSONObject object = service.countLike(rnum);
 		result.status = true;
-		result.data = "醫뗭븘�슂, �떕�뼱�슂 議고쉶 �꽦怨�";
+		result.data = "좋아요, 싫어요 조회 성공";
 		result.object = object.toMap();
 
 		return new ResponseEntity<>(result, HttpStatus.OK);

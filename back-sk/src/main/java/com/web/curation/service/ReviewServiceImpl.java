@@ -1,11 +1,13 @@
 package com.web.curation.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.curation.model.ReviewlistResponse;
 import com.web.curation.model.DAO.BookmarkDao;
 import com.web.curation.model.DAO.CommentDao;
 import com.web.curation.model.DAO.HashtagDao;
@@ -194,10 +196,18 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Review> getReview(long snum) {
+	public List<ReviewlistResponse> getReview(long snum) {
 		// store의 num으로 통해서 리뷰들을 가져온다
 		Store store = storedao.findByNum(snum);
-		List<Review> list = dao.findAllByStore(store);
+		List<Review> rlist =  dao.findAllByStore(store);
+		List<ReviewlistResponse> list = new ArrayList<>();
+		for(Review review : rlist) {
+			int like = likedao.countByReviewAndStatus(review, 1);
+			int dislike = likedao.countByReviewAndStatus(review, 0);
+			int comments = comdao.countByReview(review);
+			list.add(new ReviewlistResponse(review,like,dislike,comments));
+		}
+		
 		return list;
 	}
 

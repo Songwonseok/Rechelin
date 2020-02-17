@@ -32,7 +32,7 @@ public class FollowController {
 	FollowService service;
 
 	@PostMapping("/follow/accept")
-	@ApiOperation(value = "�뙏濡쒖슦 �듅�굺")
+	@ApiOperation(value = "팔로우 승낙")
 	public Object addFollow(@RequestParam(required = true) final long fan,
 			@RequestParam(required = true) final long star) {
 
@@ -40,56 +40,55 @@ public class FollowController {
 
 		if (service.addFollow(fan, star)) {
 			result.status = true;
-			result.data = "�뙏濡쒖썙/�뙏濡쒖엵 由ъ뒪�듃 異붽�";
+			result.data = "팔로워/팔로잉 리스트 추가";
 		} else {
 			result.status = false;
-			result.data = "異붽� �떎�뙣";
+			result.data = "추가 실패";
 		}
 		if (service.declineFollow(fan, star)) {
 			result.status = true;
-			result.data = "�븣由� �궘�젣 �꽦怨�";
+			result.data = "알림 삭제 성공";
 		} else {
 			result.status = false;
-			result.data = "�븣由� �궘�젣 �떎�뙣";
+			result.data = "알림 삭제 실패";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 
 	}
-
-	@DeleteMapping("/follow/decline")
-	@ApiOperation(value = "�뙏濡쒖슦 嫄곗젅")
+	@PostMapping("/follow/decline")
+	@ApiOperation(value = "팔로우 거절")
 	public Object declineFollow(@RequestParam(required = true) final long fan,
 			@RequestParam(required = true) final long star) {
 
 		final BasicResponse result = new BasicResponse();
 		if (service.declineFollow(fan, star)) {
 			result.status = true;
-			result.data = "�븣由� �궘�젣 �꽦怨�";
+			result.data = "알림 삭제 성공";
 		} else {
 			result.status = false;
-			result.data = "�븣由� �궘�젣 �떎�뙣";
+			result.data = "알림 삭제 실패";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@PostMapping("/follow/request")
-	@ApiOperation(value = "�뙏濡쒖슦 �슂泥�")
+	@ApiOperation(value = "팔로우 요청")
 	public Object reqFollow(@RequestParam(required = true) final long fan,
 			@RequestParam(required = true) final long star) {
 
 		final BasicResponse result = new BasicResponse();
 		if (service.requestFollow(fan, star)) {
 			result.status = true;
-			result.data = "�슂泥� �꽦怨�";
+			result.data = "요청 성공";
 		} else {
 			result.status = false;
-			result.data = "�씠誘� �슂泥�以묒엯�땲�떎.";
+			result.data = "이미 요청중입니다.";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@PostMapping("/follow/starList")
-	@ApiOperation(value = "�뙏濡쒖엵 由ъ뒪�듃")
+	@ApiOperation(value = "팔로잉 리스트")
 	public Object starList(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
@@ -100,7 +99,7 @@ public class FollowController {
 	}
 
 	@PostMapping("/follow/fanList")
-	@ApiOperation(value = "�뙏濡쒖썙 由ъ뒪�듃")
+	@ApiOperation(value = "팔로워 리스트")
 	public Object fanList(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
@@ -111,7 +110,7 @@ public class FollowController {
 	}
 
 	@PostMapping("/follow/alarmList")
-	@ApiOperation(value = "�븣由� 由ъ뒪�듃")
+	@ApiOperation(value = "알림 리스트")
 	public Object alarmList(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
@@ -121,30 +120,30 @@ public class FollowController {
 	}
 
 	@PostMapping("/follow/alarmCheck")
-	@ApiOperation(value = "�븣�엺 �씫�쓬�몴�떆濡� 蹂�寃�")
+	@ApiOperation(value = "알람 읽음표시로 변경")
 	public Object alarmCheck(@RequestParam(required = true) final long id) {
 		
 		final BasicResponse result = new BasicResponse();
 		if(service.alarmCheck(id)) {
 			result.status = true;
-			result.data = "�븣由� �씫�쓬";
+			result.data = "알림 읽음";
 		}else {
 			result.status = false;
-			result.data = "�븣由쇱씠 �뾾�뒿�땲�떎.";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+			result.data = "알림이 없습니다.";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@PostMapping("/follow/newAlarm")
-	@ApiOperation(value = "�깉 �븣由� �솗�씤")
+	@ApiOperation(value = "새 알림 확인")
 	public Object newAlarm(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 		if(service.newAlarm(id)) {
 			result.status = true;
-			result.data = "�깉 �븣由쇱씠 �엳�뒿�땲�떎.";
+			result.data = "새 알림이 있습니다.";
 		}else {
 			result.status = false;
-			result.data = "�깉 �븣由쇱씠 �뾾�뒿�땲�떎.";
+			result.data = "새 알림이 없습니다.";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
