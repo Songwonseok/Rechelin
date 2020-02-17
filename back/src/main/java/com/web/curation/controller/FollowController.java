@@ -56,11 +56,10 @@ public class FollowController {
 
 	}
 
-	@DeleteMapping("/follow/decline")
+	@PostMapping("/follow/decline")
 	@ApiOperation(value = "팔로우 거절")
 	public Object declineFollow(@RequestParam(required = true) final long fan,
 			@RequestParam(required = true) final long star) {
-
 		final BasicResponse result = new BasicResponse();
 		if (service.declineFollow(fan, star)) {
 			result.status = true;
