@@ -7,8 +7,8 @@
                     <v-card id="reviews" class="mx-auto" max-width="600" outlined>
                         <v-list-item three-line>
                             <v-list-item-content>
-
-                                <div class="overline mb-4">{{review.store.sname}}</div>
+<!-- 
+                                <div class="overline mb-4">{{review.store.sname}}</div> -->
                                 <v-list-item-title class="headline mb-1"> {{review.title}}</v-list-item-title>
                                 글쓴이: {{review.user.nickname}}
                                 <br>총점 {{review.total}}
@@ -25,23 +25,29 @@
 
                         </v-list-item>
 
-                        <v-card-actions>
-                            <v-btn text @click="reviewLike">싫어요 {{review.dislike}}</v-btn>
-                            <v-btn text @click="reviewDetail(review.rnum)">
+                        <v-card-actions class ="btnTap">
+                            <v-btn class="btn" @click="reviewDetail(review.rnum)">
                                 리뷰 상세 보기
                             </v-btn>
 
-                            <v-btn text>
-                                <vue-star animate="animated bounceIn" color="#F05654">
+                            <v-btn class="btn">
+                                <vue-star animate="animated bounceIn" color="#F7D358">
                                     <i slot="icon" class="fas fa-thumbs-up fa-lg"></i>
                                 </vue-star>
                             </v-btn>
+                             
+                             <v-btn class="btn">
+                                <vue-star animate="animated bounceIn" color="#F7D358">
+                                    <i slot="icon" class="fas fa-thumbs-down fa-lg"></i>
+                                </vue-star>
+                            </v-btn>
 
-                            <v-btn text>
-                                <vue-star animate="animated bounceIn" color="#F05654">
+                            <v-btn class="btn">
+                                <vue-star animate="animated bounceIn" color="#F7FE2E">
                                     <i slot="icon" class="fas fa-bookmark fa-2x"></i>
                                 </vue-star>
                             </v-btn>
+                            
                         </v-card-actions>
 
                     </v-card>
@@ -149,7 +155,15 @@
 
 <style scoped>
 
+/* .btnTap {
+    
+} */
 
+.btnTap .btn {
+    background-color: #FF7F00  !important;
+    padding: 500px;
+    
+}
 
 
 </style>

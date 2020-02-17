@@ -2,6 +2,7 @@ package com.web.curation.service;
 
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -232,5 +233,17 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> getscoreTop() {
 		List<Review> list = dao.findTop6ByOrderByTotalDesc();
 		return list;
+	}
+
+	@Override
+	public JSONObject countLike(long rnum) {
+		Review review = dao.findByRnum(rnum);
+		int like = likedao.countByReviewAndStatus(review, 1);
+		int dislike = likedao.countByReviewAndStatus(review, 0);
+		JSONObject object = new JSONObject();
+		object.put("likesum", like);
+		object.put("dislikesum", dislike);
+		
+		return object;
 	}
 }
