@@ -45,7 +45,7 @@ public class SocialController {
 	NaverLogin naver;
 	
 	@GetMapping("/account/naverlogin")
-	@ApiOperation(value = "·Î±×ÀÎ")
+	@ApiOperation(value = "ë¡œê·¸ì¸")
 	public String naverlogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state){
 		
 		String apiURL;
@@ -66,9 +66,9 @@ public class SocialController {
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
 			
-			if (responseCode == 200) { // Á¤»ó È£Ãâ
+			if (responseCode == 200) { // ì •ìƒ í˜¸ì¶œ
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else { // ¿¡·¯ ¹ß»ı
+			} else { // ì—ëŸ¬ ë°œìƒ
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
 			String inputLine;
@@ -79,7 +79,7 @@ public class SocialController {
 				res.append(inputLine);
 			}
 			br.close();
-			if (responseCode == 200) { // ¼º°øÀûÀ¸·Î ÅäÅ«À» °¡Á®¿Â´Ù¸é
+			if (responseCode == 200) { // ì„±ê³µì ìœ¼ë¡œ í† í°ì„ ê°€ì ¸ì˜¨ë‹¤ë©´
 				System.out.println(res.toString());
 
 				JsonParser parser = new JsonParser();
@@ -94,12 +94,12 @@ public class SocialController {
 				email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
 				String nickname = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
 				
-				// DB ¿¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
-				// ÀÌ¸ŞÀÏ·Î Ã£°í -> numÀ» °¡Á®¿Â´Ù
+				// DB ì— ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
+				// ì´ë©”ì¼ë¡œ ì°¾ê³  -> numì„ ê°€ì ¸ì˜¨ë‹¤
 				User user = userDao.findByEmail(email);
 				long num = 0;
 				if (user == null) {
-					// DB¿¡ °èÁ¤ ÀúÀå
+					// DBì— ê³„ì • ì €ì¥
 					System.out.println("XXXX");
 					user = new User(email, nickname);
 					userDao.save(user);
@@ -109,9 +109,9 @@ public class SocialController {
 				num = user.getId();
 				System.out.println(user.toString());
 				
-				//// DB¿¡¼­ Á¸ÀçÇÏ´Â ÀÌ¸ŞÀÏÀÎÁö Ã¼Å©
-				//// ¾øÀ¸¸é DB ¿¡ÀúÀå
-				//// ===> loginÀ¸·Î ¹Ù·Î ÀÌµ¿
+				//// DBì—ì„œ ì¡´ì¬í•˜ëŠ” ì´ë©”ì¼ì¸ì§€ ì²´í¬
+				//// ì—†ìœ¼ë©´ DB ì—ì €ì¥
+				//// ===> loginìœ¼ë¡œ ë°”ë¡œ ì´ë™
 				return "redirect:http://localhost:3000/access_token/"+access_token+"/userid/"+num;
 			}
 			return "redirect:http://localhost:3000/login";

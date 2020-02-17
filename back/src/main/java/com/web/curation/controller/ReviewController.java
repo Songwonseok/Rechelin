@@ -204,7 +204,7 @@ public class ReviewController {
 	@ApiOperation(value = "식당의 모든 리뷰 가져오기")
 	public Object getReview(@PathVariable long snum) {
 		final BasicResponse result = new BasicResponse();
-
+		
 		result.status = true;
 		result.data = "식당의 모든 리뷰 리스트 조회 성공";
 		result.object = service.getReview(snum);
