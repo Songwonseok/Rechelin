@@ -114,7 +114,7 @@
 
           <!-- 탭부분  -->
           <v-tabs fixed-tabs="fixed-tabs" background-color="transparent" color="#ff7f00">
-            <v-tab router-link :to="{name: 'user'}"  style="color: #ff7f00;">
+            <v-tab @click="uservalid(userid)"  style="color: #ff7f00;">
                 <template v-if="userToken==null">
                   로그인
                 </template>
@@ -140,13 +140,13 @@
             
             
             <router-view>
+                
               
             </router-view>
           
           
           
           </div>
-        
 
 
          <footer-tag></footer-tag> 
@@ -251,6 +251,9 @@
       storeList(){
             return this.$store.state.storeList
       },
+       userid(){
+        return this.$store.state.userid
+      },
       
     },
     components : {
@@ -262,9 +265,6 @@
       valid(name){
         // session에 값이 있는지 확인해서 있으면 탭 이동
         let accessToken = sessionStorage.getItem("userToken");
-        console.log('유효한지판단!!!!!!!')
-        console.log(accessToken);
-
         if(accessToken!=null){
           this.$router.push({name : name});  
         }else{
@@ -272,6 +272,13 @@
            this.$router.push('/login');  
         }
 
+      },
+      uservalid(val){
+        if(this.userToken!=null){
+          this.$router.push({name:'userpage', params:{id:this.userid}})
+        }else{
+          this.$router.push('/login');  
+        }
       },
       reserve() {
         this.loading = true
