@@ -14,14 +14,14 @@
         <!--자기 자신이면 Follow button 숨기기 -->
         <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
         <template v-if="uid != id" >
-            <div>
+            <div v-if="followstatus==0 || followstatus==''">
               <button @click="followRequest">Follow</button>
             </div>
-            <div>
-              <button @click="followRequest">UnFollow</button>
-            </div>
-            <div>
+            <div v-if="followstatus==1">
               <button @click="followRequest">요청됨</button>
+            </div>
+            <div v-if="followstatus==2">
+              <button @click="followRequest">UnFollow</button>
             </div>
         </template>
         
@@ -96,6 +96,7 @@
         starList:[],
         bookmarkList:[],
         reviewList:[],
+        followstatus:'',
         // myEmail:this.$store.state.userEmail // session에 저장된 User
       }
     },
@@ -107,6 +108,11 @@
     },
     methods: {
       followRequest() {
+        FollowApi.requestFollow(this.id, this.uid, res=>{
+          this.followstatus = 1;
+        }, error=>{
+          alert('팔로우 요청 실패!')
+        })
       },
       getFanList(){
         FollowApi.requestFanList(this.uid, res=>{
@@ -154,6 +160,13 @@
 
           
         },
+        getStatus(){
+          FollowApi.requestStatus(this.id, this.uid, res=>{
+            this.followstatus = res;
+          }, error =>{
+            alert('follow status 확인 실패!');
+          })
+        }
 
 
     },
@@ -163,6 +176,7 @@
       this.getStarList();
       this.getBookmarkList();
       this.getReviewList();
+      this.getStatus();
       console.log(this.UserInfo, 'jhgjhgjhg')
     },
 

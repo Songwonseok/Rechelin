@@ -151,9 +151,24 @@ public class FollowController {
 	
 	@PostMapping("/follow/status")
 	@ApiOperation(value = "팔로우 상태 확인")
-	public Object followStatus(@RequestParam(required = true) final long num) {
+	public Object followStatus(@RequestParam(required = true) final long fan,
+			@RequestParam(required = true) final long star) {
+		System.out.println(fan+" "+star);
 		final BasicResponse result = new BasicResponse();
-		
+		result.status = true;
+		int status = service.status(fan, star);
+		switch (status) {
+		case 0:
+			result.data = "팔로우 안되어있는 상태 - FOLLOW";
+			break;
+		case 1:	
+			result.data = "이미 요청한 상태 - 요청중";			
+			break;
+		case 2:	
+			result.data = "이미 팔로우 되어있는 상태 - UNFOLLOW";			
+			break;
+		}
+		result.object = status;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
