@@ -39,36 +39,32 @@ public class AccountController {
 	@Autowired
 	private AcountService service;
 	
-
-	@Autowired
-	private JwtService jwtService;
- 
 	@DeleteMapping("/account/delete")
-    @ApiOperation(value = "�궘�젣�븯湲�")
+    @ApiOperation(value = "삭제하기")
     public Object delete(@RequestParam(required = true) final long id) {
     	final BasicResponse result = new BasicResponse();
     	if(service.delete(id)) {
     		result.status = true;
-    		result.data = "�궘�젣 �꽦怨�";    		
+    		result.data = "삭제 성공";    		
     	}else {
     		result.status = false;
-    		result.data = "email�씠 議댁옱�븯吏� �븡�뒿�땲�떎.";
+    		result.data = "email이 존재하지 않습니다.";
     	}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
 	
 	@PutMapping("/account/update")
-    @ApiOperation(value = "�닔�젙�븯湲�")
+    @ApiOperation(value = "수정하기")
     public Object update(@RequestBody User request) {
     	final BasicResponse result = new BasicResponse();
     	
     	if(service.update(request)) {
     		result.status = true;
-    		result.data = "�뾽�뜲�씠�듃 �꽦怨�";
+    		result.data = "업데이트 성공";
     		result.object = new JSONObject(request).toMap();    		
     	}else {
     		result.status = false;
-    		result.data = "email�씠 議댁옱�븯吏��븡�븘�슂";    		
+    		result.data = "email이 존재하지않아요";    		
     	}
 		
 
@@ -77,8 +73,8 @@ public class AccountController {
 	
 
 	
-    @GetMapping("/account/list")
-    @ApiOperation(value = "�쑀��蹂닿린")
+	@GetMapping("/account/list")
+    @ApiOperation(value = "유저보기")
     public Object selectAll() {
     	final BasicResponse result = new BasicResponse();
 		result.status = true;
@@ -89,38 +85,10 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
-    @GetMapping("account/token")
-	@ApiOperation(value = "�넗�겙媛� �솗�씤")
-	public Object token(@RequestParam String token) {
-		final BasicResponse result = new BasicResponse();
-		
-		try {
-			int status = jwtService.checkJwt(token);
-			switch (status) {
-			case 0:
-				result.status = true;
-				result.data = "�넗�겙�씠 �쑀�슚�빀�땲�떎";
-				break;
-
-			case 1:
-				result.status = false;
-				result.data = "�넗�겙 留뚮즺";
-				break;
-			case 2:
-				result.status = false;
-				result.data = "�넗�겙 蹂�議�";
-				break;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
 	
     
     @PostMapping("/account/selectEmail")
-    @ApiOperation(value = "�씠硫붿씪濡� �쑀��李얘린")
+    @ApiOperation(value = "이메일로 유저찾기")
     public Object selectEmail(@RequestParam(required = true) final String email) {
     	User user = service.selectEmail(email);
     	System.out.println("^^^^^^^^^^^^^^"+email);
@@ -128,18 +96,18 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "�씠硫붿씪濡� �쑀�� 李얘린 �꽦怨�";
+			result.data = "이메일로 유저 찾기 성공";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
-			result.data = "�쑀��媛� �뾾�뒿�땲�떎.";
+			result.data = "유저가 없습니다.";
 			result.object = email;
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
     @PostMapping("/account/selectName")
-    @ApiOperation(value = "�땳�꽕�엫�쑝濡� �쑀��李얘린")
+    @ApiOperation(value = "닉네임으로 유저찾기")
     public Object selectName(@RequestParam(required = true) final String nickname) {
     	final BasicResponse result = new BasicResponse();
 
@@ -147,17 +115,17 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "�땳�꽕�엫�쑝濡� �쑀��李얘린 �꽦怨�";
+			result.data = "닉네임으로 유저찾기 성공";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
-			result.data = "�쑀��媛� �뾾�뒿�땲�떎.";
+			result.data = "유저가 없습니다.";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
     @PostMapping("/account/selectId")
-    @ApiOperation(value = "id濡� �쑀��李얘린")
+    @ApiOperation(value = "id로 유저찾기")
     public Object selectId(@RequestParam(required = true) final long id) {
     	final BasicResponse result = new BasicResponse();
 
@@ -165,11 +133,11 @@ public class AccountController {
     	
 		if (user != null) {
 			result.status = true;
-			result.data = "id濡� �쑀��李얘린 �꽦怨�";
+			result.data = "id로 유저찾기 성공";
 			result.object = new JSONObject(user).toMap();
 		} else {
 			result.status = false;
-			result.data = "�쑀��媛� �뾾�뒿�땲�떎.";
+			result.data = "유저가 없습니다.";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -181,53 +149,53 @@ public class AccountController {
     	
     	if(service.uploadProfile(id, profile)) {
     		result.status = true;
-    		result.data = "�봽濡쒗븘 �벑濡� �꽦怨�";
+    		result.data = "프로필 등록 성공";
     		User user = service.selectId(id);
     		result.object = user;
     	}else {
     		result.status = false;
-    		result.data = "�봽濡쒗븘 �벑濡� �떎�뙣 ! - 議댁옱�븯吏��븡�뒗 �쑀��";
+    		result.data = "프로필 등록 실패 ! - 존재하지않는 유저";
     	}
     	return new ResponseEntity<>(result, HttpStatus.OK);
 	}
     
-	@PostMapping(value = "/account/getProfile")
+    @PostMapping(value = "/account/getProfile")
 	public Object getProfile(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
-//		System.out.println("�봽濡쒗븘 媛��졇�삤湲� !!!!!!!!!");
+//		System.out.println("프로필 가져오기 !!!!!!!!!");
 		User user = service.getProfile(id);
 		if(user!=null) {
-			// profile �씠 �뾾�쓬
+			// profile 이 없음
 			if(user.getProfile()==null) {
 				result.status = true;
-				result.data = "profile 議댁옱 X";
+				result.data = "profile 존재 X";
 			}else {
 				result.status = true;
-				result.data = "profile 媛��졇�삤湲� �꽦怨�";
+				result.data = "profile 가져오기 성공";
 				result.object = user;
 			}
 		}else {
-			// 議댁옱�븯吏� �븡�뒗 �쑀��
+			// 존재하지 않는 유저
 			result.status = false;
-			result.data = "email 議댁옱 X";
+			result.data = "email 존재 X";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
     
 	
 	@PostMapping("/account/changePW")
-	@ApiOperation(value = "鍮꾨�踰덊샇 蹂�寃�")
+	@ApiOperation(value = "비밀번호 변경")
 	public Object changePW(@RequestParam(required = true) final long id,
 			@RequestParam(required = true) String password) {
 		final BasicResponse result = new BasicResponse();
-		System.out.println("鍮꾨�踰덊샇 蹂�寃� !!!!!!!!!!!!!");
+		System.out.println("비밀번호 변경 !!!!!!!!!!!!!");
 		if(service.changePW(id, password)) {
 			result.status = true;
-			result.data = "鍮꾨�踰덊샇諛붽씀湲� �꽦怨�";
+			result.data = "비밀번호바꾸기 성공";
 			result.object = service.selectId(id);
 		}else {
 			result.status = false;
-			result.data = "議댁옱�븯吏��븡�뒗 email�엯�땲�떎";
+			result.data = "존재하지않는 email입니다";
 		}
 		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
