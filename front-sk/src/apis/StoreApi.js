@@ -45,7 +45,7 @@ const requestAddPlace = (data, callback, efrrorCallback) => {
 }
 
 const requestRandom = (data, callback, errorCallback) => {
-    data = "이태원"
+   
     console.log(data)
     Axios.get(URL + '/store/random/' + data, auth)
         .then(response => {
