@@ -33,13 +33,15 @@
         </v-card-text>
   
         <v-card-text class="white--text pt-0">
-          Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          만든사람:송원석,김현지,하다연,김주연,황인규도움을준사람:신광식,김민호,이인경,조경은,김시효,박민식,이수영
+Created by: Song Won Suk, Kim Hyun Ji, Hada Yeon, Kim Joo Yeon, Hwang In Kyu
+創建人：宋元錫，金賢姬，哈達妍，金柱妍，黃仁圭作成者：ソング宝石用原石、ギムヒョンジ、ある年、キム・ジュヨン、ファンインギュ助けを与えた人：シングァンシク、ギムミンホ、異人頃、造園は、ギムシヒョ、バクミンシク、イ・スヨンCreado por: Song Won Suk, Kim Hyun Ji, Hada Yeon, Kim Ju Yeon, Hwang In Kyu que ayudó: Shin Kwang Sik, Kim Min Ho, Lee In Kyung, Landscape Eun, Kim Si Hyo, Park Min Sik, Lee Soo Young
         </v-card-text>
   
         <v-divider></v-divider>
   
         <v-card-text class="white--text">
-          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+          {{ new Date().getFullYear() }} — <strong>Vuetify \ThankYou\🔥</strong>
         </v-card-text>
       </v-card>
 

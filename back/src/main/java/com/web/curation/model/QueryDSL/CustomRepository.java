@@ -20,4 +20,6 @@ public interface CustomRepository {
 	List<Hashtag> factags(long num);
 	
 	List<Store> random(long num);
+	
+	List<User> topUser();
 }

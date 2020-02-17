@@ -125,10 +125,40 @@ public class StoreController {
 		result.status = true;
 		result.data = "성공";
 		result.object = service.random(keyword);
-		
 		return new ResponseEntity<>(result, HttpStatus.OK);
-		
 	}
 	
+	
+	@PostMapping("/store/addBook")
+	@ApiOperation(value="북마크 추가")
+	public Object addbook(@RequestParam(required = true) final long id,
+			@RequestParam(required = true) final long snum) {
+		final BasicResponse result = new BasicResponse();
+		
+		if(service.addBook(id,snum)) {
+			result.status = true;
+			result.data = "북마크 추가 성공";
+		}else {
+			result.status = false;
+			result.data = "북마크 추가 실패";
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@PostMapping("/store/removeBook")
+	@ApiOperation(value="북마크 삭제")
+	public Object removebook(@RequestParam(required = true) final long id,
+			@RequestParam(required = true) final long snum) {
+		final BasicResponse result = new BasicResponse();
+		
+		if(service.removeBook(id,snum)) {
+			result.status = true;
+			result.data = "북마크 삭제 성공";
+		}else {
+			result.status = false;
+			result.data = "북마크  실패";
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 
 }

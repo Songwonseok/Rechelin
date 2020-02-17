@@ -14,6 +14,7 @@ import com.web.curation.model.DTO.QLikecheck;
 import com.web.curation.model.DTO.QReview;
 import com.web.curation.model.DTO.QStore;
 import com.web.curation.model.DTO.QStoretags;
+import com.web.curation.model.DTO.QUser;
 import com.web.curation.model.DTO.Review;
 import com.web.curation.model.DTO.Store;
 import com.web.curation.model.DTO.Storetags;
@@ -30,7 +31,7 @@ implements CustomRepository{
 	private final QFollow follow = QFollow.follow;
 	private final QHashtag hashtag = QHashtag.hashtag;
 	private final QLikecheck likecheck = QLikecheck.likecheck;
-	
+	private final QUser user = QUser.user;
 	
 	public CustomRepositoryImpl(JPAQueryFactory queryFactory) {
 		super(Storetags.class);
@@ -54,14 +55,14 @@ implements CustomRepository{
 	}
 	
 	
-	//식당의 카테고리별 태그 구하기
+	//�떇�떦�쓽 移댄뀒怨좊━蹂� �깭洹� 援ы븯湲�
 	public List<Hashtag> foodtags(long num){
 		return queryFactory.select(storetags.hashtag)
 				.from(storetags).groupBy(storetags.hashtag.keyword)
 				.where(storetags.hashtag.category.eq("food"),
 						storetags.review.store.num.eq(num))
 				.orderBy(storetags.hashtag.keyword.count().desc())
-				.limit(3).fetch();
+				.limit(2).fetch();
 	}
 	
 	public List<Hashtag> loctags(long num){
@@ -115,6 +116,14 @@ implements CustomRepository{
 				.limit(6).fetch();
 	}
 
+	@Override
+	public List<User> topUser() {
+		return queryFactory.selectFrom(user).where(user.id.in(
+				JPAExpressions.select(review.user.id).from(review)
+								.groupBy(review.user)
+								.orderBy(review.user.count().desc())))
+				.limit(3).fetch();
+	}
 	
 	
 }

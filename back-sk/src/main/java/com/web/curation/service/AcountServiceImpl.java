@@ -217,5 +217,11 @@ public class AcountServiceImpl implements AcountService {
 		return user;
 	}
 
+	@Override
+	public List<User> userTop() {
+		List<User> list = userDao.topUser();
+		return list;
+	}
+
 
 }

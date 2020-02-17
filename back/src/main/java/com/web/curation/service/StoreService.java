@@ -12,5 +12,7 @@ public interface StoreService {
 	public Store selectOne(long num);
 	public List<Hashtag> storeTags(long num);
 	public List<Store> random(String keyword);
+	public boolean addBook(long id, long snum);
+	public boolean removeBook(long id, long snum);
 	 
 }
