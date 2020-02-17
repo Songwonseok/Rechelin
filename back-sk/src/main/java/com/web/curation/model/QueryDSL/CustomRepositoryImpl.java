@@ -122,7 +122,7 @@ implements CustomRepository{
 		return queryFactory.selectFrom(user).where(user.id.in(
 				JPAExpressions.select(review.user.id).from(review)
 								.groupBy(review.user)
-								.orderBy(review.user.count().asc())))
+								.orderBy(review.user.count().desc())))
 				.limit(3).fetch();
 	}
 

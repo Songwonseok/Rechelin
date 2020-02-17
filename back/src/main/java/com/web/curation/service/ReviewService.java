@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import com.web.curation.model.ReviewlistResponse;
 import com.web.curation.model.DTO.Bookmark;
 import com.web.curation.model.DTO.Comments;
 import com.web.curation.model.DTO.Likecheck;
@@ -14,7 +15,7 @@ public interface ReviewService {
 	public boolean update(Review review);
 	public boolean delete(long rnum);
 	public Review detail(long rnum);
-	public List<Review> getReview(long snum);
+	public List<ReviewlistResponse> getReview(long snum);
 	public int useful(Likecheck like);
 	public void addComment(Comments com);
 	public void deleteComment(long num);
