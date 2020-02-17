@@ -17,7 +17,6 @@ public interface AcountService {
 	public User selectId(long id);
 	public boolean uploadProfile(long id,String profile);
 	public User getProfile(long id);
-	public User NaverLogin(String code, String state);
 	public List<Storelike> bookmarks(long id);
 	public List<User> userTop();
 }

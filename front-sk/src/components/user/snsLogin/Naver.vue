@@ -55,23 +55,23 @@
 <script>
 export default {
   created(){
-    this.naverLoginURL += '&client_id=' + this.CLIENT_ID
-    this.naverLoginURL += '&redirect_uri=' + this.redirectURI
-    this.naverLoginURL += '&state=' + this.state
-
+    this.naverLoginURL += '&client_id=' + `${this.CLIENT_ID}`
+    this.naverLoginURL += '&redirect_uri=' + `${this.redirectURI}`
+    this.naverLoginURL += '&state=' + `${this.state}`
+    console.log(this.naverLoginURL);
 
   },
   methods:{
     NaverLogin(){
-      window.location.replace(this.naverLoginURL);  
+      window.location.replace(this.naverLoginURL);
     }
   },
   data: () =>{
     return {
       CLIENT_ID: 'yW3gT9TqzIgQqklEfEBF',
-                naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
-                redirectURI: 'http://localhost:8080/account/naverlogin',
-                state: 123
+      naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
+      redirectURI: 'http://localhost:8080/account/naverlogin',
+      state: 123
     }
   }
 };
