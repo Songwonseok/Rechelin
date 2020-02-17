@@ -55,11 +55,11 @@ public class FollowController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 
 	}
-
 	@PostMapping("/follow/decline")
 	@ApiOperation(value = "팔로우 거절")
 	public Object declineFollow(@RequestParam(required = true) final long fan,
 			@RequestParam(required = true) final long star) {
+
 		final BasicResponse result = new BasicResponse();
 		if (service.declineFollow(fan, star)) {
 			result.status = true;
@@ -145,6 +145,44 @@ public class FollowController {
 			result.status = false;
 			result.data = "새 알림이 없습니다.";
 		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@PostMapping("/follow/status")
+	@ApiOperation(value = "팔로우 상태 확인")
+	public Object followStatus(@RequestParam(required = true) final long fan,
+			@RequestParam(required = true) final long star) {
+		final BasicResponse result = new BasicResponse();
+		result.status = true;
+		int status = service.status(fan, star);
+		switch (status) {
+		case 0:
+			result.data = "팔로우 안되어있는 상태 - FOLLOW";
+			break;
+		case 1:	
+			result.data = "이미 요청한 상태 - 요청중";			
+			break;
+		case 2:	
+			result.data = "이미 팔로우 되어있는 상태 - UNFOLLOW";			
+			break;
+		}
+		result.object = status;
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	@PostMapping("/follow/unfollow")
+	@ApiOperation(value = "팔로우 취소")
+	public Object unfollow(@RequestParam(required = true) final long fan,
+			@RequestParam(required = true) final long star) {
+		final BasicResponse result = new BasicResponse();
+		
+		if(service.unFollow(fan, star)) {
+			result.status = true;
+			result.data = "팔로우가 취소 되었습니다.";			
+		}else {
+			result.status = false;
+			result.data = "팔로우가 존재하지 않습니다.";
+		}
+		
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 

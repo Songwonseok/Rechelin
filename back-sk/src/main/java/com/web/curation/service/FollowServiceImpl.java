@@ -153,5 +153,17 @@ public class FollowServiceImpl implements FollowService {
 		
 	}
 
+	@Override
+	public boolean unFollow(long fan, long star) {
+		User ff = userDao.findById(fan);
+		User ss = userDao.findById(star);
+		Follow f = followDao.findByFanAndStar(ff, ss);
+		if(f==null) return false;
+		else {
+			followDao.delete(f);
+			return true;
+		}
+	}
+
 
 }

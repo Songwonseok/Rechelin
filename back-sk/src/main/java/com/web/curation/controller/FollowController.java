@@ -153,7 +153,6 @@ public class FollowController {
 	@ApiOperation(value = "팔로우 상태 확인")
 	public Object followStatus(@RequestParam(required = true) final long fan,
 			@RequestParam(required = true) final long star) {
-		System.out.println(fan+" "+star);
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		int status = service.status(fan, star);
@@ -171,5 +170,23 @@ public class FollowController {
 		result.object = status;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	@PostMapping("/follow/unfollow")
+	@ApiOperation(value = "팔로우 취소")
+	public Object unfollow(@RequestParam(required = true) final long fan,
+			@RequestParam(required = true) final long star) {
+		final BasicResponse result = new BasicResponse();
+		
+		if(service.unFollow(fan, star)) {
+			result.status = true;
+			result.data = "팔로우가 취소 되었습니다.";			
+		}else {
+			result.status = false;
+			result.data = "팔로우가 존재하지 않습니다.";
+		}
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
 
 }
