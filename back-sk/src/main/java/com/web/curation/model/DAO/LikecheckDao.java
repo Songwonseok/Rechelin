@@ -10,7 +10,7 @@ import com.web.curation.model.DTO.User;
 
 public interface LikecheckDao extends JpaRepository<Likecheck, Long> {
 	Likecheck findByReviewAndUser(Review review, User user);
-
+	int countByReviewAndStatus(Review review,int status);
 	List<Likecheck> findByReview(Review review);
 	List<Likecheck> findByUser(User user);
 	

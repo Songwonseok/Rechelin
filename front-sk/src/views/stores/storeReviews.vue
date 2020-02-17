@@ -113,13 +113,6 @@
                              @click="reviewDelete(review.review.rnum)">>
                                 리뷰 삭제 
                              </v-btn>
-
-
-                            <div v-if="canReivewDelete(review.review.user.id)" style="float:right">
-                                    <v-btn class="ma-2" x-small outlined color="warning"
-                                        @click="reviewDelete(review.review.rnum)">
-                                        리뷰 삭제</v-btn>
-                                </div>
                             
                         </v-card-actions>
 
