@@ -213,7 +213,7 @@ const requestUpdatePw = async(data, callback, errorCallback) => {
     //     url: 'http://localhost:8080/account/login',
     //     data: params
     // });
-    Axios.post(URL + '/account/changePW', params)
+    Axios.post(URL + '/account/changePW', params, auth)
         .then(response => {
             callback(response.data);
             console.log('성공')

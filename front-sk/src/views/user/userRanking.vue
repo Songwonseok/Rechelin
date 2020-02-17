@@ -2,11 +2,68 @@
   <!-- <div class="wrap">  -->
   <!-- <div class="ele2"> --> 
     <div style="position: sticky;
-  top: 300px;
-  left : 2500px;" class="vertical-menu">
+  top: 85%; left: 120%; margin-right: 0px;" class="vertical-menu" id="banner">
   <v-app id="inspire">
+     <b-row>
+      <v-speed-dial
+        v-model="fab"
+        style="margin-right: 7px;"
+      >
+        <template v-slot:activator>
+          <v-btn
+            v-model="fab"
+            color="#ff7f00"
+            dark
+            fab
+            outlined
+            small
+          >
+          <kinesis-container>
+            
+              <kinesis-element :strength="10">
+                   <v-icon v-if="fab" color="warning">mdi-close</v-icon>
+                   <v-icon color="#ff7f00" v-else>mdi-dots-horizontal-circle</v-icon>
+           
+              </kinesis-element>
+          
+          </kinesis-container>
+  
+          </v-btn>
+        </template>
+        <v-btn
+          fab
+          dark
+          outlined
+          small
+          color="green"
+          @click="$router.push({name: 'createReview'})"
+        >
+          <v-icon color="green">mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn
+          fab
+          dark
+          outlined
+          small
+          color="indigo"
+          @click="UserLogout"
+        >
+          <v-icon color="indigo">mdi-logout</v-icon>
+        </v-btn>
+         <v-btn
+          fab
+          outlined
+          dark
+          small
+          @click="userpageGo"
+          color="blue">
+          <v-icon color="blue">mdi-account</v-icon>
+        </v-btn>
+         
+      </v-speed-dial>
 
-     <div class="text-center">
+
+
       <v-dialog
         v-model="dialog"
         width="500"
@@ -16,18 +73,17 @@
           <v-btn
             color="orange lighten-2"
             dark
+            outlined
+            fab
+            small
             v-on="on"
             value = "favorites"
           >
-          
-          
-
                <kinesis-container>
             
               <kinesis-element :strength="10">
-                   <v-icon>mdi-food</v-icon>
-           <span> User Ranking</span>
-              
+                   <v-icon color="warning">mdi-crown</v-icon>
+           
               </kinesis-element>
           
           </kinesis-container>
@@ -93,7 +149,7 @@
             <v-btn
               color="orange darken-1"
               text
-              style = "background-color : #FFC107"
+              style = "background-color:#FFC107;"
               @click="dialog = false"
             >
               I accept
@@ -101,7 +157,50 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div>
+
+
+      <!-- 여기에 알람 버튼 넣기 -->
+      <v-badge
+        :content="alarms.length"
+        :value="alarms.length"
+        color="green"
+        overlap
+      >
+    
+      <v-btn fab 
+      small
+      outlined
+      dark 
+      color="red" 
+      id="popover-target-1"
+       @click="notificationGet"
+        @mouseover="notificationGet"
+        style="margin-left: 7px;"
+        >
+           <kinesis-container>
+            
+              <kinesis-element :strength="10">
+                   <v-icon color="red">mdi-bell</v-icon>
+           
+              </kinesis-element>
+          
+          </kinesis-container>
+      </v-btn>
+        </v-badge>
+      <b-popover target="popover-target-1" triggers="hover" placement="topleft" style="min-width: 250px;">
+        팔로우 요청
+      
+        <b-list-group-item v-for="(alarm, index) in alarms" :key="index">
+           <router-link :to="{name: 'userpage', params: {
+             id: alarm.fan.id
+           }}" style="color: black; margin-right: 5px;">{{alarm.fan.nickname}}</router-link>
+         <span> 
+          <v-btn x-small  @click="followAccept(alarm.fan.id, index)" style="color: red !important; background-color: #8BC34A;">accept</v-btn>
+          <v-btn x-small @click="followDecline(alarm.fan.id, index)" style="color: blue !important; background-color: #FFC107;">decline</v-btn>
+        </span>
+        </b-list-group-item>
+      </b-popover>
+</b-row>
   </v-app>
 </div>
     <!-- </div> -->
@@ -113,7 +212,7 @@
 import Vue from 'vue'
 import { KinesisContainer, KinesisElement } from 'vue-kinesis'
 import UserApi from '../../apis/UserApi.js';
-
+import { mdiBell } from '@mdi/js';
 Vue.component('kinesis-container', KinesisContainer)
 Vue.component('kinesis-element', KinesisElement)
 export default {
@@ -130,7 +229,11 @@ export default {
     widgets: false,
     topUserInfo : [],
     reviewLength : 0,
-    crown : ['🥇', '🥈', '🥉']
+    crown : ['🥇', '🥈', '🥉'],
+    fab: false,
+
+    // icons
+    mdiBell,
   }),
   methods : {
     userRank(){
@@ -182,11 +285,52 @@ export default {
       console.log(this.topUserInfo);
     })
     },
-    userClick(){
+     UserLogout() {
+        this.$store.dispatch('logout')
+        this.$router.push({
+          name: "login"
+        })
+      },
+      notificationGet() {
+        var payload = this.$store.state.userid
+        this.$store.dispatch('notificationGet', payload)
+        this.alarms = this.$store.state.notifications
+      },
+      userpageGo() {
+        this.$router.push({name: 'userpage', params: {
+            id: sessionStorage.getItem('userid')
+        }})
+      },
+      followAccept(f, index) {
+
+        var payload = {
+          fan: f,
+          star: this.$store.state.userid
+        }
+        this.$store.dispatch('followAccept', payload)
+        this.alarms.splice(index, 1)
+      },
+      followDecline(f, index) {
+        var payload = {
+          fan: f,
+          star: this.$store.state.userid
+        }
+        this.$store.dispatch('followDecline', payload)
+        this.alarms.splice(index, 1)
+      },
+      userClick(){
 
       this.$store.state.userPageStatus += 1;
     }
-  }
+  },
+  computed: {
+    alarms() {
+      return this.$store.state.notifications
+    },
+    
+    
+    
+  }, 
 }
 </script>
 
@@ -196,21 +340,15 @@ export default {
     height : 0px;
 }
 
-/* .wrap {
+#create .v-speed-dial {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  left : 20
+}
 
-}  */
- /* .ele2 { 
-  display: inline-block;
-  position: sticky;
-  top: 300px;
-  right : 400px;
-  background: blue;
-  
-}  */
+#create .v-btn--floating {
+  position: relative;
+}
+
+
 
 .vertical-menu {
   position : sticky;
@@ -218,43 +356,8 @@ export default {
   right : 70px;
   width: 200px; /* Set a width if you like */
 }
-
-/* .userList{
-  height : 30px;
-} */
-/* 
-.vertical-menu a { */
-  /*background-color: #eee; /* Grey background color */
-  /*color: black; /* Black text color */
-  /*display: block; /* Make the links appear below each other */
-  /*padding: 12px; /* Add some padding */
-  /*text-decoration: none; /* Remove underline from links */
-/* } */
-
-/*.vertical-menu a:hover {
- /* background-color: yellowgreen; /* Dark grey background on mouse-over } */
-
-/*.vertical-menu a.active {
-  background-color: #4CAF50; /* Add a green color to the "active/current" link */
-  /*color: white;
-}*/
-/* 
-.theme--light.v-application {
-    background: rgb(204, 204, 204);
-
+.v-speed-dial__list {
+  width: 300px;
 }
-.v-card>:last-child:not(.v-btn):not(.v-chip) {
-    border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit;
-    height: 250px;
-}
-.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
-    min-height: 33px;
-    color: rgba(0, 0, 0, 0.87) !important;
-}
-.theme--light.v-card {
-    background-color: #fff;
-    color: rgba(0,0,0,.87);
-    left: 350px;
-} */
+
 </style>

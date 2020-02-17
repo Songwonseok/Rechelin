@@ -74,7 +74,8 @@
 
             <b-list-group v-for="(comment, index) in comments" :key="index">
                 <b-list-group-item style="text-align: left;">
-                    <strong>익명 {{comment.user.id}}</strong> {{comment.content}}
+                    <strong>{{comment.user.nickname}}</strong> {{comment.content}}
+                    | 작성시간 : {{comment.wdate}}
                     <v-btn icon v-if="samePerson(comment.user.id)" @click="commentDelete(comment)" >
                         <v-icon color="warning">{{mdiDelete}}</v-icon>
                     </v-btn>
