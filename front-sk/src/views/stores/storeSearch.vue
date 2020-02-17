@@ -89,6 +89,7 @@
                         <h1 style="color : orange">불러온 데이터가 없습니다. </h1>
                     </kinesis-element>
                 </kinesis-container>
+                 <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="">김주연바보멍청이</a></p>
             </div>
         </v-app>
     </div>

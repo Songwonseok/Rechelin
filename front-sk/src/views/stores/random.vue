@@ -54,10 +54,20 @@
         <v-chip draggable @click="insertTags('명동')">명동</v-chip>
         <v-chip draggable @click="insertTags('신촌')">신촌</v-chip>
       </v-card-text>
-      <random></random>
+       
+      <random>
+
+    
+      </random>
+      <loading :active.sync="isLoading_random"  
+            :can-cancel="true" 
+            
+            >
+       <iframe src="https://giphy.com/embed/wzJFuHbmGxiYo" width="150" height="150" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/meme-journey-ara-wzJFuHbmGxiYo">음식점 가져오는 중 ...  </a></p>
+            </loading>  
       <v-btn color="primary" @click="getRandom">랜덤 추천 시작</v-btn>
 
-
+<div v-if = "randomList.length>=1">
       <b-row v-for="item in randomList" :key="item.num" style="margin-bottom: 30px;"> 
         
         <v-card max-width="344" class="mx-auto" style="margin-top: 20px;">
@@ -90,6 +100,20 @@
           </v-card-actions>
         </v-card>
       </b-row>
+    </div>
+
+        <div v-else>
+          <br>
+          <kinesis-container>
+                    <kinesis-element :strength="10">
+                        <h1 style="color : orange">추천 랜덤 음식 결과값 입니다.</h1>
+                    </kinesis-element>
+                    <kinesis-element :strength="20">
+                        <h1 style="color : orange">불러온 데이터가 없습니다. </h1>
+                    </kinesis-element>
+                </kinesis-container>
+                <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="">김주연바보멍청이</a></p>
+      </div>
     </v-card>
   </div>
 </template>
@@ -102,7 +126,10 @@
    mdiCity,
    mdiShareVariant
   } from '@mdi/js';
-
+    // Import component
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
   Vue.use(VueGoogleMaps, {
     load: {
       key: 'AIzaSyDC4sonH281FHJ-YyPmeXLRdBYuqcjUkGE',
@@ -115,11 +142,14 @@
       return {
         keyword: "",
         randomList: [],
-
+        isLoading_random : false,
         //icons
         mdiCity,
         mdiShareVariant
       };
+    },
+    components :{
+       Loading,
     },
     methods: {
       insertTags(name) {
@@ -127,16 +157,24 @@
         else this.keyword = name;
       },
       getRandom() {
+        console.log('getRandom()');
+        console.log(this.isLoading);
+        
         if (this.keyword != "") {
+        this.isLoading_random = true;
+        console.log(this.isLoading_random);
+         console.log('this.keyword inner')
           StoreApi.requestRandom(
-
             this.keyword,
             res => {
-              this.$alert("랜덤 음식점 리스트 가져오기 성공", "success", "success", );
+              //this.$alert("랜덤 음식점 리스트 가져오기 성공", "success", "success", );
+              this.isLoading_random = false;
               this.randomList = res;
             },
             error => {
-              this.$alert("랜덤 음식점 리스트 가져오기 실패", "Error", "warning", );
+
+              //this.$alert("랜덤 음식점 리스트 가져오기 실패", "Error", "warning", );
+              //this.isloading = true;
               //alert("랜덤 음식점 리스트 가져오기 실패");
             }
           );

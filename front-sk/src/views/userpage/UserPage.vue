@@ -33,8 +33,6 @@
           <router-link :to="{name: 'useredit'}" style="color: #ff7f00;"><strong v-if="id == uid"> Edit</strong></router-link>
         </div>
 
-
-
          <ul class="data-user">
          <li>
             <router-link 
@@ -79,6 +77,9 @@
   
 
   export default {
+    created(){
+      console.log()
+    },
     data() {
       return {
         svgPath: mdiPencil,
@@ -99,10 +100,39 @@
         // myEmail:this.$store.state.userEmail // session에 저장된 User
       }
     },
+    watch : {
+      changeMonitorUserInfo : function(v){
+        console.log('UserPage');
+        this.getUser();
+        this.getFanList();
+        this.getStarList();
+        this.getBookmarkList();
+        this.getReviewList();
+        // let t = ['t'];
+        // let list = [...t];
+        // console.log(this.UserInfo);
+        // list = [...this.UserInfo];
+        // this.UserInfo = list;
+      },
+      paramId : function(v){
+        //이 곳은 user page로 router가 이동할때 param.id 를 불러옵니다. 갱신해줍니다.
+        this.getUser();
+        this.getFanList();
+        this.getStarList();
+        this.getBookmarkList();
+        this.getReviewList();
+      }
+    },
     computed: {
       // url에서 가져온 user id by 김현지
       uid() {
         return this.$route.params.id
+      },
+      changeMonitorUserInfo(){
+        return this.$store.state.userPageStatus;
+      },
+      paramId(){
+        return this.$route.params.id;
       }
     },
     methods: {
@@ -140,13 +170,15 @@
         })
       }
       ,getUser(){
+        
           UserApi.requestId( this.uid,res=>{
-            
+            console.log(this.uid);
+            console.log('getUser');
             this.UserInfo.email = res.object.email;
             this.UserInfo.nickname = res.object.nickname;
             this.UserInfo.phone = res.object.phone;
             this.UserInfo.profile = res.object.profile;
-
+            console.log(this.UserInfo);
            
           },error =>{
             alert('정보 가져오기 실패 !');

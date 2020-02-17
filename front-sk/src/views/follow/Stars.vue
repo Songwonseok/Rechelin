@@ -10,9 +10,10 @@
 
     </v-toolbar>
     <v-list>
-      <v-list-item v-for="(s, index) in Stars" :key="index">
+      <v-list-item v-for="(s, index) in Stars" :key="index" router-link="router-link" :to="{name: 'userpage', params : {id : s.id}}">
 
-        <v-list-item-content @click="goUserpage(s.id)">
+        <!-- <v-list-item-content @click="goUserpage(s.id)"> -->
+          <v-list-item-content @row-click = "starsClick">
           <v-list-item-title v-text="s.nickname"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -24,10 +25,13 @@
 
 import { mdiAccountStar } from '@mdi/js';
   export default {
+    
+    
     computed: {
       Stars() {
-        return this.$route.params.stars
-      }
+        return this.$route.params.stars;
+      },
+
     },
     created() {
     },
@@ -37,12 +41,13 @@ import { mdiAccountStar } from '@mdi/js';
       }
     },
     methods: {
-      goUserpage(num) {
-        this.$router.push({name: 'userpage', 
-        params: {
-          id: num
-        }})
-      }
+      
+      // goUserpage(num) {
+      //   this.$router.push({name: 'userpage', 
+      //   params: {
+      //     id: num
+      //   }})
+      // }
     }
   }
 </script>
