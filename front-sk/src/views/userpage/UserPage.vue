@@ -21,7 +21,10 @@
               <button @click="followRequest">UnFollow</button>
             </div>
             <div>
-              <button @click="followRequest">요청됨</button>
+         
+              <button style="width : 100px" @click="followRequest">
+                
+                요청됨 <v-icon dark right>mdi-checkbox-marked-circle</v-icon></button>
             </div>
         </template>
         
@@ -376,4 +379,19 @@
     text-decoration: none;
     color: #ff7f00;
   }
+
+  .profile-user-page button[data-v-1ee59885] {
+    position: absolute;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 7em;
+    background: #ff7f00;
+    border: 1px solid #ff7f00;
+    color: #fff;
+    outline: none;
+    border-radius: 0 .6em .6em 0;
+    padding: .80em;
+    margin-left: 80px;
+}
 </style>

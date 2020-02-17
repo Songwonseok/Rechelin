@@ -142,6 +142,7 @@
     },
     created() {
       this.$router.push({name: 'storeReviews'})
+      
 
     },
     mounted() {

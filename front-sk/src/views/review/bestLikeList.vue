@@ -11,7 +11,7 @@
                         <div v-for="(bestReview, i) in bestReviews" v-bind:key="i+bestReview">
                             <v-hover v-slot:default="{ hover }">
                             <v-card :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" height = "600"
-                            router-link="router-link" :to="{name: 'storeDetail', params : {id : bestReview.rnum}}">
+                             @click="storeDetail(bestReview.id)">
                                 
                                 <v-img height="250" :src="bestReview.src">
                                     <!--      -->
@@ -93,7 +93,7 @@
                                 .data
                                 .object[i]
                                 .title;
-                            item['rnum'] = response.data.object[i].rnum;
+                            item['id'] = response.data.object[i].rnum;
                             let content = response
                                 .data
                                 .object[i]
@@ -159,6 +159,10 @@
                 
                 setTimeout(() => (this.loading = false), 2000)
             },
+             storeDetail(num) {
+                this.$store.dispatch('storeHashtags', num)
+
+            }
             
         },
         watch :{
