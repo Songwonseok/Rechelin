@@ -34,12 +34,12 @@
             </span>
           </div>
           <div>
-            <v-btn class="ma-2" outlined fab color="warning">
+            <v-btn class="ma-2" :outlined='bookTrue' fab color="warning" @click="$router.push({name: 'createReview'})">
               <v-icon color="warning">{{icons.pencilOutline}}</v-icon>
             </v-btn>
 
             <v-btn class="ma-2" outlined fab color="warning" @click="likeStore">
-              <v-icon color="warning">{{icons.bookmark}}</v-icon>
+              <v-icon :color="bookmarkColor">{{icons.bookmark}}</v-icon>
             </v-btn>
             <!-- <v-btn class="ma-2" outlined fab color="warning" @click="browserlocation">
               <v-icon color="warning">{{icons.mdiCrosshairsGps}}</v-icon>
@@ -118,6 +118,9 @@
           lat: null,
           lng: null,
         },
+        // css 용 변수
+        bookTrue: true,
+        bookmarkColor: 'warning'
       }
     },
     computed: {
@@ -135,8 +138,19 @@
     methods: {
       likeStore() {
         var payload = {
-          user: this.$store.state.userid,
+          id: this.$store.state.userid,
+          snum: this.$store.state.storeInfo.num
         }
+        console.log(payload)
+        this.bookTrue = !this.bookTrue
+        if (this.bookmarkColor == 'warning') {
+            this.bookmarkColor = 'red'
+            this.bookTrue = !this.bookTrue
+        } else {
+          this.bookmarkColor = 'warning'
+          this.bookTrue = !this.bookTrue
+        }
+        
         this.$store.dispatch('likeStore', payload)
       },
     },

@@ -140,13 +140,13 @@
             
             
             <router-view>
-                
               
             </router-view>
           
           
           
           </div>
+        
 
 
        <footer-tag></footer-tag>
