@@ -15,13 +15,13 @@
         <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
         <template v-if="uid != id" >
             <div v-if="followstatus==0 || followstatus==''">
-              <button @click="followRequest">Follow</button>
+              <button @click="follow">Follow</button>
             </div>
             <div v-if="followstatus==1">
-              <button @click="followRequest">요청됨</button>
+              <button>요청됨</button>
             </div>
             <div v-if="followstatus==2">
-              <button @click="followRequest">UnFollow</button>
+              <button @click="unfollow">UnFollow</button>
             </div>
         </template>
         
@@ -137,11 +137,19 @@
       }
     },
     methods: {
-      followRequest() {
+      follow() {
         FollowApi.requestFollow(this.id, this.uid, res=>{
           this.followstatus = 1;
         }, error=>{
           alert('팔로우 요청 실패!')
+        })
+      },
+      unfollow() {
+        FollowApi.requestunFollow(this.id, this.uid, res=>{
+          this.followstatus = 0;
+          this.getStarList();
+        }, error=>{
+          alert('언팔로우 요청 실패!')
         })
       },
       getFanList(){
