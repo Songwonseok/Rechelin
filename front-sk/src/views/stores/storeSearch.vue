@@ -64,11 +64,20 @@
                     </b-row>
                 </b-container>
                 <div class="text-center">
+    <div v-if="this.$store.state.pageStatus">
       <v-pagination
         v-model=page
         :length= this.len
         @input="next"
       ></v-pagination>
+      <!-- 현재 Main 상단바에서 HashTag 검색 시에만 pagination을 처리하려 합니다 ㅠㅠ router로 page 2개 만들면 될것같긴한데 다른 우선순위 부터 진행하고 하겠습니다. -->
+    </div>
+
+    <div v-else>
+
+    </div>
+
+
     </div>
             </div>
             <div v-else>
@@ -130,6 +139,9 @@
                 list = [...this.$store.state.storeList_paging];
                 console.log(list);
                 this.$store.state.storeList_paging = [...list];
+
+                
+                
             }
         },
         computed: {
@@ -147,6 +159,7 @@
                 len : 1, //page 가 몇개 생성 될것인지 체크
                 search : '',
                 enterKey : 0, //검색했을때 rendering 하기 위해서 computed 와 watch 를 조절하기 위해 사용
+                pageSataus : false,
             }
         },
         methods : {
@@ -162,6 +175,9 @@
                         this.len = Math.ceil(this.$store.state.storeList.length/6);
                     else
                         this.len = Math.ceil(this.$store.state.storeList.length/6)-1;
+
+                    if(this.len == 0) //데이터를 6개씩 렌더링 하는데, 6개를 못채워주면 this.len이 0으로 렌더링됨
+                        this.len = 1;
             },
             storeListSearch(){
                 //store에 검색했을때 
@@ -184,6 +200,7 @@
                          this.$store.state.isClickBtnStore = true;
                     this.$store.state.storeList = searchList;
                     this.enterKey += 1; //computed에서 지켜보고있음 
+                    this.$store.state.pageStatus = false;
               })//end for first for loop
                  
           }

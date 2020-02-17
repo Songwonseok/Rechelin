@@ -79,6 +79,7 @@ export default new Vuex.Store({
         directiveStoreDetail : '',
         page : 0,
         userPage : 0,
+        pageStatus : true, //storeSearch 에서 pagnation 을 보여주기 위함입니다. Main에서 처리되고 storeSearch 페이지에 검색바가 있기 때문에 store에 두었습니다. 
     },
     // state가 아닌 부분
     mutations,

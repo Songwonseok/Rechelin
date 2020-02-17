@@ -330,7 +330,9 @@
           }
           this.openSearch = false
           this.isLoading = false
+          this.$store.state.pageStatus = true; //여기서 pagination을 보이게 다시 바꿉니다.
           if(this.$store.state.storeList.length==0){
+            
             this.$store.state.isClickBtnStore = false;
             this.$router.push({name : "storeSearch"})
           }
