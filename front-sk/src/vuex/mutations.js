@@ -1,8 +1,6 @@
 import Axios from "axios"
 import router from '../main'
 
-const URL = 'http://70.12.246.134:8080' // 김주연 ip
-    // const URL = 'http://70.12.246.51:8080' //  조장님 ip
 
 export default {
     updateName(state, name) {
@@ -79,7 +77,7 @@ export default {
 
     storeHashtags(state, hashtags) {
         this.state.storeHashtags = hashtags
-       
+
     },
     // 리뷰의 댓글관련
     commentsOfreview(state, payload) {

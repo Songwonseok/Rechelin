@@ -160,5 +160,23 @@ public class StoreController {
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	@PostMapping("/store/checkBook")
+	@ApiOperation(value="북마크 체크")
+	public Object checkbook(@RequestParam(required = true) final long id,
+			@RequestParam(required = true) final long snum) {
+		final BasicResponse result = new BasicResponse();
+		
+		if(service.selectBook(id,snum) != null) {
+			result.status = true;
+			result.data = "북마크 존재";
+		}else {
+			result.status = false;
+			result.data = "북마크  없음";
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	
 
 }

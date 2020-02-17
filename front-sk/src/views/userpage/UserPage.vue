@@ -14,14 +14,14 @@
         <!--자기 자신이면 Follow button 숨기기 -->
         <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
         <template v-if="uid != id" >
-            <div>
-              <button @click="followRequest">Follow</button>
+            <div v-if="followstatus==0 || followstatus==''">
+              <button @click="follow">Follow</button>
             </div>
-            <div>
-              <button @click="followRequest">UnFollow</button>
+            <div v-if="followstatus==1">
+              <button>요청됨</button>
             </div>
-            <div>
-              <button @click="followRequest">요청됨</button>
+            <div v-if="followstatus==2">
+              <button @click="unfollow">UnFollow</button>
             </div>
         </template>
         
@@ -32,8 +32,6 @@
           <!-- 자기 자신일때만  Edit 보여주기-->
           <router-link :to="{name: 'useredit'}" style="color: #ff7f00;"><strong v-if="id == uid"> Edit</strong></router-link>
         </div>
-
-
 
          <ul class="data-user">
          <li>
@@ -79,6 +77,9 @@
   
 
   export default {
+    created(){
+      console.log()
+    },
     data() {
       return {
         svgPath: mdiPencil,
@@ -96,17 +97,60 @@
         starList:[],
         bookmarkList:[],
         reviewList:[],
+        followstatus:'',
         // myEmail:this.$store.state.userEmail // session에 저장된 User
+      }
+    },
+    watch : {
+      changeMonitorUserInfo : function(v){
+        console.log('UserPage');
+        this.getUser();
+        this.getFanList();
+        this.getStarList();
+        this.getBookmarkList();
+        this.getReviewList();
+        // let t = ['t'];
+        // let list = [...t];
+        // console.log(this.UserInfo);
+        // list = [...this.UserInfo];
+        // this.UserInfo = list;
+      },
+      paramId : function(v){
+        //이 곳은 user page로 router가 이동할때 param.id 를 불러옵니다. 갱신해줍니다.
+        this.getUser();
+        this.getFanList();
+        this.getStarList();
+        this.getBookmarkList();
+        this.getReviewList();
       }
     },
     computed: {
       // url에서 가져온 user id by 김현지
       uid() {
         return this.$route.params.id
+      },
+      changeMonitorUserInfo(){
+        return this.$store.state.userPageStatus;
+      },
+      paramId(){
+        return this.$route.params.id;
       }
     },
     methods: {
-      followRequest() {
+      follow() {
+        FollowApi.requestFollow(this.id, this.uid, res=>{
+          this.followstatus = 1;
+        }, error=>{
+          alert('팔로우 요청 실패!')
+        })
+      },
+      unfollow() {
+        FollowApi.requestunFollow(this.id, this.uid, res=>{
+          this.followstatus = 0;
+          this.getStarList();
+        }, error=>{
+          alert('언팔로우 요청 실패!')
+        })
       },
       getFanList(){
         FollowApi.requestFanList(this.uid, res=>{
@@ -140,13 +184,15 @@
         })
       }
       ,getUser(){
+        
           UserApi.requestId( this.uid,res=>{
-            
+            console.log(this.uid);
+            console.log('getUser');
             this.UserInfo.email = res.object.email;
             this.UserInfo.nickname = res.object.nickname;
             this.UserInfo.phone = res.object.phone;
             this.UserInfo.profile = res.object.profile;
-
+            console.log(this.UserInfo);
            
           },error =>{
             alert('정보 가져오기 실패 !');
@@ -154,6 +200,13 @@
 
           
         },
+        getStatus(){
+          FollowApi.requestStatus(this.id, this.uid, res=>{
+            this.followstatus = res;
+          }, error =>{
+            alert('follow status 확인 실패!');
+          })
+        }
 
 
     },
@@ -163,6 +216,7 @@
       this.getStarList();
       this.getBookmarkList();
       this.getReviewList();
+      this.getStatus();
       console.log(this.UserInfo, 'jhgjhgjhg')
     },
 

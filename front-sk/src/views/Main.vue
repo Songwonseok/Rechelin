@@ -149,7 +149,7 @@
         
 
 
-       <footer-tag></footer-tag>
+         <footer-tag></footer-tag> 
         </div>
 
       </v-app>
@@ -159,7 +159,7 @@
 </template>
 
 <script>
-  import FooterTag from "./footer.vue";
+ import FooterTag from "./footer.vue";
   
   import {
     mdiMagnify,
@@ -279,14 +279,12 @@
         setTimeout(() => (this.loading = false), 2000)
       },
       searchBtnClick(){
-        console.log('hi')
+        console.log('Main-searchBtnClick :: Main에서 hashTag 로 검색한 결과')
          this.isLoading = true;
         this.$store.state.storeFlag +=1;
-        
-        
-        
+       
         StoreApi.requestStoreList().then(response=>{
-          console.log(response);
+         
          
           let searchList = new Array();
           for(let i =0; i<response.data.object.length; i++){
@@ -321,15 +319,27 @@
           
 
           this.$store.state.storeList = searchList;
-          console.log('Main search store data fetch')
-          console.log(this.$store.state.storeList);
+
+          /* 처음 검색 이후 rendering 되는 this.$store.state.storeList_page에 값을 추가해줘야함 */
+          this.$store.state.storeList_paging = [];
+          for(let i=0; i<6; i++){
+                if(this.$store.state.storeList[i] == null)
+                  break;
+                else
+                 this.$store.state.storeList_paging.push(this.$store.state.storeList[i]);              
+          }
           this.openSearch = false
           this.isLoading = false
-          if(this.$store.state.storeList.length==0)
-            this.$router.push({name : "storeSearchN"})
-          else
-           this.$router.push({name : "storeSearch"})
-
+          this.$store.state.pageStatus = true; //여기서 pagination을 보이게 다시 바꿉니다.
+          if(this.$store.state.storeList.length==0){
+            
+            this.$store.state.isClickBtnStore = false;
+            this.$router.push({name : "storeSearch"})
+          }
+          else{
+            this.$store.state.isClickBtnStore = true;
+            this.$router.push({name : "storeSearch"})
+          }
         }, error =>{
           this.isLoading =false;
           this.$alert("데이터를 불러오지 못헀습니다.","warning","warning");

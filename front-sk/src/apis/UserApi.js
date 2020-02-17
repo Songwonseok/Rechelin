@@ -4,8 +4,8 @@ import router from '../main.js';
 
 // import Api from "axios.js"
 //const URL = "http://54.180.160.87:8080" //aws
-  const URL = 'http://70.12.246.134:8080' // 김주연 ip
- //const URL = 'http://54.180.160.87:8080'  //new DB ip
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
+    //const URL = 'http://54.180.160.87:8080'  //new DB ip
 
 const auth = {
     headers: {
@@ -213,7 +213,7 @@ const requestUpdatePw = async(data, callback, errorCallback) => {
     //     url: 'http://localhost:8080/account/login',
     //     data: params
     // });
-    Axios.post(URL + '/account/changePW', params)
+    Axios.post(URL + '/account/changePW', params, auth)
         .then(response => {
             callback(response.data);
             console.log('성공')
@@ -237,15 +237,15 @@ const requestId = async(data, callback, errorCallback) => {
         })
 }
 
-function requestUserRanking(){
-    return Axios.get(URL+'/account/userTop',auth);
+function requestUserRanking() {
+    return Axios.get(URL + '/account/userTop', auth);
 }
 
 
-function requestUserReviewCnt(data){
+function requestUserReviewCnt(data) {
     const params = new URLSearchParams();
     params.append('num', data);
-    return Axios.post(URL+'/review/myList', params, auth);
+    return Axios.post(URL + '/review/myList', params, auth);
 }
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -261,7 +261,7 @@ const UserApi = {
     requestUserRanking,
     requestUserReviewCnt,
     requestId: (data, callback, errorCallback) => requestId(data, callback, errorCallback),
-    
+
 
 }
 

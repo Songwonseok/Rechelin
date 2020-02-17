@@ -39,7 +39,6 @@ public class AcountServiceImpl implements AcountService {
 	PasswordEncoder passwordEncoder; // 비밀번호 암호화
 
 
-	NaverLogin naver;
 	
 	public User login(String email, String password) {
 		
@@ -135,76 +134,7 @@ public class AcountServiceImpl implements AcountService {
 		return passwordEncoder.encode(Pw);
 	}
 
-	public User NaverLogin(String code, String state) {
-		String apiURL;
-		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-		apiURL += "client_id=" + naver.ClientId;
-		apiURL += "&client_secret=" + naver.ClientSecret;
-		apiURL += "&code=" + code;
-		apiURL += "&state=" + state;
-		String access_token = "";
-		String refresh_token = "";
-		String email = "";
-		
-		try {
-			URL url = new URL(apiURL);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			System.out.println(con);
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			
-			if (responseCode == 200) { // �젙�긽 �샇異�
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else { // �뿉�윭 諛쒖깮
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			StringBuffer res = new StringBuffer();
-			JSONObject dummyUser = new JSONObject();
-
-			while ((inputLine = br.readLine()) != null) {
-				res.append(inputLine);
-			}
-			br.close();
-			if (responseCode == 200) { // �꽦怨듭쟻�쑝濡� �넗�겙�쓣 媛��졇�삩�떎硫�
-				System.out.println(res.toString());
-
-				JsonParser parser = new JsonParser();
-				JsonElement accessElement = parser.parse(res.toString());
-				access_token = accessElement.getAsJsonObject().get("access_token").getAsString();
-
-				String tmp = NaverLogin.getUserInfo(access_token);
-				JsonElement userInfoElement = parser.parse(tmp);
-				System.out.println("UserInfo");
-				System.out.println(userInfoElement);
-
-				email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
-				String nickname = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
-				
-				// DB �뿉 議댁옱�븯�뒗吏� �솗�씤
-				User user = userDao.findByEmail(email);
-				if (user == null) {
-					// DB�뿉 怨꾩젙 ���옣
-					System.out.println("XXXX");
-					user = new User(email, nickname);
-					userDao.save(user);
-				}
-				System.out.println(user.toString());
-
-				//// DB�뿉�꽌 議댁옱�븯�뒗 �씠硫붿씪�씤吏� 泥댄겕
-				//// �뾾�쑝硫� DB �뿉���옣
-				//// ===> login�쑝濡� 諛붾줈 �씠�룞
-				
-				return user;
-			}
-			return null;
-			
-		} catch (Exception e) {
-			return null;
-		}
-		
-	}
+	
 
 	@Override
 	public boolean changePW(long id, String password) {

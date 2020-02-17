@@ -46,6 +46,7 @@ import sideMenuUserPage from './views/sideMenu/sideMenuUserPage.vue';
 import bestReviewList from './views/review/bestReviewList.vue';
 import sideMenuFeed from './views/sideMenu/sideMenuFeed.vue';
 
+import test from './views/test.vue';
 
 export default [
     // ERROR PAGE
@@ -262,9 +263,9 @@ export default [
     //     component: sideMenuUserPage,
     // },
     {
-        path: '/social',
-        name: 'social',
-        component: updateNewPw,
+        path: '/access_token/:access_token/userid/:userid',
+        name: 'access_token',
+        component: test,
     },
 
 ]

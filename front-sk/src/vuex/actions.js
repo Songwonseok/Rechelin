@@ -4,8 +4,8 @@ import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
 // const URL = 'http://70.12.246.134:8080' // 김주연 ip
-const URL = 'http://70.12.246.51:8080'
-    // const URL = "http://54.180.160.87:8080" // aws
+
+const URL = "http://54.180.160.87:8080" // aws
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -224,14 +224,13 @@ export default {
                     comments: res.data.object
                 }
                 commit('commentsOfreview', data)
-                console.log(res, '>>>>>>>')
-                Axios.get(URL+ `/review/detail/${review}`)
-                .then(res => {
-                    commit('reviewDetail', res.data.object)
-                    router.push({ name: 'comments' })
-                })
+                Axios.get(URL + `/review/detail/${review}`)
+                    .then(res => {
+                        commit('reviewDetail', res.data.object)
+                        router.push({ name: 'comments' })
+                    })
                 console.log('요청 성공', res.data.object)
-                
+
             }).catch(exp => {
                 console.log('실패')
             })
@@ -291,18 +290,18 @@ export default {
                         }
                         commit('storeinfoGet', data)
                         Axios.get(URL + `/review/${num}`, auth)
-                        .then(resTwo => {
-                            console.log('성공', resTwo)
-            
-                            commit('reviewsGet', resTwo.data.object)
-                            router.push({
-                                name: 'storeDetail',
-                                params: {
-                                    id: num
-                                }
+                            .then(resTwo => {
+                                console.log('성공', resTwo)
+
+                                commit('reviewsGet', resTwo.data.object)
+                                router.push({
+                                    name: 'storeDetail',
+                                    params: {
+                                        id: num
+                                    }
+                                })
+
                             })
-                           
-                        })
                     }).catch(exp => {
                         console.log('실패')
                     })
