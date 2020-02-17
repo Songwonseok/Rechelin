@@ -153,7 +153,6 @@ public class FollowController {
 	@ApiOperation(value = "팔로우 상태 확인")
 	public Object followStatus(@RequestParam(required = true) final long fan,
 			@RequestParam(required = true) final long star) {
-		System.out.println(fan+" "+star);
 		final BasicResponse result = new BasicResponse();
 		result.status = true;
 		int status = service.status(fan, star);

@@ -21,6 +21,6 @@ public interface FollowService {
 	public boolean alarmCheck(long id); 
 	
 	public boolean newAlarm(long id);
-	 
+	public int status(long fan, long star); 
 	 
 }

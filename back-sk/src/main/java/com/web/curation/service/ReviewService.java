@@ -2,6 +2,8 @@ package com.web.curation.service;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import com.web.curation.model.DTO.Bookmark;
 import com.web.curation.model.DTO.Comments;
 import com.web.curation.model.DTO.Likecheck;
@@ -25,5 +27,6 @@ public interface ReviewService {
 	public List<Review> getviewsTop();
 	public List<Review> getlikeTop();
 	public List<Review> getscoreTop();
+	public JSONObject countLike(long rnum);
 	
 }

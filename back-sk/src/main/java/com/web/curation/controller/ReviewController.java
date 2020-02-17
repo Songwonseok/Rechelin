@@ -1,6 +1,7 @@
 
 package com.web.curation.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -267,6 +268,18 @@ public class ReviewController {
 		result.status = true;
 		result.data = "평점 높은 리뷰 TOP6 조회 성공";
 		result.object = service.getscoreTop();
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping("review/likeCount/{rnum}")
+	@ApiOperation(value = "review의  좋아요 갯수")
+	public Object sumlike(@PathVariable long rnum) {
+		final BasicResponse result = new BasicResponse();
+		JSONObject object = service.countLike(rnum);
+		result.status = true;
+		result.data = "醫뗭븘�슂, �떕�뼱�슂 議고쉶 �꽦怨�";
+		result.object = object.toMap();
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}

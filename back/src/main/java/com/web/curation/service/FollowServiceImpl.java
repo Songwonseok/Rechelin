@@ -81,7 +81,7 @@ public class FollowServiceImpl implements FollowService {
 		User user =userDao.findById(id);
 		System.out.println("user"+ user.toString());
 		List<Follow> tmp = followDao.findAll();
-		System.out.println("전체 리스트 "+ tmp.size());
+		System.out.println("�쟾泥� 由ъ뒪�듃 "+ tmp.size());
 		List<Follow> flist = followDao.findAllByStar(user);
 		System.out.println(flist.size());
 
@@ -125,5 +125,32 @@ public class FollowServiceImpl implements FollowService {
 		}
 		return false;
 	}
+	@Override
+	public int status(long fan, long star) {
+		
+		// 1) fan 이 star를 팔로워 하고 있는지 체크
+		User ff = userDao.findById(fan);
+		User ss = userDao.findById(star);
+		Follow follo = followDao.findByFanAndStar(ff,ss);
+		if(follo==null) {
+			// 팔로우 안되어있는 상태
+			
+			// 2) 알람에 있는지 체크
+			Alarm alarm = alarmDao.findByFanAndStar(ff, ss);
+			if(alarm==null) {
+				// 팔로우 안되어있는 상태
+				return 0;
+			}else {
+				// 요청중인 상태
+				return 1;
+			}
+			
+		}else {
+			// 이미 팔로우한 유저
+			return 2;
+		}
+		
+	}
+
 
 }
