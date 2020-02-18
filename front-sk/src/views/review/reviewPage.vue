@@ -4,11 +4,12 @@
         <div>
             <b-container>
                 <!-- 리뷰 제목 -->
-                <b-row>
+                <b-row style="text-align: left">
                     <b-col style="margin-right: 50px;">
                         <!-- 리뷰 제목 -->
-
-                        <h4>리뷰 제목</h4>
+                        <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: left;">
+                            <v-icon>{{mdiFormatTitle}}</v-icon>itle
+                        </v-chip>
                         <v-text-field v-model="reviewTitle" label="Review Title" :counter="10"></v-text-field>
 
                         <div class="error-text" v-if="error.title">
@@ -18,31 +19,35 @@
 
 
                         <!-- 음식점 주소 등록 -->
-                        <h4>음식점 이름 <span>
+                        <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: left">
+                            <v-icon>{{mdiPasta }}</v-icon>음식점이름
+                        </v-chip><span>
                                 <v-btn class="ma-2" id="show-btn" @click="$bvModal.show('bv-modal-example_adr')"
-                                    style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 주소 등록
+                                    style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 이름/주소 등록
                                 </v-btn>
-                            </span></h4>
-                        <v-text-field v-model="store_name"  label="store name" required>
-                        <!-- <v-text-field v-model="store_name" :rules="nameRules" label="store name" required> -->
+                            </span>
+                        <v-text-field v-model="store_name" label="store name" required>
+                            <!-- <v-text-field v-model="store_name" :rules="nameRules" label="store name" required> -->
                         </v-text-field>
 
-                        <h4>음식점 주소 </h4>
+                         <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: center;">
+                            <v-icon>{{mdiMapMarker}}</v-icon>음식점주소
+                        </v-chip>
                         <v-text-field v-model="store_address" label="store address" required>
-                        <!-- <v-text-field v-model="store_address" :rules="nameRules" label="store address" required> -->
+                            <!-- <v-text-field v-model="store_address" :rules="nameRules" label="store address" required> -->
                         </v-text-field>
 
 
 
-                        <b-modal ref="my-modal" style="text-align: center; margin-bottom: 10px;" id="bv-modal-example_adr"
-                            class="modalStore" hide-footer>
+                        <b-modal ref="my-modal" style="text-align: center; margin-bottom: 10px;"
+                            id="bv-modal-example_adr" class="modalStore" hide-footer>
                             <template v-slot:modal-title>음식점 주소 등록하기</template>
                             <div class="d-block text-center">
-                                    <v-icon>{{icons.noodles}}</v-icon>음식점을 검색해주세요
-                                    검색 완료한 후 enter를 눌러주세요!
-                                    <b-form-input id="address_search" @keyup.enter="fetchAdr" type="text" v-model="address">
-                                    </b-form-input>
-                                    <b-table striped hover :items="maps" @row-clicked=" clickEvent"  ></b-table>
+                                <v-icon>{{icons.noodles}}</v-icon>음식점을 검색해주세요
+                                검색 완료한 후 enter를 눌러주세요!
+                                <b-form-input id="address_search" @keyup.enter="fetchAdr" type="text" v-model="address">
+                                </b-form-input>
+                                <b-table striped hover :items="maps" @row-clicked=" clickEvent"></b-table>
                             </div>
                             <div style="text-align: center;">
                                 <v-btn block color="#ff7f00" @click="$bvModal.hide('bv-modal-example_adr')">EXIT</v-btn>
@@ -53,21 +58,28 @@
 
                         <!-- 해시 태그 모달 -->
                         <div id="reviewHashtag">
-                            <h4>해시태그<span>
+                            
+                         <v-chip class="ma-2" outlined  color="#ff7f00" >
+                            <v-icon>{{mdiPoundBoxOutline}}</v-icon>해쉬태그
+                        </v-chip><span>
                                     <v-btn @click="$bvModal.show('bv-modal-example')" id="show-btn" class="ma-2" dark
                                         style="color: #ff7f00 !important; background:#ff7f00 ;">
                                         <v-icon left>{{icons.pencil}}</v-icon> hashtag
                                     </v-btn>
-                                </span></h4>
-                             <span><v-combobox v-model="allTags" chips clearable label="Your hashtags" multiple >
-                                </v-combobox></span>
+                                </span>
+                            <span>
+                                <v-combobox v-model="allTags" chips clearable label="Your hashtags" multiple>
+                                </v-combobox>
+                            </span>
 
                         </div>
                         <b-modal style="text-align: center; margin-bottom: 10px;" id="bv-modal-example" hide-footer>
                             <template v-slot:modal-title>HashTag</template>
                             <div class="d-block text-center">
-                                <span><v-combobox v-model="allTags" chips clearable label="Your hashtags" multiple solo>
-                                </v-combobox></span>
+                                <span>
+                                    <v-combobox v-model="allTags" chips clearable label="Your hashtags" multiple solo>
+                                    </v-combobox>
+                                </span>
                                 <v-divider></v-divider>
                                 위치 (강남)
                                 <v-divider></v-divider>
@@ -82,7 +94,7 @@
                                 <v-divider></v-divider>
                                 위치(강북)
                                 <v-divider></v-divider>
-                               
+
                                 <v-chip draggable @click="check_area( 8, '종로')">종로</v-chip>
                                 <v-chip draggable @click="check_area( 9, '삼청동')">삼청동</v-chip>
                                 <v-chip draggable @click="check_area( 10, '서촌')">서촌</v-chip>
@@ -101,10 +113,10 @@
                                 <v-chip draggable @click="check_area(23, '신촌')">신촌</v-chip>
 
                                 <br>
-                                
+
 
                                 <v-divider></v-divider>
-                                
+
                                 누구와
                                 <v-divider></v-divider>
 
@@ -126,7 +138,7 @@
 
 
                                 <v-divider></v-divider>
-                                분위기 
+                                분위기
                                 <v-divider></v-divider>
 
                                 <v-chip draggable @click="check_atmosphere( 0, '시끌벅적한')">시끌벅적한</v-chip>
@@ -135,11 +147,11 @@
                                 <v-chip draggable @click="check_atmosphere( 3, '고급진')">고급진</v-chip>
                                 <v-chip draggable @click="check_atmosphere( 4, '데이트')">데이트</v-chip>
 
-                                
+
 
 
                                 <v-divider></v-divider>
-                                편의시설 
+                                편의시설
                                 <v-divider></v-divider>
 
                                 <v-chip draggable @click="check_facility( 0, '단체석')">단체석</v-chip>
@@ -150,14 +162,13 @@
                             </div>
                             <hr>
                             <div>
-                            <v-btn block color="#ff7f00"
-                                 @click="$bvModal.hide('bv-modal-example')">닫기</v-btn>
+                                <v-btn block color="#ff7f00" @click="$bvModal.hide('bv-modal-example')">닫기</v-btn>
                             </div>
                         </b-modal> <br>
 
-
-                        
-                        <h4>사진업로드</h4>
+                          <v-chip class="ma-2" outlined  color="#ff7f00" >
+                            <v-icon>{{ mdiContentSaveAll}}</v-icon>사진업로드
+                        </v-chip>
                         <div class="uploadProfile">
                             <v-file-input @change="getProfileForm" label="File input" filled
                                 :prepend-icon="icons.camera" name="fileToUpload" id="fileToUpload"
@@ -172,17 +183,24 @@
                     </b-col>
 
                     <!-- 평점 -->
-                    <b-col>
-
-                        <h5>맛</h5>
+                    <b-col style="text-align: left">
+ 
+                         <v-chip class="ma-2" outlined  color="#ff7f00" >
+                            <v-icon>{{mdiEmoticonTongueOutline}}</v-icon>taste
+                        </v-chip>
                         <star-rating v-model="flavor" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
+                            style="text-align: center !important;"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
-                        <h5>가격</h5>
+                            <v-chip class="ma-2" outlined  color="#ff7f00" >
+                            <v-icon>{{mdiCurrencyUsd}}</v-icon>price
+                        </v-chip>
                         <star-rating v-model="price" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
-                        <h5>친절함</h5>
+                            <v-chip class="ma-2" outlined  color="#ff7f00" >
+                            <v-icon>{{mdiEmoticonWinkOutline}}</v-icon>kind
+                        </v-chip>
                         <star-rating v-model="kindness" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
@@ -232,75 +250,87 @@
 </template>
 
 <script>
+    import UserApi from '../../apis/UserApi'
+    import StoreApi from '../../apis/StoreApi'
+    import ReviewApi from '../../apis/ReviewApi'
+    import PV from 'password-validator'
+    import ImgurApi from '../../apis/ImgurApi'
+    import StarRating from 'vue-star-rating'
+    import {
+        mdiPencil,
+        mdiCamera,
+        mdiNoodles,
+        mdiFormatTitle,
+        mdiPasta,
+        mdiMapMarker,
+        mdiPoundBoxOutline,
+        mdiContentSaveAll,
+        mdiEmoticonTongueOutline,
+        mdiCurrencyUsd,
+        mdiEmoticonWinkOutline,
+        mdiEmoticonOutline,
+        mdiEmoticonSadOutline,
+        mdiCloudUpload
+    } from '@mdi/js'
 
-import UserApi from '../../apis/UserApi'
-import StoreApi from '../../apis/StoreApi'
-import ReviewApi from '../../apis/ReviewApi'
-import PV from 'password-validator'
-import ImgurApi from '../../apis/ImgurApi'
-import StarRating from 'vue-star-rating'
-  import {
-    mdiPencil,
-    mdiCamera,
-    mdiNoodles
-  } from '@mdi/js'
-  
-  import {jump} from '../../../public/js/animejs';
+    import {
+        jump
+    } from '../../../public/js/animejs';
 
 
 
-export default {
-   
-    created() {
+    export default {
 
-      this.titleSchema
-         .is().min(0)
-         .is().max(10)
-      
-      this.propsSchema
-         .is().min(0)
-         .is().max(20)
-      this.consSchema
-         .is().min(0)
-         .is().max(20)
-      
-    },
-    mounted() {
-        this.gojump();
-    },
-    watch : {
-        reviewTitle : function(v){
-            this.checkForm();
+        created() {
+
+            this.titleSchema
+                .is().min(0)
+                .is().max(10)
+
+            this.propsSchema
+                .is().min(0)
+                .is().max(20)
+            this.consSchema
+                .is().min(0)
+                .is().max(20)
+
         },
-        props : function(v){
-            this.checkForm_props();
+        mounted() {
+            this.gojump();
         },
-        cons : function(v){
-            this.checkForm_cons();
+        watch: {
+            reviewTitle: function (v) {
+                this.checkForm();
+            },
+            props: function (v) {
+                this.checkForm_props();
+            },
+            cons: function (v) {
+                this.checkForm_cons();
+            },
+            googleStorePlaceView: function () {
+
+                let list = [...this.maps]
+                list = [...this.$store.state.googleStorePlaceView]
+                this.maps = [...list]
+                console.log('har')
+
+
+            }
         },
-        googleStorePlaceView : function(){
-            
-            let list = [...this.maps]
-            list = [...this.$store.state.googleStorePlaceView]
-            this.maps = [...list]
-            console.log('har')
-            
-              
-        }
-    },
-    computed : {
-        googleStorePlaceView(){
-            return this.$store.state.googleStorePlaceView;
-        }
-    },
-    
-       
-    
-    components: {
-        StarRating
-    },
-    methods : {
-        check_area(n, name) {
+        computed: {
+            googleStorePlaceView() {
+                return this.$store.state.googleStorePlaceView;
+            }
+        },
+
+
+
+        components: {
+            StarRating
+        },
+        methods: {
+            check_area(n, name) {
                 if (!this.hashtags.locations[n]) {
                     this.hashtags.locations[n] = !this.hashtags.locations[n]
                     let list = [...this.area]
@@ -322,7 +352,7 @@ export default {
                     this.allTags = [...list2]
                 }
             },
-            
+
 
 
             gojump() {
@@ -336,7 +366,7 @@ export default {
                     list.push(name)
                     this.atmosphere = [...list]
                     console.log(this.atmosphere)
-                     let list2 = [...this.allTags]
+                    let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
                 } else {
@@ -345,7 +375,7 @@ export default {
                     let list = [...this.atmosphere]
                     list.splice(pos, 1)
                     this.atmosphere = [...list]
-                     var pos2 = this.allTags.indexOf(name)
+                    var pos2 = this.allTags.indexOf(name)
                     let list2 = [...this.allTags]
                     list2.splice(pos2, 1)
                     this.allTags = [...list2]
@@ -358,7 +388,7 @@ export default {
                     list.push(name)
                     this.withWho = [...list]
                     console.log(this.withWho)
-                     let list2 = [...this.allTags]
+                    let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
                 } else {
@@ -367,7 +397,7 @@ export default {
                     let list = [...this.withWho]
                     list.splice(pos, 1)
                     this.withWho = [...list]
-                     var pos2 = this.allTags.indexOf(name)
+                    var pos2 = this.allTags.indexOf(name)
                     let list2 = [...this.allTags]
                     list2.splice(pos2, 1)
                     this.allTags = [...list2]
@@ -380,7 +410,7 @@ export default {
                     list.push(name)
                     this.facility = [...list]
                     console.log(this.facility)
-                     let list2 = [...this.allTags]
+                    let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
                 } else {
@@ -395,7 +425,7 @@ export default {
                     this.allTags = [...list2]
                 }
             },
-           
+
             upload() {
                 console.log('이미지 업로드 @@')
                 // console(this.selectedImage)
@@ -409,11 +439,11 @@ export default {
                 })
 
             },
-            
+
             getProfileForm(e) {
                 this.selectedImage = e;
                 this.upload()
-               
+
             },
             setRating(rating) {
                 this.rating = "You have Selected: " + rating + " stars";
@@ -425,9 +455,9 @@ export default {
                 this
                     .$store
                     .dispatch('FETCH_ADR', this.address)
-                
-                
-                
+
+
+
                 console.log(this.$store.state.googleStorePlace);
                 console.log(this.$store.state.googleStorePlaceView);
                 // if (this.eye == false) this.eye = true;
@@ -435,7 +465,7 @@ export default {
 
                 //값 init
                 this.map = this.$store.state.googleStorePlaceView
-               
+
 
                 console.log(this.$store.state.googleStorePlace);
 
@@ -448,7 +478,7 @@ export default {
                     this.props + " " + this.flavor + " " + this.price + " " + this.kindness +
                     this.reviewTitle + " " + this.store_num)
 
-               
+
                 if (this.isSubmit) {
                     console.log(this.store_num);
                      this.$store.dispatch('storeHashtags', num)
@@ -467,49 +497,49 @@ export default {
                         'user': {
                             'id': Number(sessionStorage.getItem("userid")),
                         },
-                        'weak' : this.cons,
-                        }
-                        console.log(data);
-                    ReviewApi.requestAddReview(data, res=>{
-                         this.$alert("리뷰 등록 되셨습니다.","success","success",);
-                        
+                        'weak': this.cons,
+                    }
+                    console.log(data);
+                    ReviewApi.requestAddReview(data, res => {
+                        this.$alert("리뷰 등록 되셨습니다.", "success", "success", );
+
                         console.log("reviewPage 등록 성공");
-                    
+
                         this.$store.state.directiveStoreDetail = this.store_num;
                         // this.$router.push({name : "storeDetail", params : {id  : this.store_num}})
                     })
                     console.log('all complete');
 
                 } else {
-                    this.$alert("리뷰를 작성해주세요.","Warning","warning",);
+                    this.$alert("리뷰를 작성해주세요.", "Warning", "warning", );
                     //alert('리뷰를 작성해주세요~~')
                 }
             },
             clickEvent(recode, index) {
-            // 'record' will be the row data from items
-            // `index` will be the visible row number (available in the v-model 'shownItems')
-            
-            /**modal창닫고 table index infomation fetch**/
-            this.$bvModal.hide('bv-modal-example_adr');
-            this.$alert("등록 되셨습니다.","success","success",);
-            this.store_address = this.$store.state.googleStorePlace[index].address;
-            this.store_name = this.$store.state.googleStorePlace[index].sname;   
-            this.address="";
-            
-            let list = [...this.maps]
-            list = []
-            this.maps = [...list]
-            
+                // 'record' will be the row data from items
+                // `index` will be the visible row number (available in the v-model 'shownItems')
 
-                 StoreApi.requestAddPlace(this.$store.state.googleStorePlace[index],res=>{
-                    
+                /**modal창닫고 table index infomation fetch**/
+                this.$bvModal.hide('bv-modal-example_adr');
+                this.$alert("등록 되셨습니다.", "success", "success", );
+                this.store_address = this.$store.state.googleStorePlace[index].address;
+                this.store_name = this.$store.state.googleStorePlace[index].sname;
+                this.address = "";
+
+                let list = [...this.maps]
+                list = []
+                this.maps = [...list]
+
+
+                StoreApi.requestAddPlace(this.$store.state.googleStorePlace[index], res => {
+
                     this.store_num = res.data.object.num;
                     this.store_pic = res.data.object.img;
                     console.log('res 위');
                     console.log(res);
 
-              
-                 })
+
+                })
             },
             checkForm() {
                 //리뷰 제목(0자이상 10자 이하)
@@ -545,7 +575,7 @@ export default {
             age: [],
             atmosphere: [],
             withWho: [],
-            facility:[],
+            facility: [],
             mageUrl: '',
             selectedImage: '',
             rating: "",
@@ -592,10 +622,21 @@ export default {
                 camera: mdiCamera,
                 noodles: mdiNoodles
             },
-            store_address : '',
+            store_address: '',
+            //icons
+            mdiFormatTitle,
+            mdiPasta ,
+            mdiMapMarker,
+            mdiPoundBoxOutline,
+            mdiContentSaveAll,
+            mdiEmoticonTongueOutline,
+            mdiCurrencyUsd,
+            mdiEmoticonWinkOutline,
+            mdiEmoticonOutline,
+            mdiEmoticonSadOutline,
+            mdiCloudUpload
         })
     }
-
 </script>
 
 <style scoped>
@@ -625,8 +666,9 @@ export default {
         color: #ff7f00 !important;
         outline-color: #ff7f00 !important;
     }
+
     v-chip:hover {
-         -webkit-transform: scale(1.2);
+        -webkit-transform: scale(1.2);
         -moz-transform: scale(1.2);
         -ms-transform: scale(1.2);
         -o-transform: scale(1.2);
@@ -636,5 +678,8 @@ export default {
         -ms-transition: .3s;
         -o-transition: .3s;
         transition: .3s;
+    }
+    v-chip {
+        margin-bottom: 10px !important;
     }
 </style>

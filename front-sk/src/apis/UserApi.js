@@ -102,20 +102,6 @@ const requestLogin = (data, callback, errorCallback) => {
 }
 
 
-const requestProfile = (data, callback, errorCallback) => {
-    const params = new URLSearchParams();
-    params.append("email", data);
-
-    Axios.post(URL + '/account/getProfile', params)
-        .then(response => {
-            callback(response.data);
-            console.log('성공')
-        }).catch(exp => {
-            errorCallback(exp);
-            console.log('fdsdfasasdf실패')
-        })
-
-}
 
 const requestEdit = (data, callback, errorCallback) => {
 
@@ -134,8 +120,6 @@ const requestEdit = (data, callback, errorCallback) => {
         .then(response => {
             if (response.data.status == true)
                 callback(response.data.object);
-            alert('회원 정보 수정에 성공');
-            console.log('회원정보 수정 성공')
             router.push({
                 name: 'userpage',
                 params: {
@@ -149,11 +133,11 @@ const requestEdit = (data, callback, errorCallback) => {
 
 }
 
-const requestUpload = (email, profile, callback, errorCallback) => {
+const requestUpload = (id, profile, callback, errorCallback) => {
     // data - eamil, photoUrl 
     console.log('프로필 업로드!!!!!!!!!')
     const params = new URLSearchParams();
-    params.append("email", email);
+    params.append("id", id);
     params.append("profile", profile);
 
     Axios.post(URL + '/account/uploadProfile', params, auth)
@@ -206,7 +190,7 @@ const requestUpdatePw = async(data, callback, errorCallback) => {
     //     })
 
     const params = new URLSearchParams();
-    params.append('email', data.email);
+    params.append('id', data.id);
     params.append('password', data.pw);
     // Axios({
     //     method: 'post',
@@ -254,8 +238,7 @@ const UserApi = {
     requestEmail: (data, callback, errorCallback) => requestEmail(data, callback, errorCallback),
     requestsignUp: (data, callback, errorCallback) => requestsignUp(data, callback, errorCallback),
     requestUserpage: (data, callback, errorCallback) => requestUserpage(data, callback, errorCallback),
-    requestProfile: (data, callback, errorCallback) => requestProfile(data, callback, errorCallback),
-    requestUpload: (email, profile, callback, errorCallback) => requestUpload(email, profile, callback, errorCallback),
+    requestUpload: (id, profile, callback, errorCallback) => requestUpload(id, profile, callback, errorCallback),
     requestUpdatePw: (data, callback, errorCallback) => requestUpdatePw(data, callback, errorCallback),
     requestfetchUserList,
     requestUserRanking,
