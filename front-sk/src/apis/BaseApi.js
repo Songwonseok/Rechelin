@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL:
+    baseURL: "http://70.12.246.51:8080",
     // "http://54.180.160.87:8080", aws
-        "http://70.12.246.134:8080", // 김주연 ip
+        // "http://70.12.246.134:8080", // 김주연 ip
     //   baseURL: "http://70.12.246.51:8080", // 조장님 ip
     //aws
 
