@@ -56,7 +56,7 @@
 
                                     <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
                                         <div v-for="(tags, i) in bestReview.tag" v-bind:key="i+tags">
-                                            <v-chip @click="btnClick">{{tags}}</v-chip>
+                                            <v-chip >{{tags}}</v-chip>
                                         </div>
                                     </v-chip-group>
 
@@ -123,7 +123,7 @@
                                 .data
                                 .object[i]
                                 .hashtag;
-                            let HashSplit = HashString.split(' ');
+                            let HashSplit = HashString.split(',');
                             let HashList = [];
                             for (let z in HashSplit) 
                                 HashList.push(HashSplit[z]);
