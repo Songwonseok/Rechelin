@@ -24,7 +24,6 @@
       <iframe src="https://giphy.com/embed/JpYJnxosqH4G76f6iL" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/kakao-friends-apeach-europe-JpYJnxosqH4G76f6iL">유저 프로필 사진 변경중...</a></p>
             </loading>
         <b-form-file
-          v-model="file"
           @change="load"
           ref="file-input"
           class="mb-2"
@@ -59,15 +58,6 @@
           </v-btn>
         </div>
       </b-col>
-      <!-- <div style="margin-top: 10px;">
-            비밀번호 변경: <input v-model="pw1" type="password" id="pw1" @keyup.enter="edit">
-        </div>
-        <div v-if="error.pw1">{{error.pw1}}</div>
-
-        <div style="margin-top: 10px;">
-            비밀번호 확인: <input v-model="pw2" type="password" id="pw2" @keyup.enter="edit">
-            <div v-if="error.confirmPW">{{error.confirmPW}}</div>
-      </div>-->
 
       <!-- TODO : 취소 버튼 눌르면 이전 페이지로 이동 -->
     </b-row>
@@ -99,19 +89,19 @@ export default {
         confirmPW: false
       },
 
-      isSubmit: true,
+      // isSubmit: true,
       svgPath: mdiPencil,
       mdiInformationOutline,
       isLoading_profile : false,
     };
   },
   watch: {
-    nickname: function(v) {
-      this.checkForm();
-    },
-    phone: function(v) {
-      this.checkForm();
-    }
+    // nickname: function(v) {
+    //   this.checkForm();
+    // },
+    // phone: function(v) {
+    //   this.checkForm();
+    // }
   },
   computed: {
     uid() {
@@ -122,7 +112,7 @@ export default {
     gojump() {
       jump(this.$refs.finalSubmit);
     },
-    checkForm() {
+    // checkForm() {
       // 기존에 있는 닉네임인지
       // 기존에 등록된 휴대폰 번호인지 확인
 
@@ -132,29 +122,27 @@ export default {
     //   if (this.pw2.length > 0 && this.pw1 != this.pw2) {
     //     this.error.confirmPW = "비밀번호가 일치하지 않습니다";
     //   } else this.error.confirmPW = false;
-      let Editing = true;
-      Object.values(this.error).map(err => {
-        if (err) {
-          Editing = false;
-        }
-      });
-      this.isSubmit = Editing;
-    },
+    //   let Editing = true;
+    //   Object.values(this.error).map(err => {
+    //     if (err) {
+    //       Editing = false;
+    //     }
+    //   });
+    //   this.isSubmit = Editing;
+    // },
     edit() {
-      if (this.isSubmit) {
+      // if (this.isSubmit) {
         let { nickname, phone, uid, profile } = this;
         let data = {
           nickname: nickname,
-          user: uid,
+          id: uid,
           phone: phone,
           profile: profile
         };
         this.isSubmit = false;
-        console.log("Edit 들어가기전!!!!!!!!!!");
         UserApi.requestEdit(data, res => {    
         },
           error => {
-            console.log("회원 정보 수정 실패 !!!");
             alert("회원 정보 수정 실패 !!");
             // 로그인 패시 버튼 비활성화
             this.isSubmit = false;
@@ -162,7 +150,7 @@ export default {
         );
         // axios 보낸는 장소
         this.$alert("회원 정보 수정 성공", "success", "success", );
-      }
+      // }
     },
     // 프로필 이미지 변경
     load(e) {
@@ -173,9 +161,14 @@ export default {
       ImgurApi.uploadProfile(
         file,
         res => {
+            this.isLoading_profile = false;
+
+
           // img url - res.link에 저장
           // 2) Imgur에 저장된 사진 링크를 가져오기
           this.profile = res.data.link;
+
+
 
           // // 3) 사진링크를 User의 profile 링크로 수정하기
           // UserApi.requestUpload(
@@ -188,7 +181,8 @@ export default {
           // );
         },
         error => {
-          alert("Imgur 업로드 실패!");
+          this.isLoading_profile = false;
+          this.$alert("Imgur 업로드 실패!","error","error");
         }
       );
     },
@@ -199,7 +193,6 @@ export default {
           this.nickname = res.object.nickname;
           this.phone = res.object.phone;
           this.profile = res.object.profile;
-          console.log("***유저정보 가져오기 성공");
         },
         error => {
           console.log("유저정보 가져오기 실패");

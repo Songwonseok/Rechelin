@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="view">
+    <!-- <div class="view">
       {{user_type}}
       <button
         :class="[ user_type === 'all' ? 'selected' : '']"
@@ -10,8 +10,7 @@
         :class="[ user_type === 'friend' ? 'selected' : '']"
         @click="update_source('friend')"
       >Friends' Posts</button>
-    </div>
-    <div></div>
+    </div> -->
     <!-- <div v-if="((tweet.user_type === user_type) || (user_type === 'all'))"> -->
     <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
     <tweets
@@ -87,8 +86,7 @@ export default {
       this.user_type = user_type;
     },
     infiniteHandler($state) {
-      axios
-        .get(api, {
+      axios.get(api, {
           params: {
             page: this.page,
             tags: this.newsType

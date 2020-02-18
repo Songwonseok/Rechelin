@@ -1,21 +1,13 @@
 package com.web.curation.service;
 
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.web.curation.model.NaverLogin;
 import com.web.curation.model.DAO.RoleDao;
 import com.web.curation.model.DAO.StoreLikeDao;
 import com.web.curation.model.DAO.UserDao;
@@ -86,10 +78,9 @@ public class AcountServiceImpl implements AcountService {
 	}
 
 	public boolean update(User request) {
-		User user = userDao.findByEmail(request.getEmail());
-		if(user!=null) {
+		User user = userDao.findById(request.getId());
+		if(user!=null) {			
 			user.updateUser(request);
-			// profile怨� 鍮꾨�踰덊샇 �젣�쇅�븯怨� �뾽�뜲�씠�듃
 			userDao.save(user);
 			return true;
 		}

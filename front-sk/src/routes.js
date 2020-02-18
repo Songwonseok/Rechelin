@@ -261,7 +261,7 @@ export default [
     //     component: sideMenuUserPage,
     // },
     {
-        path: '/access_token/:access_token/userid/:userid',
+        path: '/access_token/:access_token/userid/:userid/jwt/:jwt',
         name: 'access_token',
         component: test,
     },
