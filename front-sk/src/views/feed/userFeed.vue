@@ -1,15 +1,8 @@
 <template>
   <div id="app">
     <div class="view">
-      {{user_type}}
-      <button
-        :class="[ user_type === 'all' ? 'selected' : '']"
-        @click="update_source('all')"
-      >All Posts</button>
-      <button
-        :class="[ user_type === 'friend' ? 'selected' : '']"
-        @click="update_source('friend')"
-      >Friends' Posts</button>
+     
+    
     </div>
     <div></div>
     <!-- <div v-if="((tweet.user_type === user_type) || (user_type === 'all'))"> -->
@@ -18,7 +11,7 @@
       v-for="(tweet, $index) in tweet"
       :key="$index+tweet"
       :tweet="tweet"
-      v-if="((tweet.user_type === user_type) || (user_type === 'all'))"
+     
     />
 
     <div v-for="(item, $index) in list" :key="$index">{{item}}</div>
@@ -87,32 +80,40 @@ export default {
       this.user_type = user_type;
     },
     infiniteHandler($state) {
-      axios
-        .get(api, {
-          params: {
-            page: this.page,
-            tags: this.newsType
-          }
-        })
-        .then(({ data }) => {
-          if (data.hits.length) {
-            this.page += 1;
-            // this     .list     .push(...data.hits);
+      // axios
+      //   .get(api, {
+      //     params: {
+      //       page: this.page,
+      //       tags: this.newsType
+      //     }
+      //   })
+      //   .then(({ data }) => {
+      //     if (data.hits.length) {
+      //       this.page += 1;
+      //       // this     .list     .push(...data.hits);
             
-            ReviewApi.requestFeedList(this.userid, res=>{
+      //       ReviewApi.requestFeedList(this.userid, res=>{
+      //         this.tweet = res;
+      //         console.log(this.tweet)
+      //       }, error=>{
+      //         alert('피드 리스트 가져오기 실패')
+      //       })
+            
+      //       this.list.unshift(...data.hits.reverse());
+      //       $state.loaded();
+      //     } else {
+      //       $state.complete();
+      //       this.tweet = [];
+      //     }
+      //   });
+       ReviewApi.requestFeedList(this.userid, res=>{
               this.tweet = res;
               console.log(this.tweet)
+               $state.loaded();
             }, error=>{
               alert('피드 리스트 가져오기 실패')
             })
-            
-            this.list.unshift(...data.hits.reverse());
-            $state.loaded();
-          } else {
-            $state.complete();
-            this.tweet = [];
-          }
-        });
+             $state.complete();
     }
   }
 };

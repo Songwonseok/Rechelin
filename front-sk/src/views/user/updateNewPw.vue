@@ -79,23 +79,25 @@
       confirm() {
         console.log('hi');
         // After retrieveing the confirmation code from the user
-        this.info.id = sessionStorage.getItem('userid');
-        this.info.pw = this.pw;
-        console.log('id');
-        console.log(this.info.id);
-        console.log('pw');
-        console.log(this.info.pw);
-        this.$alert("비밀번호가 변경되었습니다.", "success", "success");
-        console.log(this.info);
-        UserApi.requestUpdatePw(this.info, res => {
+        console.log(this.$store.state.searchEmail);
+       UserApi.requestEmail(this.$store.state.searchEmail, res=>{
+          console.log('userid 받아오기!');
           console.log(res);
+        this.info.id = res.object.id;
+        this.info.pw = this.pw;
+          UserApi.requestUpdatePw(this.info, res => {
+         
+          this.$alert("비밀번호가 변경되었습니다.", "success", "success");
+        
           this.$router.push({
             name: 'popular',
             // params: {
             //   id: sessionStorage.getItem('userid')
             // }
           })
-        });
+        })
+        })
+        
 
       }
     },
