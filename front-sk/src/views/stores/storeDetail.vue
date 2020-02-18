@@ -65,8 +65,8 @@
           <gmap-marker :position="{lat: recentlocation.latitude, lng: recentlocation.longitude}" :clickable="true"
             :icon="{ url: require('../../assets/images/recent.png')}" :draggable="true" @click="center=m.position">
           </gmap-marker>
-            <gmap-polyline v-bind:path.sync="walkCoordinates" v-bind:options="{ strokeColor:'#008000'}">
-         </gmap-polyline>
+          <gmap-polyline v-bind:path.sync="walkCoordinates" v-bind:options="{ strokeColor:'#008000'}">
+          </gmap-polyline>
 
         </gmap-map>
 
@@ -134,7 +134,7 @@
           latitude: null,
           longitude: null
         },
-         walkCoordinates: null,
+        walkCoordinates: null,
         // css 용 변수
         bookTrue: true,
         bookmarkColor: 'warning'
@@ -178,9 +178,10 @@
           // tmap
           var prtcl;
           var headers = {};
-          headers['appKey'] = 'b3c90f6a-a54a-4a52-8f04-271742b2d731';
+          headers['appKey'] = '8eada30c-d69a-4f70-aaee-e12a318bde04';
+          console.log(this.storeInfoSave)
           Axios({
-            type: "POST",
+            type: "post",
             headers: headers,
             url: "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json",
             async: false,
@@ -193,12 +194,13 @@
               "startY": this.recentlocation.latitude.toFixed(6),
               "startTime": "201711121314",
               "endName": "도착",
-              "endX": this.storeInfoSave.lng.toFixed(6),
-              "endY": this.storeInfoSave.lat.toFixed(6),
+              "endX": parseFloat(this.storeInfoSave.lng).toFixed(6),
+              "endY": parseFloat(this.storeInfoSave.lat).toFixed(6),
               "searchOption": "0",
               "trafficInfo": "N",
-            }),
-            success: function (response) {
+              })
+            }).then(response => {
+              console.log(response)
               prtcl = response;
               var style_red = {
                 fillColor: "#FF0000",
@@ -211,16 +213,15 @@
               };
               this.walkCoordinates = []
               for (let j = 0; j < prtcl.features.length; j++) {
-                    let sktcoordinate = prtcl.features[j].geometry
-                    if (sktcoordinate.type == "Point") {
-                        let pos = {
-                            lat: sktcoordinate.coordinates[1],
-                            lng: sktcoordinate.coordinates[0]
-                        };
-                        this.walkCoordinates.push(pos)
-                    }
+                let sktcoordinate = prtcl.features[j].geometry
+                if (sktcoordinate.type == "Point") {
+                  let pos = {
+                    lat: sktcoordinate.coordinates[1],
+                    lng: sktcoordinate.coordinates[0]
+                  };
+                  this.walkCoordinates.push(pos)
                 }
-            }
+              }
           })
         })
       }
