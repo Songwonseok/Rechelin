@@ -81,7 +81,7 @@ public class FollowServiceImpl implements FollowService {
 		User user =userDao.findById(id);
 		System.out.println("user"+ user.toString());
 		List<Follow> tmp = followDao.findAll();
-		System.out.println("전체 리스트 "+ tmp.size());
+		System.out.println("�쟾泥� 由ъ뒪�듃 "+ tmp.size());
 		List<Follow> flist = followDao.findAllByStar(user);
 		System.out.println(flist.size());
 
@@ -125,7 +125,6 @@ public class FollowServiceImpl implements FollowService {
 		}
 		return false;
 	}
-
 	@Override
 	public int status(long fan, long star) {
 		
@@ -152,7 +151,6 @@ public class FollowServiceImpl implements FollowService {
 		}
 		
 	}
-
 	@Override
 	public boolean unFollow(long fan, long star) {
 		User ff = userDao.findById(fan);

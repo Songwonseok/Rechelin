@@ -50,4 +50,16 @@ public class Storelike {
 		return user;
 	}
 
+	public void setNum(long num) {
+		this.num = num;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

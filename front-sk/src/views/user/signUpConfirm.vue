@@ -83,8 +83,13 @@
                 this.$store.state.info.pw = this.$store.state.password,
                 this.$store.state.info.phone = this.$store.state.phone,
                 alert("인증에 성공하셨습니다.");
+              
+              //여기다가 세션 넣어야함
+              sessionStorage.setItem("userToken", this.access_token);
+              sessionStorage.setItem("userid", this.userid)
+              sessionStorage.setItem("useremail",this.$store.state.info.email);
               this.$router.push({
-                name: 'userpage'
+                 name: "popular"
               })
               console.log(this.$store.state.info)
 

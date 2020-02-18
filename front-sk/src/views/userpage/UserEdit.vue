@@ -17,6 +17,12 @@
           <img class="avatar" :src="profile" :alt="nickname" style="height: 300px; width:300px;" />
         </template>
         <br />
+           <loading :active.sync="isLoading_profile" 
+            :can-cancel="true" 
+            
+            >
+      <iframe src="https://giphy.com/embed/JpYJnxosqH4G76f6iL" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/kakao-friends-apeach-europe-JpYJnxosqH4G76f6iL">유저 프로필 사진 변경중...</a></p>
+            </loading>
         <b-form-file
           v-model="file"
           @change="load"
@@ -75,8 +81,12 @@ import ImgurApi from "../../apis/ImgurApi";
 import router from "../../routes.js";
 import { mdiPencil, mdiInformationOutline } from "@mdi/js";
 import { jump } from "../../../public/js/animejs";
-
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css'
 export default {
+  components : {
+    Loading,
+  },
   data() {
     return {
       email: this.$store.state.userEmail,
@@ -91,7 +101,8 @@ export default {
 
       isSubmit: true,
       svgPath: mdiPencil,
-      mdiInformationOutline
+      mdiInformationOutline,
+      isLoading_profile : false,
     };
   },
   watch: {
@@ -158,6 +169,7 @@ export default {
       this.createImage(e.target.files[0]);
     },
     createImage(file) {
+      this.isLoading_profile = true;
       ImgurApi.uploadProfile(
         file,
         res => {

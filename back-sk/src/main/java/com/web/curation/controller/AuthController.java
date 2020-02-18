@@ -59,17 +59,17 @@ public class AuthController {
 
 		User tmp = service.login(email, password);
 
-		// 1. DB 에 값이 존재하는지 판단
+		// 1. DB �뿉 媛믪씠 議댁옱�븯�뒗吏� �뙋�떒
 		if (tmp == null) {
 			System.out.println("X");
 			result.status = false;
-			result.data = "email이 존재하지않습니다";
+			result.data = "email�씠 議댁옱�븯吏��븡�뒿�땲�떎";
 
 		} else {
-			// 2. email과 pw일치하는지 판단
+			// 2. email怨� pw�씪移섑븯�뒗吏� �뙋�떒
 			if (tmp.getPw() == "") {
 				result.status = false;
-				result.data = "비밀번호가 일치하지 않습니다";
+				result.data = "鍮꾨�踰덊샇媛� �씪移섑븯吏� �븡�뒿�땲�떎";
 				result.object = dummyUser.toMap();
 			} else {
 				result.status = true;
@@ -85,19 +85,19 @@ public class AuthController {
 	public Object registerUser(@RequestBody User request) {
 
 		final BasicResponse result = new BasicResponse();
-		System.out.println("###########가입하기" + request.toString());
+		System.out.println("###########媛��엯�븯湲�" + request.toString());
 		User tmp = service.signup(request);
 
 		if (tmp.getEmail().equals("")) {
 			result.status = false;
-			result.data = "생성 실패(이메일 중복)";
+			result.data = "�깮�꽦 �떎�뙣(�씠硫붿씪 以묐났)";
 
 		} else if (tmp.getNickname().equals("")) {
 			result.status = false;
-			result.data = "생성 실패(닉네임 중복)";
+			result.data = "�깮�꽦 �떎�뙣(�땳�꽕�엫 以묐났)";
 		} else {
 			result.status = true;
-			result.data = "회원 가입 성공";
+			result.data = "�쉶�썝 媛��엯 �꽦怨�";
 			result.object = new JSONObject(request).toMap();
 		}
 

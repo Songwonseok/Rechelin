@@ -94,7 +94,7 @@
             :can-cancel="true" 
             
             >
-       <iframe src="https://giphy.com/embed/wzJFuHbmGxiYo" width="150" height="150" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/meme-journey-ara-wzJFuHbmGxiYo">음식점 가져오는 중 ...  </a></p>
+      <iframe src="https://giphy.com/embed/JpYJnxosqH4G76f6iL" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/kakao-friends-apeach-europe-JpYJnxosqH4G76f6iL">음식점 가져오는 중 ...  </a></p>
             </loading>
                 <v-btn color="warning" @click="searchBtnClick" :disabled="searchBtnActive" dark="dark">검색</v-btn>
               </div>

@@ -9,6 +9,6 @@ import com.web.curation.model.DTO.Storelike;
 import com.web.curation.model.DTO.User;
 
 public interface StoreLikeDao extends JpaRepository<Storelike, Long> {
-	Storelike findByUserAndStore(User user, Store store);
+	Storelike findTopByUserAndStore(User user, Store store);
 	List<Storelike> findAllByUser(User user);
 }

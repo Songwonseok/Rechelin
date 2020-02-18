@@ -33,6 +33,7 @@ implements CustomRepository{
 	private final QLikecheck likecheck = QLikecheck.likecheck;
 	private final QUser user = QUser.user;
 	
+	
 	public CustomRepositoryImpl(JPAQueryFactory queryFactory) {
 		super(Storetags.class);
 		this.queryFactory = queryFactory;
@@ -55,14 +56,14 @@ implements CustomRepository{
 	}
 	
 	
-	//�떇�떦�쓽 移댄뀒怨좊━蹂� �깭洹� 援ы븯湲�
+	//식당의 카테고리별 태그 구하기
 	public List<Hashtag> foodtags(long num){
 		return queryFactory.select(storetags.hashtag)
 				.from(storetags).groupBy(storetags.hashtag.keyword)
 				.where(storetags.hashtag.category.eq("food"),
 						storetags.review.store.num.eq(num))
 				.orderBy(storetags.hashtag.keyword.count().desc())
-				.limit(2).fetch();
+				.limit(3).fetch();
 	}
 	
 	public List<Hashtag> loctags(long num){
@@ -120,9 +121,10 @@ implements CustomRepository{
 	public List<User> topUser() {
 		return queryFactory
 				.selectFrom(user).join(review).on(review.user.id.eq(user.id))
-				.groupBy(user.id).orderBy(user.id.count().desc())
-				.limit(3).fetch();
+								.groupBy(user.id).orderBy(user.id.count().desc())
+								.limit(3).fetch();
 	}
+
 	
 	
 }

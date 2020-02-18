@@ -2,7 +2,7 @@
 
     <div>
         <br>
-        <h2 style="color:orange">👀 Best Rate</h2>
+        <h2 style="color:orange"><span class="iconify" data-icon="bx:bx-trending-up" data-inline="false"></span> Best Rate</h2>
         <b-container class="bv-example-row">
                 <b-row >
                     <div v-if="bestReviews.length==0">

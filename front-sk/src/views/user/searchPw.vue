@@ -132,7 +132,7 @@
               this.$store.state.searchEmail = this.email;
               this.$store.state.searchCode = this.code;
               this.$router.push({
-                path: "/updateNewPw"
+                name: "updatepw"
               })
 
 

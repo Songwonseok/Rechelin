@@ -4,8 +4,8 @@ import SearchApi from '../apis/SearchApi.js';
 import Axios from "axios"
 import router from '../main.js';
 // const URL = 'http://70.12.246.134:8080' // 김주연 ip
-
-const URL = "http://54.180.160.87:8080" // aws
+const URL = "http://70.12.246.51:8080"
+// const URL = "http://54.180.160.87:8080" // aws
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -194,16 +194,23 @@ export default {
         const params = new URLSearchParams();
         params.append('id', payload.id)
         params.append('snum', payload.snum)
-        Axios.post(URL + "/store/addBook", params, auth)
+        // console.log(payload, '???????????????????????')
+        Axios.post(URL + "/store/checkBook", params, auth)
             .then(res => {
                 console.log('요청 성공')
                 console.log(res)
-                if (res.data.status==true) {
+                if (res.data.status==false) {
                     console.log('북마크 등록')
+                    Axios.post(URL + "/store/addBook", params, auth)
+                        .then(response => {
+                            console.log('북마크 등록 성공')
+                        }).catch(exp => {
+                            console.log('북마크 등록 실패')
+                        })
                     
                 } else {
                     Axios.post(URL+"/store/removeBook",  params, auth)
-                    .then(res => {
+                    .then(response => {
                         console.log('북마크 삭제')
                     }).catch(exp => {
                         console.log('북마크 삭제 실패')
