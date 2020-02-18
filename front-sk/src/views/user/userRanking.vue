@@ -15,14 +15,14 @@
             color="#ff7f00"
             dark
             fab
-            outlined
+           
             small
           >
           <kinesis-container>
             
               <kinesis-element :strength="10">
-                   <v-icon v-if="fab" color="warning">mdi-close</v-icon>
-                   <v-icon color="#ff7f00" v-else>mdi-dots-horizontal-circle</v-icon>
+                   <v-icon v-if="fab" >mdi-close</v-icon>
+                   <v-icon  v-else>mdi-dots-horizontal-circle</v-icon>
            
               </kinesis-element>
           
@@ -33,33 +33,42 @@
         <v-btn
           fab
           dark
-          outlined
+          
           small
           color="green"
           @click="$router.push({name: 'createReview'})"
         >
-          <v-icon color="green">mdi-pencil</v-icon>
+          <v-icon >mdi-pencil</v-icon>
         </v-btn>
         <v-btn
           fab
           dark
-          outlined
+         
           small
           color="indigo"
           @click="UserLogout"
         >
-          <v-icon color="indigo">mdi-logout</v-icon>
+          <v-icon >mdi-logout</v-icon>
         </v-btn>
          <v-btn
           fab
-          outlined
+         
           dark
           small
           @click="userpageGo"
           color="blue">
-          <v-icon color="blue">mdi-account</v-icon>
+          <v-icon>mdi-account</v-icon>
         </v-btn>
-         
+        <v-btn
+          fab
+          dark
+          
+          small
+          color="purple"
+          @click="$router.push({name: 'popular'})"
+        >
+          <v-icon>mdi-menu</v-icon>
+        </v-btn>
       </v-speed-dial>
 
 
@@ -73,7 +82,7 @@
           <v-btn
             color="orange lighten-2"
             dark
-            outlined
+            
             fab
             small
             v-on="on"
@@ -82,7 +91,7 @@
                <kinesis-container>
             
               <kinesis-element :strength="10">
-                   <v-icon color="warning">mdi-crown</v-icon>
+                   <v-icon >mdi-crown</v-icon>
            
               </kinesis-element>
           
@@ -169,7 +178,7 @@
     
       <v-btn fab 
       small
-      outlined
+      
       dark 
       color="red" 
       id="popover-target-1"
@@ -180,7 +189,7 @@
            <kinesis-container>
             
               <kinesis-element :strength="10">
-                   <v-icon color="red">mdi-bell</v-icon>
+                   <v-icon >mdi-bell</v-icon>
            
               </kinesis-element>
           
@@ -212,7 +221,9 @@
 import Vue from 'vue'
 import { KinesisContainer, KinesisElement } from 'vue-kinesis'
 import UserApi from '../../apis/UserApi.js';
-import { mdiBell } from '@mdi/js';
+import { 
+  mdiBell,
+  } from '@mdi/js';
 Vue.component('kinesis-container', KinesisContainer)
 Vue.component('kinesis-element', KinesisElement)
 export default {

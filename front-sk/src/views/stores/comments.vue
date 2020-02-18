@@ -12,9 +12,11 @@
 
                 <b-col>
                  <img src="https://cdn.pixabay.com/photo/2017/05/12/08/29/coffee-2306471_1280.jpg" alt="" style="width: 350px; height: 350px; margin-top: 50px !important;">
+                   
+                   <!-- 좋아요 -->
                    <v-btn class="mt-2" @click="reviewLike(reviewInfo.rnum)" color="warning">
                                 <vue-star animate="animated bounceIn" color="#F7D358">
-                                    <i   slot="icon" class="fas fa-thumbs-up fa-lg" color="warning"></i>
+                                    <i slot="icon" class="fas fa-thumbs-up fa-lg" color="warning"></i>
 
                                 </vue-star>
                             </v-btn>
@@ -35,7 +37,7 @@
                 <b-col>
                     <h2 class="card__title"></h2>
                     <p class="card__subtitle"> 
-                        조회수: {{reviewInfo.views}}    |    작성일 :{{reviewInfo.wdate}}
+                        조회수: {{reviewInfo.views}}  <span class="written-time">작성시간 :{{reviewInfo.wdate}}</span>
                     </p>
                     <div>
                     <v-chip class="ma-2" color="warning" outlined>

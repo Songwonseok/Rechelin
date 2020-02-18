@@ -267,9 +267,7 @@ export default {
     },
     reviewLike({ commit }, num) {
         let data = {
- 
             'id': num,
-
             'user': {
                 'id': sessionStorage.getItem('userid')
             }
