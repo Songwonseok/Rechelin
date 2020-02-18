@@ -38,11 +38,17 @@ implementation 'commons-io:commons-io:2.6'
     implementation 'org.springframework.security:spring-security-config:5.0.6.RELEASE'
     implementation 'io.jsonwebtoken:jjwt:0.9.0'
     
+    compile('org.springframework.boot:spring-boot-starter-security')
+    //compile('org.springframework.security.oauth:spring-security-oauth2')
+	//compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.3.RELEASE'
+
+
+
 //
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile("com.querydsl:querydsl-jpa") // querydsl
     compile("com.querydsl:querydsl-apt") // querydsl
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {

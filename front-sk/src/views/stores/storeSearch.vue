@@ -146,8 +146,6 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 console.log(list);
                 this.$store.state.storeList_paging = [...list];
 
-
-
             }
         },
         computed: {
