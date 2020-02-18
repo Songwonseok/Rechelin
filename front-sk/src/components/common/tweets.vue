@@ -30,7 +30,7 @@
               style="color: #ff7f00 !important"
             >
               <v-chip class="ma-2" color="warning" outlined>
-                <v-icon>{{mdiLeadPencil}}</v-icon>작성자
+                작성자
               </v-chip>
               {{tweet.review.user.nickname}}
             </router-link>
@@ -45,14 +45,23 @@
           </div>
           <div class="media-content">
             <div class="content">
-              <!-- title 누르면 review detail로 넘어가게 -->
-             <router-link :to="{name: 'reviewDetail', params: {
+              <router-link :to="{name: 'comments', params: {
                 id: tweet.review.rnum}}"
               style="color: #ff7f00 !important">
-              <p>
-                <strong>{{tweet.review.title}}</strong>
-              </p>
+              <strong>
+                {{tweet.review.store.sname}}
+                {{tweet.review.store.address}}
+              </strong>
               </router-link>
+              <!-- title 누르면 review detail로 넘어가게 -->
+              <!-- storedetail/62/comments -->
+             <!-- <router-link :to="{name: 'comments', params: {
+                id: tweet.review.rnum}}"
+              style="color: #ff7f00 !important"> -->
+              <div @click="gotoReview">
+                <strong >{{tweet.review.title}}</strong>
+              </div>
+              <!-- </router-link> -->
               <!-- TODO : 장점과 단점을 분리 -->
               <v-card>
                 <v-card-text>
@@ -118,6 +127,12 @@ export default {
   },
   props: {
     tweet: Object
+  },
+  method:{
+    gotoReview(){
+      console.log('들어온다아아ㅏ아아')
+      this.$store.dispatch('commentsOfreview', this.tweet.review.rnum)
+    }
   }
 };
 </script>
