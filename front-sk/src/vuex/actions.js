@@ -45,8 +45,10 @@ export default {
         })
     },
     FETCH_ADR({ commit }, address) { //google 에서부터 음식점 주소를 FETCH 해옴
+        
         SearchApi.requestFetchAdrData({ commit }, address).then(
             response => {
+                console.log('recent')
                 var aJsonArray = new Array(); //선택된 데이터만 
 
                 var aJsonArray2 = new Array(); //전체 데이터 
@@ -266,7 +268,19 @@ export default {
             })
     },
     reviewLike({ commit }, num) {
-        Axios.post(URL + "/review/like", num, auth)
+        let data = {
+            'id': num,
+            'user': {
+                'id': sessionStorage.getItem('userid')
+            }
+        }
+        let options = {
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
+            url: URL + '/review/like',
+            method: 'post',
+            data: JSON.stringify(data)
+        }
+        Axios(options)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {

@@ -93,7 +93,7 @@
                                 .data
                                 .object[i]
                                 .title;
-                            item['id'] = response.data.object[i].rnum;
+                            item['id'] = response.data.object[i].store.num;
                             let content = response
                                 .data
                                 .object[i]

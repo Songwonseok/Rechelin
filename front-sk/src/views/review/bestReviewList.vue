@@ -88,7 +88,8 @@
                 ReviewApi
                     .requestfetcViewsrList()
                     .then(response => {
-                       
+                       console.log('bestReviewList');
+                       console.log(response);
                         var viewsList = new Array();
 
                         for (let i = 0; i < response.data.object.length; i++) {
@@ -104,7 +105,7 @@
                                 .data
                                 .object[i]
                                 .title;
-                            item['id'] = response.data.object[i].rnum;
+                            item['id'] = response.data.object[i].store.num;
                             let content = response
                                 .data
                                 .object[i]
@@ -150,6 +151,8 @@
                     setTimeout(() => (this.loading = false), 2000)
                 },
                  storeDetail(num) {
+                console.log('storeDetail');
+                console.log(num);
                 this.$store.dispatch('storeHashtags', num)
 
             }

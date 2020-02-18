@@ -12,11 +12,32 @@
 
                 <b-col>
                  <img src="https://cdn.pixabay.com/photo/2017/05/12/08/29/coffee-2306471_1280.jpg" alt="" style="width: 350px; height: 350px; margin-top: 50px !important;">
+                   
+                   <!-- 좋아요 -->
+                   <v-btn class="mt-2" @click="reviewLike(reviewInfo.rnum)" color="warning">
+                                <vue-star animate="animated bounceIn" color="#F7D358">
+                                    <i slot="icon" class="fas fa-thumbs-up fa-lg" color="warning"></i>
+
+                                </vue-star>
+                            </v-btn>
+                             
+                            <v-btn class="mt-2" @click="reviewLike(reviewInfo.rnum)" color="warning">
+                            <vue-star animate="animated bounceIn" color="#F7D358">
+                                <i slot="icon" class="fas fa-thumbs-down fa-lg"></i>
+                            </vue-star>
+                        </v-btn>
+                   
+                
+                <v-btn class="mt-2"  color="warning">
+                    <vue-star animate="animated bounceIn" color="#F7FE2E">
+                        <i slot="icon" class="fas fa-bookmark fa-2x"></i>
+                    </vue-star>
+                </v-btn>
                 </b-col>
                 <b-col>
                     <h2 class="card__title"></h2>
                     <p class="card__subtitle"> 
-                        조회수: {{reviewInfo.views}} | 작성일 :{{reviewInfo.wdate}}
+                        조회수: {{reviewInfo.views}}  <span class="written-time">작성시간 :{{reviewInfo.wdate}}</span>
                     </p>
                     <div>
                     <v-chip class="ma-2" color="warning" outlined>
@@ -74,11 +95,16 @@
 
             <b-list-group v-for="(comment, index) in comments" :key="index">
                 <b-list-group-item style="text-align: left;">
-                    <strong>{{comment.user.nickname}}</strong> {{comment.content}}
-                    | 작성시간 : {{comment.wdate}}
+                    <p><router-link :to="{name: 'userpage', params: {
+                        id: comment.user.id
+                    }}" style="color: black;"><strong>{{comment.user.nickname}}</strong></router-link>   {{comment.content}}</p>
+                  
+                    <p style="text-align: right;">  <span class="written-time">작성시간 : {{comment.wdate}}</span>
+                    
                     <v-btn icon v-if="samePerson(comment.user.id)" @click="commentDelete(comment)" >
                         <v-icon color="warning">{{mdiDelete}}</v-icon>
-                    </v-btn>
+                    </v-btn></p>
+                  
                 </b-list-group-item>
 
             </b-list-group>
@@ -121,7 +147,8 @@
                 mdiCurrencyUsd,
                 mdiEmoticonTongueOutline,
                 mdiEmoticonOutline,
-                mdiLeadPencil
+                mdiLeadPencil,
+                changeLike : true,
                 
             }
         },
@@ -190,6 +217,10 @@
 
 
             },
+             reviewLike(num) {
+                this.changeLike = !this.changeLike
+                this.$store.dispatch('reviewLike', num)
+            },
          
 
         },
@@ -212,5 +243,13 @@
     #rating {
         background-color: #FF7F00;
         color: white !important;
+    }
+    .written-time {
+        font-size: 13px;
+        text-align: right !important;
+    }
+    p {
+        margin-top: 3px;
+        margin-bottom: 0px;
     }
 </style>

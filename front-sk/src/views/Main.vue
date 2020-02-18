@@ -108,7 +108,7 @@
           <div>
             <v-carousel cycle="cycle" show-arrows-on-hover="show-arrows-on-hover" hide-delimiters="hide-delimiters"
               v-ripple="true" class="text-center">
-              <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
+              <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" @click="$router.push({name: 'popular'})"></v-carousel-item>
             </v-carousel>
           </div>
 
@@ -312,6 +312,7 @@
 
             if(find == false){
               let item = {};
+              item['num'] = response.data.object[i].store.num;
               item['sname'] = response.data.object[i].store.sname;
               item['address'] = response.data.object[i].store.address;
               item['img'] = response.data.object[i].store.img;
