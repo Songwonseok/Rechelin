@@ -21,7 +21,6 @@ import com.web.curation.model.BasicResponse;
 import com.web.curation.model.DTO.Storelike;
 import com.web.curation.model.DTO.User;
 import com.web.curation.service.AcountService;
-import com.web.curation.service.JwtService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
