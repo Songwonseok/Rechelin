@@ -17,7 +17,7 @@
     </div>
     <hr>
     <v-row no-gutters>
-      <v-col cols="12" sm="6" md="8">
+      <v-col>
         <b-card-text style="text-align: center;">
           <div style="margin-top: 30px;">
             <br>
@@ -57,7 +57,7 @@
         </b-card-text>
 
       </v-col>
-      <v-col cols="6" md="4">
+      <v-col >
 
         <gmap-map :center="{lat: center.latitude, lng: center.longitude}" :zoom="15" style="width: 100%; height: 300px">
           <gmap-marker :position="{lat: parseFloat(storeInfoSave.lat), lng:parseFloat(storeInfoSave.lng)}"
