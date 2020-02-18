@@ -111,32 +111,5 @@ public class AuthController {
 		return tokenProvider.validateToken(totken);
 	}
 	
-//	@GetMapping("/auth/naverlogin")
-//	@ApiOperation(value = "로그인")
-//	public Object naverlogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state){
-//		User user = service.NaverLogin(code, state);
-//		final BasicResponse result = new BasicResponse();
-//		if(user!=null) {
-//			// 로그인 성공페이지
-//			Authentication authentication = authenticationManager
-//					.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPw()));
-//
-//			SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//			String jwt = tokenProvider.generateToken(authentication);
-//			
-//			result.status = true;
-//			result.data = "success";
-//			result.object = new JwtAuthenticationResponse(jwt, user.getId(),user.getEmail(),user.getNickname());
-////			return "redirect:http://localhost:3000/token?="+ jwt;			
-//		}else {
-//			// 로그인 실패
-////			return "redirect:http://localhost:3000/#/404";
-//
-//			result.status = false;
-//			result.data = "false";
-//		}
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
 	
 }

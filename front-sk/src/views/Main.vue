@@ -209,7 +209,7 @@
       return {
         loading: false,
         selection: 1,
-
+        searchBtnActive: false,
         newSearch: [],
         openSearch: false,
         value: ['apple', 'orange'],
