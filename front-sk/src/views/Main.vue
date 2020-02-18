@@ -108,7 +108,7 @@
           <div>
             <v-carousel cycle="cycle" show-arrows-on-hover="show-arrows-on-hover" hide-delimiters="hide-delimiters"
               v-ripple="true" class="text-center">
-              <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
+              <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" @click="$router.push({name: 'popular'})"></v-carousel-item>
             </v-carousel>
           </div>
 

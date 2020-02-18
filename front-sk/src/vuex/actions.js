@@ -268,7 +268,19 @@ export default {
             })
     },
     reviewLike({ commit }, num) {
-        Axios.post(URL + "/review/like", num, auth)
+        let data = {
+            'id': num,
+            'user': {
+                'id': sessionStorage.getItem('userid')
+            }
+        }
+        let options = {
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
+            url: URL + '/review/like',
+            method: 'post',
+            data: JSON.stringify(data)
+        }
+        Axios(options)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
