@@ -4,7 +4,7 @@ import router from '../main.js';
 
 // import Api from "axios.js"
 const URL = "http://54.180.160.87:8080" //aws
-//const URL = 'http://70.12.246.134:8080' // 김주연 ip
+    // const URL = 'http://70.12.246.134:8080' // 김주연 ip
     //const URL = 'http://54.180.160.87:8080'  //new DB ip
 
 const auth = {
@@ -232,7 +232,15 @@ function requestUserReviewCnt(data) {
     return Axios.post(URL + '/review/myList', params, auth);
 }
 
+<<<<<<< HEAD
 
+=======
+function requestUserId(email) {
+    const params = new URLSearchParams;
+    params.append('email', email);
+    Axios.get(URL + '/account/selectEmail', params, auth);
+}
+>>>>>>> b0ef0315b6f3ca49798b33881900257f409f54b1
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestEdit: (data, callback, errorCallback) => requestEdit(data, callback, errorCallback),

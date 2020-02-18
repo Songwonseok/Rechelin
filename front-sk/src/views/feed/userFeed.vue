@@ -1,10 +1,16 @@
 <template>
   <div id="app">
-    <div class="view">
-     
-    
-    </div>
-    <div></div>
+    <!-- <div class="view">
+      {{user_type}}
+      <button
+        :class="[ user_type === 'all' ? 'selected' : '']"
+        @click="update_source('all')"
+      >All Posts</button>
+      <button
+        :class="[ user_type === 'friend' ? 'selected' : '']"
+        @click="update_source('friend')"
+      >Friends' Posts</button>
+    </div> -->
     <!-- <div v-if="((tweet.user_type === user_type) || (user_type === 'all'))"> -->
     <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
     <tweets

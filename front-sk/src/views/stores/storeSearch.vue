@@ -158,8 +158,6 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                         /**검색시에 filter 검색에도 false/true 되는 부분이 있는데 store 검색하는 바에도 false와 true를 만들어야합니다 ㅠㅠ */
                 this.$store.state.storeList_paging = [...list];
 
-
-
             }
         },
         computed: {

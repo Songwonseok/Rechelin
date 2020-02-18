@@ -51,7 +51,9 @@
           </div>
         </b-card-text>
         <b-card-text style="text-align: center;">
-          {{distance}}
+          <p>{{distance.d}} </p>
+          <p>{{distance.t}}</p>
+
         </b-card-text>
 
       </v-col>
@@ -65,8 +67,8 @@
           <gmap-marker :position="{lat: recentlocation.latitude, lng: recentlocation.longitude}" :clickable="true"
             :icon="{ url: require('../../assets/images/recent.png')}" :draggable="true" @click="center=m.position">
           </gmap-marker>
-            <gmap-polyline v-bind:path.sync="walkCoordinates" v-bind:options="{ strokeColor:'#008000'}">
-         </gmap-polyline>
+          <gmap-polyline v-bind:path.sync="walkCoordinates" v-bind:options="{ strokeColor:'#008000'}">
+          </gmap-polyline>
 
         </gmap-map>
 
@@ -85,6 +87,7 @@
 
 <script>
   import * as VueGoogleMaps from 'vue2-google-maps';
+  
   import {
     haversine_distance
   } from '../../../public/js/location.js'
@@ -125,7 +128,10 @@
           lng: '',
         },
         hashtags: '',
-        distance: null,
+        distance: {
+          d: null,
+          t: null
+        },
         recentlocation: {
           latitude: null,
           longitude: null,
@@ -134,7 +140,7 @@
           latitude: null,
           longitude: null
         },
-         walkCoordinates: null,
+        walkCoordinates: null,
         // css 용 변수
         bookTrue: true,
         bookmarkColor: 'warning'
@@ -175,55 +181,36 @@
           this.recentlocation = pos.coords
           this.center = pos.coords
           console.log(this.recentlocation)
-          // tmap
-          var prtcl;
-          var headers = {};
-          headers['appKey'] = 'b3c90f6a-a54a-4a52-8f04-271742b2d731';
-          Axios({
-            type: "POST",
-            headers: headers,
-            url: "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json",
-            async: false,
-            contentType: "application/json",
-            data: JSON.stringify({
-              "reqCoordType": "WGS84GEO",
-              "resCoordType": "WGS84GEO",
-              "startName": "출발",
-              "startX": this.recentlocation.longitude.toFixed(6),
-              "startY": this.recentlocation.latitude.toFixed(6),
-              "startTime": "201711121314",
-              "endName": "도착",
-              "endX": this.storeInfoSave.lng.toFixed(6),
-              "endY": this.storeInfoSave.lat.toFixed(6),
-              "searchOption": "0",
-              "trafficInfo": "N",
-            }),
-            success: function (response) {
-              prtcl = response;
-              var style_red = {
-                fillColor: "#FF0000",
-                fillOpacity: 0.2,
-                strokeColor: "#FF0000",
-                strokeWidth: 3,
-                strokeDashstyle: "solid",
-                pointRadius: 2,
-                title: "this is a red line"
-              };
-              this.walkCoordinates = []
-              for (let j = 0; j < prtcl.features.length; j++) {
-                    let sktcoordinate = prtcl.features[j].geometry
-                    if (sktcoordinate.type == "Point") {
-                        let pos = {
-                            lat: sktcoordinate.coordinates[1],
-                            lng: sktcoordinate.coordinates[0]
-                        };
-                        this.walkCoordinates.push(pos)
-                    }
-                }
-            }
-          })
+          let temp_d = this.haversine_distance(this.recentlocation.latitude, this.recentlocation.longitude, 
+          this.$store.state.storeInfo.lat, this.$store.state.storeInfo.lng)
+          temp_d = temp_d.toFixed(2)
+          
+          let time = (temp_d/5).toFixed(2)
+          time = '도보 (약)'+time*60+'분'
+          temp_d = '거리 (약)'+temp_d+'km'
+          this.distance = {
+            d: temp_d,
+            t: time
+          }
+          console.log(this.distance)
         })
-      }
+        // 거리 구하자
+      },
+      haversine_distance(mk1_lat, mk1_lng, mk2_lat, mk2_lng) {
+        //var R = 3958.8; // Radius of the Earth in miles
+        mk2_lat = parseFloat(mk2_lat)
+        mk2_lng = parseFloat(mk2_lng)
+        var R = 6371.0710 // in kilometer
+        //var rlat1 = mk1.position.lat() * (Math.PI / 180); // Convert degrees to radians
+        //var rlat2 = mk2.position.lat() * (Math.PI / 180); // Convert degrees to radians
+        var rlat1 = mk1_lat * (Math.PI / 180)
+        var rlat2 = mk2_lat * (Math.PI / 180)
+        var difflat = rlat2 - rlat1; // Radian difference (latitudes)
+        //var difflon = (mk2.position.lng() - mk1.position.lng()) * (Math.PI / 180); // Radian difference (longitudes)
+        var difflon = (mk2_lng - mk1_lng) * (Math.PI / 180); // Radian difference (longitudes)
+        var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2)));
+        return d;
+    }
     },
     created() {
 
@@ -231,7 +218,7 @@
     },
     mounted() {
 
-      this.$router.push({
+      this.$router.replace({
         name: 'storeReviews'
       })
       this.center.latitude = parseFloat(this.$store.state.storeInfo.lat)

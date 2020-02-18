@@ -506,6 +506,7 @@
                         console.log("reviewPage 등록 성공");
 
                         this.$store.state.directiveStoreDetail = this.store_num;
+                        
                         // this.$router.push({name : "storeDetail", params : {id  : this.store_num}})
                     })
                     console.log('all complete');
