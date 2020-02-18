@@ -5,6 +5,7 @@
             <v-card class="pa-4" flat >
 
                 <v-toolbar dense floating>
+              
                     <v-text-field hide-details prepend-icon="search" @keyup.enter="storeListSearch" single-line
                         v-model="ssearch"></v-text-field>
                     <v-btn color="warning" icon @click="getMylocation">
@@ -19,7 +20,14 @@
                     </gmap-marker>
                 </gmap-map>
             </v-card>
+                   <loading :active.sync="isLoading_store" 
+            :can-cancel="true" 
+            
+            >
+      <iframe src="https://giphy.com/embed/JpYJnxosqH4G76f6iL" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/kakao-friends-apeach-europe-JpYJnxosqH4G76f6iL">음식점 가져오는 중 ...  </a></p>
+            </loading>
             <hr>
+            
             <div v-if="this.$store.state.isClickBtnStore == true">
                 <b-container class="bv-example-row">
                     <b-row>
@@ -64,8 +72,6 @@
                     <div v-else>
 
                     </div>
-
-
                 </div>
             </div>
             <div v-else>
@@ -108,7 +114,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
             // 현재 위치
         },
         components : {
-            // Loading,
+             Loading,
         },
         watch: {
             storeListwatch: function (v) {
@@ -144,6 +150,12 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 }
                 list = [...this.$store.state.storeList_paging];
                 console.log(list);
+                console.log('hi');
+                if(this.$store.state.storeList_paging.length==0)
+                        this.$store.state.isClickBtnStore = false;
+                else
+                        this.$store.state.isClickBtnStore = true; 
+                        /**검색시에 filter 검색에도 false/true 되는 부분이 있는데 store 검색하는 바에도 false와 true를 만들어야합니다 ㅠㅠ */
                 this.$store.state.storeList_paging = [...list];
 
             }
@@ -193,6 +205,8 @@ import 'vue-loading-overlay/dist/vue-loading.css'
             storeListSearch() {
                 //store에 검색했을때 
                 this.isLoading_store = true;
+                this.$store.state.isClickBtnStore = false;
+                console.log(this.isLoading_store);
                 let searchList = new Array();
                 StoreApi.requestStoreList().then(response=>{
                     console.log('storeListSearch');
@@ -209,6 +223,8 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                         searchList.push(item);
 
                     }
+                    console.log('searchList');
+                    console.log(searchList.length);
                     if (searchList.length == 0)
                         this.$store.state.isClickBtnStore = false;
                     else
@@ -216,6 +232,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                     this.$store.state.storeList = searchList;
                     this.enterKey += 1; //computed에서 지켜보고있음 
                     this.$store.state.pageStatus = false;
+                    this.isLoading_store = false;
                 }) //end for first for loop
 
             },
