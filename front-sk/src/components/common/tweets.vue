@@ -5,7 +5,6 @@
         <article class="media">
           <div class="media-left">
             <figure class="image">
-
               <!-- 사진 누르면 프로필 넘어가도록-->
               <v-list-item
                 router-link
@@ -30,14 +29,13 @@
               style="color: #ff7f00 !important"
             >
               <v-chip class="ma-2" color="warning" outlined>
-                <v-icon>{{mdiLeadPencil}}</v-icon>작성자
+                작성자
               </v-chip>
               {{tweet.review.user.nickname}}
             </router-link>
-
             <div class="media-content">
               <!--TODO : 별로 표시하기 -->
-              <p>총점 : {{tweet.review.total}}</p>
+              <p>총점 :  <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.total"></star-rating></p>
               <p>맛 : {{tweet.review.taste}}</p>
               <p>가격 : {{tweet.review.price}}</p>
               <p>친절함 : {{tweet.review.kindness}}</p>
@@ -45,14 +43,25 @@
           </div>
           <div class="media-content">
             <div class="content">
+              <!-- <router-link 
+                :to="{name: 'comments', params: {
+                id: tweet.review.store.num}}"
+              style="color: #ff7f00 !important"> -->
+              <strong  @click="storeDetail(tweet.review.store.num)">
+                
+                {{tweet.review.store.sname}}
+                {{tweet.review.store.address}}
+              </strong>
+              <!-- </router-link> -->
               <!-- title 누르면 review detail로 넘어가게 -->
-             <router-link :to="{name: 'reviewDetail', params: {
+              <!-- storedetail/62/comments -->
+             <!-- <router-link :to="{name: 'comments', params: {
                 id: tweet.review.rnum}}"
-              style="color: #ff7f00 !important">
-              <p>
-                <strong>{{tweet.review.title}}</strong>
-              </p>
-              </router-link>
+              style="color: #ff7f00 !important"> -->
+              <div @click="gotoReview">
+                <strong >{{tweet.review.title}}</strong>
+              </div>
+              <!-- </router-link> -->
               <!-- TODO : 장점과 단점을 분리 -->
               <v-card>
                 <v-card-text>
@@ -65,7 +74,6 @@
                 </v-card-text>
               </v-card>
             </div>
-
             <!-- 해시 태그 리스트 -->
             <!-- card로 해시태그 분리하기 -->
             <div class="content">
@@ -78,7 +86,6 @@
             </div>
           </div>
           <div class="content">{{this.tweet.review.wdate}}</div>
-
           <!--댓글 수 -->
           <div class="content">
             <span>댓글수 : {{tweet.comments}}</span><br>
@@ -104,20 +111,34 @@ import {
   mdiLeadPencil,
   mdiStar
 } from "@mdi/js";
+import StarRating from 'vue-star-rating'
 export default {
   created() {
     this.tweet.review.wdate = this.tweet.review.wdate.substring(0, 10);
     this.tagList = this.tweet.review.hashtag.split(",");
   },
-
   data() {
     return {
       tagList: [],
       date: ""
     };
   },
+  components : {
+    StarRating
+  },
   props: {
     tweet: Object
+  },
+  methods:{
+    // gotoReview(){
+    //   console.log('들어온다아아ㅏ아아')
+    //   this.$store.dispatch('commentsOfreview', this.tweet.review.rnum)
+    // },
+    storeDetail : function(num) {
+      console.log('store')
+      this.$store.dispatch('storeHashtags', num)
+
+    }
   }
 };
 </script>
