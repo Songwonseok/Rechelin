@@ -10,7 +10,7 @@
                         <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: left;">
                             <v-icon>{{mdiFormatTitle}}</v-icon>itle
                         </v-chip>
-                        <v-text-field v-model="reviewTitle" label="Review Title" :counter="10"></v-text-field>
+                        <v-text-field v-model="reviewTitle" label="Review Title" :counter="20"></v-text-field>
 
                         <div class="error-text" v-if="error.title">
                             {{error.title}}
@@ -206,10 +206,10 @@
                         </star-rating> <br>
                           <h4>장점</h4>
                          <v-textarea
-          label="장점 20자 이내"
+          label="장점 100자 이내"
           auto-grow
           outlined
-          :counter="20"
+          :counter="100"
           rows="3"
           v-model = "props"
           row-height="30"
@@ -221,11 +221,11 @@
             </div>
             <h4>단점</h4>
                                <v-textarea
-          label="단점 20자 이내"
+          label="단점 100자 이내"
           auto-grow
           outlined
           v-model = "cons"
-          :counter="20"
+          :counter="100"
           rows="3"
           row-height="30"
           shaped
@@ -285,14 +285,14 @@
 
             this.titleSchema
                 .is().min(0)
-                .is().max(10)
+                .is().max(20)
 
             this.propsSchema
                 .is().min(0)
-                .is().max(20)
+                .is().max(100)
             this.consSchema
                 .is().min(0)
-                .is().max(20)
+                .is().max(100)
 
         },
         mounted() {
@@ -427,9 +427,6 @@
             },
 
             upload() {
-                console.log('이미지 업로드 @@')
-                // console(this.selectedImage)
-
                 ImgurApi.uploadProfile(this.selectedImage, res => {
                     this.imageUrl = res.data.link
                     console.log(this.imageUrl)
@@ -472,23 +469,18 @@
 
             },
             reviewConfirm(num) {
-                let hashtag = this.area + " " + this.age + " " + this.age + " " + this.atmosphere + " " + this.withWho;
-                console.log(hashtag.length);
-                console.log(hashtag + " " + this.imageUrl + " " + this.rating + " " + this.cons +
-                    this.props + " " + this.flavor + " " + this.price + " " + this.kindness +
-                    this.reviewTitle + " " + this.store_num)
-
-
+                let hashtag = this.area + ","+this.age +","+ this.atmosphere +","+ this.withWho;
+                
                 if (this.isSubmit) {
                     console.log(this.store_num);
                      this.$store.dispatch('storeHashtags', num)
                     var data = {
                         'hashtag': hashtag,
                         'picture': this.imageUrl,
-                        'score_kindness': this.kindness,
-                        'score_price': this.price,
-                        'score_taste': this.flavor,
-                        'score_total': this.rating,
+                        'kindness': this.kindness,
+                        'price': this.price,
+                        'taste': this.flavor,
+                        'total': this.rating,
                         'store': {
                             'num': this.store_num, //this.store_num,
                         },
@@ -546,19 +538,19 @@
                 //리뷰 제목(0자이상 10자 이하)
                 //장점, 단점 (0자 이상 20자 이하)
                 if (this.reviewTitle.length >= 0 && !this.titleSchema.validate(this.reviewTitle))
-                    this.error.title = '리뷰제목은 0 글자 이상 10글자 이하 이어야 합니다.'
+                    this.error.title = '리뷰제목은 0 글자 이상 20글자 이하 이어야 합니다.'
                 else
                     this.error.title = false;
             },
             checkForm_props() {
                 if (this.props.length >= 0 && !this.propsSchema.validate(this.props))
-                    this.error.props = '장점은 0글자 이상 20글자 이하 이어야 합니다.'
+                    this.error.props = '장점은 0글자 이상 100글자 이하 이어야 합니다.'
                 else
                     this.error.props = false;
             },
             checkForm_cons() {
                 if (this.cons.length >= 0 && !this.consSchema.validate(this.cons))
-                    this.error.cons = '단점은 0글자 이상 20글자 이하 이어야 합니다.'
+                    this.error.cons = '단점은 0글자 이상 100글자 이하 이어야 합니다.'
                 else
                     this.error.cons = false;
 
