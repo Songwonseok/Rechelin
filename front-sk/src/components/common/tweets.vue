@@ -5,8 +5,8 @@
         <article class="media">
           <div class="media-left">
             <figure class="image">
-              <!-- TODO : 사진 누르면 프로필 넘어가도록-->
 
+              <!-- 사진 누르면 프로필 넘어가도록-->
               <v-list-item
                 router-link
                 :to="{name: 'userpage', params : {id: tweet.review.user.id}}"
@@ -45,29 +45,46 @@
           </div>
           <div class="media-content">
             <div class="content">
-              <!-- TODO : title 누르면 review detail로 넘어가게 -->
+              <!-- title 누르면 review detail로 넘어가게 -->
+             <router-link :to="{name: 'reviewDetail', params: {
+                id: tweet.review.rnum}}"
+              style="color: #ff7f00 !important">
               <p>
                 <strong>{{tweet.review.title}}</strong>
               </p>
+              </router-link>
               <!-- TODO : 장점과 단점을 분리 -->
-              <p>장점: {{tweet.review.str}}</p>
-              <p>단점: {{tweet.review.weak}}</p>
+              <v-card>
+                <v-card-text>
+                  <p>장점: {{tweet.review.str}}</p>
+                </v-card-text>
+              </v-card>
+              <v-card>
+                <v-card-text>
+                  <p>단점: {{tweet.review.weak}}</p>
+                </v-card-text>
+              </v-card>
             </div>
 
             <!-- 해시 태그 리스트 -->
+            <!-- card로 해시태그 분리하기 -->
             <div class="content">
-              <p v-for="tag in tagList" v-bind:key="tag.id">{{tag}}</p>
-              {{tweet.review.hashtag}}
+              <span v-for="tag in tagList" v-bind:key="tag.id">
+              <v-chip>
+                {{tag}}
+              </v-chip>
+              </span>
+              <!-- {{tweet.review.hashtag}} -->
             </div>
           </div>
           <div class="content">{{this.tweet.review.wdate}}</div>
 
           <!--댓글 수 -->
           <div class="content">
-            <p>댓글수 : {{tweet.comments}}</p>
+            <span>댓글수 : {{tweet.comments}}</span><br>
             <!--좋아요 싫어요 수 -->
-            <p>좋아요 : {{tweet.like}}</p>
-            <p>싫어요 : {{tweet.dislike}}</p>
+            <span>좋아요 : {{tweet.like}}</span>
+            <span>싫어요 : {{tweet.dislike}}</span>
           </div>
         </article>
       </div>
