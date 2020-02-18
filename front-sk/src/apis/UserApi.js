@@ -232,15 +232,6 @@ function requestUserReviewCnt(data) {
     return Axios.post(URL + '/review/myList', params, auth);
 }
 
-<<<<<<< HEAD
-
-=======
-function requestUserId(email) {
-    const params = new URLSearchParams;
-    params.append('email', email);
-    Axios.get(URL + '/account/selectEmail', params, auth);
-}
->>>>>>> b0ef0315b6f3ca49798b33881900257f409f54b1
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestEdit: (data, callback, errorCallback) => requestEdit(data, callback, errorCallback),
