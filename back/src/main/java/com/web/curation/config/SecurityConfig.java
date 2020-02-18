@@ -95,16 +95,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
-                        "/configuration/ui",
-                        "/swagger-resources/**",
-                        "/configuration/security",
-                        "/swagger-ui.html")
+                        "/v2/api-docs", 
+                        "/configuration/ui", 
+                        "/swagger-resources/**", 
+                        "/configuration/**", 
+                        "/swagger-ui.html",
+                         "/webjars/**", 
+                        "/csrf", "/")
                         .permitAll() // 위 경로는 누구나 접근 가능
                         .antMatchers("/auth/**")
                         .permitAll() // 위 경로 누구나 접근가능
                         .antMatchers(HttpMethod.GET, "/account/userTop") 
                         .permitAll()
-                        .antMatchers(HttpMethod.POST, "/account/changePW/**","/main/**", "/signUpForm/**","/account/selectName/**", "/account/selectEmail/**", "/account/selectId/**", "/account/naverlogin/**") 
+                        .antMatchers(HttpMethod.POST, "/account/changePW/**","/main/**","/popular/**", "/signUpForm/**","/account/selectName/**", "/account/selectEmail/**", "/account/selectId/**", "/account/naverlogin/**") 
                         .permitAll()
                         .anyRequest()
                         .authenticated(); //그 외 나머지 요청은 모두 인증된 회원만 접근가능
