@@ -87,6 +87,7 @@ import lombok.NoArgsConstructor;
 		this.nickname = a.getNickname();
 		this.phone = a.getPhone();
 		this.role = a.getRole();
+		this.profile = a.profile;
 	}
 	
 	@Override
