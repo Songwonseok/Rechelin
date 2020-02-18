@@ -18,7 +18,7 @@
     >
      <div id="searchEmail">
     <v-btn color="warning" dark v-if="propsdata" @click="emailFunction" style="width:350px;">이메일확인</v-btn>
-    <v-btn color="warning" v-else :disabled="propsdata" dark style="width:350px;">{{CheckBold}}</v-btn>
+    <v-btn color="warning" v-else :disabled="propsdata" dark style="width:350px;">{{CheckBold}}이메일 확인 되었습니다.</v-btn>
     </div>
     
     
