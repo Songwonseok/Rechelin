@@ -261,4 +261,11 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return object;
 	}
+
+	@Override
+	public List<Review> storereviews(long snum) {
+		Store store = storedao.findByNum(snum);
+		List<Review> list = dao.findAllByStore(store);
+		return list;
+	}
 }
