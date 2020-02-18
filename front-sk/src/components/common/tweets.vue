@@ -29,21 +29,33 @@
                         작성자
                     </v-chip>{{tweet.user.nickname}}</router-link>
 
-          </div>
-          
           <div class="media-content">
-            <div class="content">
-              <p><strong>{{tweet.title}}</strong></p>
-              <p>장점: {{tweet.str}}</p>
-              <p>단점: {{tweet.weak}}</p>
-              
+              <!--TODO : 별로 표시하기 -->
               <p>총점 : {{tweet.total}}</p> 
               <p>맛 : {{tweet.taste}}</p>
               <p>가격 : {{tweet.price}}</p>
               <p>친절함 : {{tweet.kindness}}</p>
+          </div>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p><strong>{{tweet.title}}</strong></p>
+              <!-- TODO : 장점과 단점을 분리 -->
+              <p>장점: {{tweet.str}}</p>
+              <p>단점: {{tweet.weak}}</p>
+              
             </div>
-            <!-- 해시 태그 리스트 -->
             
+            <!-- 해시 태그 리스트 -->
+            <div class="content">
+              <p v-for="tag in tagList" v-bind:key="tag.id">
+                {{tag}}
+              </p>
+              {{tweet.hashtag}}
+            </div>
+          </div>
+          <div class="content">
+            {{this.tweet.wdate}}
           </div>
         </article>
 
@@ -61,17 +73,27 @@
         mdiCurrencyUsd,
         mdiEmoticonTongueOutline,
         mdiEmoticonOutline,
-        mdiLeadPencil
+        mdiLeadPencil,
+        mdiStar 
     } from '@mdi/js';
 export default {
+    created(){
+      console.log('김주연바보멍청이')
+      console.log(this.tweet);
+      this.tweet.wdate = this.tweet.wdate.substring(0,10);
+      this.tagList = this.tweet.hashtag.split(",");
+    },
+
     data(){
         return {
-          tagList:[]
+          tagList:[],
+          date:''          
         }
     },
      props: {
         tweet: Object
      },
+     
 }
 </script>
 <style lang="scss" scoped>
