@@ -21,7 +21,8 @@
                         <v-icon>{{mdiStore}}</v-icon>
                         STORE
                         </v-chip> <br>
-                        <h4 @click="storeDetail(review.store.num)" class="store-name">{{bookmark.store.sname}}</h4>
+
+                        <h4 @click="storeDetail(bookmark.store.num)" class="store-name">{{bookmark.store.sname}}</h4>
                         
                          <v-chip
                         class="ma-2"
@@ -83,7 +84,7 @@
                         <v-icon>{{mdiPoundBox}}</v-icon>  HASHTAG
                         </v-chip> 
                          <h6>
-                        #{{review.hashtag.split(' ').join('#')}}
+                        #{{review.hashtag.split('').join('#')}}
                         </h6>
 
                          <v-chip
@@ -140,7 +141,8 @@
         },
         methods: {
             storeDetail (num) {
-                this.$store.dispatch('storeinfoGet', num)
+                console.log(num)
+                this.$store.dispatch('storeHashtags', num)
             }
         },
         created() {
