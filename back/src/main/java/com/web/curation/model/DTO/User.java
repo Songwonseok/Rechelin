@@ -1,4 +1,4 @@
-// 디비 셋팅 주석 
+// �뵒鍮� �뀑�똿 二쇱꽍 
  package com.web.curation.model.DTO;
 
  import java.util.HashSet;
@@ -42,7 +42,7 @@ import lombok.NoArgsConstructor;
      @JoinTable(name = "user_roles",
              joinColumns = @JoinColumn(name = "user_id"),
              inverseJoinColumns = @JoinColumn(name = "role_id"))
-     private Set<Role> role = new HashSet<>(); //순서 상관 없는 집합
+     private Set<Role> role = new HashSet<>(); //�닚�꽌 �긽愿� �뾾�뒗 吏묓빀
 
 	public void setRole(Set<Role> role) {
 		this.role = role;
@@ -87,6 +87,7 @@ import lombok.NoArgsConstructor;
 		this.nickname = a.getNickname();
 		this.phone = a.getPhone();
 		this.role = a.getRole();
+		this.profile = a.profile;
 	}
 	
 	@Override

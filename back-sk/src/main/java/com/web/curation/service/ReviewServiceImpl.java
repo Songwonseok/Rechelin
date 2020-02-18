@@ -183,13 +183,18 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Review> getcurrentFeed(long num) {
+	public List<ReviewlistResponse> getcurrentFeed(long num) {
 		// email을 통해서 star 리스트를 가져온다.
 		User user = userdao.findById(num);
 		System.out.println(user.toString());
-		List<Review> list = dao.feedList(user);
-		for (Review review : list) {
-			System.out.println(review.toString());
+		List<Review> review = dao.feedList(user);
+		List<ReviewlistResponse> list = new ArrayList<ReviewlistResponse>();
+		
+		for (Review r : review) {
+			int like = likedao.countByReviewAndStatus(r, 1);
+			int dislike = likedao.countByReviewAndStatus(r, 0);
+			int comments = comdao.countByReview(r);
+			list.add(new ReviewlistResponse(r,like,dislike,comments));
 		}
 		// start리스트의 게시물을 최근 순으로 가져온다
 		return list;

@@ -22,7 +22,7 @@ public interface ReviewService {
 	public List<Comments> getComment(long rnum);
 	public boolean clickBookmark(Bookmark book);
 	public List<Bookmark> getBookmark(long num);
-	public List<Review> getcurrentFeed(long num);
+	public List<ReviewlistResponse> getcurrentFeed(long num);
 	public List<Review> getMyReview(long num);
 	public List<Review> getCurReview();
 	public List<Review> getviewsTop();
