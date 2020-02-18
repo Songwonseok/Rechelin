@@ -331,7 +331,9 @@
         },
         methods: {
             check_area(n, name) {
+
                 if (!this.hashtags.locations[n]) {
+                    // 반대값으로 넣기
                     this.hashtags.locations[n] = !this.hashtags.locations[n]
                     let list = [...this.area]
                     list.push(name)
@@ -339,6 +341,7 @@
                     let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
+                    console.log('area!!!!!!!!!!!!!!')
                     console.log(this.area)
                 } else {
                     var pos = this.area.indexOf(name)
@@ -362,19 +365,16 @@
             check_atmosphere(n, name) {
                 if (!this.hashtags.moods[n]) {
                     this.hashtags.moods[n] = !this.hashtags.moods[n]
-                    let list = [...this.atmosphere]
+                    let list = [...this.area]
                     list.push(name)
-                    this.atmosphere = [...list]
-                    console.log(this.atmosphere)
+                    this.area = [...list]
                     let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
                 } else {
-                    let pos = this.atmosphere.indexOf(name)
                     this.hashtags.moods[n] = !this.hashtags.moods[n]
-                    let list = [...this.atmosphere]
-                    list.splice(pos, 1)
-                    this.atmosphere = [...list]
+                    let list = [...this.area]
+                    this.area = [...list]
                     var pos2 = this.allTags.indexOf(name)
                     let list2 = [...this.allTags]
                     list2.splice(pos2, 1)
@@ -384,19 +384,35 @@
             check_with(n, name) {
                 if (!this.hashtags.withWho[n]) {
                     this.hashtags.withWho[n] = !this.hashtags.withWho[n]
-                    let list = [...this.withWho]
+                    let list = [...this.area]
                     list.push(name)
-                    this.withWho = [...list]
-                    console.log(this.withWho)
+                    this.area = [...list]
                     let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
                 } else {
-                    let pos = this.withWho.indexOf(name)
                     this.hashtags.withWho[n] = !this.hashtags.withWho[n]
-                    let list = [...this.withWho]
-                    list.splice(pos, 1)
-                    this.withWho = [...list]
+                    let list = [...this.area]
+                    this.area = [...list]
+                    var pos2 = this.allTags.indexOf(name)
+                    let list2 = [...this.allTags]
+                    list2.splice(pos2, 1)
+                    this.allTags = [...list2]
+                }
+            },
+            check_age(n, name){
+                if (!this.hashtags.ages[n]) {
+                    this.hashtags.ages[n] = !this.hashtags.ages[n]
+                    let list = [...this.area]
+                    list.push(name)
+                    this.area = [...list]
+                    let list2 = [...this.allTags]
+                    list2.push(name)
+                    this.allTags = [...list2]
+                } else {
+                    this.hashtags.ages[n] = !this.hashtags.ages[n]
+                    let list = [...this.area]
+                    this.area = [...list]
                     var pos2 = this.allTags.indexOf(name)
                     let list2 = [...this.allTags]
                     list2.splice(pos2, 1)
@@ -406,19 +422,16 @@
             check_facility(n, name) {
                 if (!this.hashtags.facility[n]) {
                     this.hashtags.facility[n] = !this.hashtags.facility[n]
-                    let list = [...this.facility]
+                    let list = [...this.area]
                     list.push(name)
-                    this.facility = [...list]
-                    console.log(this.facility)
+                    this.area = [...list]
                     let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
                 } else {
-                    let pos = this.facility.indexOf(name)
                     this.hashtags.facility[n] = !this.hashtags.facility[n]
-                    let list = [...this.facility]
-                    list.splice(pos, 1)
-                    this.facility = [...list]
+                    let list = [...this.area]
+                    this.area = [...list]
                     var pos2 = this.allTags.indexOf(name)
                     let list2 = [...this.allTags]
                     list2.splice(pos2, 1)
@@ -442,10 +455,10 @@
                 this.upload()
 
             },
-            setRating(rating) {
-                this.rating = "You have Selected: " + rating + " stars";
-                console.log(this.rating);
-            },
+            // setRating(rating) {
+            //     this.rating = "You have Selected: " + rating + " stars";
+            //     console.log(this.rating);
+            // },
             fetchAdr() {
                 console.log(this.address);
                 //검색시
@@ -469,8 +482,7 @@
 
             },
             reviewConfirm(num) {
-                let hashtag = this.area + ","+this.age +","+ this.atmosphere +","+ this.withWho;
-                
+                let hashtag = this.area.toString();
                 if (this.isSubmit) {
                     console.log(this.store_num);
                      this.$store.dispatch('storeHashtags', num)
@@ -565,10 +577,7 @@
         data: () => ({
             allTags: [],
             area: [],
-            age: [],
             atmosphere: [],
-            withWho: [],
-            facility: [],
             mageUrl: '',
             selectedImage: '',
             rating: "",
@@ -583,6 +592,7 @@
             isSubmit: true, //form 완료시 toggle
             reviewTitle: '',
             store_num: '',
+            store_name: '',
             user_email: 'ssafy@ssafy.com', //temp
             titleSchema: new PV(),
             consSchema: new PV(),
