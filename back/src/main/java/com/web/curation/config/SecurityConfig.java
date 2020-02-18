@@ -22,58 +22,57 @@ import com.web.curation.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity( //보안 어노테이션
-    securedEnabled = true, //@Secured 가 붙은 클래스나 인터페이스의 메소드 액세스 제한
-    jsr250Enabled = true, //@RolesAllowed
-    prePostEnabled = true //@PreAuthorize
+@EnableGlobalMethodSecurity( // 보안 어노테이션
+		securedEnabled = true, // @Secured 가 붙은 클래스나 인터페이스의 메소드 액세스 제한
+		jsr250Enabled = true, // @RolesAllowed
+		prePostEnabled = true // @PreAuthorize
 )
 
 //WebSecurityConfigurerAdapter : extends, customize by customize 제공
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
-    
-    //user, role 인증을 위해 users detail 가져오기
-    //loadUserByUsername으로 UserDetail 객체를 반환하는 userDetailService로 구성되어있음
-    @Autowired
-    CustomUserDetailsService customUserDetailService;  
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //보안 resource에 인증되지 않은 접근 발생시 401 에러 return
-    //spring security의 AuthenticationEntryPoint interface를 implements
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
+	// user, role 인증을 위해 users detail 가져오기
+	// loadUserByUsername으로 UserDetail 객체를 반환하는 userDetailService로 구성되어있음
+	@Autowired
+	CustomUserDetailsService customUserDetailService;
 
-    //(모든 요청의 Authorization header의)토큰이 필요한 필터
-    //filter는 RequestMatcher(해당 필터에 대한 Url, Method 설정 부분) 인터페이스 무조건 받음
-    //토큰과 관련된 users detail 가져옴(SecurityContext)
-    @Bean
-    public JwtAuthenticationFilter JwtAuthenticationFilter(){
-        return new JwtAuthenticationFilter();
-    }
+	// 보안 resource에 인증되지 않은 접근 발생시 401 에러 return
+	// spring security의 AuthenticationEntryPoint interface를 implements
+	@Autowired
+	private JwtAuthenticationEntryPoint unauthorizedHandler;
 
-    @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
-        authenticationManagerBuilder //인증 객체 생성 제공 
-                //스프링 시큐리티 인증용.
-                //userRepository를 통해 영속성으로 저장된 인증정보를 검색한 후 존재하지 않는다면 exception 반환
-                //있다면 UserDetails 객체 반환
-                .userDetailsService(customUserDetailService) 
-                .passwordEncoder(passwordEncoder()); //패스워드 암호화 구현체
-    }
+	// (모든 요청의 Authorization header의)토큰이 필요한 필터
+	// filter는 RequestMatcher(해당 필터에 대한 Url, Method 설정 부분) 인터페이스 무조건 받음
+	// 토큰과 관련된 users detail 가져옴(SecurityContext)
+	@Bean
+	public JwtAuthenticationFilter JwtAuthenticationFilter() {
+		return new JwtAuthenticationFilter();
+	}
 
-    //AuthenticationManager : 인증 공급자를 위한 컨테이너
-    //인증을 시도해서 성공하면 authentication 객체 반환
-    //실패 시 exception 반환
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	@Override
+	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder // 인증 객체 생성 제공
+				// 스프링 시큐리티 인증용.
+				// userRepository를 통해 영속성으로 저장된 인증정보를 검색한 후 존재하지 않는다면 exception 반환
+				// 있다면 UserDetails 객체 반환
+				.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder()); // 패스워드 암호화 구현체
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	// AuthenticationManager : 인증 공급자를 위한 컨테이너
+	// 인증을 시도해서 성공하면 authentication 객체 반환
+	// 실패 시 exception 반환
+	@Bean(BeanIds.AUTHENTICATION_MANAGER)
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
-    @Override
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors() //Cross Origin Resource Sharing
@@ -95,16 +94,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                         "/**/*.jpg",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js")
+                        "/**/*.js",
+                        "/v2/api-docs", 
+                        "/configuration/ui", 
+                        "/swagger-resources/**", 
+                        "/configuration/**", 
+                        "/swagger-ui.html",
+                         "/webjars/**", 
+                        "/csrf", "/")
                         .permitAll() // 위 경로는 누구나 접근 가능
-                    .antMatchers("/auth/**") //auth 로 시작하는 경로 누구나 접근가능
-                        .permitAll()
-                    .antMatchers("/account/changePW","/main/**,/signUpForm/**","/account/selectName/**", "/account/selectEmail/**", "/account/selectId/**"
-                    		, "/account/naverlogin/**", "/access_token/**")
+                        .antMatchers("/auth/**")
                         .permitAll() // 위 경로 누구나 접근가능
-                    .anyRequest()
-                    	.permitAll();
-//                   	.authenticated();//그 외 나머지 요청은 모두 인증된 회원만 접근가능
+                        .antMatchers(HttpMethod.GET, "/account/userTop") 
+                        .permitAll()
+                        .antMatchers(HttpMethod.POST, "/account/changePW/**","/main/**","/popular/**", "/signUpForm/**","/account/selectName/**", "/account/selectEmail/**", "/account/selectId/**", "/account/naverlogin/**") 
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated(); //그 외 나머지 요청은 모두 인증된 회원만 접근가능
+//                        
 
         // Add our custom JWT security filter
         http.addFilterBefore(JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
