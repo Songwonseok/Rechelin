@@ -13,7 +13,7 @@
         </div>
         <!--자기 자신이면 Follow button 숨기기 -->
         <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
-        <template v-if="uid != id" >
+        <template v-if="uid != id">
             <div v-if="followstatus==0 || followstatus==''">
               <button @click="follow">Follow</button>
             </div>
@@ -407,9 +407,10 @@
     width: 7em;
     background: #ff7f00;
     border: 1px solid #ff7f00;
+    right: 0px;
     color: #fff;
     outline: none;
-    border-radius: 0 .6em .6em 0;
+    border-radius: 0.6em 0 0 0.6em;
     padding: .80em;
     margin-left: 80px;
 }

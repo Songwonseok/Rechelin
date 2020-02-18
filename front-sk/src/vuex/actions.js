@@ -233,7 +233,7 @@ export default {
                     comments: res.data.object
                 }
                 commit('commentsOfreview', data)
-                Axios.get(URL + `/review/detail/${review}`)
+                Axios.get(URL + `/review/detail/${review}`, auth)
                     .then(res => {
                         commit('reviewDetail', res.data.object)
                         router.push({ name: 'comments' })

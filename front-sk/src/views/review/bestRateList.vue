@@ -8,7 +8,8 @@
                     <div v-if="bestReviews.length==0">
                             <h2> 해당 리뷰가 존재하지 않습니다. </h2>
                     </div>
-                        <div v-for="(bestReview, i) in bestReviews" v-bind:key="i+bestReview">
+                    <b-col v-for="(bestReview, i) in bestReviews" v-bind:key="i+bestReview">
+
                             <v-hover v-slot:default="{ hover }">
                             <v-card :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" height = "600"
                                 @click="storeDetail(bestReview.id)"
@@ -63,7 +64,7 @@
                                 </v-card-actions>
                             </v-card>
                           </v-hover>
-                        </div>
+                        </b-col>
                 </b-row>
 
             </b-container>
