@@ -60,7 +60,7 @@ public class StoreController {
 		result.status = true;
 		result.data = "식당 정보";
 		Store nstore = service.register(store);
-		result.object = new JSONObject(store).toMap();
+		result.object = new JSONObject(nstore).toMap();
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
