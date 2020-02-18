@@ -57,7 +57,6 @@ public class AccountController {
     @ApiOperation(value = "수정하기")
     public Object update(@RequestBody User request) {
     	final BasicResponse result = new BasicResponse();
-    	
     	if(service.update(request)) {
     		result.status = true;
     		result.data = "업데이트 성공";

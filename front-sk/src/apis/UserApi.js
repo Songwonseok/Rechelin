@@ -3,8 +3,8 @@ import store from "../vuex/store"
 import router from '../main.js';
 
 // import Api from "axios.js"
-const URL = "http://54.180.160.87:8080" //aws
-//const URL = 'http://70.12.246.134:8080' // 김주연 ip
+// const URL = "http://54.180.160.87:8080" //aws
+const URL = 'http://70.12.246.134:8080' // 김주연 ip
     //const URL = 'http://54.180.160.87:8080'  //new DB ip
 
 const auth = {
@@ -232,10 +232,10 @@ function requestUserReviewCnt(data) {
     return Axios.post(URL + '/review/myList', params, auth);
 }
 
-function requestUserId(email){
+function requestUserId(email) {
     const params = new URLSearchParams;
     params.append('email', email);
-    Axios.get(URL+'/account/selectEmail', params, auth);
+    Axios.get(URL + '/account/selectEmail', params, auth);
 }
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
