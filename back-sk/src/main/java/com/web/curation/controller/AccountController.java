@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.BasicResponse;
+import com.web.curation.model.DTO.Storelike;
 import com.web.curation.model.DTO.User;
 import com.web.curation.service.AcountService;
 import com.web.curation.service.JwtService;
@@ -37,13 +39,9 @@ public class AccountController {
 	@Autowired
 	private AcountService service;
 	
-
-	@Autowired
-	private JwtService jwtService;
- 
-	@DeleteMapping("/account/delete")
+	@DeleteMapping("/account/delete/{id}")
     @ApiOperation(value = "삭제하기")
-    public Object delete(@RequestParam(required = true) final long id) {
+    public Object delete(@PathVariable(required = true) final long id) {
     	final BasicResponse result = new BasicResponse();
     	if(service.delete(id)) {
     		result.status = true;
@@ -75,7 +73,7 @@ public class AccountController {
 	
 
 	
-    @GetMapping("/account/list")
+	@GetMapping("/account/list")
     @ApiOperation(value = "유저보기")
     public Object selectAll() {
     	final BasicResponse result = new BasicResponse();
@@ -87,34 +85,6 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
-    @GetMapping("account/token")
-	@ApiOperation(value = "토큰값 확인")
-	public Object token(@RequestParam String token) {
-		final BasicResponse result = new BasicResponse();
-		
-		try {
-			int status = jwtService.checkJwt(token);
-			switch (status) {
-			case 0:
-				result.status = true;
-				result.data = "토큰이 유효합니다";
-				break;
-
-			case 1:
-				result.status = false;
-				result.data = "토큰 만료";
-				break;
-			case 2:
-				result.status = false;
-				result.data = "토큰 변조";
-				break;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
 	
     
     @PostMapping("/account/selectEmail")
@@ -189,7 +159,7 @@ public class AccountController {
     	return new ResponseEntity<>(result, HttpStatus.OK);
 	}
     
-	@PostMapping(value = "/account/getProfile")
+    @PostMapping(value = "/account/getProfile")
 	public Object getProfile(@RequestParam(required = true) final long id) {
 		final BasicResponse result = new BasicResponse();
 //		System.out.println("프로필 가져오기 !!!!!!!!!");
@@ -231,6 +201,18 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
+	@GetMapping("/account/bookmark/{id}")
+    @ApiOperation(value = "유저보기")
+    public Object bookmarks(@PathVariable(required = true) final long id) {
+    	final BasicResponse result = new BasicResponse();
+		result.status = true;
+		result.data = "success";
+		List<Storelike> blist = service.bookmarks(id);
+		result.object = blist;
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 	@GetMapping("/account/userTop")
 	@ApiOperation(value ="리뷰 작성순 랭킹")
 	public Object userTop() {
@@ -240,5 +222,6 @@ public class AccountController {
 		result.object = service.userTop();
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+
 
 }
