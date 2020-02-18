@@ -86,8 +86,7 @@ export default {
       this.user_type = user_type;
     },
     infiniteHandler($state) {
-      axios
-        .get(api, {
+      axios.get(api, {
           params: {
             page: this.page,
             tags: this.newsType
