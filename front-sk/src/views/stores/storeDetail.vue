@@ -218,7 +218,7 @@
     },
     mounted() {
 
-      this.$router.push({
+      this.$router.replace({
         name: 'storeReviews'
       })
       this.center.latitude = parseFloat(this.$store.state.storeInfo.lat)
