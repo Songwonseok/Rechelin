@@ -32,7 +32,7 @@
                     <b-row >
                         <div v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store">
                             <v-hover v-slot:default="{ hover }">
-                                <v-card class="mx-auto mr-10 mb-2" max-width="500" width = "300" height="300">
+                                <v-card class="mx-auto mr-10 mb-2" max-width="500" width = "300" height="300" @click="storeDetail(store.num)">
                                     <v-img
                                         class="white--text align-end"
                                         height="200px"
@@ -184,8 +184,11 @@
                 //store에 검색했을때 
                 let searchList = new Array();
                 StoreApi.requestStoreList().then(response=>{
+                    console.log('storeListSearch');
+                    console.log(response);
                     for(let i =0; i<response.data.object.length; i++){
                         let item = {};
+                        item['num'] = response.data.object[i].store.num;
                         item['sname'] = response.data.object[i].store.sname;
                         item['address'] = response.data.object[i].store.address;
                         item['img'] = response.data.object[i].store.img;
@@ -204,7 +207,13 @@
                     this.$store.state.pageStatus = false;
               })//end for first for loop
                  
-          }
+          },
+           storeDetail(num) {
+                console.log('storeDetail');
+                console.log(num);
+                this.$store.dispatch('storeHashtags', num)
+
+            }
         }
     }
 </script>

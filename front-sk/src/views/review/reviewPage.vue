@@ -221,7 +221,7 @@
                     :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
            
               <div ref="finalSubmit">
-              <v-btn depressed large name="submit" id="submit" @click="reviewConfirm" style="color: #ff7f00 !important; background:#ff7f00 ;"
+              <v-btn depressed large name="submit" id="submit" @click="reviewConfirm(store_num)" style="color: #ff7f00 !important; background:#ff7f00 ;"
               value="review 등록" >리뷰 등록</v-btn>
               </div>
               </b-col>
@@ -441,7 +441,7 @@ export default {
 
 
             },
-            reviewConfirm() {
+            reviewConfirm(num) {
                 let hashtag = this.area + " " + this.age + " " + this.age + " " + this.atmosphere + " " + this.withWho;
                 console.log(hashtag.length);
                 console.log(hashtag + " " + this.imageUrl + " " + this.rating + " " + this.cons +
@@ -451,6 +451,7 @@ export default {
                
                 if (this.isSubmit) {
                     console.log(this.store_num);
+                     this.$store.dispatch('storeHashtags', num)
                     var data = {
                         'hashtag': hashtag,
                         'picture': this.imageUrl,
@@ -475,7 +476,7 @@ export default {
                         console.log("reviewPage 등록 성공");
                     
                         this.$store.state.directiveStoreDetail = this.store_num;
-                        this.$router.push({name : "storeDetail", params : {id  : this.store_num}})
+                        // this.$router.push({name : "storeDetail", params : {id  : this.store_num}})
                     })
                     console.log('all complete');
 

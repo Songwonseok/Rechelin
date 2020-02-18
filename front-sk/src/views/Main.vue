@@ -305,6 +305,7 @@
 
             if(find == false){
               let item = {};
+              item['num'] = response.data.object[i].store.num;
               item['sname'] = response.data.object[i].store.sname;
               item['address'] = response.data.object[i].store.address;
               item['img'] = response.data.object[i].store.img;
