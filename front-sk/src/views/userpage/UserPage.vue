@@ -4,7 +4,7 @@
       <div class="profile-user-page card">
         <div class="img-user-profile">
           <img class="profile-bgHome" src="https://cdn.pixabay.com/photo/2016/03/27/21/34/restaurant-1284351_1280.jpg" />
-          <template v-if="UserInfo.profile==null">
+          <template v-if="UserInfo.profile==null || UserInfo.profile==''">
             <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="UserInfo.nickname" />
           </template>
           <template v-else>

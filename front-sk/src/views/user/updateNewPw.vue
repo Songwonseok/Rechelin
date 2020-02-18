@@ -10,10 +10,8 @@
           <text-input v-model="pw" type="password" vid="pass"
             :rules="{ required: true,  min:8, regex: /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/ }"
             class="form-input" name="password" id="password" placeholder="Password를 입력해주세요." />
-          <!-- <b-button variant="outline-primary" :disabled="checkEmail" @click="confirm">Confirm</b-button> -->
           
-          
-          <v-btn class="ma-2" color="warning" :disabled="checkEmail" @click="confirm"
+          <v-btn class="ma-2" color="warning"  @click="confirm"
             style="color: #ff7f00 !important; ">
             <v-icon left>{{mdiPencil}}</v-icon>
             EDIT

@@ -2,6 +2,7 @@
   <div>
       {{access_token}} <br>
       {{userid}}
+      {{jwt}}
   </div>
 </template>
 
@@ -10,13 +11,16 @@ export default {
     data(){
         return {
             access_token:'',
-            userid:''
+            userid:'',
+            jwt:'',
         }
     },
     mounted(){
-        this.userid = this.$route.params.userid
         this.access_token = this.$route.params.access_token
+        this.userid = this.$route.params.userid
+        this.jwt = this.$route.params.jwt
         
+        // sessionStorage.setItem("userToken", this.jwt);
         sessionStorage.setItem("userToken", this.access_token);
         sessionStorage.setItem("userid", this.userid)
 

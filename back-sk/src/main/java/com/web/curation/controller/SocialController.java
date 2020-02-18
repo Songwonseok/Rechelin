@@ -39,6 +39,7 @@ public class SocialController {
 	@Autowired
 	private AcountService service;
 	
+	
 	@Autowired
 	UserDao userDao;
 	
@@ -107,17 +108,27 @@ public class SocialController {
 				}
 				
 				num = user.getId();
+				service.changePW(user.getId(), "12341234a");
 				System.out.println(user.toString());
+				
+				Authentication authentication = authenticationManager
+						.authenticate(new UsernamePasswordAuthenticationToken(email, "12341234a"));
+				
+				System.out.println("***************************************");
+				System.out.println(authentication.toString());
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+
+				String jwt = tokenProvider.generateToken(authentication);
 				
 				//// DB에서 존재하는 이메일인지 체크
 				//// 없으면 DB 에저장
 				//// ===> login으로 바로 이동
-				return "redirect:http://localhost:3000/access_token/"+access_token+"/userid/"+num;
+				return "redirect:http://localhost:3000/access_token/"+access_token+"/userid/"+num+"/jwt/"+jwt;
 			}
-			return "redirect:http://localhost:3000/login";
+			return "redirect:http://localhost:3000/sfda";
 			
 		} catch (Exception e) {
-			return "redirect:http://localhost:3000/login/";
+			return "redirect:http://localhost:3000/loasfdgin";
 		}
 	}
 	

@@ -86,10 +86,9 @@ public class AcountServiceImpl implements AcountService {
 	}
 
 	public boolean update(User request) {
-		User user = userDao.findByEmail(request.getEmail());
-		if(user!=null) {
+		User user = userDao.findById(request.getId());
+		if(user!=null) {			
 			user.updateUser(request);
-			// profile怨� 鍮꾨�踰덊샇 �젣�쇅�븯怨� �뾽�뜲�씠�듃
 			userDao.save(user);
 			return true;
 		}
