@@ -181,7 +181,7 @@
           headers['appKey'] = '8eada30c-d69a-4f70-aaee-e12a318bde04';
           console.log(this.storeInfoSave)
           Axios({
-            type: "post",
+            method: "post",
             headers: headers,
             url: "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json",
             async: false,
