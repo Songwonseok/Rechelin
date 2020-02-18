@@ -63,7 +63,7 @@
             :can-cancel="true" 
             
             >
-       <iframe src="https://giphy.com/embed/wzJFuHbmGxiYo" width="150" height="150" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/meme-journey-ara-wzJFuHbmGxiYo">음식점 가져오는 중 ...  </a></p>
+       <iframe src="https://giphy.com/embed/JpYJnxosqH4G76f6iL" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/kakao-friends-apeach-europe-JpYJnxosqH4G76f6iL">음식점 가져오는 중 ...  </a></p>
             </loading>  
       <v-btn color="primary" @click="getRandom">랜덤 추천 시작</v-btn>
 
@@ -112,7 +112,7 @@
                         <h1 style="color : orange">불러온 데이터가 없습니다. </h1>
                     </kinesis-element>
                 </kinesis-container>
-                <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="">김주연바보멍청이</a></p>
+                <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p>
       </div>
     </v-card>
   </div>

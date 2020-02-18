@@ -17,8 +17,9 @@
       style="text-align: center; width:350px;"
     >
   <div id="nickButton">
-    <v-btn color="warning" dark v-if="propsdata" v-on:click="nameFunction" style="width:350px;">중복확인</v-btn>
-    <v-btn color="warning" v-else :disabled="propsdata" dark style="width:350px;">{{CheckBold}}</v-btn>
+    <v-btn color="warning" dark v-if="propsdata"  v-on:click="nameFunction" style="width:350px;">중복확인</v-btn>
+    <!--v-if="propsdata" -->
+    <v-btn color="warning" v-else :disabled="propsdata" dark style="width:350px;">{{CheckBold}}중복 확인 되셨습니다.</v-btn>
 </div>
     <p></p>
     <label
@@ -98,22 +99,26 @@ export default {
     innerValue: "",
     icons: {
       CheckBold : mdiCheckBold
-    }
+    },
+    propsdata_input : true,
   }),
   computed: {
     hasValue() {
       return !!this.innerValue;
+    },
+    inputComputed(){
+      return this.innerValue;
     }
   },
   watch: {
     innerValue(value) {
       this.$emit("input", value);
     },
-    value(val) {
+    value(val) {  
       if (val !== this.innerValue) {
         this.innerValue = val;
       }
-    }
+    },
   },
   created() {
     if (this.value) {

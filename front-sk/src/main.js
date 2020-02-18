@@ -21,9 +21,13 @@ import '@mdi/font/css/materialdesignicons.css'
 // app.js
 import "./vee-validate";
 // aws 
-// import Amplify, * as AmplifyModules from 'aws-amplify'
-// import { AmplifyPlugin } from 'aws-amplify-vue'
-// import awsconfig from './aws-exports'
+import Amplify, * as AmplifyModules from 'aws-amplify'
+import { AmplifyPlugin } from 'aws-amplify-vue'
+import awsconfig from './aws-exports'
+Amplify.configure(awsconfig)
+
+Vue.use(AmplifyPlugin, AmplifyModules)
+
 
 import VueLoading from 'vuejs-loading-plugin'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'

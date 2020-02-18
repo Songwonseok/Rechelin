@@ -19,6 +19,8 @@
           single-line
           v-model = "ssearch"
         ></v-text-field>
+      
+
         <v-btn icon>
           <v-icon>my_location</v-icon>
         </v-btn>
@@ -27,6 +29,12 @@
         </v-btn>
       </v-toolbar>
     </v-card>
+      <loading :active.sync="isLoading_store" 
+            :can-cancel="true" 
+            
+            >
+      <iframe src="https://giphy.com/embed/JpYJnxosqH4G76f6iL" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/kakao-friends-apeach-europe-JpYJnxosqH4G76f6iL">상점 정보 가져오는중...</a></p>
+            </loading>
             <div v-if="this.$store.state.isClickBtnStore == true">
                 <b-container class="bv-example-row">
                     <b-row >
@@ -89,13 +97,15 @@
                         <h1 style="color : orange">불러온 데이터가 없습니다. </h1>
                     </kinesis-element>
                 </kinesis-container>
-                 <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="">김주연바보멍청이</a></p>
+                 <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p>
             </div>
         </v-app>
     </div>
 </template>
 <script>
     import Vue from 'vue'
+    import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css'
     import {KinesisContainer, KinesisElement} from 'vue-kinesis'
     import StoreApi from '../../apis/StoreApi';
     Vue.component('kinesis-container', KinesisContainer)
@@ -104,6 +114,9 @@
         created() {
             this.lenCalc();
             this.page = this.len;
+        },
+        components : {
+            Loading,
         },
         watch: {
             storeListwatch: function (v) {
@@ -161,6 +174,7 @@
                 search : '',
                 enterKey : 0, //검색했을때 rendering 하기 위해서 computed 와 watch 를 조절하기 위해 사용
                 pageSataus : false,
+                isLoading_store : false,
             }
         },
         methods : {
@@ -182,6 +196,7 @@
             },
             storeListSearch(){
                 //store에 검색했을때 
+                this.isLoading_store = true;
                 let searchList = new Array();
                 StoreApi.requestStoreList().then(response=>{
                     console.log('storeListSearch');
@@ -205,6 +220,7 @@
                     this.$store.state.storeList = searchList;
                     this.enterKey += 1; //computed에서 지켜보고있음 
                     this.$store.state.pageStatus = false;
+                    this.isLoading_store = false;
               })//end for first for loop
                  
           },

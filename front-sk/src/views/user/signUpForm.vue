@@ -20,6 +20,7 @@
                 <form @submit.prevent="passes(submit)">
                   <text-input2 v-model="name" rules="required|max:5" label="First Name" type="text" class="form-input"
                     name="name" id="name" @satusName="changeName" :propsdata="disabledName"
+                    @statusName="changeName"
                     placeholder="닉네임을 적어 주세요." />
                   <span>
 
@@ -189,6 +190,11 @@
         }
       }
     },
+    watch : {
+      name : function(v){
+        this.disabledName = true;
+      }
+    },
     computed: {
       name: {
         get() {
@@ -245,13 +251,20 @@
         alert("Form Submitted!");
       },
       changeName(status) {
-        this.isNameOk = status;
-        if (this.isNameOk === false && this.$store.state.name.length < 6 && this.$store.state.name.length > 0) {
+        console.log('changeName');
+        //this.isNameOk = status;
+        // if (this.isNameOk === false && this.$store.state.name.length < 6 && this.$store.state.name.length > 0) {
+          if (this.$store.state.name.length < 6 && this.$store.state.name.length > 0) { 
           alert('사용할 수 있는 name 입니다.');
           this.disabledName = false;
-        } else alert('이미 사용하고 있는 name 이거나 글자수 5글자를 초과했습니다.');
+        } else {
+         
+         alert('이미 사용하고 있는 name 이거나 글자수 5글자를 초과했습니다.');
+          this.disabledName = true; 
+        }
       },
       changeEmail(status) {
+        console.log('changeName');
         this.isEmailOk = status;
         let exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
         if (this.isEmailOk == false && exptext.test(this.$store.state.email) == true) {
@@ -261,9 +274,11 @@
 
       },
       submit() {
-        if (this.isEmailOk === false && this.isNameOk === false) {
-          alert("다음 페이지로 이동 합니다.");
+        if (this.isEmailOk === false && this.disabledName == false ) { //&& this.isNameOk === false
+        //disabledName 는 name 이 중복 확인해서 없으면 false, 있으면 true 
+          this.$alert("success","다음 페이지로 이동 합니다.","success");
           this.$store.state.randomNumber = String(Math.random());
+        
           Auth.signUp({
               username: this.$store.state.randomNumber,
               password: this.$store.state.password,
@@ -274,9 +289,14 @@
               },
               validationData: [] // optional
             })
-            .then(data => this.$router.push({
+            .then(data =>  
+            {
+              console.log('실행전!')
+            
+            this.$router.push({
               name: "signupconfirm"
-            }))
+            })}
+            )
             .catch(err => console.log(err));
         } else {
           alert('현재 사용하고 있는 name이거나 email 입니다.');
