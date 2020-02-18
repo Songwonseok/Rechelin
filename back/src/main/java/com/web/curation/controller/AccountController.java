@@ -41,7 +41,7 @@ public class AccountController {
 	
 	@DeleteMapping("/account/delete/{id}")
     @ApiOperation(value = "삭제하기")
-    public Object delete(@RequestParam(required = true) final long id) {
+    public Object delete(@PathVariable(required = true) final long id) {
     	final BasicResponse result = new BasicResponse();
     	if(service.delete(id)) {
     		result.status = true;

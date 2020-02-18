@@ -11,28 +11,34 @@
             <b-row>
 
                 <b-col>
-                 <img src="https://cdn.pixabay.com/photo/2017/05/12/08/29/coffee-2306471_1280.jpg" alt="" style="width: 350px; height: 350px; margin-top: 50px !important;">
+                 <img class="review-image" src="https://cdn.pixabay.com/photo/2017/05/12/08/29/coffee-2306471_1280.jpg" alt="" >
                    
                    <!-- 좋아요 -->
-                   <v-btn class="mt-2" @click="reviewLike(reviewInfo.rnum)" color="warning">
+                   <v-divider style="margin-top: 30px;"></v-divider>
+                   <div style="margin-top: 10px;">
+                   <v-btn small fab class="mt-2 review-like" @click="reviewLike(reviewInfo.rnum)" color="warning">
                                 <vue-star animate="animated bounceIn" color="#F7D358">
-                                    <i slot="icon" class="fas fa-thumbs-up fa-lg" color="warning"></i>
-
+                                    <i slot="icon" class="fas fa-thumbs-up fa-lg" ></i>
                                 </vue-star>
                             </v-btn>
                              
-                            <v-btn class="mt-2" @click="reviewLike(reviewInfo.rnum)" color="warning">
+                            <v-btn small fab  class="mt-2 review-like" @click="reviewLike(reviewInfo.rnum)" color="warning">
                             <vue-star animate="animated bounceIn" color="#F7D358">
+                               
                                 <i slot="icon" class="fas fa-thumbs-down fa-lg"></i>
                             </vue-star>
                         </v-btn>
                    
                 
-                <v-btn class="mt-2"  color="warning">
+                <v-btn fab small class="mt-2 review-like"  color="warning">
                     <vue-star animate="animated bounceIn" color="#F7FE2E">
                         <i slot="icon" class="fas fa-bookmark fa-2x"></i>
                     </vue-star>
                 </v-btn>
+                <v-divider></v-divider>
+
+                </div>
+
                 </b-col>
                 <b-col>
                     <h2 class="card__title"></h2>
@@ -126,7 +132,8 @@
         mdiCurrencyUsd,
         mdiEmoticonTongueOutline,
         mdiEmoticonOutline,
-        mdiLeadPencil
+        mdiLeadPencil,
+        mdiThumbUp
     } from '@mdi/js';
     import {normal} from '../../../public/js/animejs';
 
@@ -148,6 +155,7 @@
                 mdiEmoticonTongueOutline,
                 mdiEmoticonOutline,
                 mdiLeadPencil,
+                mdiThumbUp,
                 changeLike : true,
                 
             }
@@ -172,6 +180,7 @@
         watch: {
             newReturnComment: function () {
                 this.comments.unshift(this.newReturnComment);
+                console.log(this.newReturnComment)
                 this.newComment = '';
             }
         },
@@ -252,4 +261,15 @@
         margin-top: 3px;
         margin-bottom: 0px;
     }
+    .review-image {
+        width: 350px; 
+        height: 350px; 
+        margin-top: 50px !important;
+        border-radius: 10px;
+    }
+    .review-like {
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
 </style>

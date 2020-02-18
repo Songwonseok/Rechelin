@@ -29,5 +29,6 @@ public interface ReviewService {
 	public List<Review> getlikeTop();
 	public List<Review> getscoreTop();
 	public JSONObject countLike(long rnum);
+	public List<Review> storereviews(long snum);
 	
 }
