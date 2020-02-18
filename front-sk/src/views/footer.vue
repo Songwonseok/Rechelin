@@ -1,6 +1,6 @@
 <template>
-  <div>
-  <v-app id="footer">
+  <div id="footer-top">
+  <v-app id="footer" style="min-height: 0px !important;">
       <v-card
       color="white lighten-4"
       flat
@@ -16,7 +16,7 @@
       <v-card
         flat
         tile
-        height = "600px"
+        height = "400px"
         class="orange lighten-1 white--text text-center"
       >
         <v-card-text>
@@ -57,8 +57,7 @@ export default {
 }
 </script>
 <style scoped>
-.v-application--wrap{
-  z-index:-1 !important;
-  position: relative !important;
+#footer-top :not(#inspire) {
+  min-height: 0vh;
 }
 </style>
