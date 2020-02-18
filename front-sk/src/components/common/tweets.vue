@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tweet" style="border-radius: 10px; margin-bottom: 20px;">
+    <div class="tweet" style="border-radius: 10px; margin-bottom: 20px; width : 800px">
       <div class="box">
         <article class="media">
           <div class="media-left">
@@ -36,21 +36,32 @@
             <div class="media-content">
               <!--TODO : 별로 표시하기 -->
               <p>총점 :  <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.total"></star-rating></p>
-              <p>맛 : {{tweet.review.taste}}</p>
-              <p>가격 : {{tweet.review.price}}</p>
-              <p>친절함 : {{tweet.review.kindness}}</p>
+              <p>맛 : <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.taste"></star-rating></p>
+              <p>가격 : <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.price"></star-rating></p>
+              <p>친절함 : <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.kindness"></star-rating></p>
             </div>
           </div>
-          <div class="media-content">
+          <div class="media-content" style="margin-top : 80px; margin-left : 30px">
             <div class="content">
               <!-- <router-link 
                 :to="{name: 'comments', params: {
                 id: tweet.review.store.num}}"
               style="color: #ff7f00 !important"> -->
               <strong  @click="storeDetail(tweet.review.store.num)">
-                
-                {{tweet.review.store.sname}}
+                <v-chip class="ma-2" color="warning" outlined>
+                <i class="far fa-clock fa-2x" style="margin-right : 10px"></i>
+                {{this.tweet.review.wdate}}  
+                </v-chip>
+                <br>
+                <v-chip class="ma-2" color="warning" outlined>
+                  <i class="fas fa-store-alt fa-2x" style="margin-right : 10px" ></i>
+                {{tweet.review.store.sname}}   
+                </v-chip>
+                <br>
+                <v-chip class="ma-2" color="warning" outlined>
+                 <i class="fas fa-map-marker-alt fa-2x" style="margin-right : 10px"></i>
                 {{tweet.review.store.address}}
+                </v-chip>
               </strong>
               <!-- </router-link> -->
               <!-- title 누르면 review detail로 넘어가게 -->
@@ -58,41 +69,68 @@
              <!-- <router-link :to="{name: 'comments', params: {
                 id: tweet.review.rnum}}"
               style="color: #ff7f00 !important"> -->
-              <div @click="gotoReview">
-                <strong >{{tweet.review.title}}</strong>
-              </div>
+             <br>
+           <v-chip class="ma-2" color="warning" outlined>
+            
+             <span class="iconify" data-icon="subway:title"  style="margin-right : 10px" data-inline="false"></span>
+                {{tweet.review.title}}
+                  
+            </v-chip>
+
               <!-- </router-link> -->
               <!-- TODO : 장점과 단점을 분리 -->
-              <v-card>
-                <v-card-text>
-                  <p>장점: {{tweet.review.str}}</p>
-                </v-card-text>
-              </v-card>
-              <v-card>
-                <v-card-text>
-                  <p>단점: {{tweet.review.weak}}</p>
-                </v-card-text>
-              </v-card>
+             <br>
+               <v-chip class="ma-2" color="warning" outlined>
+                  <p style="margin-top: 10px;">장점: {{tweet.review.str}}</p>
+                 </v-chip>
+              
+            <br>
+                <v-chip class="ma-2" color="warning" outlined>
+                  <p style="margin-top: 10px;">단점: {{tweet.review.weak}}</p>
+                </v-chip>
+         
             </div>
+            <br>
             <!-- 해시 태그 리스트 -->
             <!-- card로 해시태그 분리하기 -->
             <div class="content">
-              <span v-for="tag in tagList" v-bind:key="tag.id">
-              <v-chip>
-                {{tag}}
+              
+            <v-chip class="ma-2" color="warning" outlined>
+                  <string>      
+                  HashTags
+                  </string> 
+            </v-chip><br>
+
+              <v-chip class="ma-2" color="warning" outlined v-for="tag in tagList" v-bind:key="tag.id">
+              
+               {{tag}}
               </v-chip>
-              </span>
+             
+          <!--댓글 수 -->
+          <div class="content" style="margin-top : 30px;" >
+
+
+            <v-chip class="ma-2" color="warning" outlined>
+                <i class="fas fa-edit fa-2x" style="margin-right : 10px"></i> 댓글 수 : 
+                {{tweet.comments}}
+            </v-chip>
+            
+            <!--좋아요 싫어요 수 -->
+            <v-chip class="ma-2" color="warning" outlined>
+                <i class="far fa-thumbs-up fa-2x" style="margin-right : 10px"></i> 좋아요 : 
+                {{tweet.like}}
+            </v-chip>
+            
+            <v-chip class="ma-2" color="warning" outlined>
+                <i class="far fa-thumbs-down fa-2x" style="margin-right : 10px"></i> 싫어요 : 
+                {{tweet.dislike}}
+            </v-chip>
+          
+          </div>
               <!-- {{tweet.review.hashtag}} -->
             </div>
           </div>
-          <div class="content">{{this.tweet.review.wdate}}</div>
-          <!--댓글 수 -->
-          <div class="content">
-            <span>댓글수 : {{tweet.comments}}</span><br>
-            <!--좋아요 싫어요 수 -->
-            <span>좋아요 : {{tweet.like}}</span>
-            <span>싫어요 : {{tweet.dislike}}</span>
-          </div>
+          
         </article>
       </div>
     </div>
