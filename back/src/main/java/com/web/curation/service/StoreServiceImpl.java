@@ -111,7 +111,7 @@ public class StoreServiceImpl implements StoreService {
 	public boolean addBook(long id, long num) {
 		User user = userDao.findById(id);
 		Store store = storeDao.findByNum(num);
-		Storelike storelike = storeLikeDao.findByUserAndStore(user, store);
+		Storelike storelike = storeLikeDao.findTopByUserAndStore(user, store);
 		if(storelike != null)
 			return false;
 		
@@ -123,7 +123,7 @@ public class StoreServiceImpl implements StoreService {
 	public boolean removeBook(long id, long num) {
 		User user = userDao.findById(id);
 		Store store = storeDao.findByNum(num);
-		Storelike storelike = storeLikeDao.findByUserAndStore(user, store);
+		Storelike storelike = storeLikeDao.findTopByUserAndStore(user, store);
 		if(storelike ==null) {
 			return false;
 		}
@@ -134,7 +134,8 @@ public class StoreServiceImpl implements StoreService {
 	public Storelike selectBook(long id, long num) {
 		User user = userDao.findById(id);
 		Store store = storeDao.findByNum(num);
-		return storeLikeDao.findByUserAndStore(user, store);
+		Storelike storelike = storeLikeDao.findTopByUserAndStore(user, store);
+		return storelike;
 	}
 	
 	

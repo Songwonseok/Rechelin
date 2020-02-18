@@ -25,8 +25,10 @@
                     <b-row>
                         <div v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store">
                             <v-hover v-slot:default="{ hover }">
-                                <v-card class="mx-auto mr-10 mb-2" max-width="500" width="300" height="300">
-                                    <v-img class="white--text align-end" height="200px"
+                                <v-card class="mx-auto mr-10 mb-2" max-width="500" width = "300" height="300" @click="storeDetail(store.num)">
+                                    <v-img
+                                        class="white--text align-end"
+                                        height="200px"
                                         :src="`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${store.img}&sensor=true&key=AIzaSyDC4sonH281FHJ-YyPmeXLRdBYuqcjUkGE`">
                                         <v-expand-transition>
                                             <div v-if="hover"
@@ -75,19 +77,16 @@
                         <h1 style="color : orange">불러온 데이터가 없습니다. </h1>
                     </kinesis-element>
                 </kinesis-container>
-                <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0"
-                    class="giphy-embed" allowFullScreen></iframe>
-                <p><a href="">김주연바보멍청이</a></p>
+                 <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p>
             </div>
         </v-app>
     </div>
 </template>
 <script>
     import Vue from 'vue'
-    import {
-        KinesisContainer,
-        KinesisElement
-    } from 'vue-kinesis'
+    import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css'
+    import {KinesisContainer, KinesisElement} from 'vue-kinesis'
     import StoreApi from '../../apis/StoreApi';
     import * as VueGoogleMaps from 'vue2-google-maps';
 
@@ -107,6 +106,9 @@
             this.page = this.len;
 
             // 현재 위치
+        },
+        components : {
+            // Loading,
         },
         watch: {
             storeListwatch: function (v) {
@@ -168,6 +170,8 @@
                     latitude: 37.5663,
                     longitude: 126.9779,
                 },
+              
+                isLoading_store : false,
             }
         },
         methods: {
@@ -190,10 +194,14 @@
             },
             storeListSearch() {
                 //store에 검색했을때 
+                this.isLoading_store = true;
                 let searchList = new Array();
-                StoreApi.requestStoreList().then(response => {
-                    for (let i = 0; i < response.data.object.length; i++) {
+                StoreApi.requestStoreList().then(response=>{
+                    console.log('storeListSearch');
+                    console.log(response);
+                    for(let i =0; i<response.data.object.length; i++){
                         let item = {};
+                        item['num'] = response.data.object[i].store.num;
                         item['sname'] = response.data.object[i].store.sname;
                         item['address'] = response.data.object[i].store.address;
                         item['img'] = response.data.object[i].store.img;
@@ -213,14 +221,24 @@
                 }) //end for first for loop
 
             },
+            storeDetail(num) {
+                console.log('storeDetail');
+                console.log(num);
+                this.$store.dispatch('storeHashtags', num)
+
+            },
             getMylocation() {
                 navigator.geolocation.getCurrentPosition(pos => {
                     this.myLocation = pos.coords
                     console.log(this.myLocation.latitude, this.myLocation)
                     return pos
                 })
-            }
-        }
+                    this.isLoading_store = false;
+              }
+                 
+          },
+        
+        
     }
 </script>
 <style scoped="scoped">

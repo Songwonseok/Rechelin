@@ -204,44 +204,46 @@
                         <star-rating v-model="kindness" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
-                        
-                          <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{ mdiEmoticonOutline}}</v-icon>장점
-                        </v-chip>
-                        <v-textarea label="장점 20자 이내" auto-grow outlined :counter="20" rows="3" v-model="props"
-                            row-height="30" shaped></v-textarea>
-
-                        <div class="error-text" v-if="error.props">
-                            {{error.props}}
-                        </div>
-                          <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{mdiEmoticonSadOutline}}</v-icon>단점
-                        </v-chip>
-                        <v-textarea label="단점 20자 이내" auto-grow outlined v-model="cons" :counter="20" rows="3"
-                            row-height="30" shaped></v-textarea>
-
-                        <div class="error-text" v-if="error.cons">
-                            {{error.cons}}
-                        </div>
-                        <h5>그래서 이 음식점의 총평을 평점으로 매긴다면?</h5>
-                        <star-rating v-model="rating" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
-                            :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
-                        </star-rating>
-
-                        <div ref="finalSubmit" style="text-align:right !important;">
-                            <v-btn depressed large name="submit" id="submit" @click="reviewConfirm"
-                                style="
-                                color: #ff7f00 !important; 
-                                background:#ff7f00; 
-                                margin-top: 15px !important;
-                                text-align: right;
-                                border-radius: 5px;
-                                " value="review 등록">
-                                <v-icon>{{mdiCloudUpload}}</v-icon>리뷰 등록
-                                </v-btn>
-                        </div>
-                    </b-col>
-                </b-row>
+                          <h4>장점</h4>
+                         <v-textarea
+          label="장점 20자 이내"
+          auto-grow
+          outlined
+          :counter="20"
+          rows="3"
+          v-model = "props"
+          row-height="30"
+          shaped
+        ></v-textarea>
+                         
+            <div class="error-text" v-if="error.props">
+                        {{error.props}}
+            </div>
+            <h4>단점</h4>
+                               <v-textarea
+          label="단점 20자 이내"
+          auto-grow
+          outlined
+          v-model = "cons"
+          :counter="20"
+          rows="3"
+          row-height="30"
+          shaped
+        ></v-textarea>
+   
+            <div class="error-text" v-if="error.cons">
+                        {{error.cons}}
+            </div>
+            <h5>그래서 이 음식점의 총평을 평점으로 매긴다면?</h5>
+             <star-rating v-model="rating" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
+                    :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+           
+              <div ref="finalSubmit">
+              <v-btn depressed large name="submit" id="submit" @click="reviewConfirm(store_num)" style="color: #ff7f00 !important; background:#ff7f00 ;"
+              value="review 등록" >리뷰 등록</v-btn>
+              </div>
+              </b-col>
+               </b-row>
             </b-container>
         </div>
     </div>
@@ -469,7 +471,7 @@
 
 
             },
-            reviewConfirm() {
+            reviewConfirm(num) {
                 let hashtag = this.area + " " + this.age + " " + this.age + " " + this.atmosphere + " " + this.withWho;
                 console.log(hashtag.length);
                 console.log(hashtag + " " + this.imageUrl + " " + this.rating + " " + this.cons +
@@ -479,6 +481,7 @@
 
                 if (this.isSubmit) {
                     console.log(this.store_num);
+                     this.$store.dispatch('storeHashtags', num)
                     var data = {
                         'hashtag': hashtag,
                         'picture': this.imageUrl,
@@ -503,12 +506,7 @@
                         console.log("reviewPage 등록 성공");
 
                         this.$store.state.directiveStoreDetail = this.store_num;
-                        this.$router.push({
-                            name: "storeDetail",
-                            params: {
-                                id: this.store_num
-                            }
-                        })
+                        // this.$router.push({name : "storeDetail", params : {id  : this.store_num}})
                     })
                     console.log('all complete');
 

@@ -55,8 +55,7 @@ public class FollowController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 
 	}
-
-	@DeleteMapping("/follow/decline")
+	@PostMapping("/follow/decline")
 	@ApiOperation(value = "팔로우 거절")
 	public Object declineFollow(@RequestParam(required = true) final long fan,
 			@RequestParam(required = true) final long star) {
@@ -170,7 +169,6 @@ public class FollowController {
 		result.object = status;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
 	@PostMapping("/follow/unfollow")
 	@ApiOperation(value = "팔로우 취소")
 	public Object unfollow(@RequestParam(required = true) final long fan,
@@ -187,6 +185,5 @@ public class FollowController {
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
 
 }

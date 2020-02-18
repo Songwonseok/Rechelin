@@ -9,13 +9,14 @@
     ref="input" 
     v-model="innerValue" 
     v-bind="ariaInput"
+    :disabled="!propsdata"
     style="text-align: center; width:350px;" >
 
 
     <div id="emailButton">
 
       <v-btn color="warning" dark v-if="propsdata" @click="emailFunction" style="width:350px;">중복확인</v-btn>
-      <v-btn color="warning" v-else :disabled="propsdata" dark style="width:350px;">{{CheckBold}}</v-btn>
+      <v-btn color="warning" v-else :disabled="propsdata" dark style="width:350px;">{{CheckBold}}이메일 인증 되셨습니다.</v-btn>
     </div>
 
 

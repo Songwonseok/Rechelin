@@ -45,8 +45,10 @@ export default {
         })
     },
     FETCH_ADR({ commit }, address) { //google 에서부터 음식점 주소를 FETCH 해옴
+        
         SearchApi.requestFetchAdrData({ commit }, address).then(
             response => {
+                console.log('recent')
                 var aJsonArray = new Array(); //선택된 데이터만 
 
                 var aJsonArray2 = new Array(); //전체 데이터 

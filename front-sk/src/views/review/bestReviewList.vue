@@ -2,7 +2,7 @@
 
     <div>
         <br>
-            <h2 style="color:orange">👑 Best Views</h2>
+            <h2 style="color:orange"><span class="iconify" data-icon="whh:crown" data-inline="false"></span> Best Views</h2>
             <b-container class="bv-example-row">
                 <b-row >
                         <div v-if="bestReviews.length==0">
@@ -56,7 +56,7 @@
 
                                     <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
                                         <div v-for="(tags, i) in bestReview.tag" v-bind:key="i+tags">
-                                            <v-chip @click="btnClick">{{tags}}</v-chip>
+                                            <v-chip >{{tags}}</v-chip>
                                         </div>
                                     </v-chip-group>
 
@@ -88,7 +88,8 @@
                 ReviewApi
                     .requestfetcViewsrList()
                     .then(response => {
-                       
+                       console.log('bestReviewList');
+                       console.log(response);
                         var viewsList = new Array();
 
                         for (let i = 0; i < response.data.object.length; i++) {
@@ -104,7 +105,7 @@
                                 .data
                                 .object[i]
                                 .title;
-                            item['id'] = response.data.object[i].rnum;
+                            item['id'] = response.data.object[i].store.num;
                             let content = response
                                 .data
                                 .object[i]
@@ -122,7 +123,7 @@
                                 .data
                                 .object[i]
                                 .hashtag;
-                            let HashSplit = HashString.split(' ');
+                            let HashSplit = HashString.split(',');
                             let HashList = [];
                             for (let z in HashSplit) 
                                 HashList.push(HashSplit[z]);
@@ -150,6 +151,8 @@
                     setTimeout(() => (this.loading = false), 2000)
                 },
                  storeDetail(num) {
+                console.log('storeDetail');
+                console.log(num);
                 this.$store.dispatch('storeHashtags', num)
 
             }

@@ -2,7 +2,7 @@
 
     <div>
         <br>
-        <h2 style="color:orange">👀 Best Rate</h2>
+        <h2 style="color:orange"><span class="iconify" data-icon="bx:bx-trending-up" data-inline="false"></span> Best Rate</h2>
         <b-container class="bv-example-row">
                 <b-row >
                     <div v-if="bestReviews.length==0">
@@ -50,7 +50,7 @@
 
                                     <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
                                         <div v-for="(tags, i) in bestReview.tag" v-bind:key="i+tags">
-                                            <v-chip @click="btnClick">{{tags}}</v-chip>
+                                            <v-chip>{{tags}}</v-chip>
                                         </div>
                                     </v-chip-group>
 
@@ -93,7 +93,7 @@
                                 .data
                                 .object[i]
                                 .title;
-                            item['id'] = response.data.object[i].rnum;
+                            item['id'] = response.data.object[i].store.num;
                             let content = response
                                 .data
                                 .object[i]
