@@ -131,7 +131,7 @@
               리뷰
             </v-tab>
             <v-tab @click="valid('userFeed')" style="color: #ff7f00;">
-              피드 페이지(예정)
+              피드 페이지
             </v-tab>
 
           </v-tabs>

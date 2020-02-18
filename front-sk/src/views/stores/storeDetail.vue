@@ -49,6 +49,10 @@
               <v-icon color="warning">{{icons.mdiCrosshairsGps}}</v-icon>
             </v-btn>
           </div>
+          {{storeAvg.priceAvg}}
+          {{storeAvg.tasteAvg}}
+          {{storeAvg.totalAvg}}
+          {{storeAvg.kindAvg}}
         </b-card-text>
         <b-card-text style="text-align: center;">
           <p>{{distance.d}} </p>
@@ -153,6 +157,9 @@
       },
       Storehashtags() {
         return this.$store.state.storeHashtags
+      },
+      storeAvg(){
+        return this.$store.state.storeAvg
       }
 
 
@@ -213,8 +220,7 @@
     }
     },
     created() {
-
-
+      
     },
     mounted() {
 
@@ -224,6 +230,8 @@
       this.center.latitude = parseFloat(this.$store.state.storeInfo.lat)
       this.center.longitude = parseFloat(this.$store.state.storeInfo.lng)
 
+      this.$store.dispatch('scoreAvg', this.$store.state.storeInfo.num)
+      
     },
 
   }

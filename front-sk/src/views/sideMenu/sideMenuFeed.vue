@@ -12,9 +12,6 @@
                   피드 리스트</span>
                   </v-list-item-content>
               </v-list-item>
-              <v-list-item >
-                <v-list-item-content >내가 작성한 목록</v-list-item-content>
-              </v-list-item>
             </v-list-item-group>
           </v-list>
         </v-card>
