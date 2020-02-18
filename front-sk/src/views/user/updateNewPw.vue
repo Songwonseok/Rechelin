@@ -81,15 +81,19 @@
         // After retrieveing the confirmation code from the user
         this.info.id = sessionStorage.getItem('userid');
         this.info.pw = this.pw;
+        console.log('id');
+        console.log(this.info.id);
+        console.log('pw');
+        console.log(this.info.pw);
         this.$alert("비밀번호가 변경되었습니다.", "success", "success");
-
+        console.log(this.info);
         UserApi.requestUpdatePw(this.info, res => {
           console.log(res);
           this.$router.push({
-            name: 'userpage',
-            params: {
-              id: sessionStorage.getItem('userid')
-            }
+            name: 'popular',
+            // params: {
+            //   id: sessionStorage.getItem('userid')
+            // }
           })
         });
 

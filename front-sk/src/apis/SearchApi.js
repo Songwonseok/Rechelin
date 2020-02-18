@@ -63,7 +63,7 @@ function requestFetchAdrData({ commit }, address) {
     //Axios.get()
     let mykey = 'AIzaSyDo6iueX6Cf9SPVlg9TdH8FIdfMgRshX9k'
 
-    return Axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?input=${address}&inputtype=textquery&region=kr&language=ko&length=10&fields=formatted_addres,name,geometry&key=${mykey}`);
+    return Axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?input=${address}&inputtype=textquery&region=kr&language=ko&fields=formatted_addres,name,geometry&location=37.492326399999996,127.03943509999999&radius=30000&key=${mykey}`);
 }
 const SearchApi = {
     searchUserHistory: (data, callback, errorCallback) => searchUserHistory(data, callback, errorCallback),

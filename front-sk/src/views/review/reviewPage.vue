@@ -481,7 +481,7 @@
 
                 if (this.isSubmit) {
                     console.log(this.store_num);
-                     this.$store.dispatch('storeHashtags', num)
+                    
                     var data = {
                         'hashtag': hashtag,
                         'picture': this.imageUrl,
@@ -506,6 +506,7 @@
                         console.log("reviewPage 등록 성공");
 
                         this.$store.state.directiveStoreDetail = this.store_num;
+                         this.$store.dispatch('storeHashtags', num)
                         // this.$router.push({name : "storeDetail", params : {id  : this.store_num}})
                     })
                     console.log('all complete');
