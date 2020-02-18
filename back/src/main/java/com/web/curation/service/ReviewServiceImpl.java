@@ -55,26 +55,26 @@ public class ReviewServiceImpl implements ReviewService {
 	public void register(Review review) {
 		dao.save(review);
 		
-		// review num 가져오기
+		// review num 媛��졇�삤湲�
 		Review tmp = dao.findTopByStoreAndUserOrderByRnumDesc(review.getStore(), review.getUser());
 		
-		// 1) review.hashtag을 가져와서 hashtag에 일치하는 값 확인
+		// 1) review.hashtag�쓣 媛��졇���꽌 hashtag�뿉 �씪移섑븯�뒗 媛� �솗�씤
 		String hashtag = review.getHashtag();
-		String[] tagList = hashtag.split(","); // 해시태그 분리
+		String[] tagList = hashtag.split(","); // �빐�떆�깭洹� 遺꾨━
 		
 		for(int i=0; i<tagList.length; i++) {
 			Hashtag tag = hashdao.findByKeyword(tagList[i]);
 			
 			System.out.println(tagList[i]); 
 			System.out.println(" "+ tag.toString());
-			if(tag ==null) continue; // 없는 태그가 나오면 DB에 추가?
+			if(tag ==null) continue; // �뾾�뒗 �깭洹멸� �굹�삤硫� DB�뿉 異붽�?
 			
 			System.out.println("********************");
 			System.out.println(tag.toString());
 			Storetags st = new Storetags();
 			st.setHashtag(tag);
 			st.setReview(tmp);
-			// hastag 객체와 review객체를 StoreTags에 저장
+			// hastag 媛앹껜�� review媛앹껜瑜� StoreTags�뿉 ���옣
 			STagsdao.save(st);
 		}
 	}
@@ -107,7 +107,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Review tmp = dao.findByRnum(rnum);
 		System.out.println(tmp);
 		if(tmp!=null) {
-			// 조회수 1증가
+			// 議고쉶�닔 1利앷�
 			int view = tmp.getViews();
 			tmp.setViews(view+1);
 			dao.save(tmp);
@@ -121,12 +121,12 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		Likecheck tmp = likedao.findByReviewAndUser(check.getReview(), check.getUser());
 		if(tmp!=null) {
-			// 똑같은 값이 들어오면 - 버튼 취소
+			// �삊媛숈� 媛믪씠 �뱾�뼱�삤硫� - 踰꾪듉 痍⑥냼
 			if(check.getStatus() == tmp.getStatus()) {
 				likedao.delete(tmp);
 				return 0;
 			}else {				
-				// 이미 있다는거니까 - 수정
+				// �씠誘� �엳�떎�뒗嫄곕땲源� - �닔�젙
 				tmp.setStatus(check.getStatus());
 				likedao.save(tmp);
 				return 1;
@@ -151,16 +151,16 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<Comments> getComment(long rnum) {
-		// Review 객체를 찾아서
+		// Review 媛앹껜瑜� 李얠븘�꽌
 		Review review = dao.findByRnum(rnum);
 		List<Comments> list = comdao.findAllByReview(review);
-		// 해당되는 모든 댓글들을 불러온다
+		// �빐�떦�릺�뒗 紐⑤뱺 �뙎湲��뱾�쓣 遺덈윭�삩�떎
 		return list;
 	}
 
 	@Override
 	public List<Bookmark> getBookmark(long num) {
-		// email을 통해 User를 찾는다
+		// email�쓣 �넻�빐 User瑜� 李얜뒗�떎
 		User user = userdao.findById(num);
 		List<Bookmark> list = bookdao.findAllByUser(user);
 		
@@ -172,24 +172,29 @@ public class ReviewServiceImpl implements ReviewService {
 	public boolean clickBookmark(Bookmark book) {
 		Bookmark tmp = bookdao.findByUserAndReview(book.getUser(), book.getReview());
 		if(tmp == null) {
-			// 없으니까 새로 추가
+			// �뾾�쑝�땲源� �깉濡� 異붽�
 			bookdao.save(book);
 			return true;
 		}else {
-			// 있는데 다시 눌렀으니까 취소
+			// �엳�뒗�뜲 �떎�떆 �닃���쑝�땲源� 痍⑥냼
 			bookdao.delete(tmp);
 			return false;
 		}
 	}
 
 	@Override
-	public List<Review> getcurrentFeed(long num) {
+	public List<ReviewlistResponse> getcurrentFeed(long num) {
 		// email을 통해서 star 리스트를 가져온다.
 		User user = userdao.findById(num);
 		System.out.println(user.toString());
-		List<Review> list = dao.feedList(user);
-		for (Review review : list) {
-			System.out.println(review.toString());
+		List<Review> review = dao.feedList(user);
+		List<ReviewlistResponse> list = new ArrayList<ReviewlistResponse>();
+		
+		for (Review r : review) {
+			int like = likedao.countByReviewAndStatus(r, 1);
+			int dislike = likedao.countByReviewAndStatus(r, 0);
+			int comments = comdao.countByReview(r);
+			list.add(new ReviewlistResponse(r,like,dislike,comments));
 		}
 		// start리스트의 게시물을 최근 순으로 가져온다
 		return list;
@@ -197,7 +202,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<ReviewlistResponse> getReview(long snum) {
-		// store의 num으로 통해서 리뷰들을 가져온다
+		// store�쓽 num�쑝濡� �넻�빐�꽌 由щ럭�뱾�쓣 媛��졇�삩�떎
 		Store store = storedao.findByNum(snum);
 		List<Review> rlist =  dao.findAllByStore(store);
 		List<ReviewlistResponse> list = new ArrayList<>();

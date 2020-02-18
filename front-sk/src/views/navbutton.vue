@@ -57,14 +57,7 @@
           </div>
         </b-list-group-item>
       </b-popover>
-        <v-btn
-          fab
-          dark
-          small
-          @click="userpageGo"
-          color="blue">
-          <v-icon>mdi-account</v-icon>
-        </v-btn>
+     
       </v-speed-dial>
 
 

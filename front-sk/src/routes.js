@@ -1,9 +1,7 @@
 import Login from './views/user/Login.vue'
-import Join from './views/user/Join.vue'
 
 /** user **/
 import FindPW from './views/user/FindPW.vue'
-import JoinDone from './views/user/JoinDone.vue'
 
 
 import PageNotFound from './views/PageNotFound.vue'

@@ -1,18 +1,20 @@
 package com.web.curation.service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.curation.model.DAO.HashtagDao;
 import com.web.curation.model.DAO.StoreDao;
+import com.web.curation.model.DAO.StoreLikeDao;
 import com.web.curation.model.DAO.StoreTagsDao;
+import com.web.curation.model.DAO.UserDao;
 import com.web.curation.model.DTO.Hashtag;
 import com.web.curation.model.DTO.Store;
+import com.web.curation.model.DTO.Storelike;
+import com.web.curation.model.DTO.User;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -25,6 +27,12 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Autowired
 	HashtagDao hashTagDao;
+	
+	@Autowired
+	StoreLikeDao storeLikeDao;
+	
+	@Autowired
+	UserDao userDao;
 	
 	public Store register(Store request) {
 		System.out.println(request.getSname());
@@ -98,8 +106,37 @@ public class StoreServiceImpl implements StoreService {
 		
 		return list;
 	}
+
+	@Override
+	public boolean addBook(long id, long num) {
+		User user = userDao.findById(id);
+		Store store = storeDao.findByNum(num);
+		Storelike storelike = storeLikeDao.findTopByUserAndStore(user, store);
+		if(storelike != null)
+			return false;
+		
+		storelike = new Storelike(store,user);
+		storeLikeDao.save(storelike);
+		return true;
+	}
 	
+	public boolean removeBook(long id, long num) {
+		User user = userDao.findById(id);
+		Store store = storeDao.findByNum(num);
+		Storelike storelike = storeLikeDao.findTopByUserAndStore(user, store);
+		if(storelike ==null) {
+			return false;
+		}
+		storeLikeDao.delete(storelike);
+		return true;
+	}
 	
+	public Storelike selectBook(long id, long num) {
+		User user = userDao.findById(id);
+		Store store = storeDao.findByNum(num);
+		Storelike storelike = storeLikeDao.findTopByUserAndStore(user, store);
+		return storelike;
+	}
 	
 	
 	

@@ -50,7 +50,7 @@
 
                                     <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
                                         <div v-for="(tags, i) in bestReview.tag" v-bind:key="i+tags">
-                                            <v-chip @click="btnClick">{{tags}}</v-chip>
+                                            <v-chip>{{tags}}</v-chip>
                                         </div>
                                     </v-chip-group>
 

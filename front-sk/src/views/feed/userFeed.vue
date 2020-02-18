@@ -99,7 +99,7 @@ export default {
             this.page += 1;
             // this     .list     .push(...data.hits);
             
-            ReviewApi.requestFeedList(9, res=>{
+            ReviewApi.requestFeedList(this.userid, res=>{
               this.tweet = res;
               console.log(this.tweet)
             }, error=>{
