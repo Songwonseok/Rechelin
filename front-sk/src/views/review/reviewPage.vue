@@ -162,7 +162,7 @@
                             </div>
                             <hr>
                             <div>
-                                <v-btn block color="#ff7f00" @click="$bvModal.hide('bv-modal-example')">닫기</v-btn>
+                                <v-btn block color="#ff7f00" @click="$bvModal.hide('bv-modal-example')">등록</v-btn>
                             </div>
                         </b-modal> <br>
 
