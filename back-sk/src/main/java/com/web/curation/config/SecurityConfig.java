@@ -103,8 +103,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     		, "/account/naverlogin/**", "/access_token/**")
                         .permitAll() // 위 경로 누구나 접근가능
                     .anyRequest()
-//                    	.permitAll();
-                   	.authenticated();//그 외 나머지 요청은 모두 인증된 회원만 접근가능
+                    	.permitAll();
+//                   	.authenticated();//그 외 나머지 요청은 모두 인증된 회원만 접근가능
 
         // Add our custom JWT security filter
         http.addFilterBefore(JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
