@@ -10,7 +10,7 @@
                         <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: left;">
                             <v-icon>{{mdiFormatTitle}}</v-icon>itle
                         </v-chip>
-                        <v-text-field v-model="reviewTitle" label="Review Title" :counter="10"></v-text-field>
+                        <v-text-field v-model="reviewTitle" label="Review Title" :counter="20"></v-text-field>
 
                         <div class="error-text" v-if="error.title">
                             {{error.title}}
@@ -162,7 +162,7 @@
                             </div>
                             <hr>
                             <div>
-                                <v-btn block color="#ff7f00" @click="$bvModal.hide('bv-modal-example')">닫기</v-btn>
+                                <v-btn block color="#ff7f00" @click="$bvModal.hide('bv-modal-example')">등록</v-btn>
                             </div>
                         </b-modal> <br>
 
@@ -206,10 +206,10 @@
                         </star-rating> <br>
                           <h4>장점</h4>
                          <v-textarea
-          label="장점 20자 이내"
+          label="장점 100자 이내"
           auto-grow
           outlined
-          :counter="20"
+          :counter="100"
           rows="3"
           v-model = "props"
           row-height="30"
@@ -221,11 +221,11 @@
             </div>
             <h4>단점</h4>
                                <v-textarea
-          label="단점 20자 이내"
+          label="단점 100자 이내"
           auto-grow
           outlined
           v-model = "cons"
-          :counter="20"
+          :counter="100"
           rows="3"
           row-height="30"
           shaped
@@ -285,14 +285,14 @@
 
             this.titleSchema
                 .is().min(0)
-                .is().max(10)
+                .is().max(20)
 
             this.propsSchema
                 .is().min(0)
-                .is().max(20)
+                .is().max(100)
             this.consSchema
                 .is().min(0)
-                .is().max(20)
+                .is().max(100)
 
         },
         mounted() {
@@ -331,7 +331,9 @@
         },
         methods: {
             check_area(n, name) {
+
                 if (!this.hashtags.locations[n]) {
+                    // 반대값으로 넣기
                     this.hashtags.locations[n] = !this.hashtags.locations[n]
                     let list = [...this.area]
                     list.push(name)
@@ -339,6 +341,7 @@
                     let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
+                    console.log('area!!!!!!!!!!!!!!')
                     console.log(this.area)
                 } else {
                     var pos = this.area.indexOf(name)
@@ -362,19 +365,16 @@
             check_atmosphere(n, name) {
                 if (!this.hashtags.moods[n]) {
                     this.hashtags.moods[n] = !this.hashtags.moods[n]
-                    let list = [...this.atmosphere]
+                    let list = [...this.area]
                     list.push(name)
-                    this.atmosphere = [...list]
-                    console.log(this.atmosphere)
+                    this.area = [...list]
                     let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
                 } else {
-                    let pos = this.atmosphere.indexOf(name)
                     this.hashtags.moods[n] = !this.hashtags.moods[n]
-                    let list = [...this.atmosphere]
-                    list.splice(pos, 1)
-                    this.atmosphere = [...list]
+                    let list = [...this.area]
+                    this.area = [...list]
                     var pos2 = this.allTags.indexOf(name)
                     let list2 = [...this.allTags]
                     list2.splice(pos2, 1)
@@ -384,19 +384,35 @@
             check_with(n, name) {
                 if (!this.hashtags.withWho[n]) {
                     this.hashtags.withWho[n] = !this.hashtags.withWho[n]
-                    let list = [...this.withWho]
+                    let list = [...this.area]
                     list.push(name)
-                    this.withWho = [...list]
-                    console.log(this.withWho)
+                    this.area = [...list]
                     let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
                 } else {
-                    let pos = this.withWho.indexOf(name)
                     this.hashtags.withWho[n] = !this.hashtags.withWho[n]
-                    let list = [...this.withWho]
-                    list.splice(pos, 1)
-                    this.withWho = [...list]
+                    let list = [...this.area]
+                    this.area = [...list]
+                    var pos2 = this.allTags.indexOf(name)
+                    let list2 = [...this.allTags]
+                    list2.splice(pos2, 1)
+                    this.allTags = [...list2]
+                }
+            },
+            check_age(n, name){
+                if (!this.hashtags.ages[n]) {
+                    this.hashtags.ages[n] = !this.hashtags.ages[n]
+                    let list = [...this.area]
+                    list.push(name)
+                    this.area = [...list]
+                    let list2 = [...this.allTags]
+                    list2.push(name)
+                    this.allTags = [...list2]
+                } else {
+                    this.hashtags.ages[n] = !this.hashtags.ages[n]
+                    let list = [...this.area]
+                    this.area = [...list]
                     var pos2 = this.allTags.indexOf(name)
                     let list2 = [...this.allTags]
                     list2.splice(pos2, 1)
@@ -406,19 +422,16 @@
             check_facility(n, name) {
                 if (!this.hashtags.facility[n]) {
                     this.hashtags.facility[n] = !this.hashtags.facility[n]
-                    let list = [...this.facility]
+                    let list = [...this.area]
                     list.push(name)
-                    this.facility = [...list]
-                    console.log(this.facility)
+                    this.area = [...list]
                     let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
                 } else {
-                    let pos = this.facility.indexOf(name)
                     this.hashtags.facility[n] = !this.hashtags.facility[n]
-                    let list = [...this.facility]
-                    list.splice(pos, 1)
-                    this.facility = [...list]
+                    let list = [...this.area]
+                    this.area = [...list]
                     var pos2 = this.allTags.indexOf(name)
                     let list2 = [...this.allTags]
                     list2.splice(pos2, 1)
@@ -427,9 +440,6 @@
             },
 
             upload() {
-                console.log('이미지 업로드 @@')
-                // console(this.selectedImage)
-
                 ImgurApi.uploadProfile(this.selectedImage, res => {
                     this.imageUrl = res.data.link
                     console.log(this.imageUrl)
@@ -445,10 +455,10 @@
                 this.upload()
 
             },
-            setRating(rating) {
-                this.rating = "You have Selected: " + rating + " stars";
-                console.log(this.rating);
-            },
+            // setRating(rating) {
+            //     this.rating = "You have Selected: " + rating + " stars";
+            //     console.log(this.rating);
+            // },
             fetchAdr() {
                 console.log(this.address);
                 //검색시
@@ -472,23 +482,17 @@
 
             },
             reviewConfirm(num) {
-                let hashtag = this.area + " " + this.age + " " + this.age + " " + this.atmosphere + " " + this.withWho;
-                console.log(hashtag.length);
-                console.log(hashtag + " " + this.imageUrl + " " + this.rating + " " + this.cons +
-                    this.props + " " + this.flavor + " " + this.price + " " + this.kindness +
-                    this.reviewTitle + " " + this.store_num)
-
-
+                let hashtag = this.area.toString();
                 if (this.isSubmit) {
                     console.log(this.store_num);
                      this.$store.dispatch('storeHashtags', num)
                     var data = {
                         'hashtag': hashtag,
                         'picture': this.imageUrl,
-                        'score_kindness': this.kindness,
-                        'score_price': this.price,
-                        'score_taste': this.flavor,
-                        'score_total': this.rating,
+                        'kindness': this.kindness,
+                        'price': this.price,
+                        'taste': this.flavor,
+                        'total': this.rating,
                         'store': {
                             'num': this.store_num, //this.store_num,
                         },
@@ -546,19 +550,19 @@
                 //리뷰 제목(0자이상 10자 이하)
                 //장점, 단점 (0자 이상 20자 이하)
                 if (this.reviewTitle.length >= 0 && !this.titleSchema.validate(this.reviewTitle))
-                    this.error.title = '리뷰제목은 0 글자 이상 10글자 이하 이어야 합니다.'
+                    this.error.title = '리뷰제목은 0 글자 이상 20글자 이하 이어야 합니다.'
                 else
                     this.error.title = false;
             },
             checkForm_props() {
                 if (this.props.length >= 0 && !this.propsSchema.validate(this.props))
-                    this.error.props = '장점은 0글자 이상 20글자 이하 이어야 합니다.'
+                    this.error.props = '장점은 0글자 이상 100글자 이하 이어야 합니다.'
                 else
                     this.error.props = false;
             },
             checkForm_cons() {
                 if (this.cons.length >= 0 && !this.consSchema.validate(this.cons))
-                    this.error.cons = '단점은 0글자 이상 20글자 이하 이어야 합니다.'
+                    this.error.cons = '단점은 0글자 이상 100글자 이하 이어야 합니다.'
                 else
                     this.error.cons = false;
 
@@ -573,10 +577,7 @@
         data: () => ({
             allTags: [],
             area: [],
-            age: [],
             atmosphere: [],
-            withWho: [],
-            facility: [],
             mageUrl: '',
             selectedImage: '',
             rating: "",
@@ -591,6 +592,7 @@
             isSubmit: true, //form 완료시 toggle
             reviewTitle: '',
             store_num: '',
+            store_name: '',
             user_email: 'ssafy@ssafy.com', //temp
             titleSchema: new PV(),
             consSchema: new PV(),

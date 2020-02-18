@@ -20,7 +20,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@mdi/font/css/materialdesignicons.css'
 // app.js
 import "./vee-validate";
-// aws 
+//aws 
 // import Amplify, * as AmplifyModules from 'aws-amplify'
 // import { AmplifyPlugin } from 'aws-amplify-vue'
 // import awsconfig from './aws-exports'
