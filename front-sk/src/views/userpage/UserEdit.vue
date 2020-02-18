@@ -177,18 +177,6 @@ export default {
           // 2) Imgur에 저장된 사진 링크를 가져오기
           this.profile = res.data.link;
 
-<<<<<<< HEAD
-          // 3) 사진링크를 User의 profile 링크로 수정하기
-          UserApi.requestUpload(
-            this.uid, this.profile,res => {
-              this.isLoading_profile = false;
-              console.log("프로필 수정 성공");
-            },
-            error => {
-              alert("프로필 업로드 실패");
-            }
-          );
-=======
           // // 3) 사진링크를 User의 profile 링크로 수정하기
           // UserApi.requestUpload(
           //   this.uid, this.profile,res => {
@@ -198,7 +186,6 @@ export default {
           //     alert("프로필 업로드 실패");
           //   }
           // );
->>>>>>> 09341c315067fdd82d94fa82203471831f77a2ac
         },
         error => {
           alert("Imgur 업로드 실패!");
