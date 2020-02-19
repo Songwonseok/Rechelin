@@ -30,8 +30,8 @@
             
             <div v-if="this.$store.state.isClickBtnStore == true">
                 <b-container class="bv-example-row">
-                    <b-row>
-                        <div v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store">
+                    <b-row  >
+                        <b-col v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store">
                             <v-hover v-slot:default="{ hover }">
                                 <v-card class="mx-auto mr-10 mb-2" max-width="500" width = "300" height="300" @click="storeDetail(store.num)">
                                     <v-img
@@ -60,7 +60,7 @@
                                     </v-card-actions>
                                 </v-card>
                             </v-hover>
-                        </div>
+                        </b-col>
                     </b-row>
                 </b-container>
                 <div class="text-center">
