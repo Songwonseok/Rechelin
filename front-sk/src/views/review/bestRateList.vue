@@ -12,8 +12,8 @@
                 <b-col v-for="(bestReview, i) in bestReviews" v-bind:key="i+bestReview">
 
                   
-                        <v-card id="review-image" :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350"
-                            height="430" @click="storeDetail(bestReview.id)">
+                        <v-card id="review-image" :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" width="350" height="450"
+                            @click="storeDetail(bestReview.id)">
                             <v-img height="250" :src="bestReview.src">
                                 <!--      -->
                                 <v-expand-transition>
@@ -32,7 +32,7 @@
                                 <div>{{bestReview.address}}</div>
 
                                 <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
-                                    <div v-for="(tags, i) in bestReview.tag" v-bind:key="i+tags">
+                                    <div v-for="(tags, i) in bestReview.tag.splice(0, 4)" v-bind:key="i+tags">
                                         <v-chip>{{tags}}</v-chip>
                                     </div>
                                 </v-chip-group>

@@ -7,6 +7,7 @@
      <b-row>
       <v-speed-dial
         v-model="fab"
+        v-if="haveToken"
         style="margin-right: 7px;"
       >
         <template v-slot:activator>
@@ -15,7 +16,6 @@
             color="#ff7f00"
             dark
             fab
-           
             small
           >
           <kinesis-container>
@@ -242,7 +242,7 @@ export default {
     reviewLength : 0,
     crown : ['🥇', '🥈', '🥉'],
     fab: false,
-
+    find: sessionStorage.getItem('userToken'),
     // icons
     mdiBell,
   }),
@@ -338,6 +338,9 @@ export default {
     alarms() {
       return this.$store.state.notifications
     },
+    haveToken() {
+      return this.$store.state.accessToken
+    }
     
     
     

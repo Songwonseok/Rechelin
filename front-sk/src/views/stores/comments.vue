@@ -36,7 +36,7 @@
             </v-btn>
 
 
-            <v-btn fab small class="mt-2 review-like" color="warning">
+            <v-btn fab small class="mt-2 review-like" color="warning" @click="reviewBookmark(reviewInfo.rnum)">
               <vue-star animate="animated bounceIn" color="#F7FE2E">
                 <i slot="icon" class="fas fa-bookmark fa-2x"></i>
               </vue-star>
@@ -230,7 +230,6 @@
     watch: {
       newReturnComment: function () {
         this.comments.unshift(this.newReturnComment);
-        console.log(this.newReturnComment)
         this.newComment = '';
       }
     },
@@ -305,6 +304,9 @@
         }
         this.$store.dispatch('reviewLike', payload)
       },
+      reviewBookmark(num) {
+        this.$store.dispatch('reviewBookmark', num)
+      }
 
 
     },

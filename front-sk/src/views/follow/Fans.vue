@@ -11,8 +11,8 @@
 
     </v-toolbar>
     <v-list>
-      <v-list-item v-for="(p, index) in UserFans" :key="index">
-        <v-list-item-content v-if="p" @click="goUserpage(p.id)">
+      <v-list-item v-for="(p, index) in UserFans" :key="index" @click="goUserpage(p.id)">
+        <v-list-item-content v-if="p" >
           <v-list-item-title v-text="p.nickname"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -47,3 +47,7 @@ import { mdiAccountMultipleCheckOutline } from '@mdi/js';
 
   }
 </script>
+
+<style scoped>
+
+</style>

@@ -94,6 +94,7 @@ export default {
         list.push(payload)
         state.commentsOfreview = [...list]
         state.newReturnComment = payload
+        console.log(payload)
 
     },
     commentDelete(state, comment) {
