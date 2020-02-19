@@ -87,7 +87,7 @@
                             .data
                             .object[i]
                             .hashtag;
-                        let HashSplit = HashString.split(' ');
+                        let HashSplit = HashString.split(',');
                         let HashList = [];
                         for (let z in HashSplit)
                             HashList.push(HashSplit[z]);
