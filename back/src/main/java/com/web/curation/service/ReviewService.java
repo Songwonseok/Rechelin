@@ -17,7 +17,7 @@ public interface ReviewService {
 	public Review detail(long rnum);
 	public List<ReviewlistResponse> getReview(long snum);
 	public int useful(Likecheck like);
-	public void addComment(Comments com);
+	public Comments addComment(Comments com);
 	public void deleteComment(long num);
 	public List<Comments> getComment(long rnum);
 	public boolean clickBookmark(Bookmark book);
