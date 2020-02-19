@@ -62,11 +62,12 @@
           </div>
           <div class="media-content" style="margin-left : 80px">
             <div class="content">
-                    <h2>{{tweet.review.title}}</h2>
-               <v-chip class="ma-2" color="warning" outlined>
+                <v-chip class="ma-2" color="warning" outlined large>
                   <i class="fas fa-store-alt fa-2x" style="margin-right : 10px" ></i>
                 {{tweet.review.store.sname}}   
                 </v-chip>
+                    <h5>{{tweet.review.title}}</h5>
+             
               <!-- <router-link 
                 :to="{name: 'comments', params: {
                 id: tweet.review.store.num}}"

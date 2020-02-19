@@ -31,8 +31,7 @@
                         <v-card-text>
                             
 
-                            <div>{{bestReview.black_text_content}}</div>
-                            <div>{{bestReview.address}}</div>
+                            <div>{{bestReview.black_text_content.slice(0, 30)}}...</div>
                             <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
                                 <div v-for="(tags, i) in bestReview.tag.splice(0, 4)" v-bind:key="i+tags">
                                     <v-chip>{{tags}}</v-chip>

@@ -278,9 +278,9 @@ export default {
     },
     reviewDelete({ commit }, num) {
 
-        Axios.delete(URL + `/review/delete`, num, auth)
+        Axios.delete(URL + `/review/delete/${num}`, auth)
             .then(res => {
-                console.log('댓글 삭제 성공')
+                console.log('리뷰 삭제 성공')
             }).catch(exp => {
                 console.log('실패')
             })
@@ -346,7 +346,7 @@ export default {
             })
 
     },
-    reviewBookmark({commit}, num) {
+    reviewBookmark({ commit }, num) {
         let data = {
             'review': {
                 'rnum': num
@@ -363,12 +363,12 @@ export default {
             data: JSON.stringify(data)
         }
         Axios(options)
-        .then(res => {
-            console.log('북마크 등록 성공', res)
+            .then(res => {
+                console.log('북마크 등록 성공', res)
 
-        }).catch(exp => {
-            console.log('북마크 등록 실패')
-        })
+            }).catch(exp => {
+                console.log('북마크 등록 실패')
+            })
 
 
 

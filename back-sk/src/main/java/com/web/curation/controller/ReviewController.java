@@ -70,9 +70,9 @@ public class ReviewController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/review/delete")
+	@DeleteMapping("/review/delete/{rnum}")
 	@ApiOperation(value = "리뷰 삭제")
-	public Object delete(long rnum) {
+	public Object delete(@PathVariable long rnum) {
 		final BasicResponse result = new BasicResponse();
 
 		if (service.delete(rnum)) {
@@ -130,10 +130,10 @@ public class ReviewController {
 	@ApiOperation(value = "댓글 등록")
 	public Object addComment(@RequestBody Comments com) {
 		final BasicResponse result = new BasicResponse();
-		service.addComment(com);
+		
 		result.status = true;
 		result.data = "댓글 등록 성공";
-		result.object = com;
+		result.object = service.addComment(com);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 

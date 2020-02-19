@@ -139,8 +139,10 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void addComment(Comments com) {
+	public Comments addComment(Comments com) {
 		comdao.save(com);
+		Comments cc = comdao.findByNum(com.getNum());
+		return cc;
 	}
 
 	@Override
