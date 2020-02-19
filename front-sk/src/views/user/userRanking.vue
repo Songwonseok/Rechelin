@@ -299,7 +299,7 @@ export default {
      UserLogout() {
         this.$store.dispatch('logout')
         this.$router.push({
-          name: "login"
+          name: "main" //logout 되면 sessionStorage 값이 바껴서 rerendering 됨 따라서, login 으로 두면 어색해져서 main으로 두었습니다.
         })
       },
       notificationGet() {

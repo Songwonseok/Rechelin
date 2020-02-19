@@ -293,10 +293,10 @@
     methods: {
       valid(name){
         // session에 값이 있는지 확인해서 있으면 탭 이동
-                  this.$router.go({
-  name: 'main',
-  force: true
-})
+//                   this.$router.go({
+//   name: 'main',
+//   force: true
+// })
         let accessToken = sessionStorage.getItem("userToken");
         if(accessToken!=null){
           this.$router.push({name : name});  
