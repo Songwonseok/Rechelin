@@ -93,6 +93,8 @@
                                 <v-chip draggable @click="check_area(30, '술집')">술집</v-chip>
                                 <v-chip draggable @click="check_area(31, '고깃집')">고깃집</v-chip>
                                 <v-chip draggable @click="check_area(32, '아시안')">아시안</v-chip>
+                                <v-chip draggable @click="check_area(32, '아시안')">아시안</v-chip>
+                                <v-chip draggable @click="check_area( 43, '퓨전')">퓨전</v-chip>
 
                                 <v-divider></v-divider>
                                 위치 (강남)
@@ -104,7 +106,7 @@
                                 <v-chip draggable @click="check_area( 4, '고속터미널')">고속터미널</v-chip>
                                 <v-chip draggable @click="check_area( 5, '가로수길')">가로수길</v-chip>
                                 <v-chip draggable @click="check_area( 6, '서래마을')">서래마을</v-chip>
-                                <v-chip draggable @click="check_area( 7, '건대')">건대</v-chip>
+                                <v-chip draggable @click="check_area( 44, '역삼')">역삼</v-chip>
 
 
                                 <v-divider></v-divider>
@@ -126,7 +128,18 @@
                                 <v-chip draggable @click="check_area( 21, '경리단길')">경리단길</v-chip>
                                 <v-chip draggable @click="check_area( 22, '명동')">명동</v-chip>
                                 <v-chip draggable @click="check_area(23, '신촌')">신촌</v-chip>
-                                <v-chip draggable @click="check_area(23, '대학로')">대학로</v-chip>
+                                <v-chip draggable @click="check_area(33, '대학로')">대학로</v-chip>
+                                
+                                <v-chip draggable @click="check_area(34, '마포')">마포</v-chip>
+                                <v-chip draggable @click="check_area(35, '용산')">용산</v-chip>
+                                <v-chip draggable @click="check_area(36, '서대문구')">서대문구</v-chip>
+                                <v-chip draggable @click="check_area(37, '중구')">중구</v-chip>
+                                <v-chip draggable @click="check_area(38, '성동구')">성동구</v-chip>
+                                <v-chip draggable @click="check_area(39, '동대문')">동대문</v-chip>
+                                <v-chip draggable @click="check_area(40, '은평구')">은평구</v-chip>
+                                <v-chip draggable @click="check_area(41, '노원')">노원</v-chip>
+                                <v-chip draggable @click="check_area(42, '뚝섬')">뚝섬</v-chip>
+
 
                                 <br>
 
@@ -222,10 +235,10 @@
                         </star-rating> <br>
                           <h4>장점</h4>
                          <v-textarea
-          label="장점 100자 이내"
+          label="장점 300자 이내"
           auto-grow
           outlined
-          :counter="100"
+          :counter="300"
           rows="3"
           v-model = "props"
           row-height="30"
@@ -237,11 +250,11 @@
             </div>
             <h4>단점</h4>
                                <v-textarea
-          label="단점 100자 이내"
+          label="단점 300자 이내"
           auto-grow
           outlined
           v-model = "cons"
-          :counter="100"
+          :counter="300"
           rows="3"
           row-height="30"
           shaped
@@ -305,10 +318,10 @@
 
             this.propsSchema
                 .is().min(0)
-                .is().max(100)
+                .is().max(300)
             this.consSchema
                 .is().min(0)
-                .is().max(100)
+                .is().max(300)
 
         },
         mounted() {
@@ -572,13 +585,13 @@
             },
             checkForm_props() {
                 if (this.props.length >= 0 && !this.propsSchema.validate(this.props))
-                    this.error.props = '장점은 0글자 이상 100글자 이하 이어야 합니다.'
+                    this.error.props = '장점은 0글자 이상 300글자 이하 이어야 합니다.'
                 else
                     this.error.props = false;
             },
             checkForm_cons() {
                 if (this.cons.length >= 0 && !this.consSchema.validate(this.cons))
-                    this.error.cons = '단점은 0글자 이상 100글자 이하 이어야 합니다.'
+                    this.error.cons = '단점은 0글자 이상 300글자 이하 이어야 합니다.'
                 else
                     this.error.cons = false;
 
