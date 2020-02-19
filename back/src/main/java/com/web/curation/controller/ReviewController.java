@@ -70,20 +70,21 @@ public class ReviewController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/review/delete")
-	@ApiOperation(value = "由щ럭 �궘�젣")
-	public Object delete(long rnum) {
+	@DeleteMapping("/review/delete/{rnum}")
+	@ApiOperation(value = "리뷰 삭제")
+	public Object delete(@PathVariable long rnum) {
 		final BasicResponse result = new BasicResponse();
 
 		if (service.delete(rnum)) {
 			result.status = true;
-			result.data = "由щ럭 �궘�젣 �꽦怨�";
+			result.data = "리뷰 삭제 성공";
 		} else {
 			result.status = false;
-			result.data = "由щ럭 �궘�젣 �떎�뙣 - 議댁옱�븯吏��븡�뒗 由щ럭";
+			result.data = "리뷰 삭제 실패 - 존재하지않는 리뷰";
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+
 
 	@GetMapping("/review/detail/{rnum}")
 	@ApiOperation(value = "由щ럭 �긽�꽭 議고쉶")

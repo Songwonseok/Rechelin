@@ -70,9 +70,9 @@ public class ReviewController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/review/delete")
+	@DeleteMapping("/review/delete/{rnum}")
 	@ApiOperation(value = "리뷰 삭제")
-	public Object delete(long rnum) {
+	public Object delete(@PathVariable long rnum) {
 		final BasicResponse result = new BasicResponse();
 
 		if (service.delete(rnum)) {
