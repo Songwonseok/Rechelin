@@ -27,7 +27,7 @@
     </div>
     <hr />
     <v-row no-gutters>
-      <v-col cols="12" sm="6" md="8">
+      <v-col>
         <b-card-text style="text-align: center;">
           <div style="margin-top: 30px;">
             <br />

@@ -285,12 +285,15 @@ export default {
                 console.log('실패')
             })
     },
-    reviewLike({ commit }, num) {
+    reviewLike({ commit }, payload) {
         let data = {
-            'id': num,
+            'review': {
+                'rnum': payload.num
+            },
             'user': {
                 'id': sessionStorage.getItem('userid')
-            }
+            },
+            'status': payload.status
         }
         let options = {
             headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },

@@ -10,6 +10,7 @@
                  <div class="review-card-inner">
                     <div class="review-front">
                 <img :src="bookmark.picture">
+                   </div>
                 <div class="review-back">
                     <div style="text-align: center;">
                         <div class="review-content">
@@ -47,7 +48,7 @@
                         </div>
                         </div>
                     </div>
-                </div>
+             
                  </div>
             </slide>
         </carousel-3d>
