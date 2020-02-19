@@ -109,7 +109,6 @@ implements CustomRepository{
 	}
 
 	@Override
-	@Override
 	public List<Review> likeBest() {
 		return queryFactory.selectFrom(review).where(review.rnum.in(
 				JPAExpressions.select(likecheck.review.rnum).from(likecheck)
