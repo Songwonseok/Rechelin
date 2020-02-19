@@ -131,7 +131,7 @@
               리뷰
             </v-tab>
             <v-tab @click="valid('userFeed')" style="color: #ff7f00;">
-              피드 페이지(예정)
+              피드 페이지
             </v-tab>
 
           </v-tabs>
@@ -183,12 +183,14 @@
       this
         .$store
         .dispatch('LOADING_USERDATA');
-
+        
+    
       this
         .$router
         .push({
           name: "popular"
         })
+        
     },
     watch: {
       newSearch: function (v) {
@@ -201,8 +203,17 @@
       storeList : function(v){
                 console.log('storeList')
                 console.log(this.$store.state.storeList);
-               
-               
+                      
+      },
+      userid : function(v){
+         console.log('userid');
+          this.$router.go({
+  name: 'main',
+  force: true
+})  
+        console.log('watch-userid')
+        console.log(this.userid);
+        this.userid = this.$store.state.userid;
       }
     },
     data() {
@@ -236,8 +247,8 @@
         tabs: 0,
         checkLogin: true,
         dialog : false,
-         isLoading: false,
-        
+        isLoading: false,
+        userid_list : [],
       }
     },
     computed: {
@@ -246,13 +257,15 @@
         return this.tempStores
       },
        userToken(){
-        return this.$store.state.accessToken
+         //return this.$store.state.accessToken
+        return sessionStorage.getItem("userToken");
       },
       storeList(){
-            return this.$store.state.storeList
+        return this.$store.state.storeList
       },
        userid(){
-        return this.$store.state.userid
+         return this.$store.state.userid
+       //return sessionStorage.getItem("userid")
       },
       
     },
@@ -264,6 +277,10 @@
     methods: {
       valid(name){
         // session에 값이 있는지 확인해서 있으면 탭 이동
+                  this.$router.go({
+  name: 'main',
+  force: true
+})
         let accessToken = sessionStorage.getItem("userToken");
         if(accessToken!=null){
           this.$router.push({name : name});  
@@ -274,7 +291,9 @@
 
       },
       uservalid(val){
+ 
         if(this.userToken!=null){
+     
           this.$router.push({name:'userpage', params:{id:this.userid}})
         }else{
           this.$router.push('/login');  

@@ -15,7 +15,7 @@
               <v-list-item router-link :to="{name: 'random'}">
                 <v-list-item-content >
                   <span><v-icon>{{ mdiPodiumGold}}</v-icon>
-                  랜덤음식추천</span>
+                  랜덤 음식점 추천</span>
                    </v-list-item-content>
               </v-list-item>
                 <v-list-item @click="storeDetail">

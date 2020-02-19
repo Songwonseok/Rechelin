@@ -122,6 +122,7 @@
                     this.bestReviews = viewsList;
 
                 })
+                
         },
         components: {
             bestLikeList,
