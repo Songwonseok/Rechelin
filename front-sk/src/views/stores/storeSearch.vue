@@ -34,6 +34,8 @@
                         <div v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store">
                             <v-hover v-slot:default="{ hover }">
                                 <v-card class="mx-auto mr-10 mb-2" max-width="500" width = "300" height="300" @click="storeDetail(store.num)">
+
+                                <div v-if = "store.img != null">
                                     <v-img
                                         class="white--text align-end"
                                         height="200px"
@@ -46,6 +48,26 @@
                                             </div>
                                         </v-expand-transition>
                                     </v-img>
+                                </div>
+                                <div v-else>
+                                    
+                                         <v-img
+                                        class="white--text align-end"
+                                        height="200px"
+                                        src="https://cdn.pixabay.com/photo/2013/07/13/11/31/shop-158317_1280.png">
+                                        <v-expand-transition>
+                                            <div v-if="hover"
+                                                class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
+                                                style="height: 100%;">
+                                                <v-card-title>{{store.sname}}</v-card-title>
+                                            </div>
+                                        </v-expand-transition>
+                                    </v-img>
+                                    
+
+                                </div>
+
+
                                     <v-card-subtitle class="pb-0">{{store.sname}}</v-card-subtitle>
                                     <v-card-text class="text--primary">
                                         <div>{{store.address}}</div>
