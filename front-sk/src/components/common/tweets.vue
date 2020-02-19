@@ -62,6 +62,7 @@
           </div>
           <div class="media-content" style="margin-left : 80px">
             <div class="content">
+                    <h2>{{tweet.review.title}}</h2>
                <v-chip class="ma-2" color="warning" outlined>
                   <i class="fas fa-store-alt fa-2x" style="margin-right : 10px" ></i>
                 {{tweet.review.store.sname}}   
@@ -70,6 +71,7 @@
                 :to="{name: 'comments', params: {
                 id: tweet.review.store.num}}"
               style="color: #ff7f00 !important"> -->
+          
               <p  @click="storeDetail(tweet.review.store.num)">
                 작성시간 : 
                 {{this.tweet.review.wdate}}  
@@ -77,7 +79,7 @@
                 <br>
                
                 <br>
-               
+                
                  <i class="fas fa-map-marker-alt fa-2x" style="margin-right : 10px"></i>
                 {{tweet.review.store.address}}
                 
@@ -90,28 +92,28 @@
               style="color: #ff7f00 !important"> -->
              <br>
            
-            
-             <span class="iconify" style="margin-right : 10px" data-inline="false"></span>
-             {{tweet.review.title}}
+          
 
 
               <!-- </router-link> -->
               <!-- TODO : 장점과 단점을 분리 -->
              <br>
-               <v-chip class="ma-2" color="warning" outlined>
-            
-             <span class="iconify" data-icon="subway:title"  style="margin-right : 10px" data-inline="false"></span>
-                장점
-                  
+              <v-chip class="ma-2" color="warning" outlined>
+              <v-icon>{{mdiEmoticonHappyOutline}}</v-icon>
+              장점
             </v-chip>
-               <v-chip class="ma-2" color="warning" outlined>
+         
                   <p style="margin-top: 10px;"> {{tweet.review.str}}</p>
-                 </v-chip>
+      
               
             <br>
-                <v-chip class="ma-2" color="warning" outlined>
-                  <p style="margin-top: 10px;">단점: {{tweet.review.weak}}</p>
-                </v-chip>
+              <v-chip class="ma-2" color="warning" outlined>
+              <v-icon>{{mdiEmoticonSadOutline}}</v-icon>
+              단점
+            </v-chip>
+            
+                  <p style="margin-top: 10px;">{{tweet.review.weak}}</p>
+
          
             </div>
             <br>
@@ -120,15 +122,13 @@
             <div class="content">
               
             <v-chip class="ma-2" color="warning" outlined>
-                  <string>      
+                    <v-icon>{{mdiPound}}</v-icon>     
                   HashTags
-                  </string> 
             </v-chip><br>
-            <span  v-for="tag in tagList" v-bind:key="tag.id">
-              {{tagList.splice(0, 1)}}
-              <v-chip class="ma-2" color="warning" outlined>
-               {{tag}}
-              </v-chip>
+            <span  v-for="tag in tagList.slice(0, 5)" v-bind:key="tag.id">
+       
+               #{{tag}}
+            
              </span>
           <!--댓글 수 -->
           <div class="content" style="margin-top : 30px;" >
@@ -163,7 +163,6 @@
 <script>
 import {
   mdiDelete,
-  mdiEmoticonHappyOutline,
   mdiEmoticonSadOutline,
   mdiPound,
   mdiSigma,
@@ -171,6 +170,7 @@ import {
   mdiEmoticonTongueOutline,
   mdiEmoticonOutline,
   mdiLeadPencil,
+  mdiEmoticonHappyOutline,
   mdiStar
 } from "@mdi/js";
 import StarRating from 'vue-star-rating'
@@ -188,7 +188,10 @@ export default {
       mdiSigma,
       mdiEmoticonTongueOutline,
       mdiCurrencyUsd,
-      mdiEmoticonOutline
+      mdiEmoticonSadOutline,
+      mdiEmoticonHappyOutline,
+      mdiEmoticonOutline,
+      mdiPound
     };
   },
   components : {
