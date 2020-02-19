@@ -16,7 +16,7 @@
           </v-list>
         </v-card>
       </b-col>
-      <b-col cols="10" sm="12">
+      <b-col cols="10">
         <router-view></router-view>
       </b-col>
     </b-row>
