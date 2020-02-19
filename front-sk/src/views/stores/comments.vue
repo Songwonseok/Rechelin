@@ -238,7 +238,7 @@
     },
     watch: {
       newReturnComment: function () {
-        this.comments.unshift(this.newReturnComment);
+        this.comments.unshift(this.newReturnComment.object);
 
         this.newComment = '';
       }
