@@ -17,7 +17,6 @@
       v-for="(tweet, $index) in tweet"
       :key="$index+tweet"
       :tweet="tweet"
-     
     />
 
     <div v-for="(item, $index) in list" :key="$index">{{item}}</div>
@@ -63,7 +62,8 @@ import ReviewApi from '../../apis/ReviewApi'
 export default {
   components: {
     tweets,
-    InfiniteLoading
+    InfiniteLoading,
+  
   },
   data() {
     return {
@@ -114,6 +114,9 @@ export default {
       //   });
        ReviewApi.requestFeedList(this.userid, res=>{
               this.tweet = res;
+              console.log(res);
+              console.log('feed');
+              console.log(res);
               console.log(this.tweet)
                $state.loaded();
             }, error=>{
