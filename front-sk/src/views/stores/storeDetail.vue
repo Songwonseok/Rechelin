@@ -1,5 +1,5 @@
 <template>
-  <div>
+    <v-container >
     <div>
       <v-alert
         border="bottom"
@@ -28,7 +28,7 @@
     <hr />
     <v-row no-gutters>
       <v-col>
-        <b-card-text style="text-align: center;">
+        <b-card-text style="text-align: center; ">
           <div style="margin-top: 30px;">
             <br />
             {{storeInfoSave.address}}
@@ -134,7 +134,7 @@
     <div>
       <router-view></router-view>
     </div>
-  </div>
+    </v-container >
 </template>
 
 <script>

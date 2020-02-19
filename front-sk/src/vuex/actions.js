@@ -345,6 +345,33 @@ export default {
                 console.log('해쉬태그 가져오기 실패')
             })
 
+    },
+    reviewBookmark({commit}, num) {
+        let data = {
+            'review': {
+                'rnum': num
+            },
+            'user': {
+                'id': sessionStorage.getItem('userid')
+            },
+
+        }
+        let options = {
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
+            url: URL + '/review/bookmark',
+            method: 'post',
+            data: JSON.stringify(data)
+        }
+        Axios(options)
+        .then(res => {
+            console.log('북마크 등록 성공', res)
+
+        }).catch(exp => {
+            console.log('북마크 등록 실패')
+        })
+
+
+
     }
 
 

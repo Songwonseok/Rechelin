@@ -12,7 +12,7 @@
                     <!-- 클릭했을때 상세 페이지로 이동 
                                     router-link="router-link" :to="{name: 'storeDetail', params : {id : bestReview.rnum}}"
                             -->
-                    <v-card id="review-image" :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" width="350" height="430"
+                    <v-card id="review-image" :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" width="350" height="450"
                         @click="storeDetail(bestReview.id)">
 
                         <v-img  height="250" :src="bestReview.src">
@@ -34,7 +34,7 @@
                             <div>{{bestReview.black_text_content}}</div>
                             <div>{{bestReview.address}}</div>
                             <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
-                                <div v-for="(tags, i) in bestReview.tag" v-bind:key="i+tags">
+                                <div v-for="(tags, i) in bestReview.tag.splice(0, 4)" v-bind:key="i+tags">
                                     <v-chip>{{tags}}</v-chip>
                                 </div>
                             </v-chip-group>
