@@ -278,9 +278,9 @@ export default {
     },
     reviewDelete({ commit }, num) {
 
-        Axios.delete(URL + `/review/delete`, num, auth)
+        Axios.delete(URL + `/review/delete/${num}`, auth)
             .then(res => {
-                console.log('댓글 삭제 성공')
+                console.log('리뷰 삭제 성공')
             }).catch(exp => {
                 console.log('실패')
             })

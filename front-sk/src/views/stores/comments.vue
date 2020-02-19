@@ -54,12 +54,12 @@
               <v-icon>{{mdiCalendarEdit}}</v-icon>
               작성시간
             </v-chip>
-             <p class="card__text">{{reviewInfo.wdate}}</p>
+            <p class="card__text">{{reviewInfo.wdate}}</p>
             <v-chip class="ma-2" color="warning" outlined>
               <v-icon>{{mdiEye}}</v-icon>
               조회수
             </v-chip>
-             <p class="card__text">{{reviewInfo.views}}</p>
+            <p class="card__text">{{reviewInfo.views}}</p>
             <v-chip class="ma-2" color="warning" outlined>
               <v-icon>{{mdiEmoticonHappyOutline}}</v-icon>
               장점
@@ -76,13 +76,22 @@
             <v-icon>{{mdiPound}}</v-icon>
             해쉬태그
           </v-chip>
+
           <p> #{{reviewInfo.hashtag.split(',').join('#')}}</p>
+          <div v-if="samePerson(reviewInfo.user.id)">
+            <v-btn icon @click="deleteReview(reviewInfo.rnum)">
+              <v-icon color="warning">{{mdiDelete}}</v-icon>
+            </v-btn>
+          </div>
           <v-divider>공유하기</v-divider>
-          <v-btn  text  icon fab @click="Nshare" >
-            <v-icon color="success" large>{{mdiAlphaNCircle}}</v-icon></v-btn>
-          <v-btn  text  icon fab @click="Fshare">
-            <v-icon color="indigo" large>{{mdiFacebook }}</v-icon></v-btn>
-           <v-divider></v-divider>
+          <v-btn text icon fab @click="Nshare">
+            <v-icon color="success" large>{{mdiAlphaNCircle}}</v-icon>
+          </v-btn>
+          <v-btn text icon fab @click="Fshare">
+            <v-icon color="indigo" large>{{mdiFacebook }}</v-icon>
+          </v-btn>
+          <v-divider></v-divider>
+
         </b-col>
       </b-row>
       <b-row>
@@ -179,7 +188,7 @@
     mdiFacebook,
     mdiAlphaNCircle,
     mdiCalendarEdit,
-    mdiEye  
+    mdiEye
   } from '@mdi/js';
   import Axios from 'axios'
 
@@ -212,7 +221,7 @@
       }
     },
     mounted() {
-      for(var i= 0; i<this.comments.length; i++){
+      for (var i = 0; i < this.comments.length; i++) {
         this.comments[i].wdate = this.comments[i].wdate.substring(0, 10);
       }
 
@@ -230,7 +239,7 @@
     watch: {
       newReturnComment: function () {
         this.comments.unshift(this.newReturnComment);
-        
+
         this.newComment = '';
       }
     },
@@ -304,13 +313,16 @@
       },
       reviewBookmark(num) {
         this.$store.dispatch('reviewBookmark', num)
+      },
+      deleteReview(num) {
+        this.$store.dispatch('reviewDelete', num)
       }
 
 
     },
-    created(){
+    created() {
       this.reviewInfo.wdate = this.reviewInfo.wdate.substring(0, 10);
-      
+
     }
 
   }
