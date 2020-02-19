@@ -57,7 +57,7 @@
                 ReviewApi
                     .requestfetchLikeList()
                     .then(response => {
-                        console.log('!!!!!!!!!!!!!!!!!')
+                        console.log('!!!!!!!!!!!!!!!!!'+response.data.object.length)
                         console.log(response);
                         var LikeList = new Array();
 

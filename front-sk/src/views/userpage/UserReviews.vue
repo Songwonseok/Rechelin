@@ -85,7 +85,7 @@
                         <v-icon>{{mdiPoundBox}}</v-icon>  HASHTAG
                         </v-chip> 
                          <h6>
-                        #{{review.hashtag.split('').join('#')}}
+                        #{{review.hashtag.split(',').join('#')}}
                         </h6>
 
                          <v-chip
