@@ -10,6 +10,7 @@
                  <div class="review-card-inner">
                     <div class="review-front">
                 <img :src="bookmark.picture">
+                   </div>
                 <div class="review-back">
                     <div style="text-align: center;">
                         <div class="review-content">
@@ -32,7 +33,7 @@
                         <v-icon>{{mdiPoundBox}}</v-icon>  HASHTAG
                         </v-chip> 
                          <h6>
-                        #{{bookmark.hashtag.split(' ').join('#')}}
+                        #{{bookmark.hashtag.split(',').join('#')}}
                         </h6>
 
                          <v-chip
@@ -47,7 +48,7 @@
                         </div>
                         </div>
                     </div>
-                </div>
+             
                  </div>
             </slide>
         </carousel-3d>
@@ -76,17 +77,25 @@
                         </v-chip> <br>
                         <h4 @click="storeDetail(review.store.num)" class="store-name">{{review.store.sname}}</h4>
                         
-                         <v-chip
+                         <!-- <v-chip
                         class="ma-2"
                         color="warning"
                         outlined
                         >
                         <v-icon>{{mdiPoundBox}}</v-icon>  HASHTAG
-                        </v-chip> 
-                         <h6>
-                        #{{review.hashtag.split('').join('#')}}
-                        </h6>
+                        </v-chip>  -->
+                         <span v-for="(h, i) in review.hashtag.split(',').splice(0, 5)" :key="i+h">
+                            <span><v-chip
+                        class="ma-2"
+                        color="warning"
+                        outlined
+                        x-small
+                        >
+                        <v-icon>{{mdiPoundBox}}</v-icon> {{h}}
+                        </v-chip>  </span> 
 
+                        </span>
+                        <br>
                          <v-chip
                         class="ma-2"
                         color="warning"
@@ -197,7 +206,7 @@
     margin-top: 10px;
 }
 .store-name:hover {
-    color: black;
+    color: #ff7f00;
     font-size: 200%;
     font-weight: bold;
 }

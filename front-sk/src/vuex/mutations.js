@@ -81,6 +81,10 @@ export default {
         this.state.storeHashtags = hashtags
 
     },
+
+    storeAvg(state, data) {
+        this.state.storeAvg = data;
+    },
     // 리뷰의 댓글관련
     commentsOfreview(state, payload) {
         state.reviewInfo = payload.reviewInfo
@@ -92,6 +96,7 @@ export default {
         list.push(payload)
         state.commentsOfreview = [...list]
         state.newReturnComment = payload
+        console.log(payload)
 
     },
     commentDelete(state, comment) {

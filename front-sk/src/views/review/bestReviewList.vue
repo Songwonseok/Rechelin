@@ -3,58 +3,46 @@
     <div>
         <br>
         <h2 style="color:orange"><span class="iconify" data-icon="whh:crown" data-inline="false"></span> Best Views</h2>
-        <b-container class="bv-example-row">
+        <b-container>
             <b-row>
                 <div v-if="bestReviews.length==0">
                     <h2> 해당 리뷰가 존재하지 않습니다. </h2>
                 </div>
                 <b-col v-for="(bestReview, i) in bestReviews" :key="i+bestReview">
-                    <v-hover v-slot:default="{ hover }">
-                        <!-- 클릭했을때 상세 페이지로 이동 
+                    <!-- 클릭했을때 상세 페이지로 이동 
                                     router-link="router-link" :to="{name: 'storeDetail', params : {id : bestReview.rnum}}"
                             -->
-                        <v-card :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" height="500"
-                            @click="storeDetail(bestReview.id)">
+                    <v-card id="review-image" :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" width="350" height="450"
+                        @click="storeDetail(bestReview.id)">
 
-                            <v-img height="260" :src="bestReview.src">
+                        <v-img  height="250" :src="bestReview.src">
 
+                            <v-expand-transition>
+                                <div v-if="hover"
+                                    class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
+                                    style="height: 100%;">
+                                    {{bestReview.title}}
 
-                                <v-expand-transition>
-                                    <div v-if="hover"
-                                        class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
-                                        style="height: 100%;">
-                                        {{bestReview.title}}
+                                </div>
+                            </v-expand-transition>
+                        </v-img>
+                        <v-card-title>{{bestReview.title}}</v-card-title>
 
-                                    </div>
-                                </v-expand-transition>
-                            </v-img>
-                            <v-card-title>{{bestReview.title}}</v-card-title>
-
-                            <v-card-text>
-                                <v-row align="center" class="mx-0">
-                                    <!-- <v-rating
-                                            :value="4.5"
-                                            color="amber"
-                                            dense="dense"
-                                            half-increments="half-increments"
-                                            readonly="readonly"
-                                            size="14"></v-rating> -->
-
-                                    <!-- <div class="grey--text ml-4">4.5 (413)</div> -->
-                                </v-row>
-
-                                <div>{{bestReview.black_text_content}}</div>
-                                <p>{{bestReview.address}}</p>
-                                <v-divider></v-divider>
-                                <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
-                                    <div v-for="(tags, i) in bestReview.tag" v-bind:key="i+tags">
-                                        <v-chip>{{tags}}</v-chip>
-                                    </div>
-                                </v-chip-group>
-                            </v-card-text>
+                        <v-card-text>
                             
-                        </v-card>
-                    </v-hover>
+
+                            <div>{{bestReview.black_text_content}}</div>
+                            <div>{{bestReview.address}}</div>
+                            <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
+                                <div v-for="(tags, i) in bestReview.tag.splice(0, 4)" v-bind:key="i+tags">
+                                    <v-chip>{{tags}}</v-chip>
+                                </div>
+                            </v-chip-group>
+                        </v-card-text>
+                       
+                    </v-card>
+
+
                 </b-col>
             </b-row>
 
@@ -69,7 +57,7 @@
     import bestLikeList from './bestLikeList.vue';
     import bestRateList from './bestRateList.vue';
     import ReviewApi from '../../apis/ReviewApi.js';
-     
+
     export default {
         created() {
             ReviewApi
@@ -161,11 +149,8 @@
 </script>
 
 <style scoped>
-    b-row {
-
-    }
     .container>div {
-       
+        padding-top: -20px;
         padding-top: 3px;
     }
 
@@ -177,6 +162,24 @@
         position: absolute;
         width: 100%;
     }
-
-
+    #review-image {
+        -webkit-transform:scale(1);
+    -moz-transform:scale(1);
+    -ms-transform:scale(1); 
+    -o-transform:scale(1);  
+    transform:scale(1);
+    -webkit-transition:.3s;
+    -moz-transition:.3s;
+    -ms-transition:.3s;
+    -o-transition:.3s;
+    transition:.3s;
+    }
+    #review-image:hover {
+    -webkit-transform:scale(0.9);
+    -moz-transform:scale(0.9);
+    -ms-transform:scale(0.9);   
+    -o-transform:scale(0.9);
+    transform:scale(0.9);
+    overflow: hidden !important;
+    }
 </style>

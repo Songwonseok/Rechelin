@@ -130,10 +130,10 @@ public class ReviewController {
 	@ApiOperation(value = "댓글 등록")
 	public Object addComment(@RequestBody Comments com) {
 		final BasicResponse result = new BasicResponse();
-		service.addComment(com);
+		
 		result.status = true;
 		result.data = "댓글 등록 성공";
-		result.object = com;
+		result.object = service.addComment(com);;
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 

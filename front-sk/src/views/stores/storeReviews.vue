@@ -1,12 +1,12 @@
 <template>
     <div>
-        <v-container class="grey lighten-5">
+        <v-container>
             <v-row no-gutters>
                 <v-col cols="12" sm="6" md="6" lg="5" v-for="(review, i) in allReviews" :key="i" style="margin: 20px;">
 
-                    <v-card id="reviews" class="mx-auto" max-width="600" outlined>
+                    <v-card id="reviews" class="mx-auto" max-width="400" outlined>
                         <v-list-item three-line>
-                            <v-list-item-content>
+                            <v-list-item-content >
                                 <!-- 
                                 <div class="overline mb-4">{{review.store.sname}}</div> -->
 
@@ -14,8 +14,8 @@
 
                                 <!-- <v-list-item-subtitle style=" align:left">  -->
                                 <!-- <v-list-item-content> -->
-                                <div id="rtitle">
-                                    <span
+                                <div id="rtitle" >
+                                    <span 
                                         v-if="review.review.user.profile ===null || review.review.user.profile === '' ">
                                         <a><img id="profile" src="../../assets/images/ssafy.jpg" @click="$router.push(
                                             {name: 'userpage', 
@@ -39,23 +39,36 @@
 
                                         </span></a>
                                     <v-divider></v-divider>
-                                    <p>작성일자: {{review.review.wdate}}</p>
+                                    
+                                    <p><v-icon>{{icons.mdiCalendarEdit}}</v-icon>작성일자: {{review.review.wdate}}</p>
 
                                     <span style="float:right">
 
                                     </span>
                                 </div>
                                 <br> <br>
-
-
-
+                                
+                                <!-- 
+                                    img 가져오는 순서
+                                    1) Review에있는 img
+                                    2) Store에있는 img
+                                    3) default 이미지
+                                -->
                                 <div v-if="review.review.picture === null ||review.review.picture ===''" style="
                                     height:350px;width:350px;">
-                                    <a><img src="../../assets/images/default.jpg"
-                                            style="max-height:100%; max-weidth:100%; height:100% ;width:100%"
+                                    
+                                    <div v-if="review.review.store.img === null || review.review.store.img==''">
+                                         <a><img src="../../assets/images/default.jpg"
+                                            style="max-height:100%; max-width:100%; height:100% ;width:100%"
                                             @click="reviewDetail(review.review.rnum)" /></a>
+                                    </div>
+                                    <div v-else style="height:350px;width:350px">
+                                        <a><img :src="`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${review.review.store.img}&sensor=true&key=AIzaSyDC4sonH281FHJ-YyPmeXLRdBYuqcjUkGE`"
+                                            style="max-height:100%; max-weidth:100%;height:100% ;width:100%"
+                                            @click="reviewDetail(review.review.rnum)" /></a>
+                                    </div>                   
                                 </div>
-                                <div v-else style="height:350px;width:350px">
+                                <div v-else style="height:300px;width:300px">
                                     <a><img :src="review.review.picture"
                                             style="max-height:100%; max-weidth:100%;height:100% ;width:100%"
                                             @click="reviewDetail(review.review.rnum)" /></a>
@@ -63,7 +76,7 @@
 
                                 <v-list-item-title>
                                     <v-divider></v-divider>
-                                    <h5> {{review.review.title}}</h5>
+                                    <h6> {{review.review.title}}</h6>
                                     <v-divider></v-divider>
                                 </v-list-item-title>
 
@@ -119,7 +132,8 @@
     import {
         mdiArrowDownDropCircle,
         mdiArrowUpDropCircle,
-        mdiDelete
+        mdiDelete,
+        mdiCalendarEdit
     } from '@mdi/js';
     import VueStar from 'vue-star'
     export default {
@@ -134,6 +148,7 @@
                     arrowDownDropCircle: mdiArrowDownDropCircle,
                     arrowUpDropCircle: mdiArrowUpDropCircle,
                     Deletes: mdiDelete,
+                    mdiCalendarEdit
                 },
                 newComment: '',
 
@@ -183,12 +198,14 @@
 
         },
         created() {
-
+            console.log("리뷰 가져오기 !!")
+            console.log(this.allReviews)
         },
         mounted() {
             // this.reviewsScroll();
             for (let n = 0; n < this.allReviews.length; n++) {
                 this.visible.push(false)
+                this.allReviews[n].review.wdate = this.allReviews[n].review.wdate.substring(0, 10);
             }
         },
         components: {
@@ -234,5 +251,25 @@
     svg {
         margin-right: 3px !important;
         margin-left: 3px;
+    }
+    #reviews {
+    -webkit-transform:scale(0.9);
+    -moz-transform:scale(0.9);
+    -ms-transform:scale(0.9); 
+    -o-transform:scale(0.9);  
+    transform:scale(0.9);
+    -webkit-transition:.3s;
+    -moz-transition:.3s;
+    -ms-transition:.3s;
+    -o-transition:.3s;
+    transition:.3s;
+    }
+    #reviews:hover {
+    -webkit-transform:scale(0.85);
+    -moz-transform:scale(0.85);
+    -ms-transform:scale(0.85);   
+    -o-transform:scale(0.85);
+    transform:scale(0.85);
+    overflow: hidden !important;
     }
 </style>

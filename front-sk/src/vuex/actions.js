@@ -5,7 +5,7 @@ import Axios from "axios"
 import router from '../main.js';
 // const URL = 'http://70.12.246.134:8080' // 김주연 ip
 //const URL = "http://70.12.246.51:8080"
- const URL = "http://54.180.160.87:8080" // aws
+const URL = "http://54.180.160.87:8080" // aws
 const auth = {
     headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("userToken")
@@ -45,7 +45,7 @@ export default {
         })
     },
     FETCH_ADR({ commit }, address) { //google 에서부터 음식점 주소를 FETCH 해옴
-        
+
         SearchApi.requestFetchAdrData({ commit }, address).then(
             response => {
                 console.log('recent')
@@ -179,13 +179,13 @@ export default {
     followDecline({ commit }, payload) {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
-        params.append('star',payload.star)
+        params.append('star', payload.star)
         console.log(payload)
         Axios.post(URL + '/follow/decline', params, auth)
             .then(res => {
                 console.log('요청 성공')
             }).catch(exp => {
-               
+
                 console.log('실패')
             })
 
@@ -194,12 +194,12 @@ export default {
         const params = new URLSearchParams();
         params.append('id', payload.id)
         params.append('snum', payload.snum)
-        // console.log(payload, '???????????????????????')
+            // console.log(payload, '???????????????????????')
         Axios.post(URL + "/store/checkBook", params, auth)
             .then(res => {
                 console.log('요청 성공')
                 console.log(res)
-                if (res.data.status==false) {
+                if (res.data.status == false) {
                     console.log('북마크 등록')
                     Axios.post(URL + "/store/addBook", params, auth)
                         .then(response => {
@@ -207,20 +207,31 @@ export default {
                         }).catch(exp => {
                             console.log('북마크 등록 실패')
                         })
-                    
+
                 } else {
-                    Axios.post(URL+"/store/removeBook",  params, auth)
-                    .then(response => {
-                        console.log('북마크 삭제')
-                    }).catch(exp => {
-                        console.log('북마크 삭제 실패')
-                    })
+                    Axios.post(URL + "/store/removeBook", params, auth)
+                        .then(response => {
+                            console.log('북마크 삭제')
+                        }).catch(exp => {
+                            console.log('북마크 삭제 실패')
+                        })
                 }
             }).catch(exp => {
                 console.log('실패')
             })
 
     },
+
+    scoreAvg({ commit }, payload) {
+        Axios.get(URL + `/store/scoreAvg/${payload}`, auth)
+            .then(res => {
+                commit('storeAvg', res.data.object)
+            }).catch(exp => {
+                console.log('평균점수 구하기 실패')
+            })
+
+    },
+
 
     // 리뷰의 댓글 관련
     commentsOfreview({ commit }, review) {
@@ -249,8 +260,8 @@ export default {
 
         Axios.post(URL + `/review/comment`, newComment, auth)
             .then(res => {
-                console.log('요청 성공')
-                commit('createComment', newComment)
+                console.log('요청 성공', res)
+                commit('createComment', res.data)
             }).catch(exp => {
                 console.log('실패')
             })
@@ -274,12 +285,15 @@ export default {
                 console.log('실패')
             })
     },
-    reviewLike({ commit }, num) {
+    reviewLike({ commit }, payload) {
         let data = {
-            'id': num,
+            'review': {
+                'rnum': payload.num
+            },
             'user': {
                 'id': sessionStorage.getItem('userid')
-            }
+            },
+            'status': payload.status
         }
         let options = {
             headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
@@ -330,6 +344,33 @@ export default {
             }).catch(exp => {
                 console.log('해쉬태그 가져오기 실패')
             })
+
+    },
+    reviewBookmark({commit}, num) {
+        let data = {
+            'review': {
+                'rnum': num
+            },
+            'user': {
+                'id': sessionStorage.getItem('userid')
+            },
+
+        }
+        let options = {
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
+            url: URL + '/review/bookmark',
+            method: 'post',
+            data: JSON.stringify(data)
+        }
+        Axios(options)
+        .then(res => {
+            console.log('북마크 등록 성공', res)
+
+        }).catch(exp => {
+            console.log('북마크 등록 실패')
+        })
+
+
 
     }
 

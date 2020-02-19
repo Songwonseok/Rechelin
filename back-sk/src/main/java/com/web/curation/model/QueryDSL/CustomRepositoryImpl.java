@@ -112,6 +112,7 @@ implements CustomRepository{
 	public List<Review> likeBest() {
 		return queryFactory.selectFrom(review).where(review.rnum.in(
 				JPAExpressions.select(likecheck.review.rnum).from(likecheck)
+								.where(likecheck.status.eq(1)) 
 								.groupBy(likecheck.review)
 								.orderBy(likecheck.review.count().desc())))
 				.limit(6).fetch();
