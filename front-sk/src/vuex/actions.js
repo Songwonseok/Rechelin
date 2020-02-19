@@ -225,9 +225,7 @@ export default {
     scoreAvg({ commit }, payload) {
         Axios.get(URL + `/store/scoreAvg/${payload}`, auth)
             .then(res => {
-                console.log('데이터 받아오기 성공!!')
-                console.log(res.data.object)
-                commit('reviewDetail', res.data.object)
+                commit('storeAvg', res.data.object)
             }).catch(exp => {
                 console.log('평균점수 구하기 실패')
             })
