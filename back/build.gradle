@@ -5,6 +5,13 @@ plugins {
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
+//war
+apply plugin: 'war'
+war {
+   baseName = 'market2'    
+}
+//
+
 group = 'com.web.curation'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -22,6 +29,10 @@ repositories {
 
 dependencies {
 implementation 'commons-io:commons-io:2.6'
+	//war
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	//
+	
     implementation 'org.springframework.boot:spring-boot-starter-web:2.2.2.RELEASE'
     implementation 'io.springfox:springfox-swagger2:2.9.2'
     implementation 'io.springfox:springfox-swagger-ui:2.6.1'

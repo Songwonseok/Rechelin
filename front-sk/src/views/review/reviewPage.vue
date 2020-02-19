@@ -80,6 +80,20 @@
                                     <v-combobox v-model="allTags" chips clearable label="Your hashtags" multiple solo>
                                     </v-combobox>
                                 </span>
+
+                                <v-divider></v-divider>
+                                음식종류
+                                <v-divider></v-divider>
+                                <v-chip draggable @click="check_area(24, '한식')">한식</v-chip>
+                                <v-chip draggable @click="check_area(25, '양식')">양식</v-chip>
+                                <v-chip draggable @click="check_area(26, '중식')">중식</v-chip>
+                                <v-chip draggable @click="check_area(27, '일식')">일식</v-chip>
+                                <v-chip draggable @click="check_area(28, '카페')">카페</v-chip>
+                                <v-chip draggable @click="check_area(29, '밥집')">밥집</v-chip>
+                                <v-chip draggable @click="check_area(30, '술집')">술집</v-chip>
+                                <v-chip draggable @click="check_area(31, '고깃집')">고깃집</v-chip>
+                                <v-chip draggable @click="check_area(32, '아시안')">아시안</v-chip>
+
                                 <v-divider></v-divider>
                                 위치 (강남)
                                 <v-divider></v-divider>
@@ -91,10 +105,11 @@
                                 <v-chip draggable @click="check_area( 5, '가로수길')">가로수길</v-chip>
                                 <v-chip draggable @click="check_area( 6, '서래마을')">서래마을</v-chip>
                                 <v-chip draggable @click="check_area( 7, '건대')">건대</v-chip>
+
+
                                 <v-divider></v-divider>
                                 위치(강북)
                                 <v-divider></v-divider>
-
                                 <v-chip draggable @click="check_area( 8, '종로')">종로</v-chip>
                                 <v-chip draggable @click="check_area( 9, '삼청동')">삼청동</v-chip>
                                 <v-chip draggable @click="check_area( 10, '서촌')">서촌</v-chip>
@@ -111,6 +126,7 @@
                                 <v-chip draggable @click="check_area( 21, '경리단길')">경리단길</v-chip>
                                 <v-chip draggable @click="check_area( 22, '명동')">명동</v-chip>
                                 <v-chip draggable @click="check_area(23, '신촌')">신촌</v-chip>
+                                <v-chip draggable @click="check_area(23, '대학로')">대학로</v-chip>
 
                                 <br>
 
@@ -120,11 +136,11 @@
                                 누구와
                                 <v-divider></v-divider>
 
-                                <v-chip draggable @click="check_with( 0, '혼밥')">혼밥</v-chip>
-                                <v-chip draggable @click="check_with(1, '친구와')">친구와</v-chip>
-                                <v-chip draggable @click="check_with(2, '연인과')">연인과</v-chip>
+                                <v-chip draggable @click="check_with( 0, '혼자')">혼자</v-chip>
+                                <v-chip draggable @click="check_with(1, '친구')">친구</v-chip>
+                                <v-chip draggable @click="check_with(2, '연인')">연인</v-chip>
                                 <v-chip draggable @click="check_with( 3, '직장동료')">직장동료</v-chip>
-                                <v-chip draggable @click="check_with(4, '가족과')">가족과</v-chip>
+                                <v-chip draggable @click="check_with(4, '가족')">가족</v-chip>
 
                                 <v-divider></v-divider>
                                 연령별
@@ -144,7 +160,7 @@
                                 <v-chip draggable @click="check_atmosphere( 0, '시끌벅적한')">시끌벅적한</v-chip>
                                 <v-chip draggable @click="check_atmosphere( 1, '차분한')">차분한</v-chip>
                                 <v-chip draggable @click="check_atmosphere( 2, '소소한')">소소한</v-chip>
-                                <v-chip draggable @click="check_atmosphere( 3, '고급진')">고급진</v-chip>
+                                <v-chip draggable @click="check_atmosphere( 3, '고급스러운')">고급스러운</v-chip>
                                 <v-chip draggable @click="check_atmosphere( 4, '데이트')">데이트</v-chip>
 
 
