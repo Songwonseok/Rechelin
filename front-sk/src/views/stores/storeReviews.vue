@@ -39,21 +39,32 @@
 
                                         </span></a>
                                     <v-divider></v-divider>
-                                    <p>작성일자: {{review.review.wdate}}</p>
+                                    <p><v-icon>{{icons.mdiCalendarEdit}}</v-icon>작성일자: {{review.review.wdate}}</p>
 
                                     <span style="float:right">
 
                                     </span>
                                 </div>
                                 <br> <br>
-
-
-
+                                
+                                <!-- 
+                                    img 가져오는 순서
+                                    1) Review에있는 img
+                                    2) Store에있는 img
+                                    3) default 이미지
+                                -->
                                 <div v-if="review.review.picture === null ||review.review.picture ===''" style="
                                     height:350px;width:350px;">
-                                    <a><img src="../../assets/images/default.jpg"
+                                    <div v-if="review.review.store.img === null || review.review.store.img==''">
+                                         <a><img src="../../assets/images/default.jpg"
                                             style="max-height:100%; max-weidth:100%; height:100% ;width:100%"
                                             @click="reviewDetail(review.review.rnum)" /></a>
+                                    </div>
+                                    <div v-else style="height:350px;width:350px">
+                                        <a><img :src="`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${review.review.store.img}&sensor=true&key=AIzaSyDC4sonH281FHJ-YyPmeXLRdBYuqcjUkGE`"
+                                            style="max-height:100%; max-weidth:100%;height:100% ;width:100%"
+                                            @click="reviewDetail(review.review.rnum)" /></a>
+                                    </div>                   
                                 </div>
                                 <div v-else style="height:350px;width:350px">
                                     <a><img :src="review.review.picture"
@@ -119,7 +130,8 @@
     import {
         mdiArrowDownDropCircle,
         mdiArrowUpDropCircle,
-        mdiDelete
+        mdiDelete,
+        mdiCalendarEdit
     } from '@mdi/js';
     import VueStar from 'vue-star'
     export default {
@@ -134,6 +146,7 @@
                     arrowDownDropCircle: mdiArrowDownDropCircle,
                     arrowUpDropCircle: mdiArrowUpDropCircle,
                     Deletes: mdiDelete,
+                    mdiCalendarEdit
                 },
                 newComment: '',
 
@@ -183,12 +196,14 @@
 
         },
         created() {
-
+            console.log("리뷰 가져오기 !!")
+            console.log(this.allReviews)
         },
         mounted() {
             // this.reviewsScroll();
             for (let n = 0; n < this.allReviews.length; n++) {
                 this.visible.push(false)
+                this.allReviews[n].review.wdate = this.allReviews[n].review.wdate.substring(0, 10);
             }
         },
         components: {
