@@ -3,94 +3,106 @@
         <div class="card card--big">
             <router-link :to="{name: 'userpage', params: {
                 id: reviewInfo.user.id
-            }}" style="color: #ff7f00 !important"> 
-             <v-chip class="ma-2" color="warning" outlined>
-                        <v-icon>{{mdiLeadPencil}}</v-icon>
-                        작성자
-                    </v-chip> {{reviewInfo.user.nickname}}</router-link>
+            }}" style="color: #ff7f00 !important">
+                <v-chip class="ma-2" color="warning" outlined>
+                    <v-icon>{{mdiLeadPencil}}</v-icon>
+                    작성자
+                </v-chip> {{reviewInfo.user.nickname}}
+            </router-link>
             <b-row>
 
                 <b-col>
                     <div v-if="reviewInfo.picture">
-                 <img class="review-image" :src="reviewInfo.picture" alt="" style="width: 80%; height: 350px;">
-                   </div>
-                   <div v-else>
-                       <img src="../../assets/images/default.jpg" alt="" style="width: 80%; height: 350px;">
-                   </div>
-                   <!-- 좋아요 -->
-                   <v-divider style="margin-top: 30px;"></v-divider>
-                   <div style="margin-top: 10px;">
+                        <img class="review-image" :src="reviewInfo.picture" alt="" style="width: 80%; height: 350px;">
+                    </div>
+                    <div v-else>
+                        <img src="../../assets/images/default.jpg" alt="" style="width: 80%; height: 350px;">
+                    </div>
+                    <!-- 좋아요 -->
+                    <v-divider style="margin-top: 30px;"></v-divider>
+                    <div style="margin-top: 10px;">
 
-                   <v-btn small fab class="mt-2 review-like" @click="reviewLike(reviewInfo.rnum, 1)" color="warning">
-                                <vue-star animate="animated bounceIn" color="#F7D358">
-                                    <i slot="icon" class="fas fa-thumbs-up fa-lg" ></i>
-                                </vue-star>
-                            </v-btn>
-                             
-                            <v-btn small fab  class="mt-2 review-like" @click="reviewLike(reviewInfo.rnum, 0)" color="warning">
+                        <v-btn small fab class="mt-2 review-like" @click="reviewLike(reviewInfo.rnum, 1)"
+                            color="warning">
                             <vue-star animate="animated bounceIn" color="#F7D358">
-                               
+                                <i slot="icon" class="fas fa-thumbs-up fa-lg"></i>
+                            </vue-star>
+                        </v-btn>
+
+                        <v-btn small fab class="mt-2 review-like" @click="reviewLike(reviewInfo.rnum, 0)"
+                            color="warning">
+                            <vue-star animate="animated bounceIn" color="#F7D358">
+
                                 <i slot="icon" class="fas fa-thumbs-down fa-lg"></i>
                             </vue-star>
                         </v-btn>
-                   
-               
-                <v-btn fab small class="mt-2 review-like"  color="warning">
-                    <vue-star animate="animated bounceIn" color="#F7FE2E">
-                        <i slot="icon" class="fas fa-bookmark fa-2x"></i>
-                    </vue-star>
-                </v-btn>
 
-                <v-divider></v-divider>
 
-                </div>
+                        <v-btn fab small class="mt-2 review-like" color="warning">
+                            <vue-star animate="animated bounceIn" color="#F7FE2E">
+                                <i slot="icon" class="fas fa-bookmark fa-2x"></i>
+                            </vue-star>
+                        </v-btn>
+
+                        <v-divider></v-divider>
+
+                    </div>
 
                 </b-col>
                 <b-col>
                     <h2 class="card__title"></h2>
-                    <p class="card__subtitle"> 
-                        조회수: {{reviewInfo.views}}  <span class="written-time">작성시간 :{{reviewInfo.wdate}}</span>
+                    <p class="card__subtitle">
+                        조회수: {{reviewInfo.views}} <span class="written-time">작성시간 :{{reviewInfo.wdate}}</span>
                     </p>
                     <div>
-                    <v-chip class="ma-2" color="warning" outlined>
-                        <v-icon>{{mdiEmoticonHappyOutline}}</v-icon>
-                        장점
-                    </v-chip>
+                        <v-chip class="ma-2" color="warning" outlined>
+                            <v-icon>{{mdiEmoticonHappyOutline}}</v-icon>
+                            장점
+                        </v-chip>
 
-                    <p class="card__text">{{reviewInfo.str}}</p>
-                    <v-chip class="ma-2" color="warning" outlined>
-                        <v-icon>{{mdiEmoticonSadOutline}}</v-icon>
-                        단점
-                    </v-chip>
-                    <p class="card__text">{{reviewInfo.weak}}</p>
+                        <p class="card__text">{{reviewInfo.str}}</p>
+                        <v-chip class="ma-2" color="warning" outlined>
+                            <v-icon>{{mdiEmoticonSadOutline}}</v-icon>
+                            단점
+                        </v-chip>
+                        <p class="card__text">{{reviewInfo.weak}}</p>
                     </div>
                     <v-chip class="ma-2" color="warning" outlined>
                         <v-icon>{{mdiPound}}</v-icon>
-                       해쉬태그
+                        해쉬태그
                     </v-chip>
-                     <p>  #{{reviewInfo.hashtag.split(',').join('#')}}</p>
+                    <p> #{{reviewInfo.hashtag.split(',').join('#')}}</p>
+                    <div>
+                        <figure class="chart" :data-percent="reviewInfo.total*20">
+                            <img class="all">
+                            <svg width="200" height="200">
+                                <circle class="outer" cx="95" cy="95" r="85" transform="rotate(-90, 95, 95)" />
+                            </svg>
+                        </figure>
+
+                    </div>
                     <div class="card__action-bar">
-                         <v-chip class="ma-2" color="warning" outlined>
-                        <v-icon>{{mdiSigma}}</v-icon>
-                        총점
-                    </v-chip>
+                        <v-chip class="ma-2" color="warning" outlined>
+                            <v-icon>{{mdiSigma}}</v-icon>
+                            총점
+                        </v-chip>
                         <div ref="sumRating" class="sumRating" id="rating">
                             {{reviewInfo.total}}
                         </div>
-                         <v-chip class="ma-2" color="warning" outlined>
-                        <v-icon>{{ mdiEmoticonTongueOutline}}</v-icon>
-                        맛
-                    </v-chip>
+                        <v-chip class="ma-2" color="warning" outlined>
+                            <v-icon>{{ mdiEmoticonTongueOutline}}</v-icon>
+                            맛
+                        </v-chip>
                         <div ref="tasteRating" class="tasteRating" id="rating">{{reviewInfo.taste}}</div>
-                         <v-chip class="ma-2" color="warning" outlined>
-                        <v-icon>{{mdiCurrencyUsd}}</v-icon>
-                        가격
-                    </v-chip> 
+                        <v-chip class="ma-2" color="warning" outlined>
+                            <v-icon>{{mdiCurrencyUsd}}</v-icon>
+                            가격
+                        </v-chip>
                         <div ref="priceRating" class="priceRating" id="rating">{{reviewInfo.price}}</div>
-                         <v-chip class="ma-2" color="warning" outlined>
-                        <v-icon>{{mdiEmoticonOutline}}</v-icon>
-                        친절도
-                    </v-chip>
+                        <v-chip class="ma-2" color="warning" outlined>
+                            <v-icon>{{mdiEmoticonOutline}}</v-icon>
+                            친절도
+                        </v-chip>
                         <div ref="kindRating" class="kindRating" id="rating"> {{reviewInfo.kindness}}</div>
 
                     </div>
@@ -107,16 +119,20 @@
 
             <b-list-group v-for="(comment, index) in comments" :key="index">
                 <b-list-group-item style="text-align: left;">
-                    <p><router-link :to="{name: 'userpage', params: {
+                    <p>
+                        <router-link :to="{name: 'userpage', params: {
                         id: comment.user.id
-                    }}" style="color: black;"><strong>{{comment.user.nickname}}</strong></router-link>   {{comment.content}}</p>
-                  
-                    <p style="text-align: right;">  <span class="written-time">작성시간 : {{comment.wdate}}</span>
-                    
-                    <v-btn icon v-if="samePerson(comment.user.id)" @click="commentDelete(comment)" >
-                        <v-icon color="warning">{{mdiDelete}}</v-icon>
-                    </v-btn></p>
-                  
+                    }}" style="color: black;"><strong>{{comment.user.nickname}}</strong></router-link>
+                        {{comment.content}}
+                    </p>
+
+                    <p style="text-align: right;"> <span class="written-time">작성시간 : {{comment.wdate}}</span>
+
+                        <v-btn icon v-if="samePerson(comment.user.id)" @click="commentDelete(comment)">
+                            <v-icon color="warning">{{mdiDelete}}</v-icon>
+                        </v-btn>
+                    </p>
+
                 </b-list-group-item>
 
             </b-list-group>
@@ -141,7 +157,6 @@
         mdiLeadPencil,
         mdiThumbUp
     } from '@mdi/js';
-    import {normal} from '../../../public/js/animejs';
 
     export default {
         data() {
@@ -162,16 +177,13 @@
                 mdiEmoticonOutline,
                 mdiLeadPencil,
                 mdiThumbUp,
-                changeLike : true,
-                
+                changeLike: true,
+
             }
         },
         mounted() {
-            normal(this.$refs.sumRating, this.reviewInfo.total)
-            normal(this.$refs.tasteRating, this.reviewInfo.taste)
-            normal(this.$refs.priceRating, this.reviewInfo.price)
-            normal(this.$refs.kindRating, this.reviewInfo.kindness)
-            
+
+
         },
         computed: {
             reviewInfo() {
@@ -232,7 +244,7 @@
 
 
             },
-             reviewLike(num, status) {
+            reviewLike(num, status) {
                 this.changeLike = !this.changeLike
                 let payload = {
                     num: num,
@@ -240,7 +252,7 @@
                 }
                 this.$store.dispatch('reviewLike', payload)
             },
-         
+
 
         },
 
@@ -259,27 +271,233 @@
             0 1px 5px 0 rgba(0, 0, 0, 0.12),
             0 3px 1px -2px rgba(0, 0, 0, 0.2);
     }
+
     #rating {
         background-color: #FF7F00;
         color: white !important;
     }
+
     .written-time {
         font-size: 13px;
         text-align: right !important;
     }
+
     p {
         margin-top: 3px;
         margin-bottom: 0px;
     }
+
     .review-image {
-        width: 350px; 
-        height: 350px; 
+        width: 350px;
+        height: 350px;
         margin-top: 50px !important;
         border-radius: 10px;
     }
+
     .review-like {
         margin-right: 5px;
         margin-left: 5px;
     }
+   /* Import the Google Font 'Lato' */
+/* @import url(https://fonts.googleapis.com/css?family=Lato:300, 400, 700); */
+
+
+
+/* END Container styles */
+
+/* Colors for the circles and positions for the graphics */
+.all {
+
+}
+
+.all + svg .outer {
+  stroke: #e34f26;
+}
+
+.taste {
+
+}
+
+.taste + svg .outer {
+  stroke: #0d84ce;
+}
+
+.price {
+  max-width: 90px;
+  max-height: 90px;
+
+}
+
+.price + svg .outer {
+  stroke: #f0e040;
+}
+
+.kind {
+  width: 200px;
+  height: 200px;
+
+}
+
+.kind + svg .outer {
+  stroke: #83cd29 !important;
+}
+
+.chart svg {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.outer {
+  fill: transparent;
+  stroke: #333;
+  stroke-width: 20;
+  stroke-dasharray: 534;
+  transition: stroke-dashoffset 1s;
+  -webkit-animation-play-state: running;
+  /* firefox bug fix - won't rotate at 90deg angles */
+  -moz-transform: rotate(-89deg) translateX(-190px);
+}
+
+.chart:hover .outer {
+  stroke-dashoffset: 534 !important;
+  -webkit-animation-play-state: paused;
+}
+/* END Circle colors and graphic positions */
+
+/* Set the initial values for the animation */
+.chart[data-percent="100"] .outer {
+  stroke-dashoffset: 0;
+  -webkit-animation: show100 2s;
+  animation: show100 2s;
+}
+
+.chart[data-percent="80"] .outer {
+  stroke-dashoffset: 107;
+  -webkit-animation: show80 2s;
+  animation: show80 2s;
+}
+
+.chart[data-percent="60"] .outer {
+  stroke-dashoffset: 214;
+  -webkit-animation: show60 2s;
+  animation: show60 2s;
+}
+
+.chart[data-percent="40"] .outer {
+  stroke-dashoffset: 322;
+  -webkit-animation: show40 2s;
+  animation: show40 2s;
+}
+.chart[data-percent="20"] .outer {
+  stroke-dashoffset: 430;
+  -webkit-animation: show20 2s;
+  animation: show20 2s;
+}
+/* END set initial animation values */
+
+/* Keyframes for the initial animation */
+@-webkit-keyframes show100 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes show100 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@-webkit-keyframes show80 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 107;
+  }
+}
+
+@keyframes show80 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 107;
+  }
+}
+
+@-webkit-keyframes show60 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 214;
+  }
+}
+
+@keyframes show60 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 214;
+  }
+}
+
+@-webkit-keyframes show40 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 322;
+  }
+}
+
+@keyframes show40 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 322;
+  }
+}
+
+
+@-webkit-keyframes show40 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 430;
+  }
+}
+
+@keyframes show20 {
+  from {
+    stroke-dashoffset: 537;
+  }
+
+  to {
+    stroke-dashoffset: 430;
+  }
+}
+/* END Keyframes for the initial animation */
+
 
 </style>
