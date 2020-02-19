@@ -229,14 +229,16 @@
     },
     watch: {
       newReturnComment: function () {
-        this.comments.unshift(this.newReturnComment);
+        console.log('return@!!')
+        console.log(this.newReturnComment)
+        this.comments.unshift(this.newReturnComment.object);
         this.newComment = '';
       }
     },
     methods: {
       submitComment() {
         if (this.newComment < 3) {
-          alert('댓글은 최소 3글자 이상 작성해주세요')
+          alert('댓글은 최소 3글자 이상 작성해주세요'+this.newComment)
           return false
         }
         var data = {
@@ -250,9 +252,6 @@
         }
         this.$store.dispatch('createComment', data)
 
-        this.$nextTick((res) => {
-
-        })
       },
       samePerson(num) {
 
@@ -286,7 +285,7 @@
         document.location = shareURL;
       },
       commentDelete(comment) {
-        this.$store.dispatch('commentDelete', comment).then((result) => {
+        this.$store.dispatch('commentDelete', comment.num).then((result) => {
           this.$forceUpdate()
         })
         let list = [...this.comments]

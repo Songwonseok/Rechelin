@@ -142,8 +142,8 @@ public class ReviewServiceImpl implements ReviewService {
 	public Comments addComment(Comments com) {
 		
 		comdao.save(com);
-		Comments newcom = comdao.findTopByUserOrderByWdateDesc(com.getUser());
-		return newcom;
+		Comments cc = comdao.findByNum(com.getNum());
+		return cc;
 	}
 
 	@Override
