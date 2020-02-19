@@ -68,13 +68,15 @@
               <v-icon color="warning">{{icons.mdiCrosshairsGps}}</v-icon>
             </v-btn>
           </div>
-          <v-card class="mx-auto" max-width="344" outlined style="max-width: 344px;margin-top: 30px;">
-            <v-icon>{{icons.mdiEmoticonTongueOutline}}</v-icon>
+          <v-card class="mx-auto" outlined style="max-width: 344px;margin-top: 30px;">
+            <h5 style="color:#FF7F00">
+              <v-icon color="warning">{{icons.mdiEmoticonTongueOutline}}</v-icon>
             taste : {{storeAvg.tasteAvg}}
-            <v-icon>{{icons.mdiCurrencyUsd}}</v-icon>
+            <v-icon color="warning">{{icons.mdiCurrencyUsd}}</v-icon>
             price : {{storeAvg.priceAvg}}
-            <v-icon>{{icons.mdiEmoticonWinkOutline}}</v-icon>
+            <v-icon color="warning">{{icons.mdiEmoticonWinkOutline}}</v-icon>
             kind : {{storeAvg.kindAvg}}
+            </h5>
           </v-card>
         </b-card-text>
         <b-card-text style="text-align: center;">
