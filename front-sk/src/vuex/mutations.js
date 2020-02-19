@@ -42,12 +42,14 @@ export default {
         state.userEmail = null
         state.userNickname = null
         state.userid = null
+        //state.MenuStatus = 0;
         sessionStorage.removeItem("userToken")
         sessionStorage.removeItem("userEmail")
         sessionStorage.removeItem("userNickname")
         sessionStorage.removeItem("userid")
     },
     login(state, payload) {
+        //this.state.MenuStatus = 1;
         this.state.userid = payload.id
         this.state.userEmail = payload.useremail
         this.state.userNickname = payload.usernickname

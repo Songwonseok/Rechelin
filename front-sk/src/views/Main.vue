@@ -19,6 +19,21 @@
 
               <v-card-text>
 
+                음식종류
+
+                <v-divider></v-divider>
+                <v-chip draggable="draggable" @click="insertTags('locations',24, '한식')">한식</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',25, '양식')">양식</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',26, '중식')">중식</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',27, '일식')">일식</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',28, '카페')">카페</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',29, '밥집')">밥집</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',30, '술집')">술집</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',31, '고깃집')">고깃집</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',32, '아시안')">아시안</v-chip>
+
+
+                <v-divider></v-divider>
                 위치
                 <v-divider></v-divider>
                 강남
@@ -49,16 +64,17 @@
                 <v-chip draggable="draggable" @click="insertTags('locations', 21, '경리단길')">경리단길</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 22, '명동')">명동</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 23, '신촌')">신촌</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations', 33, '대학로')">대학로</v-chip>
 
                 <v-divider></v-divider>
                 누구와
                 <v-divider></v-divider>
 
-                <v-chip draggable="draggable" @click="insertTags('withWho', 0, '혼밥')">혼밥</v-chip>
-                <v-chip draggable="draggable" @click="insertTags('withWho', 1, '친구와')">친구와</v-chip>
-                <v-chip draggable="draggable" @click="insertTags('withWho', 2, '연인과')">연인과</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('withWho', 0, '혼자')">혼자</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('withWho', 1, '친구')">친구</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('withWho', 2, '연인')">연인</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('withWho', 3, '직장동료')">직장동료</v-chip>
-                <v-chip draggable="draggable" @click="insertTags('withWho', 4, '가족과')">가족과</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('withWho', 4, '가족')">가족</v-chip>
 
                 <v-divider></v-divider>
                 연령별
@@ -77,7 +93,7 @@
                 <v-chip draggable="draggable" @click="insertTags('moods', 0, '시끌벅적한')">시끌벅적한</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('moods', 1, '차분한')">차분한</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('moods', 2, '소소한')">소소한</v-chip>
-                <v-chip draggable="draggable" @click="insertTags('moods', 3, '고급진')">고급진</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('moods', 3, '고급스러운')">고급스러운</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('moods', 4, '데이트')">데이트</v-chip>
 
                 <v-divider></v-divider>
@@ -183,12 +199,14 @@
       this
         .$store
         .dispatch('LOADING_USERDATA');
-
+        
+    
       this
         .$router
         .push({
           name: "popular"
         })
+        
     },
     watch: {
       newSearch: function (v) {
@@ -201,8 +219,17 @@
       storeList : function(v){
                 console.log('storeList')
                 console.log(this.$store.state.storeList);
-               
-               
+                      
+      },
+      userid : function(v){
+         console.log('userid');
+          this.$router.go({
+  name: 'main',
+  force: true
+})  
+        console.log('watch-userid')
+        console.log(this.userid);
+        this.userid = this.$store.state.userid;
       }
     },
     data() {
@@ -236,8 +263,8 @@
         tabs: 0,
         checkLogin: true,
         dialog : false,
-         isLoading: false,
-        
+        isLoading: false,
+        userid_list : [],
       }
     },
     computed: {
@@ -246,13 +273,15 @@
         return this.tempStores
       },
        userToken(){
-        return this.$store.state.accessToken
+         //return this.$store.state.accessToken
+        return sessionStorage.getItem("userToken");
       },
       storeList(){
-            return this.$store.state.storeList
+        return this.$store.state.storeList
       },
        userid(){
-        return this.$store.state.userid
+         return this.$store.state.userid
+       //return sessionStorage.getItem("userid")
       },
       
     },
@@ -264,6 +293,10 @@
     methods: {
       valid(name){
         // session에 값이 있는지 확인해서 있으면 탭 이동
+//                   this.$router.go({
+//   name: 'main',
+//   force: true
+// })
         let accessToken = sessionStorage.getItem("userToken");
         if(accessToken!=null){
           this.$router.push({name : name});  
@@ -274,7 +307,9 @@
 
       },
       uservalid(val){
+ 
         if(this.userToken!=null){
+     
           this.$router.push({name:'userpage', params:{id:this.userid}})
         }else{
           this.$router.push('/login');  

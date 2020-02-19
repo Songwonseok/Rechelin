@@ -51,8 +51,13 @@
           @keyup.enter="edit"
           style="width: 300px;"
         ></b-form-input>
-
+      
+       
         <div style="padding-top: 30px;" ref="finalSubmit">
+            <v-btn class="ma-2" color="warning" @click="dropOut" style="color: #ff7f00 !important; ">
+            <v-icon left>{{ svgPath }}</v-icon> 회원탈퇴
+          </v-btn>
+        
           <v-btn class="ma-2" color="warning" @click="edit" style="color: #ff7f00 !important; ">
             <v-icon left>{{ svgPath }}</v-icon>EDIT
           </v-btn>
@@ -151,6 +156,20 @@ export default {
         // axios 보낸는 장소
         this.$alert("회원 정보 수정 성공", "success", "success", );
       // }
+    },
+    dropOut(){
+      let id = sessionStorage.getItem('userid');
+      UserApi.requestUserDelete(id).then(response =>{
+        sessionStorage.removeItem('userToken');
+        sessionStorage.removeItem('useremail');
+        sessionStorage.removeItem('userEmail');
+        sessionStorage.removeItem('userNickname');
+        sessionStorage.removeItem('userid');
+        this.$store.state.userid = 0; //화면  rerendering 하기 위한 방법
+        console.log(response);
+        this.$alert('회원정보 삭제',"success","success");
+        this.$router.push({name : 'popular'});
+      })
     },
     // 프로필 이미지 변경
     load(e) {

@@ -49,10 +49,17 @@
         </b-col>
         <b-col style="padding-bottom: 0px;">
           <h2 class="card__title"></h2>
-          <p class="card__subtitle">
-            조회수: {{reviewInfo.views}} <span class="written-time">작성시간 :{{reviewInfo.wdate}}</span>
-          </p>
           <div>
+            <v-chip class="ma-2" color="warning" outlined>
+              <v-icon>{{mdiCalendarEdit}}</v-icon>
+              작성시간
+            </v-chip>
+             <p class="card__text">{{reviewInfo.wdate}}</p>
+            <v-chip class="ma-2" color="warning" outlined>
+              <v-icon>{{mdiEye}}</v-icon>
+              조회수
+            </v-chip>
+             <p class="card__text">{{reviewInfo.views}}</p>
             <v-chip class="ma-2" color="warning" outlined>
               <v-icon>{{mdiEmoticonHappyOutline}}</v-icon>
               장점
@@ -170,7 +177,9 @@
     mdiLeadPencil,
     mdiThumbUp,
     mdiFacebook,
-    mdiAlphaNCircle 
+    mdiAlphaNCircle,
+    mdiCalendarEdit,
+    mdiEye  
   } from '@mdi/js';
   import Axios from 'axios'
 
@@ -195,12 +204,17 @@
         mdiThumbUp,
         mdiFacebook,
         mdiAlphaNCircle,
+        mdiCalendarEdit,
+        mdiEye,
+
         changeLike: true,
 
       }
     },
     mounted() {
-
+      for(var i= 0; i<this.comments.length; i++){
+        this.comments[i].wdate = this.comments[i].wdate.substring(0, 10);
+      }
 
     },
     computed: {
@@ -296,6 +310,10 @@
 
 
     },
+    created(){
+      this.reviewInfo.wdate = this.reviewInfo.wdate.substring(0, 10);
+      
+    }
 
   }
 </script>

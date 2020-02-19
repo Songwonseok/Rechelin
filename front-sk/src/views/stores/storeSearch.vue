@@ -257,6 +257,9 @@ import 'vue-loading-overlay/dist/vue-loading.css'
     }
 </script>
 <style scoped="scoped">
+iframe {
+  pointer-events: none;
+}
     .inspire_store {
         top: 200px;
     }

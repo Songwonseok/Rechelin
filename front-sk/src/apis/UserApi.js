@@ -81,6 +81,7 @@ const requestLogin = (data, callback, errorCallback) => {
                 userToken: response.data.object.token,
                 info: response.data.object.user
             }))
+           
             sessionStorage.setItem("userToken", response.data.object.accessToken)
             sessionStorage.setItem("userEmail", response.data.object.email)
             sessionStorage.setItem("userNickname", response.data.object.nickname)
@@ -232,6 +233,12 @@ function requestUserReviewCnt(data) {
     return Axios.post(URL + '/review/myList', params, auth);
 }
 
+function requestUserDelete(id){
+    // const params = new URLSearchParams();
+    // params.append('id',id);
+    return Axios.delete(URL + '/account/delete/' +id, auth);
+}
+
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestEdit: (data, callback, errorCallback) => requestEdit(data, callback, errorCallback),
@@ -244,6 +251,7 @@ const UserApi = {
     requestfetchUserList,
     requestUserRanking,
     requestUserReviewCnt,
+    requestUserDelete,
     requestId: (data, callback, errorCallback) => requestId(data, callback, errorCallback),
 
 

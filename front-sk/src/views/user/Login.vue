@@ -7,7 +7,7 @@
 			<h1 class="active" style="color: #ff7f00; text-align:left;">Login</h1>
 		</div>
 		<div id="signin">
-			
+	
 				<div class="form-group">
 					<label for="username">Email</label>
 					<input type="text"  v-model="email" id="username"  required @keyup.enter="login" autofocus>
@@ -43,7 +43,8 @@
 
 <script>
     /*eslint-disable*/
-
+    import Loading from 'vue-loading-overlay';
+    import 'vue-loading-overlay/dist/vue-loading.css';
     import PV from 'password-validator'
     import * as EmailValidator from 'email-validator';
     import KakaoLogin from '../../components/user/snsLogin/Kakao.vue'
@@ -59,6 +60,7 @@
             GoogleLogin,
             // JoinPage,
             NaverLogin,
+            Loading
         },
         created() {
 
@@ -130,10 +132,14 @@
 
                             console.log('login form 안 ' + res.object)
                             console.log(res.object);
-                            this.$alert("로그인 성공하셨습니다.","success","success");
+                          
+                            this.$alert("페이지 이동","success","success");
+                           
+                            
                             this.$router.push({
                                 name: "popular"
                             });
+                            
                         } else{
                             this.$alert('아이디 혹은 비밀번호가 틀렸습니다',"warning","waring")
                             this.$router.push({
@@ -224,7 +230,8 @@
                 component: this,
                 profile: '',
                 imageUrl: '',
-                selectedImage: ''
+                selectedImage: '',
+              
             }
         }
     }

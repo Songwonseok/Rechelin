@@ -60,7 +60,7 @@
           </v-chip> <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.kindness"></star-rating></p>
             </div>
           </div>
-          <div class="media-content" style="margin-top : 80px; margin-left : 30px">
+          <div class="media-content" style="margin-left : 80px">
             <div class="content">
                     <h2>{{tweet.review.title}}</h2>
                <v-chip class="ma-2" color="warning" outlined>

@@ -276,6 +276,7 @@
       submit() {
         if (this.isEmailOk === false && this.disabledName == false ) { //&& this.isNameOk === false
         //disabledName 는 name 이 중복 확인해서 없으면 false, 있으면 true 
+         
           this.$alert("success","다음 페이지로 이동 합니다.","success");
           this.$store.state.randomNumber = String(Math.random());
         
@@ -292,7 +293,7 @@
             .then(data =>  
             {
               console.log('실행전!')
-            
+         
             this.$router.push({
               name: "signupconfirm"
             })}
@@ -301,6 +302,10 @@
         } else {
           alert('현재 사용하고 있는 name이거나 email 입니다.');
         }
+        //  this.name = '';
+        //   this.email = '';
+        //   this.phone = '';
+        //   this.password = '';   
       },
       onSuccess,
       onFailure,
