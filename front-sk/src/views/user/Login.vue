@@ -133,7 +133,7 @@
                             console.log('login form 안 ' + res.object)
                             console.log(res.object);
                           
-                            this.$alert("페이지 이동","success","success");
+                            this.$alert("로그인 성공하셨습니다.","success","success");
                            
                             
                             this.$router.push({
