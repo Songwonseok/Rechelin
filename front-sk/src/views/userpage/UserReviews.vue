@@ -6,10 +6,10 @@
             음식점 북마크</h3>
         <hr>
         <carousel-3d>
-            <slide class="review-card" v-for="(bookmark, index) in UserBookmarks" :key="key-`${index}`" :index="index">
+            <slide class="review-card" v-for="(bookmark, index) in UserBookmarks.review" :key="key-`${index}`" :index="index">
                  <div class="review-card-inner">
                     <div class="review-front">
-                <img :src="bookmark.picture">
+                <img :src="bookmark.picture" style="max-width: auto; max-height: auto; width: 100%; height: 100%;">
                    </div>
                 <div class="review-back">
                     <div style="text-align: center;">
@@ -23,19 +23,20 @@
                         STORE
                         </v-chip> <br>
 
-                        <h4 @click="storeDetail(bookmark.store.num)" class="store-name">{{bookmark.store.sname}}</h4>
+                        <h4 @click="storeDetail(bookmark.store.num)" class="store-name">{{bookmark.store}}</h4>
                         
-                         <v-chip
+                            <span v-for="(h, i) in bookmark.hashtag.split(',').slice(0, 5)" :key="i">
+                            <span><v-chip
                         class="ma-2"
                         color="warning"
                         outlined
+                        x-small
                         >
-                        <v-icon>{{mdiPoundBox}}</v-icon>  HASHTAG
-                        </v-chip> 
-                         <h6>
-                        #{{bookmark.hashtag.split(',').join('#')}}
-                        </h6>
+                        <v-icon>{{mdiPoundBox}}</v-icon> {{h}}
+                        </v-chip>  </span> 
 
+                        </span>
+                       
                          <v-chip
                         class="ma-2"
                         color="warning"
@@ -62,7 +63,7 @@
             <slide class="review-card" v-for="(review, index) in UserReviews" :key="key-`${index}`" :index="index">
                     <div class="review-card-inner">
                     <div class="review-front">
-                <img :src="review.picture" >
+                <img :src="review.picture" style="max-width: auto; max-height: auto; width: 100%; height: 100%;">
                 </div>
                 <div class="review-back">
                     <div style="text-align: center;">
@@ -84,7 +85,7 @@
                         >
                         <v-icon>{{mdiPoundBox}}</v-icon>  HASHTAG
                         </v-chip>  -->
-                         <span v-for="(h, i) in review.hashtag.split(',').splice(0, 5)" :key="i+h">
+                         <span v-for="(h, i) in review.hashtag.split(',').slice(0, 5)" :key="i+h">
                             <span><v-chip
                         class="ma-2"
                         color="warning"
