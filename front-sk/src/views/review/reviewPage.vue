@@ -93,8 +93,8 @@
                                 <v-chip draggable @click="check_area(30, '술집')">술집</v-chip>
                                 <v-chip draggable @click="check_area(31, '고깃집')">고깃집</v-chip>
                                 <v-chip draggable @click="check_area(32, '아시안')">아시안</v-chip>
-                                <v-chip draggable @click="check_area(32, '아시안')">아시안</v-chip>
                                 <v-chip draggable @click="check_area( 43, '퓨전')">퓨전</v-chip>
+                                <v-chip draggable @click="check_area( 48, '디저트')">디저트</v-chip>
 
                                 <v-divider></v-divider>
                                 위치 (강남)
@@ -107,6 +107,9 @@
                                 <v-chip draggable @click="check_area( 5, '가로수길')">가로수길</v-chip>
                                 <v-chip draggable @click="check_area( 6, '서래마을')">서래마을</v-chip>
                                 <v-chip draggable @click="check_area( 44, '역삼')">역삼</v-chip>
+                                <v-chip draggable @click="check_area( 46, '압구정')">압구정</v-chip>
+                                <v-chip draggable @click="check_area( 47, '신사')">신사</v-chip>
+                                <v-chip draggable @click="check_area( 49, '방배')">방배</v-chip>
 
 
                                 <v-divider></v-divider>
@@ -139,6 +142,8 @@
                                 <v-chip draggable @click="check_area(40, '은평구')">은평구</v-chip>
                                 <v-chip draggable @click="check_area(41, '노원')">노원</v-chip>
                                 <v-chip draggable @click="check_area(42, '뚝섬')">뚝섬</v-chip>
+                                <v-chip draggable @click="check_area(45, '홍대')">홍대</v-chip>
+
 
 
                                 <br>
@@ -186,6 +191,7 @@
                                 <v-chip draggable @click="check_facility( 0, '단체석')">단체석</v-chip>
                                 <v-chip draggable @click="check_facility( 1, '주차장')">주차장</v-chip>
                                 <v-chip draggable @click="check_facility( 2, '개별룸')">개별룸</v-chip>
+                                <v-chip draggable @click="check_facility( 50, '흡연실')">흡연실</v-chip>
 
 
                             </div>

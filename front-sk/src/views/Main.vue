@@ -32,6 +32,7 @@
                 <v-chip draggable="draggable" @click="insertTags('locations',31, '고깃집')">고깃집</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',32, '아시안')">아시안</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',43, '퓨전')">퓨전</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',48, '디저트')">디저트</v-chip>
                 
 
                 <v-divider></v-divider>
@@ -47,6 +48,9 @@
                 <v-chip draggable="draggable" @click="insertTags('locations', 6, '서래마을')">서래마을</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 7, '건대')">건대</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 44, '역삼')">역삼</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',46, '압구정')">압구정</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',47, '신사')">신사</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',49, '방배')">신사</v-chip>
 
                 <v-divider></v-divider>
                 강북
@@ -76,6 +80,7 @@
                 <v-chip draggable="draggable" @click="insertTags('locations', 40, '은평구')">은평구</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 41, '노원')">노원</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 42, '뚝섬')">뚝섬</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations', 45, '홍대')">홍대</v-chip>
 
 
                 <v-divider></v-divider>
@@ -115,6 +120,7 @@
                 <v-chip draggable="draggable" @click="insertTags('facility', 0, '단체석')">단체석</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('facility', 1, '주차장')">주차장</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('facility', 2, '개별룸')">개별룸</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('facility', 50, '흡연실')">흡연실</v-chip> <!--마지막 -->
 
               </v-card-text>
               <div class="my-2 searchBtn">
@@ -348,12 +354,10 @@
                   tagsString += response.data.object[i].tags[j].keyword;
             }//end of for loop
 
-            let find = false;
+            let find = true;
             for(let j=0; j<this.newSearch.length; j++){
               if(tagsString.includes(this.newSearch[j])){
                 find = false;
-              }else if(!tagsString.includes(this.newSearch[j])){
-                find = true;
               }
             }//end of for loop 
 
@@ -379,7 +383,7 @@
           this.$store.state.storeList_paging = [];
           for(let i=0; i<6; i++){
                 if(this.$store.state.storeList[i] == null)
-                  break;
+                  continue;
                 else
                  this.$store.state.storeList_paging.push(this.$store.state.storeList[i]);              
           }
@@ -389,57 +393,58 @@
           if(this.$store.state.storeList.length==0){
             
             this.$store.state.isClickBtnStore = false;
-            this.$router.push({name : "storeSearch"})
+           
           }
           else{
             this.$store.state.isClickBtnStore = true;
-            this.$router.push({name : "storeSearch"})
+           
           }
+           this.$router.push({name : "storeSearch"})
         }, error =>{
           this.isLoading =false;
           this.$alert("데이터를 불러오지 못헀습니다.","warning","warning");
           this.openSearch = false;
         })
       },
-      changeInput() { //if-else 
-        if (this.inputStatus == true) this.inputStatus = false;
-        else
-          this.inputStatus = true;
-      },
-      changeInput2() { //enter 누를 때, user 정보가 db에 저장된다.
-        let find = false;
+      // changeInput() { //if-else 
+      //   if (this.inputStatus == true) this.inputStatus = false;
+      //   else
+      //     this.inputStatus = true;
+      // },
+      // changeInput2() { //enter 누를 때, user 정보가 db에 저장된다.
+      //   let find = false;
 
-        for (var j = 0; j < this.$store.state.searchUser.nickname.length; j++) {
-          if (this.search == this.$store.state.searchUser.nickname[j]) {
-            this.moveUser = this.$store.state.searchUser.email[j];
-            //검색한 닉네임의 email
-            find = true;
-            break;
-          }
+      //   for (var j = 0; j < this.$store.state.searchUser.nickname.length; j++) {
+      //     if (this.search == this.$store.state.searchUser.nickname[j]) {
+      //       this.moveUser = this.$store.state.searchUser.email[j];
+      //       //검색한 닉네임의 email
+      //       find = true;
+      //       break;
+      //     }
 
-        }
-        if (find == false) this.moveUser = 'notEmail'
-        //this.history.email = sessionStorage.getItem("userEmail");
-        this.history.email = "ssafy@naver.com"
-        this.history.nickname = this.search;
+      //   }
+      //   if (find == false) this.moveUser = 'notEmail'
+      //   //this.history.email = sessionStorage.getItem("userEmail");
+      //   this.history.email = "ssafy@naver.com"
+      //   this.history.nickname = this.search;
 
 
-        SearchApi.searchUserHistory(this.history, res => {
+      //   SearchApi.searchUserHistory(this.history, res => {
 
-          if (this.inputStatus == true) this.inputStatus = false;
-          else {
-            this.inputStatus = true;
-            this.search = "";
-            this.$store.dispatch('LOADING_RECENTUSERDATA', this.history.email);
-          }
-        }, error => {
-          console.log("userSearch.vue, server 와 통신 실패");
-        })
+      //     if (this.inputStatus == true) this.inputStatus = false;
+      //     else {
+      //       this.inputStatus = true;
+      //       this.search = "";
+      //       this.$store.dispatch('LOADING_RECENTUSERDATA', this.history.email);
+      //     }
+      //   }, error => {
+      //     console.log("userSearch.vue, server 와 통신 실패");
+      //   })
         //DB에 저장하고 email로 유저페이지 이동한다. 
         //this.$router.push({ name: 'userPage', params: { id: this.moveUser }}) 
         //다시 inpustState를 변화시키므로써, User가 최근 검색 history를 보여준다. 
 
-      },
+      // },
       open() {
         this.openSearch = !this.openSearch
       },

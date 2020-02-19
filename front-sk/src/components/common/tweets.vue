@@ -71,19 +71,19 @@
                 :to="{name: 'comments', params: {
                 id: tweet.review.store.num}}"
               style="color: #ff7f00 !important"> -->
-          
-              <p  @click="storeDetail(tweet.review.store.num)">
-                작성시간 : 
+            작성시간 : 
                 {{this.tweet.review.wdate}}  
           
                 <br>
+              <a  @click="storeDetail(tweet.review.store.num)">
+              
                
                 <br>
                 
                  <i class="fas fa-map-marker-alt fa-2x" style="margin-right : 10px"></i>
                 {{tweet.review.store.address}}
                 
-              </p>
+              </a>
               <!-- </router-link> -->
               <!-- title 누르면 review detail로 넘어가게 -->
               <!-- storedetail/62/comments -->

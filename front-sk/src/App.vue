@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <UserRanking></UserRanking>
-     <Header></Header>
+     <!-- <Header></Header> -->
     
      <transition name="page">
      <b-container class="bv-example-row">
@@ -28,7 +28,7 @@
   export default {
     name: 'app',
     components : {
-      Header,
+      // Header,
      
     },
     watch : {

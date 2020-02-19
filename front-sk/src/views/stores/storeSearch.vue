@@ -109,8 +109,8 @@ import 'vue-loading-overlay/dist/vue-loading.css'
     export default {
         created() {
             this.lenCalc();
-            this.page = this.len;
-
+            // this.page = this.len;
+            
             // 현재 위치
         },
         components : {
@@ -180,7 +180,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                     latitude: 37.5663,
                     longitude: 126.9779,
                 },
-              
+                page : 1,
                 isLoading_store : false,
             }
         },
@@ -199,11 +199,15 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 else
                     this.len = Math.ceil(this.$store.state.storeList.length / 6) - 1;
 
+                console.log('lenCalc');
+                console.log(this.len);
                 if (this.len == 0) //데이터를 6개씩 렌더링 하는데, 6개를 못채워주면 this.len이 0으로 렌더링됨
                     this.len = 1;
             },
             storeListSearch() {
                 //store에 검색했을때 
+                
+                if(this.ssearch.length!=0){
                 this.isLoading_store = true;
                 this.$store.state.isClickBtnStore = false;
                 console.log(this.isLoading_store);
@@ -234,7 +238,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                     this.$store.state.pageStatus = false;
                     this.isLoading_store = false;
                 }) //end for first for loop
-
+                }
             },
             storeDetail(num) {
                 console.log('storeDetail');
