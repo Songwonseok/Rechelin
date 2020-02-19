@@ -230,6 +230,7 @@
     watch: {
       newReturnComment: function () {
         this.comments.unshift(this.newReturnComment);
+        
         this.newComment = '';
       }
     },
