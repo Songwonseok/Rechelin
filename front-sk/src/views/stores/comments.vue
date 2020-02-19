@@ -229,9 +229,8 @@
     },
     watch: {
       newReturnComment: function () {
-        console.log('return@!!')
-        console.log(this.newReturnComment)
-        this.comments.unshift(this.newReturnComment.object);
+        this.comments.unshift(this.newReturnComment);
+        
         this.newComment = '';
       }
     },
