@@ -40,7 +40,7 @@
             params: {
           bookmarks: this.bookmarkList, 
           reviews : this.reviewList, // 향후 db에서 받아오는 값으로 수정할 애들
-        }}" ><strong>{{this.reviewList.length}}</strong><span>Posts</span></router-link>
+        }}" ><strong>{{this.reviewList.length+this.bookmarkList.length}}</strong><span>Posts</span></router-link>
           </li>
           <li>
             <router-link :to="{name:'fans', params: { fans : this.fanList}}">
