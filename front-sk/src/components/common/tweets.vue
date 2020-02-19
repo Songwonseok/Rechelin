@@ -35,34 +35,53 @@
             </router-link>
             <div class="media-content">
               <!--TODO : 별로 표시하기 -->
-              <p>총점 :  <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.total"></star-rating></p>
-              <p>맛 : <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.taste"></star-rating></p>
-              <p>가격 : <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.price"></star-rating></p>
-              <p>친절함 : <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.kindness"></star-rating></p>
+              <p>
+            <v-chip id="score" class="ma-2" color="warning" outlined>
+                
+            <v-icon>{{mdiSigma}}</v-icon>
+            총점
+          </v-chip>
+          <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.total"></star-rating>
+            </p>
+              <p> <v-chip id="score" class="ma-2" color="warning" outlined>
+                
+            <v-icon>{{mdiEmoticonTongueOutline}}</v-icon>
+            맛
+          </v-chip> <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.taste"></star-rating></p>
+              <p>
+                <v-chip class="ma-2" color="warning" outlined>
+            <v-icon>{{mdiCurrencyUsd}}</v-icon>
+            가격
+          </v-chip>
+                 <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.price"></star-rating></p>
+              <p><v-chip class="ma-2" color="warning" outlined>
+            <v-icon>{{mdiEmoticonOutline}}</v-icon>
+            친절도
+          </v-chip> <star-rating read-only	star-size="30" @rating-selected="rating = $event" :rating="tweet.review.kindness"></star-rating></p>
             </div>
           </div>
           <div class="media-content" style="margin-top : 80px; margin-left : 30px">
             <div class="content">
+               <v-chip class="ma-2" color="warning" outlined>
+                  <i class="fas fa-store-alt fa-2x" style="margin-right : 10px" ></i>
+                {{tweet.review.store.sname}}   
+                </v-chip>
               <!-- <router-link 
                 :to="{name: 'comments', params: {
                 id: tweet.review.store.num}}"
               style="color: #ff7f00 !important"> -->
-              <strong  @click="storeDetail(tweet.review.store.num)">
-                <v-chip class="ma-2" color="warning" outlined>
-                <i class="far fa-clock fa-2x" style="margin-right : 10px"></i>
+              <p  @click="storeDetail(tweet.review.store.num)">
+                작성시간 : 
                 {{this.tweet.review.wdate}}  
-                </v-chip>
+          
                 <br>
-                <v-chip class="ma-2" color="warning" outlined>
-                  <i class="fas fa-store-alt fa-2x" style="margin-right : 10px" ></i>
-                {{tweet.review.store.sname}}   
-                </v-chip>
+               
                 <br>
-                <v-chip class="ma-2" color="warning" outlined>
+               
                  <i class="fas fa-map-marker-alt fa-2x" style="margin-right : 10px"></i>
                 {{tweet.review.store.address}}
-                </v-chip>
-              </strong>
+                
+              </p>
               <!-- </router-link> -->
               <!-- title 누르면 review detail로 넘어가게 -->
               <!-- storedetail/62/comments -->
@@ -70,18 +89,23 @@
                 id: tweet.review.rnum}}"
               style="color: #ff7f00 !important"> -->
              <br>
-           <v-chip class="ma-2" color="warning" outlined>
+           
             
-             <span class="iconify" data-icon="subway:title"  style="margin-right : 10px" data-inline="false"></span>
-                {{tweet.review.title}}
-                  
-            </v-chip>
+             <span class="iconify" style="margin-right : 10px" data-inline="false"></span>
+             {{tweet.review.title}}
+
 
               <!-- </router-link> -->
               <!-- TODO : 장점과 단점을 분리 -->
              <br>
                <v-chip class="ma-2" color="warning" outlined>
-                  <p style="margin-top: 10px;">장점: {{tweet.review.str}}</p>
+            
+             <span class="iconify" data-icon="subway:title"  style="margin-right : 10px" data-inline="false"></span>
+                장점
+                  
+            </v-chip>
+               <v-chip class="ma-2" color="warning" outlined>
+                  <p style="margin-top: 10px;"> {{tweet.review.str}}</p>
                  </v-chip>
               
             <br>
@@ -100,12 +124,12 @@
                   HashTags
                   </string> 
             </v-chip><br>
-
-              <v-chip class="ma-2" color="warning" outlined v-for="tag in tagList" v-bind:key="tag.id">
-              
+            <span  v-for="tag in tagList" v-bind:key="tag.id">
+              {{tagList.splice(0, 1)}}
+              <v-chip class="ma-2" color="warning" outlined>
                {{tag}}
               </v-chip>
-             
+             </span>
           <!--댓글 수 -->
           <div class="content" style="margin-top : 30px;" >
 
@@ -158,7 +182,13 @@ export default {
   data() {
     return {
       tagList: [],
-      date: ""
+      date: "",
+
+      //icons
+      mdiSigma,
+      mdiEmoticonTongueOutline,
+      mdiCurrencyUsd,
+      mdiEmoticonOutline
     };
   },
   components : {
