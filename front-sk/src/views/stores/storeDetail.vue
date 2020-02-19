@@ -69,14 +69,30 @@
             </v-btn>
           </div>
           <v-card class="mx-auto" outlined style="max-width: 344px;margin-top: 30px;">
-            <h5 style="color:#FF7F00">
-              <v-icon color="warning">{{icons.mdiEmoticonTongueOutline}}</v-icon>
-            taste : {{storeAvg.tasteAvg}}
-            <v-icon color="warning">{{icons.mdiCurrencyUsd}}</v-icon>
-            price : {{storeAvg.priceAvg}}
-            <v-icon color="warning">{{icons.mdiEmoticonWinkOutline}}</v-icon>
-            kind : {{storeAvg.kindAvg}}
-            </h5>
+              <v-chip
+                  class="ma-2"
+                  color="warning"
+                  outlined
+                >
+                <v-icon color="warning">{{icons.mdiEmoticonTongueOutline}}</v-icon>
+                  taste : {{storeAvg.tasteAvg}}
+                </v-chip>
+                  <v-chip
+                  class="ma-2"
+                  color="warning"
+                  outlined
+                >
+                 <v-icon color="warning">{{icons.mdiCurrencyUsd}}</v-icon>
+                  price : {{storeAvg.priceAvg}}
+                </v-chip>
+                  <v-chip
+                  class="ma-2"
+                  color="warning"
+                  outlined
+                >
+                    <v-icon color="warning">{{icons.mdiEmoticonWinkOutline}}</v-icon>
+                 kind : {{storeAvg.kindAvg}}
+                </v-chip>
           </v-card>
         </b-card-text>
         <b-card-text style="text-align: center;">
@@ -109,6 +125,7 @@
             v-bind:options="{ strokeColor:'#008000'}"
           ></gmap-polyline>
         </gmap-map>
+         <b-badge :href="findRoad" variant="warning" style="color: white;">길찾기</b-badge>
       </v-col>
     </v-row>
     <!-- 그리드 구분 -->
@@ -180,6 +197,7 @@ export default {
         longitude: null
       },
       walkCoordinates: null,
+  
       // css 용 변수
       bookTrue: true,
       bookmarkColor: "warning"
@@ -194,10 +212,16 @@ export default {
     },
     storeAvg() {
       return this.$store.state.storeAvg;
-    }
+    },
+     findRoad() {
+       var url = 'https://map.kakao.com/link/to/'+ this.$store.state.storeInfo.sname +','+String(this.$store.state.storeInfo.lat)+','+String(this.$store.state.storeInfo.lng)
+      return 	url
+    },
+   
   },
 
   methods: {
+    
     likeStore() {
       var payload = {
         id: this.$store.state.userid,

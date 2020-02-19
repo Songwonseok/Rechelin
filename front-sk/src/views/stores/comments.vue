@@ -216,7 +216,6 @@
     watch: {
       newReturnComment: function () {
         this.comments.unshift(this.newReturnComment);
-        console.log(this.newReturnComment)
         this.newComment = '';
       }
     },

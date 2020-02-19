@@ -260,8 +260,8 @@ export default {
 
         Axios.post(URL + `/review/comment`, newComment, auth)
             .then(res => {
-                console.log('요청 성공')
-                commit('createComment', newComment)
+                console.log('요청 성공', res)
+                commit('createComment', res.data)
             }).catch(exp => {
                 console.log('실패')
             })
