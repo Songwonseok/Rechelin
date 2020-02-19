@@ -334,12 +334,21 @@ export default {
       this.$store.state.userPageStatus += 1;
     }
   },
+  watch : {
+    ctopUserInfo : function(v){
+      let list = [...this.topUserInfo];
+      [...this.topUserInfo] = list;
+    }
+  },
   computed: {
     alarms() {
       return this.$store.state.notifications
     },
     haveToken() {
       return this.$store.state.accessToken
+    },
+    ctopUserInfo(){
+      return this.topUserInfo
     }
     
     
