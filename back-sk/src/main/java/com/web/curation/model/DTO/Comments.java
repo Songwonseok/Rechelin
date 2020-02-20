@@ -38,6 +38,14 @@ public class Comments {
 	
 	private String content;
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setReview(Review review) {
+		this.review = review;
+	}
+
 	public long getNum() {
 		return num;
 	}

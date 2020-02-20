@@ -176,7 +176,7 @@ public class ReviewController {
 	}
 
 	@PostMapping("/review/bookmark/getList")
-	@ApiOperation(value = "북마크 리스트 가져오기")
+	@ApiOperation(value = "리뷰 북마크 리스트 가져오기")
 	public Object getBookmark(@RequestParam long num) {
 		final BasicResponse result = new BasicResponse();
 
