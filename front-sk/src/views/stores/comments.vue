@@ -283,9 +283,10 @@
 
       },
       Fshare() {
-        var url = encodeURI(encodeURIComponent(window.location.href));
+               var url = encodeURI(encodeURIComponent(window.location.href));
+        console.log(url)
         var title = encodeURI(this.reviewInfo.title);
-        var shareURL = "https://www.facebook.com/sharer/sharer.php?u=https" + url + "&title=" + title;
+        var shareURL = "https://www.facebook.com/sharer/sharer.php?u=" + url + "%2F&amp;src=sdkpreparse";
         Axios.get(shareURL)
           .then(res => {
             console.log(res)
