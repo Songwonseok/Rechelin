@@ -55,7 +55,7 @@
         <hr>
 
         <carousel-3d>
-            <slide class="review-card" v-for="(review, index) in UserReviews" :key="key-`${index}`" :index="index">
+            <slide class="review-card" v-for="(review, index) in UserReviews" :key="num-`${index}`" :index="index">
                 <div class="review-card-inner">
                     <div class="review-front">
                         <img :src="review.picture"

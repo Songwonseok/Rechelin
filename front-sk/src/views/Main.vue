@@ -236,12 +236,11 @@
       userid : function(v){
          console.log('userid');
           this.$router.go({
-  name: 'main',
-  force: true
-})  
-        console.log('watch-userid')
-        console.log(this.userid);
-        this.userid = this.$store.state.userid;
+                name: 'main',
+                force: true
+              })  
+
+      
       }
     },
     data() {

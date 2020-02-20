@@ -172,6 +172,7 @@
       getBookmarkList(){
         ReviewApi.requestBookmarkList(this.uid, res=>{
           this.bookmarkList = res;
+          console.log(res, '북마크으으')
         }, error=>{
           alert('BookmarkList 가져오기 실패')
         })
