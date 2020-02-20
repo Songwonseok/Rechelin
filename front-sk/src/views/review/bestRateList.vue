@@ -9,20 +9,13 @@
                 <div v-if="bestReviews.length==0">
                     <h2> 해당 리뷰가 존재하지 않습니다. </h2>
                 </div>
-                <b-col v-for="(bestReview, i) in bestReviews" v-bind:key="i+bestReview">
+                <b-col v-for="(bestReview, i) in bestReviews" v-bind:key="i+10">
 
                   
                         <v-card id="review-image" :loading="loading_card" class="mx-auto my-12 mr-2" max-width="350" width="350" height="450"
                             @click="storeDetail(bestReview.id)">
                             <v-img height="250" :src="bestReview.src">
                                 <!--      -->
-                                <!-- <v-expand-transition>
-                                    <div v-if="hover"
-                                        class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
-                                        style="height: 100%;">
-                                        {{bestReview.title}}
-                                    </div>
-                                </v-expand-transition> -->
                             </v-img>
                             <v-card-title>{{bestReview.title}}</v-card-title>
 
@@ -32,7 +25,7 @@
                                 <!-- <div>{{bestReview.address}}</div> -->
 
                                 <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
-                                    <div v-for="(tags, i) in bestReview.tag.splice(0, 4)" v-bind:key="i+tags">
+                                    <div v-for="(tags, i) in bestReview.tag.slice(0, 4)" v-bind:key="i+20">
                                         <v-chip>{{tags}}</v-chip>
                                     </div>
                                 </v-chip-group>

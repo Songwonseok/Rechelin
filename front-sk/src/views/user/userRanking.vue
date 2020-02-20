@@ -245,6 +245,7 @@ export default {
     find: sessionStorage.getItem('userToken'),
     // icons
     mdiBell,
+    userRank : [], //이걸로 rendering 시킨다. 이거부터 하자
   }),
   methods : {
     userRank(){
@@ -334,12 +335,24 @@ export default {
       this.$store.state.userPageStatus += 1;
     }
   },
+  watch : {
+    ctopUserInfo : function(v){
+      console.log('ctopUserInfo')
+      let test = ['t','e','s','t'];
+      let list = [...test];
+      list = [...this.topUserInfo];
+      [...this.topUserInfo] = list;
+    }
+  },
   computed: {
     alarms() {
       return this.$store.state.notifications
     },
     haveToken() {
       return this.$store.state.accessToken
+    },
+    ctopUserInfo(){
+      return this.topUserInfo
     }
     
     

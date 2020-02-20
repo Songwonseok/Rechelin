@@ -246,7 +246,7 @@
 })  
         console.log('watch-userid')
         console.log(this.userid);
-        this.userid = this.$store.state.userid;
+        // this.userid = this.$store.state.userid;
       }
     },
     data() {
