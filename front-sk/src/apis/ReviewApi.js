@@ -26,8 +26,9 @@ const requestMyReviewList = (data, callback, errorCallback) => {
 const requestBookmarkList = (data, callback, errorCallback) => {
     const params = new URLSearchParams();
     params.append('num', data);
+    console.log(data)
 
-    Axios.post(URL + '/review/bookmark/getList', params, auth)
+    Axios.post(URL + '/reivew/bookmark/getList', params, auth)
         .then(response => {
             if (response.data.status == true)
                 callback(response.data.object)

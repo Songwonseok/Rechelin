@@ -203,7 +203,7 @@ export default {
                     console.log('북마크 등록')
                     Axios.post(URL + "/store/addBook", params, auth)
                         .then(response => {
-                            console.log('북마크 등록 성공')
+                            console.log('북마크 등록 성공', response)
                         }).catch(exp => {
                             console.log('북마크 등록 실패')
                         })
