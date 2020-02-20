@@ -140,9 +140,12 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public Comments addComment(Comments com) {
-		
+		User user = userdao.findById(com.getUser().getId());
+		Review review = dao.findByRnum(com.getReview().getRnum());
 		comdao.save(com);
 		Comments cc = comdao.findByNum(com.getNum());
+		cc.setUser(user);
+		cc.setReview(review);
 		return cc;
 	}
 

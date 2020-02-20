@@ -16,7 +16,6 @@
                             @click="storeDetail(bestReview.id)">
                             <v-img height="250" :src="bestReview.src">
                                 <!--      -->
-
                             </v-img>
                             <v-card-title>{{bestReview.title}}</v-card-title>
 
