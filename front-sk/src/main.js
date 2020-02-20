@@ -30,7 +30,6 @@ Vue.use(AmplifyPlugin, AmplifyModules)
 
 import VueLoading from 'vuejs-loading-plugin'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-// Amplify.configure(awsconfig)
 import VueStar from 'vue-star'
 Vue.component('VueStar', VueStar)
 import VueSimpleAlert from "vue-simple-alert";
