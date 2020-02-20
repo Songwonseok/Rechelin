@@ -88,7 +88,7 @@
           this.$alert("비밀번호가 변경되었습니다.", "success", "success");
         
           this.$router.push({
-            name: 'popular',
+            name: 'login',
             // params: {
             //   id: sessionStorage.getItem('userid')
             // }
