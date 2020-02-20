@@ -214,16 +214,14 @@
   import UserRanking from "./user/userRanking";
   export default {
     created() {
-      this
-        .$store
-        .dispatch('LOADING_USERDATA');
+      // this
+      //   .$store
+      //   .dispatch('LOADING_USERDATA');
         
-    
-      this
-        .$router
-        .push({
-          name: "popular"
-        })
+     if(sessionStorage.getItem('userid')==null)
+        this.$router.push({name: "login"})
+    else
+        this.$router.push({name: "popular"})
         
     },
     watch: {
@@ -609,4 +607,8 @@
     text-align: center;
 
   }
+  .v-application .white {
+    background-color: #fff!important;
+    border-color: orange !important;
+}
 </style>

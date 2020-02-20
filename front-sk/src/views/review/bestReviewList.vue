@@ -1,19 +1,6 @@
 <template>
 
     <div>
-
-        <div v-if="userid == null">
-            
-            <v-carousel cycle="cycle" show-arrows-on-hover="show-arrows-on-hover" hide-delimiters="hide-delimiters"
-              v-ripple="true" class="text-center">
-              <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" @click="$router.push({name: 'popular'})"></v-carousel-item>
-            </v-carousel>
-
-
-
-        </div>
-
-        <div v-else>
         <br>
         <h2 style="color:orange"><span class="iconify" data-icon="whh:crown" data-inline="false"></span> Best Views</h2>
         <b-container>
@@ -55,7 +42,6 @@
 
         <best-like-list></best-like-list>
         <best-rate-list></best-rate-list>
-    </div>
     </div>
 </template>
 
