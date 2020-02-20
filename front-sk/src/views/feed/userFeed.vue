@@ -13,21 +13,30 @@
     </div> -->
     <!-- <div v-if="((tweet.user_type === user_type) || (user_type === 'all'))"> -->
     <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+  <div v-if = "tweet.length !=0">
     <tweets
       v-for="(tweet, $index) in tweet"
       :key="$index+tweet"
       :tweet="tweet"
     />
+  </div>
 
-    <div v-for="(item, $index) in list" :key="$index">{{item}}</div>
+  <div v-else>
+   <kinesis-container>
+                    <kinesis-element :strength="10">
+                        <h1 style="color : orange">Following 한 사람이 없습니다.</h1>
+                    </kinesis-element>
+                    <kinesis-element :strength="20">
+                        <h1 style="color : orange">Following 부터 해주세요.</h1>
+                    </kinesis-element>
+                </kinesis-container>
+                 <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p>
+  </div>   
+
+    <!-- <div v-for="(item, $index) in list" :key="$index">{{item}}</div> -->
     <infinite-loading spinner="bubbles" :identifier="infiniteId" @infinite="infiniteHandler">
-      <div slot="spinner">Loading...</div>
-      <div slot="error" slot-scope="{ trigger }">
-        Error message, click
-        <a href="javascript:;" @click="trigger">here</a>
-        to retry
-      </div>
     </infinite-loading>
+ 
   </div>
   <!-- <div>
 
@@ -53,12 +62,16 @@
 </template>
 
 <script> 
+ import Vue from 'vue'
 import tweets from '../../components/common/tweets.vue';
 import InfiniteLoading from "vue-infinite-loading";
 const api = "//hn.algolia.com/api/v1/search_by_date?tags=story";
 import axios from "axios";
 import ReviewApi from '../../apis/ReviewApi'
-
+  import {KinesisContainer, KinesisElement} from 'vue-kinesis';
+  
+    Vue.component('kinesis-container', KinesisContainer);
+    Vue.component('kinesis-element', KinesisElement);
 export default {
   components: {
     tweets,
@@ -114,11 +127,8 @@ export default {
       //   });
        ReviewApi.requestFeedList(this.userid, res=>{
               this.tweet = res;
-              console.log(res);
-              console.log('feed');
-              console.log(res);
-              console.log(this.tweet)
                $state.loaded();
+               
             }, error=>{
               alert('피드 리스트 가져오기 실패')
             })
@@ -189,5 +199,8 @@ button {
     font-size: 14px;
     color: #657786;
   }
+}
+iframe {
+  pointer-events: none;
 }
 </style>

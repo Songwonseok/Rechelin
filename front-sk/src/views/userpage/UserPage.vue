@@ -55,9 +55,9 @@
       <router-view></router-view>
     </div>
 
-    <footer>
+    <!-- <footer>
       <h4>Design by 싸피 4조 쏘아올리조</h4>
-    </footer>
+    </footer> -->
   </div>
 
 </template>
@@ -407,11 +407,25 @@
     width: 7em;
     background: #ff7f00;
     border: 1px solid #ff7f00;
-    right: 0px;
+    right: 0%;
     color: #fff;
     outline: none;
     border-radius: 0.6em 0 0 0.6em;
     padding: .80em;
     margin-left: 80px;
+}
+.profile-user-page button[data-v-6a0ba10e] {
+    position: absolute;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 7em;
+    background: #ff7f00;
+    border: 1px solid #ff7f00;
+    color: #fff;
+    outline: none;
+    border-radius: 0 .6em .6em 0;
+    padding: .8em;
+    right: 0%;
 }
 </style>

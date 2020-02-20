@@ -20,11 +20,14 @@ export default {
         this.userid = this.$route.params.userid
         this.jwt = this.$route.params.jwt
         
-        // sessionStorage.setItem("userToken", this.jwt);
-        sessionStorage.setItem("userToken", this.access_token);
+        sessionStorage.setItem("userToken", this.jwt);
         sessionStorage.setItem("userid", this.userid)
-
         this.$router.push({ name: 'main' })
+        this.$store.state.userid = sessionStorage.getItem("userid");
+
+        // sessionStorage.setItem("userToken", this.access_token);
+
+     
     }
 
 }

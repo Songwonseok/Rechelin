@@ -7,12 +7,14 @@
                 <v-toolbar dense floating>
               
                     <v-text-field hide-details prepend-icon="search" @keyup.enter="storeListSearch" single-line
-                        v-model="ssearch"></v-text-field>
+                        v-model="ssearch" placeholder="음식점을 입력해주세요."></v-text-field>
                     <v-btn color="warning" icon @click="getMylocation">
                         <v-icon color="warning">my_location</v-icon>
                     </v-btn>
- 
                 </v-toolbar>
+                <br>
+                <span style="color : orange">현재 위치 정보를 받아올려면 상단의 아이콘을 클릭해주세요!</span>
+                <br>
                 <gmap-map :center="{lat: myLocation.latitude, lng: myLocation.longitude}" :zoom="16" style="height: 300px">
                     <gmap-marker :position="{lat: myLocation.latitude, lng: myLocation.longitude}" 
                     :clickable="true" :draggable="true" :icon="{ url: require('../../assets/images/recent.png')}"
@@ -30,10 +32,10 @@
             
             <div v-if="this.$store.state.isClickBtnStore == true">
                 <b-container class="bv-example-row">
-                    <b-row  >
-                        <b-col v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store">
+                    <b-row >
+                        <b-col v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store" style="text-align: center !important;">
                             <v-hover v-slot:default="{ hover }">
-                                <v-card class="mx-auto mr-10 mb-2" max-width="500" width = "300" height="300" @click="storeDetail(store.num)">
+                                <v-card class="mx-auto mr-15 mb-2" max-width="500" width = "300" height="300" @click="storeDetail(store.num)">
 
                                 <div v-if = "store.img != null">
                                     <v-img

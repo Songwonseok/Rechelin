@@ -20,6 +20,8 @@
 - [Team](#team)
 - [License](#license)
 - [About](#about)
+- [Demo](#demo)
+- [Stack](#Stack)
 ## Introduction
 ```
 ssafy
@@ -79,6 +81,15 @@ $ git push
 - song7331
 - juyeunkim
 - lllilllilllilili
+
+## Demo
+[Rechelin](http://i02a404.p.ssafy.io/login)
+ID : sihyo5252@gmail.com
+PW : asdf1234#
+
+## Stack
+![stack](./img/image.png)
+
 ## license
 MIT License
 ## About

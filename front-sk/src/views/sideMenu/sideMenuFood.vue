@@ -18,9 +18,9 @@
                   랜덤 음식점 추천</span>
                    </v-list-item-content>
               </v-list-item>
-                <v-list-item @click="storeDetail">
+                <!-- <v-list-item @click="storeDetail">
                 <v-list-item-content >음식점 상세페이지(임시)</v-list-item-content>
-              </v-list-item>
+              </v-list-item> -->
               
             </v-list-item-group>
           </v-list>

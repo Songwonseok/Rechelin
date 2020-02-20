@@ -15,31 +15,7 @@
 
       <v-card-text>
         <v-divider></v-divider>
-        <v-chip
-          class="ma-2"
-          color="orange"
-          text-color="white"
-          style="margin-bottom: 10px !important;"
-        >
-          강남
-          <v-icon right>mdi-star</v-icon>
-        </v-chip>
-        <br />
-        <v-chip draggable="draggable" @click="insertTags('강남')">강남</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('잠실')">잠실</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('사당')">사당</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('코엑스')">코엑스</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('고속터미널')">고속터미널</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('가로수길')">가로수길</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('서래마을')">서래마을</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('건대')">건대</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('역삼')">역삼</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('압구정')">압구정</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('신사')">신사</v-chip>
-        <v-chip draggable="draggable" @click="insertTags('방배')">방배</v-chip>
-
-        <v-divider></v-divider>
-        <v-divider></v-divider>
+        
         <v-chip
           class="ma-2"
           color="orange"
@@ -79,6 +55,31 @@
         <v-chip draggable="draggable" @click="insertTags( '홍대')">홍대</v-chip>
       </v-card-text>
 
+      <v-chip
+          class="ma-2"
+          color="orange"
+          text-color="white"
+          style="margin-bottom: 10px !important;"
+        >
+          강남
+          <v-icon right>mdi-star</v-icon>
+        </v-chip>
+        <br />
+        <v-chip draggable="draggable" @click="insertTags('강남')">강남</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('잠실')">잠실</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('사당')">사당</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('코엑스')">코엑스</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('고속터미널')">고속터미널</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('가로수길')">가로수길</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('서래마을')">서래마을</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('건대')">건대</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('역삼')">역삼</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('압구정')">압구정</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('신사')">신사</v-chip>
+        <v-chip draggable="draggable" @click="insertTags('방배')">방배</v-chip>
+
+        <v-divider></v-divider>
+        <v-divider></v-divider>
       <random></random>
       <loading :active.sync="isLoading_random" :can-cancel="true">
         <iframe
