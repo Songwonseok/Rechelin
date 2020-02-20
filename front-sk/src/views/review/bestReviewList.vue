@@ -1,6 +1,19 @@
 <template>
 
     <div>
+
+        <div v-if="userid == null">
+            
+            <v-carousel cycle="cycle" show-arrows-on-hover="show-arrows-on-hover" hide-delimiters="hide-delimiters"
+              v-ripple="true" class="text-center">
+              <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" @click="$router.push({name: 'popular'})"></v-carousel-item>
+            </v-carousel>
+
+
+
+        </div>
+
+        <div v-else>
         <br>
         <h2 style="color:orange"><span class="iconify" data-icon="whh:crown" data-inline="false"></span> Best Views</h2>
         <b-container>
@@ -8,7 +21,7 @@
                 <div v-if="bestReviews.length==0">
                     <h2> 해당 리뷰가 존재하지 않습니다. </h2>
                 </div>
-                <b-col v-for="(bestReview, i) in bestReviews" :key="i+bestReview">
+                <b-col v-for="(bestReview, i) in bestReviews" :key="i+10">
                     <!-- 클릭했을때 상세 페이지로 이동 
                                     router-link="router-link" :to="{name: 'storeDetail', params : {id : bestReview.rnum}}"
                             -->
@@ -17,14 +30,6 @@
 
                         <v-img  height="250" :src="bestReview.src">
 
-                            <v-expand-transition>
-                                <div v-if="hover"
-                                    class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
-                                    style="height: 100%;">
-                                    {{bestReview.title}}
-
-                                </div>
-                            </v-expand-transition>
                         </v-img>
                         <v-card-title>{{bestReview.title}}</v-card-title>
 
@@ -34,7 +39,7 @@
                             <div>{{bestReview.black_text_content.slice(0, 30)}}...</div>
                             <!-- <div>{{bestReview.address}}</div> -->
                             <v-chip-group active-class="deep-purple accent-4 white--text" column="column">
-                                <div v-for="(tags, i) in bestReview.tag.splice(0, 4)" v-bind:key="i+tags">
+                                <div v-for="(tags, i) in bestReview.tag.slice(0, 4)" :key="i+20">
                                     <v-chip>{{tags}}</v-chip>
                                 </div>
                             </v-chip-group>
@@ -50,6 +55,7 @@
 
         <best-like-list></best-like-list>
         <best-rate-list></best-rate-list>
+    </div>
     </div>
 </template>
 
