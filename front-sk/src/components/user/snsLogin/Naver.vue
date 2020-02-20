@@ -70,7 +70,7 @@ export default {
     return {
       CLIENT_ID: 'yW3gT9TqzIgQqklEfEBF',
       naverLoginURL: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
-      redirectURI: 'http://localhost:8080/account/naverlogin',
+      redirectURI: 'http://54.180.160.87:8080/account/naverlogin',
       state: 123
     }
   }

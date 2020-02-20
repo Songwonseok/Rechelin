@@ -141,8 +141,11 @@
             selection_card : function(v){
                 console.log(v);
               
-            }
-        }
+            },
+           
+           
+        },
+    
 
     }
 </script>

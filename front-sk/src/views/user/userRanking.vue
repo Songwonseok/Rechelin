@@ -242,10 +242,10 @@ export default {
     reviewLength : 0,
     crown : ['🥇', '🥈', '🥉'],
     fab: false,
-    find: sessionStorage.getItem('userToken'),
+   
     // icons
     mdiBell,
-    userRank : [], //이걸로 rendering 시킨다. 이거부터 하자
+    
   }),
   methods : {
     userRank(){
@@ -299,9 +299,11 @@ export default {
     },
      UserLogout() {
         this.$store.dispatch('logout')
-        this.$router.push({
-          name: "main" //logout 되면 sessionStorage 값이 바껴서 rerendering 됨 따라서, login 으로 두면 어색해져서 main으로 두었습니다.
-        })
+      // if(sessionStorage.getItem('userid')==null)
+        //  this.$router.push({name: "login"})
+      // else
+      //   this.$router.push({name: "popular"})
+        
       },
       notificationGet() {
         var payload = this.$store.state.userid
@@ -335,15 +337,7 @@ export default {
       this.$store.state.userPageStatus += 1;
     }
   },
-  watch : {
-    ctopUserInfo : function(v){
-      console.log('ctopUserInfo')
-      let test = ['t','e','s','t'];
-      let list = [...test];
-      list = [...this.topUserInfo];
-      [...this.topUserInfo] = list;
-    }
-  },
+
   computed: {
     alarms() {
       return this.$store.state.notifications
@@ -351,9 +345,7 @@ export default {
     haveToken() {
       return this.$store.state.accessToken
     },
-    ctopUserInfo(){
-      return this.topUserInfo
-    }
+   
     
     
     

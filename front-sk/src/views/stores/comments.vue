@@ -382,7 +382,7 @@
   /* END Container styles */
 
   /* Colors for the circles and positions for the graphics */
-  /* .all {}
+  .all {}
 
   .all+svg .outer {
     stroke: #e34f26;
@@ -423,23 +423,23 @@
     stroke-dasharray: 534;
     transition: stroke-dashoffset 1s;
     -webkit-animation-play-state: running;
-    firefox bug fix - won't rotate at 90deg angles
+    /* firefox bug fix - won't rotate at 90deg angles */
     -moz-transform: rotate(-89deg) translateX(-190px);
-  } */
+  }
 
-  /* .chart {
+  .chart {
     display: inline;
   }
 
   .chart:hover .outer {
     stroke-dashoffset: 534 !important;
     -webkit-animation-play-state: paused;
-  } */
+  }
 
   /* END Circle colors and graphic positions */
 
   /* Set the initial values for the animation */
-  /* .chart[data-percent="100"] .outer {
+  .chart[data-percent="100"] .outer {
     stroke-dashoffset: 0;
     -webkit-animation: show100 2s;
     animation: show100 2s;
@@ -473,8 +473,11 @@
     stroke-dashoffset: 530;
     -webkit-animation: show0 2s;
     animation: show0 2s;
-  } */
-/* 
+  }
+
+  /* END set initial animation values */
+
+  /* Keyframes for the initial animation */
   @-webkit-keyframes show100 {
     from {
       stroke-dashoffset: 537;
@@ -574,10 +577,10 @@
     to {
       stroke-dashoffset: 430;
     }
-  } */
+  }
 
   /* END Keyframes for the initial animation */
-  /* @-webkit-keyframes show0 {
+  @-webkit-keyframes show0 {
     from {
       stroke-dashoffset: 537;
     }
@@ -595,5 +598,5 @@
     to {
       stroke-dashoffset: 537;
     }
-  } */
+  }
 </style>
