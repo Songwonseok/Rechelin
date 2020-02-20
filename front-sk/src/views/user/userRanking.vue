@@ -245,6 +245,7 @@ export default {
     find: sessionStorage.getItem('userToken'),
     // icons
     mdiBell,
+    userRank : [], //이걸로 rendering 시킨다. 이거부터 하자
   }),
   methods : {
     userRank(){
@@ -336,7 +337,10 @@ export default {
   },
   watch : {
     ctopUserInfo : function(v){
-      let list = [...this.topUserInfo];
+      console.log('ctopUserInfo')
+      let test = ['t','e','s','t'];
+      let list = [...test];
+      list = [...this.topUserInfo];
       [...this.topUserInfo] = list;
     }
   },
