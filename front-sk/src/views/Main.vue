@@ -34,11 +34,9 @@
                 <v-chip draggable="draggable" @click="insertTags('locations',43, '퓨전')">퓨전</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',48, '디저트')">디저트</v-chip>
                 
-
-                <v-divider></v-divider>
-                위치
                 <v-divider></v-divider>
                 강남
+                <v-divider></v-divider>
                 <v-chip draggable="draggable" @click="insertTags('locations', 0, '강남')">강남</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 1, '잠실')">잠실</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 2, '사당')">사당</v-chip>
@@ -50,10 +48,11 @@
                 <v-chip draggable="draggable" @click="insertTags('locations', 44, '역삼')">역삼</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',46, '압구정')">압구정</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',47, '신사')">신사</v-chip>
-                <v-chip draggable="draggable" @click="insertTags('locations',49, '방배')">신사</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations',49, '방배')">방배</v-chip>
 
                 <v-divider></v-divider>
                 강북
+                <v-divider></v-divider>
                 <v-chip draggable="draggable" @click="insertTags('locations', 8, '종로')">종로</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 9, '삼청동')">삼청동</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 10, '서촌')">서촌</v-chip>
@@ -77,7 +76,7 @@
                 <v-chip draggable="draggable" @click="insertTags('locations', 37, '중구')">중구</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 38, '성동구')">성동구</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 39, '동대문')">동대문</v-chip>
-                <v-chip draggable="draggable" @click="insertTags('locations', 40, '은평구')">은평구</v-chip>
+                <v-chip draggable="draggable" @click="insertTags('locations', 40, '연신내')">연신내</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 41, '노원')">노원</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 42, '뚝섬')">뚝섬</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 45, '홍대')">홍대</v-chip>

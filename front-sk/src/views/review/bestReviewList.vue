@@ -17,14 +17,14 @@
 
                         <v-img  height="250" :src="bestReview.src">
 
-                            <v-expand-transition>
+                            <!-- <v-expand-transition>
                                 <div v-if="hover"
                                     class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
                                     style="height: 100%;">
                                     {{bestReview.title}}
 
                                 </div>
-                            </v-expand-transition>
+                            </v-expand-transition> -->
                         </v-img>
                         <v-card-title>{{bestReview.title}}</v-card-title>
 
