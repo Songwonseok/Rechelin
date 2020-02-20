@@ -8,13 +8,12 @@
               
                     <v-text-field hide-details prepend-icon="search" @keyup.enter="storeListSearch" single-line
                         v-model="ssearch" placeholder="음식점을 입력해주세요."></v-text-field>
-                    <v-btn color="warning" icon @click="getMylocation">
+                    <!-- <v-btn color="warning" icon @click="getMylocation"> -->
+                    <v-btn color="warning" icon @click="getMylocation">    
                         <v-icon color="warning">my_location</v-icon>
                     </v-btn>
                 </v-toolbar>
-                <br>
-                <span style="color : orange">현재 위치 정보를 받아올려면 상단의 아이콘을 클릭해주세요!</span>
-                <br>
+              
                 <gmap-map :center="{lat: myLocation.latitude, lng: myLocation.longitude}" :zoom="16" style="height: 300px">
                     <gmap-marker :position="{lat: myLocation.latitude, lng: myLocation.longitude}" 
                     :clickable="true" :draggable="true" :icon="{ url: require('../../assets/images/recent.png')}"
