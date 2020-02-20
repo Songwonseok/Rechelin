@@ -87,7 +87,7 @@ $ git push
 - lllilllilllilili
 
 ## Demo
-[Rechelin](http://i02a404.p.ssafy.io/login)
+[Rechelin](http://i02a404.p.ssafy.io/login)  
 ID : sihyo5252@gmail.com  
 PW : asdf1234#
 
