@@ -11,17 +11,21 @@
 ![aws-rds](https://img.shields.io/badge/aws%20-rds-ff69b4?logo=Amazon)
 ---
 ## Table of Contents
-- [Introduction](#introduction)
-- [Prerequisite](#prerequisite)
-- [Development](#development)
-  - [Install](#install)
-  - [Testing](#testing)
-  - [Commit](#commit)
-- [Team](#team)
-- [License](#license)
-- [About](#about)
-- [Demo](#demo)
-- [Stack](#Stack)
+- [식당 리뷰 SNS](#%ec%8b%9d%eb%8b%b9-%eb%a6%ac%eb%b7%b0-sns)
+  - [!aws-rds](#aws-rds)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [사용기술](#%ec%82%ac%ec%9a%a9%ea%b8%b0%ec%88%a0)
+  - [Prerequisite](#prerequisite)
+  - [Development](#development)
+    - [Install](#install)
+    - [Testing](#testing)
+    - [Commit](#commit)
+  - [Team](#team)
+  - [Demo](#demo)
+  - [Stack](#stack)
+  - [license](#license)
+  - [About](#about)
 ## Introduction
 ```
 ssafy
@@ -84,7 +88,7 @@ $ git push
 
 ## Demo
 [Rechelin](http://i02a404.p.ssafy.io/login)
-ID : sihyo5252@gmail.com
+ID : sihyo5252@gmail.com  
 PW : asdf1234#
 
 ## Stack
