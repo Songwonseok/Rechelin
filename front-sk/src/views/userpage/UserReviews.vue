@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <v-container>
         <hr>
         <h3>
             <v-icon>{{mdiBookmarkMultiple}}</v-icon>
-            음식점 북마크
+            리뷰 북마크
         </h3>
         <hr>
         <carousel-3d>
@@ -109,7 +109,7 @@
                 </div>
             </slide>
         </carousel-3d>
-    </div>
+    </v-container>
 </template>
 
 <script>

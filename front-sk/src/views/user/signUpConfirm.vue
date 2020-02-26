@@ -1,18 +1,25 @@
 <template>
-  <div>
-
-
-
+  <v-container>
     <section class="signup">
-      <div class="container">
-        <div class="signup-content">
-
-          <v-chip x-large class="ma-2" color="warning" label outlined style="margin-bottom: 60px !important;">
+      <v-container class="container">
+        <v-row class="signup-content text-center" justify="center">
+          <v-chip 
+          x-large 
+          class="ma-2" 
+          color="warning" 
+          label 
+          outlined 
+          style="margin-bottom: 60px !important;">
             <v-icon left>{{icons.ClipboardCheck}}</v-icon>
             Confirm SignUp
           </v-chip>
 
-          <text-input v-model="code" class="form-input" type="text" name="code" rules="required|min:6"
+          <text-input 
+          v-model="code" 
+          class="form-input" 
+          type="text"
+           name="code" 
+           rules="required|min:6"
             placeholder="Code" />
           <v-btn color="warning"  @click="confirm" style="width:350px;">
             <v-icon left>{{icons.AccountMultipleCheck}}</v-icon>
@@ -23,10 +30,10 @@
             Have already an account ?
             <router-link :to="{name: 'login'}">login</router-link>
           </p>
-        </div>
-      </div>
+        </v-row>
+      </v-container>
     </section>
-  </div>
+  </v-container>
 
 
 

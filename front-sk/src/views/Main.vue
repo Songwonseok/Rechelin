@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div>
+    <v-container>
       <v-app id="inspire" class="rootMain">
         <!-- 네브바 -->
         <div v-if="checkLogin">
@@ -169,17 +169,15 @@
 
           </v-tabs>
 
-          <div>
+          <v-container>
             
             
-            <router-view>
-                
-              
+            <router-view> 
             </router-view>
           
           
           
-          </div>
+          </v-container>
 
 
          <footer-tag></footer-tag> 
@@ -187,7 +185,7 @@
 
       </v-app>
 
-    </div>
+    </v-container>
   </v-container>
 </template>
 

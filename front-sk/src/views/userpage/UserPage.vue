@@ -1,39 +1,61 @@
 <template>
-  <div>
-    <div class="content-profile-page">
-      <div class="profile-user-page card">
-        <div class="img-user-profile">
-          <img class="profile-bgHome" src="https://cdn.pixabay.com/photo/2016/03/27/21/34/restaurant-1284351_1280.jpg" />
-          <template v-if="UserInfo.profile==null || UserInfo.profile==''">
-            <img class="avatar" src="../../assets/images/ssafy.jpg" :alt="UserInfo.nickname" />
-          </template>
-          <template v-else>
-            <img class="avatar" :src="UserInfo.profile" :alt="UserInfo.nickname" />
-          </template>
-        </div>
+  <v-container>
+    <v-container class="content-profile-page">
+      <v-container class="profile-user-page card">
+        <v-container class="img-user-profile">
+
+            <v-img 
+            class="profile-bgHome" 
+            src="https://cdn.pixabay.com/photo/2016/03/27/21/34/restaurant-1284351_1280.jpg"
+            ></v-img>
+
+            <v-img 
+            class="avatar" 
+            v-if="UserInfo.profile==null || UserInfo.profile==''"
+            src="../../assets/images/ssafy.jpg" 
+            :alt="UserInfo.nickname" />
+
+            <v-img  
+            v-else 
+            class="avatar" 
+            :src="UserInfo.profile" 
+            :alt="UserInfo.nickname"></v-img>
+
+        </v-container>
+
         <!--자기 자신이면 Follow button 숨기기 -->
         <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
         <template v-if="uid != id">
-            <div v-if="followstatus==0 || followstatus==''">
-              <button @click="follow">Follow</button>
-            </div>
-            <div v-if="followstatus==1">
-              <button>요청됨</button>
-            </div>
-            <div v-if="followstatus==2">
-              <button @click="unfollow">UnFollow</button>
-            </div>
+            <v-row
+              v-if="followstatus==0 || followstatus==''">
+              <v-btn 
+              color="#ff7f00"
+              @click="follow">Follow</v-btn>
+            </v-row>
+            <v-row 
+              v-if="followstatus==1">
+              <v-btn
+              color="#ff7f00"
+              >요청됨</v-btn>
+            </v-row>
+            <v-row 
+              v-if="followstatus==2">
+              <v-btn 
+              @click="unfollow"
+              color="#ff7f00"
+              >UnFollow</v-btn>
+            </v-row>
         </template>
         
-        <div class="user-profile-data">
+        <v-container class="user-profile-data">
           
           <h1>{{UserInfo.nickname}}</h1>
           <p>{{UserInfo.email}}</p>
           <!-- 자기 자신일때만  Edit 보여주기-->
           <router-link :to="{name: 'useredit'}" style="color: #ff7f00;"><strong v-if="id == uid"> Edit</strong></router-link>
-        </div>
+        </v-container>
 
-         <ul class="data-user">
+         <v-container class="data-user">
          <li>
             <router-link 
             :to="{name: 'bookmarks', 
@@ -50,15 +72,16 @@
             <router-link :to="{name: 'stars', params: { stars: this.starList}}"><strong>
                 {{starList.length}}</strong><span>Following</span></router-link>
           </li>
-        </ul> 
-      </div>
+        </v-container> 
+      </v-container>
+
       <router-view></router-view>
-    </div>
+    </v-container>
 
     <!-- <footer>
       <h4>Design by 싸피 4조 쏘아올리조</h4>
     </footer> -->
-  </div>
+  </v-container>
 
 </template>
 
@@ -224,10 +247,7 @@
 </script>
 
 <style scoped>
-  body {
-    background: #f8f5f0;
-    font-family: "Open sans", sans-serif;
-  }
+
 
   a {
     text-decoration: none;
@@ -236,7 +256,7 @@
 
   .content-profile-page {
     margin: 1em auto;
-    width: 44.23em;
+    width: 75%;
   }
 
   .card {
@@ -250,26 +270,26 @@
   .profile-user-page .img-user-profile {
     margin: 0 auto;
     text-align: center;
+    width: 95%;
   }
 
   .profile-user-page .img-user-profile .profile-bgHome {
     border-bottom: .2em solid #f5f5f5;
-    width: 44.23em;
     height: 16em;
   }
 
   .profile-user-page .img-user-profile .avatar {
     margin: 0 auto;
     background: #fff;
-    width: 7em;
     height: 7em;
+    width: 7em;
     padding: 0.25em;
     border-radius: .4em;
-    margin-top: -10em;
+    margin-top: -5em;
     box-shadow: 0 0 .1em rgba(0, 0, 0, 0.35);
   }
 
-  .profile-user-page button {
+  .profile-user-page v-btn {
     position: absolute;
     font-size: 13px;
     font-weight: bold;
@@ -283,7 +303,7 @@
     padding: .80em;
   }
 
-  .profile-user-page button:hover {
+  .profile-user-page v-btn:hover {
     background: #ff7f00;
     transition: background .2s ease-in-out;
     border: 1px solid #ff7f00;
@@ -399,7 +419,7 @@
     color: #ff7f00;
   }
 
-  .profile-user-page button[data-v-1ee59885] {
+  .profile-user-page v-btn[data-v-1ee59885] {
     position: absolute;
     font-size: 13px;
     font-weight: bold;

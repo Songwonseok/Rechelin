@@ -1,7 +1,7 @@
 <template>
-    <div class="user" id="app">
+    <v-container class="user" id="app">
         
-	<div id="wrapper">
+	<v-container id="wrapper">
         
 		<div id="table">
 			<h1 class="active" style="color: #ff7f00; text-align:left;">Login</h1>
@@ -37,8 +37,8 @@
 		
     </div>
 		
-	</div>
-    </div>
+	</v-container>
+    </v-container>
 </template>
 
 <script>
