@@ -324,6 +324,9 @@
     created() {
       this.reviewInfo.wdate = this.reviewInfo.wdate.substring(0, 10);
 
+      // 이 페이지로 이동후 다시 detail값 초기화
+      this.$store.state.detail = null;
+
     }
 
   }

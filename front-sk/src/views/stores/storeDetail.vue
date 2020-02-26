@@ -64,7 +64,7 @@
             <!-- <v-btn class="ma-2" outlined fab color="warning" @click="browserlocation">
               <v-icon color="warning">{{icons.mdiCrosshairsGps}}</v-icon>
             </v-btn>-->
-            <v-btn class="ma-2" small outlined fab color="warning" @click="getMylocation">
+            <v-btn class="ma-2" small outlined fab color="warning" :href="findRoad" >
               <v-icon color="warning">{{icons.mdiCrosshairsGps}}</v-icon>
             </v-btn>
           </div>
@@ -125,7 +125,7 @@
             v-bind:options="{ strokeColor:'#008000'}"
           ></gmap-polyline>
         </gmap-map>
-         <b-badge :href="findRoad" variant="warning" style="color: white;">길찾기</b-badge>
+         
       </v-col>
     </v-row>
     <!-- 그리드 구분 -->
@@ -290,9 +290,16 @@ export default {
   },
   created() {},
   mounted() {
-    this.$router.replace({
-      name: "storeReviews"
-    });
+    // this.$store.state.detail 이 null이면 comments 방문 목적이 아니기 때문에 review를 보여주고,
+    //  그렇지 않은경우, detail에 review num이 들어있으므로 review 상세페이지를 보고자하는 목적 이므로
+    if (this.$store.state.detail == null) {
+          this.$router.replace({
+          name: "storeReviews"
+        });
+    } else if (this.$store.state.detail != null) {
+      this.$store.dispatch('commentsOfreview', this.$store.state.detail)
+    }
+
     this.center.latitude = parseFloat(this.$store.state.storeInfo.lat);
     this.center.longitude = parseFloat(this.$store.state.storeInfo.lng);
 

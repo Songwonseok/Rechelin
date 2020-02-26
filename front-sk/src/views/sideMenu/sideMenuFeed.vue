@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-row class="text-center">
-      <b-col>
+      <b-col lg="2" sm="12">
         <v-card class="mx-auto" max-width="300" tile>
           <v-list rox unded>
             <!-- <v-subheader>REPORTS</v-subheader> -->
@@ -16,7 +16,7 @@
           </v-list>
         </v-card>
       </b-col>
-      <b-col cols="10" >
+      <b-col cols="12" xl="10" md="10" lg="10">
         <router-view></router-view>
       </b-col>
     </b-row>

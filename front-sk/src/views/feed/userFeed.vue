@@ -171,7 +171,7 @@ button {
   }
 }
 #app {
-  max-width: 600px;
+  max-width: 800px;
   margin: 30px auto;
 }
 .view {
