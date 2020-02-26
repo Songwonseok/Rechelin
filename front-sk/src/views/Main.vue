@@ -337,7 +337,9 @@
       },
       searchBtnClick(){
         console.log('Main-searchBtnClick :: Main에서 hashTag 로 검색한 결과')
-         this.isLoading = true;
+       
+     
+        this.isLoading = true;
         this.$store.state.storeFlag +=1;
        
         StoreApi.requestStoreList().then(response=>{
@@ -353,12 +355,12 @@
 
             let find = true;
             for(let j=0; j<this.newSearch.length; j++){
-              if(tagsString.includes(this.newSearch[j])){
+              if(!tagsString.includes(this.newSearch[j])){
                 find = false;
               }
             }//end of for loop 
 
-            if(find == false){
+            if(find == true){
               let item = {};
               item['num'] = response.data.object[i].store.num;
               item['sname'] = response.data.object[i].store.sname;
