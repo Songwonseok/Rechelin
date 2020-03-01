@@ -14,30 +14,36 @@ const auth = {
 
 export default {
     LOADING_USERDATA(context) {
-        console.log('hi');
-        requestfetchUserList().then(
+        console.log('LOADING_USERDATA');
+        Userapi.requestfetchUserList().then(
             response => {
+                console.log("LOADING_USERDATA response");
                 console.log(response);
-                console.log('hi2');
                 console.log(response.data.object);
-                var jbAry = new Array();
-                var jaAry = new Array();
-                for (var i = 0; i < response.data.object.length; i++) {
-                    jbAry[i] = response.data.object[i].nickname;
-                    console.log(jbAry[i]);
+                var jbAry = [];
+
+                for(let i =0; i<response.data.object.length; i++){
+                    let item = {};
+                    
+                    item['name'] = response.data.object[i].nickname;
+                    item['email'] = response.data.object[i].email;
+                    if(response.data.object[i].profile == null)
+                        item['avatar'] = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+                    else
+                        item['avatar'] = response.data.object[i].profile;
+                    
+                    JSON.stringify(item);
+                    jbAry.push(item);
                 }
-                for (var j = 0; j < response.data.object.length; j++) {
-                    jaAry[j] = response.data.object[j].email;
-                    console.log(jbAry[j]);
-                }
-                context.commit('SET_USER', jbAry);
-                context.commit('SET_EMAIL', jaAry);
+                console.log(jbAry); 
+                context.commit('SET_USER',jbAry);
+               
             }).catch(error => {
-            console.log(error);
+            console.error();
         })
     },
-    LOADING_RECENTUSERDATA({ commit }, email) {
-        SearchApi.requestFetchUserData({ commit }, email).then(
+    LOADING_RECENTUSERDATA({ commit }, id) {
+        SearchApi.requestFetchUserData({ commit }, id).then(
             response => {
                 console.log("최근 검색 내용, action->LOADING_RECENTUSERDATA");
             }).catch(error => {

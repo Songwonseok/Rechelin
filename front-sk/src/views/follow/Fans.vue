@@ -3,7 +3,7 @@
     <v-toolbar color="warning" dark>
 
       <v-toolbar-title>
-        <v-icon>{{mdiAccountMultipleCheckOutline }}</v-icon>
+        <!-- <v-icon>{{mdiAccountMultipleCheckOutline }}</v-icon> -->
         Followers</v-toolbar-title>
 
       <v-spacer></v-spacer>

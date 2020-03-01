@@ -166,7 +166,10 @@ const requestUserpage = (data, callback, errorCallback) => {
 
 function requestfetchUserList() {
     //return axios.get(config.baseUrl+'news/1.json');
-    // return Axios.post(URL + `/account/list`, auth);
+    
+    console.log('requestfetchUserList')
+
+     return Axios.get(URL + `/account/list`, auth);
 }
 
 

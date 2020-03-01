@@ -25,34 +25,44 @@
 
         <!--자기 자신이면 Follow button 숨기기 -->
         <!-- 팔로우 요청 중 or 이미 팔로우이면 버튼 다르게 하기 -->
-        <template v-if="uid != id">
+       
+        
+        <v-container class="user-profile-data">
+           
+          <h1>{{UserInfo.nickname}}</h1>
+          <p>{{UserInfo.email}}</p>
+          <!-- 자기 자신일때만  Edit 보여주기-->
+          <router-link :to="{name: 'useredit'}" style="color: #ff7f00;"><strong v-if="id == uid"> Edit</strong></router-link>
+          <template v-if="uid != id">
             <v-row
+              
               v-if="followstatus==0 || followstatus==''">
               <v-btn 
+              id ="btn"
+              class = "mx-auto"
               color="#ff7f00"
               @click="follow">Follow</v-btn>
             </v-row>
             <v-row 
+           
               v-if="followstatus==1">
               <v-btn
+              id ="btn"
+              class = "mx-auto"
               color="#ff7f00"
               >요청됨</v-btn>
             </v-row>
             <v-row 
+            
               v-if="followstatus==2">
               <v-btn 
+              id="btn"
+              class = "mx-auto"
               @click="unfollow"
               color="#ff7f00"
               >UnFollow</v-btn>
             </v-row>
         </template>
-        
-        <v-container class="user-profile-data">
-          
-          <h1>{{UserInfo.nickname}}</h1>
-          <p>{{UserInfo.email}}</p>
-          <!-- 자기 자신일때만  Edit 보여주기-->
-          <router-link :to="{name: 'useredit'}" style="color: #ff7f00;"><strong v-if="id == uid"> Edit</strong></router-link>
         </v-container>
 
          <v-container class="data-user">
@@ -309,7 +319,9 @@
     border: 1px solid #ff7f00;
   }
 
-  .profile-user-page .user-profile-data,
+  .profile-user-page .user-profile-data #btn{
+    margin-left :310px;
+  }
   .profile-user-page .description-profile {
     text-align: center;
     padding: 0 1.5em;
@@ -434,6 +446,10 @@
     padding: .80em;
     margin-left: 80px;
 }
+/* .whereBtn{
+
+  margin-right : 100px;
+} */
 .profile-user-page button[data-v-6a0ba10e] {
     position: absolute;
     font-size: 13px;

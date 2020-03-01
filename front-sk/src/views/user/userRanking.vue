@@ -55,9 +55,10 @@
          
           dark
           small
-          @click="userpageGo"
-          color="blue">
-          <v-icon>mdi-account</v-icon>
+          href="http://pf.kakao.com/_Qxexjxbxb/chat"
+          
+          color="#FFEA00">
+          <v-icon color="#3E2723">{{mdiAlphaKCircleOutline }}</v-icon>
         </v-btn>
         <v-btn
           fab
@@ -223,7 +224,9 @@ import { KinesisContainer, KinesisElement } from 'vue-kinesis'
 import UserApi from '../../apis/UserApi.js';
 import { 
   mdiBell,
+  mdiAlphaKCircleOutline 
   } from '@mdi/js';
+import Axios from 'axios';
 Vue.component('kinesis-container', KinesisContainer)
 Vue.component('kinesis-element', KinesisElement)
 export default {
@@ -245,6 +248,7 @@ export default {
    
     // icons
     mdiBell,
+    mdiAlphaKCircleOutline 
     
   }),
   methods : {
@@ -309,11 +313,6 @@ export default {
         var payload = this.$store.state.userid
         this.$store.dispatch('notificationGet', payload)
         this.alarms = this.$store.state.notifications
-      },
-      userpageGo() {
-        this.$router.push({name: 'userpage', params: {
-            id: sessionStorage.getItem('userid')
-        }})
       },
       followAccept(f, index) {
 

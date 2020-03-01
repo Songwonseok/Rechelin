@@ -2,9 +2,10 @@
   <div id="app">
     <UserRanking></UserRanking>
      <!-- <Header></Header> -->
-    
-     <transition name="page">
-     <b-container class="bv-example-row">
+    <transition name="page">
+     <b-container class="bv-example-row"
+     style="padding: 0px;"
+     >
      <router-view></router-view>
      </b-container>
      </transition>

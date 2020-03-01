@@ -13,8 +13,7 @@ export default new Vuex.Store({
         password: '',
         user: '',
         searchUser: {
-            nickname: [],
-            email: [],
+           
         }, //searchBar에서 User가 User를 검색하기 위한 info를 불러와 저장한다.
         recentUser: [], //searchBar에서 User가 검색했던 recentUser를 불러와 저장한다.  
         phone: '010',
@@ -88,6 +87,7 @@ export default new Vuex.Store({
 
         //
         detail: null,
+        feedUserList : [],
 
     },
     // state가 아닌 부분

@@ -1,14 +1,16 @@
 <template>
 
-    <div>
-        <div>
+    <v-container>
+        <v-container>
             <b-container>
                 <!-- 리뷰 제목 -->
+               
                 <b-row style="text-align: left">
                     <b-col style="margin-right: 50px;">
                         <!-- 리뷰 제목 -->
-                        <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: left;">
-                            <v-icon>{{mdiFormatTitle}}</v-icon>itle
+                        <v-chip class="ma-2 text-left" outlined  color="#ff7f00" 
+                        style="text-align: left;">
+                            <v-icon left>{{mdiFormatTitle}}</v-icon>itle
                         </v-chip>
                         <v-text-field v-model="reviewTitle" label="Review Title" :counter="20"></v-text-field>
 
@@ -19,11 +21,15 @@
 
 
                         <!-- 음식점 주소 등록 -->
-                        <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: left">
-                            <v-icon>{{mdiPasta }}</v-icon>음식점이름
+                        <v-chip class="ma-2 text-left" outlined  color="#ff7f00" style="text-align: left">
+                            <v-icon left>{{mdiPasta }}</v-icon>음식점이름
                         </v-chip><span>
-                                <v-btn class="ma-2" id="show-btn" @click="$bvModal.show('bv-modal-example_adr')"
-                                    style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 이름/주소 등록
+                                <v-btn 
+                                class="ma-2" 
+                                id="show-btn" 
+                                @click="$bvModal.show('bv-modal-example_adr')"
+                                rounded
+                                style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 이름/주소 등록
                                 </v-btn>
                             </span>
                         <v-text-field v-model="store_name" label="store name" required>
@@ -31,7 +37,7 @@
                         </v-text-field>
 
                          <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: center;">
-                            <v-icon>{{mdiMapMarker}}</v-icon>음식점주소
+                            <v-icon left>{{mdiMapMarker}}</v-icon>음식점주소
                         </v-chip>
                         <v-text-field v-model="store_address" label="store address" required>
                             <!-- <v-text-field v-model="store_address" :rules="nameRules" label="store address" required> -->
@@ -59,10 +65,16 @@
                         <!-- 해시 태그 모달 -->
                         <div id="reviewHashtag">
                             
-                         <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{mdiPoundBoxOutline}}</v-icon>해쉬태그
+                         <v-chip 
+                         class="ma-2 text-left" 
+                         outlined  
+                         
+                         color="#ff7f00" >
+                            <v-icon left>{{mdiPoundBoxOutline}}</v-icon>해쉬태그
                         </v-chip><span>
-                                    <v-btn @click="$bvModal.show('bv-modal-example')" id="show-btn" class="ma-2" dark
+                                    <v-btn @click="$bvModal.show('bv-modal-example')" 
+                                    id="show-btn" class="ma-2" dark
+                                    rounded
                                         style="color: #ff7f00 !important; background:#ff7f00 ;">
                                         <v-icon left>{{icons.pencil}}</v-icon> hashtag
                                     </v-btn>
@@ -202,7 +214,7 @@
                         </b-modal> <br>
 
                           <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{ mdiContentSaveAll}}</v-icon>사진업로드
+                            <v-icon left>{{ mdiContentSaveAll}}</v-icon>사진업로드
                         </v-chip>
                         <div class="uploadProfile">
                             <v-file-input @change="getProfileForm" label="File input" filled
@@ -221,20 +233,20 @@
                     <b-col style="text-align: left">
  
                          <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{mdiEmoticonTongueOutline}}</v-icon>taste
+                            <v-icon left>{{mdiEmoticonTongueOutline}}</v-icon>taste
                         </v-chip>
                         <star-rating v-model="flavor" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             style="text-align: center !important;"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
                             <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{mdiCurrencyUsd}}</v-icon>price
+                            <v-icon left>{{mdiCurrencyUsd}}</v-icon>price
                         </v-chip>
                         <star-rating v-model="price" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
                             <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{mdiEmoticonWinkOutline}}</v-icon>kind
+                            <v-icon left>{{mdiEmoticonWinkOutline}}</v-icon>kind
                         </v-chip>
                         <star-rating v-model="kindness" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
@@ -273,15 +285,24 @@
              <star-rating v-model="rating" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
                     :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
            
-              <div ref="finalSubmit">
-              <v-btn depressed large name="submit" id="submit" @click="reviewConfirm(store_num)" style="color: #ff7f00 !important; background:#ff7f00 ;"
+              <v-container 
+              ref="finalSubmit"
+              style="text-align: right;">
+              <v-btn 
+              depressed 
+              large 
+              rounded
+              name="submit" 
+              id="submit" 
+              @click="reviewConfirm(store_num)" 
+              style="color: #ff7f00 !important; background:#ff7f00 ;"
               value="review 등록" >리뷰 등록</v-btn>
-              </div>
+              </v-container>
               </b-col>
                </b-row>
             </b-container>
-        </div>
-    </div>
+        </v-container>
+        </v-container>
 </template>
 
 <script>
@@ -291,6 +312,7 @@
     import PV from 'password-validator'
     import ImgurApi from '../../apis/ImgurApi'
     import StarRating from 'vue-star-rating'
+    
     import {
         mdiPencil,
         mdiCamera,
@@ -362,7 +384,8 @@
 
 
         components: {
-            StarRating
+            StarRating,
+            
         },
         methods: {
             check_area(n, name) {
@@ -690,19 +713,17 @@
     }
 
     #show-btn:hover {
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        -o-transform: scale(1.2);
-        transform: scale(1.2);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        transform: scale(1.1);
         -webkit-transition: .3s;
         -moz-transition: .3s;
         -ms-transition: .3s;
         -o-transition: .3s;
         transition: .3s;
-        background: white !important;
-        color: #ff7f00 !important;
-        outline-color: #ff7f00 !important;
+        
     }
 
     v-chip:hover {

@@ -2,7 +2,7 @@
   <v-card max-width="500" class="mx-auto">
     <v-toolbar color="warning" dark>
       <v-toolbar-title>
-        <v-icon>{{mdiAccountStar}}</v-icon>
+        <!-- <v-icon>{{mdiAccountStar}}</v-icon> -->
         Following</v-toolbar-title>
 
       <v-spacer></v-spacer>

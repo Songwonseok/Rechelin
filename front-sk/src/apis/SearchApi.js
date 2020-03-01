@@ -14,10 +14,14 @@ const searchUserHistory = (data, callback, errorCallback) => {
     //console.log(data.email + " " + data.nickname)
     // params.append('email', data.email);
     //params.append('searchname', data.nickname);
-    var params = {
-        'email': data.email,
-        'searchname': data.nickname,
-    }
+    console.log('id입니다.');
+    console.log(data.id);
+ 
+    const params = new URLSearchParams();
+    params.append('id', data.id);
+    params.append('searchname', data.nickname);
+    
+
     Axios.post(URL + '/search/user', params, auth)
         .then(response => {
             console.log(response);
@@ -30,14 +34,13 @@ const searchUserHistory = (data, callback, errorCallback) => {
         })
 }
 
-function requestFetchUserData({ commit }, email) {
+function requestFetchUserData({ commit }, id) {
     //코딩컨벤션
     //const params = new URLSearchParams();
-    var params = {
-        'email': email,
+    const params = new URLSearchParams();
+    params.append('id', id);
+    
 
-    }
-    console.log(email);
     Axios.post(URL + '/search/recentUser', params)
         .then(response => {
             console.log('dd')

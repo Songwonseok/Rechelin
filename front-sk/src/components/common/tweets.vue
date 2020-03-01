@@ -35,11 +35,11 @@
               :to="{name: 'userpage', 
               params: {id: tweet.review.user.id}
               }"
-              style="color: #ff7f00 !important; font-size: 12px;"
+              style="color: black !important; font-size: 12px;"
             >
             <v-chip 
               class="ma-2 text-left" 
-              color="#ff7f00"
+             
               x-small 
               outlined>
                 작성자
@@ -65,7 +65,7 @@
 
               <star-rating 
               read-only	
-              star-size="20" 
+              star-size="23" 
               @rating-selected="rating = $event" 
               :rating="tweet.review.total"
               ></star-rating>
@@ -120,6 +120,21 @@
           :rating="tweet.review.kindness"
           ></star-rating>
         
+         <v-chip 
+            class="ma-2" 
+            small
+            color="black"
+            @click="goReviewDetail(tweet.review.store.num, tweet.review.rnum)" 
+            outlined>
+              <i 
+              class="fas fa-edit fa-2x small" 
+              ></i> 
+              댓글({{tweet.comments}})
+            </v-chip>
+
+            
+    
+            
         </v-row>
       </v-col>
         
@@ -140,6 +155,7 @@
           outlined 
           large 
           @click="goReviewDetail(tweet.review.store.num, tweet.review.rnum)"
+          style="font-family: 'Nanum Myeongjo' !important; margin-top: 5px;"
           >
             <i 
             class="fas fa-store-alt fa-2x" 
@@ -147,6 +163,8 @@
             ></i>
               {{tweet.review.store.sname}}   
           </v-chip>
+
+        
         </v-container>
          <br>
        
@@ -157,7 +175,7 @@
             aspect-ratio="1"
             max-height="300"
             max-width="350"
-            style="border-radius: 5px;"
+            style="border-radius: 5px; max-width: 70%;"
             @click="goReviewDetail(tweet.review.store.num, tweet.review.rnum)"
           >
           </v-img>
@@ -166,6 +184,7 @@
             src="https://cdn.pixabay.com/photo/2015/04/20/13/30/kitchen-731351_1280.jpg"
             max-height="300"
             max-width="350"
+            width="100%"
             style="border-radius: 5px;"
             @click="goReviewDetail(tweet.review.store.num, tweet.review.rnum)"
           ></v-img>
@@ -173,12 +192,15 @@
 
           <!-- 제목 -->
           <p
-          class="title text-center"
+          class="subtitle-1 text-center"
+          style="font-family: 'Nanum Gothic' !important; margin-top: 5%;"
+          @click="goReviewDetail(tweet.review.store.num, tweet.review.rnum)" 
           >{{tweet.review.title}}</p>
 
           <!-- 주소 -->
           <p
-          class="font-weight-light text-center" 
+          class="font-weight-light text-right body-2" 
+          style="font-family: 'Nanum Gothic'; "
           @click="storeDetail(tweet.review.store.num)"
           >  
             <i 
@@ -191,26 +213,50 @@
           class="ma-2" 
           color="warning" 
           small
-          outlined>
+          outlined
+          
+          >
           <v-icon small>{{mdiPound}}</v-icon>     
           HashTags
           </v-chip>
           <br>
             <span 
             v-for="tag in tagList.slice(0, 5)" 
-            :key="tag.id">
+            :key="tag.id"
+            style="font-family: 'Do Hyeon';"
+            >
             #{{tag}}
             
             </span>
         
         <p class="overline text-right">
             작성시간 : {{this.tweet.review.wdate}} 
+          <v-chip
+            id="like-bookmark"
+            class="ma-2" 
+            color="#ff7f00"
+            outlined
+            @click="reviewLike(tweet.review.rnum, tweet.like)"
+            >
+              <v-icon >{{ mdiThumbUp }}</v-icon>
+              <!-- {{tweet.like}} -->
+            </v-chip>
+            <v-chip 
+            id="like-bookmark"
+            class="ma-2" 
+            color="#ff7f00"
+            @click="reivewBookmark(tweet.review.rnum)"
+            outlined>
+            <v-icon>{{mdiBookmark}}</v-icon>
+             
+              <!-- 싫어요 : {{tweet.dislike}} -->
+            </v-chip>
           </p>
-        </v-col> 
          
-        <v-container style="padding-top:0px;">
+        </v-col> 
+
            
-         <v-divider></v-divider>
+       
           
               <!-- </router-link> -->
               <!-- title 누르면 review detail로 넘어가게 -->
@@ -256,51 +302,16 @@
 
         <!-- 해시 태그 리스트 -->
         <!-- card로 해시태그 분리하기 -->
-        <v-container class="content">
+      
               
           
           <!--댓글 수 -->
-          <v-container class="content">
+      
 
-            <v-chip 
-            class="ma-2" 
-            color="warning"
-            @click="goReviewDetail(tweet.review.store.num, tweet.review.rnum)" 
-            outlined>
-              <i 
-              class="fas fa-edit fa-2x" 
-              ></i> 
-              댓글 수 : {{tweet.comments}}
-            </v-chip>
-            
-            <!--좋아요 싫어요 수 -->
-            <v-chip 
-            class="ma-2" 
-            color="warning" 
-            outlined
-            @click="reviewLike(tweet.review.rnum, tweet.like)"
-            >
-              <i 
-              class="far fa-thumbs-up fa-2x" 
-              ></i> 
-              좋아요 : {{tweet.like}}
-            </v-chip>
-            
-            <v-chip 
-            class="ma-2" 
-            color="warning"
-            @click="reivewBookmark(tweet.review.rnum)"
-            outlined>
-            <v-icon>{{mdiBookmark}}</v-icon>
-             
-              <!-- 싫어요 : {{tweet.dislike}} -->
-            </v-chip>
-          
-          </v-container>
+
               <!-- {{tweet.review.hashtag}} -->
-            </v-container>
-        
-    </v-container>
+          
+
     </v-row>
   </v-container>
 </template>
@@ -316,7 +327,8 @@ import {
   mdiLeadPencil,
   mdiEmoticonHappyOutline,
   mdiStar,
-  mdiBookmark
+  mdiBookmark,
+   mdiThumbUp 
 } from "@mdi/js";
 import StarRating from 'vue-star-rating'
 export default {
@@ -339,6 +351,7 @@ export default {
       mdiEmoticonOutline,
       mdiPound,
       mdiBookmark,
+       mdiThumbUp ,
     };
   },
   components : {
@@ -373,7 +386,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
 
 strong {
   font-weight: 800;
@@ -414,4 +429,8 @@ p {
     color: #657786;
   }
 }
+.subtitle-1:hover{
+  color: #ff7f00;
+}
+
 </style>

@@ -1,26 +1,27 @@
 <template>
-    <div id="app">
+    <v-container id="app">
         <v-app id="inspire_store">
             <!--To do bar-->
-            <v-card class="pa-4" flat >
-
+            <b-container>
                 <v-toolbar dense floating>
-              
-                    <v-text-field hide-details prepend-icon="search" @keyup.enter="storeListSearch" single-line
-                        v-model="ssearch" placeholder="음식점을 입력해주세요."></v-text-field>
-                    <!-- <v-btn color="warning" icon @click="getMylocation"> -->
-                    <v-btn color="warning" icon @click="getMylocation">    
-                        <v-icon color="warning">my_location</v-icon>
-                    </v-btn>
+                    <v-text-field 
+                    hide-details 
+                    prepend-icon="search" 
+                    @keyup.enter="storeListSearch" 
+                    single-line
+                    v-model="ssearch" 
+                    placeholder="음식점을 입력해주세요."
+                    
+                    ></v-text-field>
                 </v-toolbar>
               
-                <gmap-map :center="{lat: myLocation.latitude, lng: myLocation.longitude}" :zoom="16" style="height: 300px">
+                <gmap-map :center="{lat: myLocation.latitude, lng: myLocation.longitude}" :zoom="16" style="height: 300px; min-width: 250px;">
                     <gmap-marker :position="{lat: myLocation.latitude, lng: myLocation.longitude}" 
                     :clickable="true" :draggable="true" :icon="{ url: require('../../assets/images/recent.png')}"
                         @click="center=m.position">
                     </gmap-marker>
                 </gmap-map>
-            </v-card>
+           </b-container>
                    <loading :active.sync="isLoading_store" 
             :can-cancel="true" 
             
@@ -29,9 +30,8 @@
             </loading>
             <hr>
             
-            <div v-if="this.$store.state.isClickBtnStore == true">
-                <b-container class="bv-example-row">
-                    <b-row >
+            <b-container v-if="this.$store.state.isClickBtnStore == true" class="bv-example-row">
+                    <b-row align-h="start">
                         <b-col v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store" style="text-align: center !important;">
                             <v-hover v-slot:default="{ hover }">
                                 <v-card class="mx-auto mr-15 mb-2" max-width="500" width = "300" height="300" @click="storeDetail(store.num)">
@@ -73,22 +73,15 @@
                                     <v-card-text class="text--primary">
                                         <div>{{store.address}}</div>
                                     </v-card-text>
-                                    <v-card-actions>
-                                        <v-btn color="orange" text="text">
-                                            Share
-                                        </v-btn>
-                                        <v-btn color="orange" text="text">
-                                            Explore
-                                        </v-btn>
-                                    </v-card-actions>
+                                   
                                 </v-card>
                             </v-hover>
                         </b-col>
                     </b-row>
-                </b-container>
+
                 <div class="text-center">
                     <div v-if="this.$store.state.pageStatus">
-                        <v-pagination v-model=page :length=this.len @input="next"></v-pagination>
+                        <v-pagination v-model=page :length=len @input="next"></v-pagination>
                         <!-- 현재 Main 상단바에서 HashTag 검색 시에만 pagination을 처리하려 합니다 ㅠㅠ router로 page 2개 만들면 될것같긴한데 다른 우선순위 부터 진행하고 하겠습니다. -->
                     </div>
 
@@ -96,8 +89,8 @@
 
                     </div>
                 </div>
-            </div>
-            <div v-else>
+            </b-container>
+            <b-container v-else>
                 <kinesis-container>
                     <kinesis-element :strength="10">
                         <h1 style="color : orange">상단 메뉴에서 검색 해주세요!</h1>
@@ -107,9 +100,9 @@
                     </kinesis-element>
                 </kinesis-container>
                  <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p>
-            </div>
+            </b-container>
         </v-app>
-    </div>
+    </v-container>
 </template>
 <script>
     import Vue from 'vue'
@@ -140,6 +133,12 @@ import 'vue-loading-overlay/dist/vue-loading.css'
              Loading,
         },
         watch: {
+            
+            changeLen : function(v){
+                let list = 0;
+                list = this.len;
+                this.len = list;
+            },
             storeListwatch: function (v) {
                 // this.data = this.$store.state.storeList;
                 // let list = [...this.data];
@@ -190,6 +189,9 @@ import 'vue-loading-overlay/dist/vue-loading.css'
             },
             fetchSearchStore() {
                 return this.enterKey;
+            },
+            changeLen(){
+                return this.len;
             }
         },
         data() {
@@ -269,14 +271,6 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 this.$store.dispatch('storeHashtags', num)
 
             },
-            getMylocation() {
-                navigator.geolocation.getCurrentPosition(pos => {
-                    this.myLocation = pos.coords
-                    console.log(this.myLocation.latitude, this.myLocation)
-                    return pos
-                })
-                    this.isLoading_store = false;
-              }
                  
           },
         

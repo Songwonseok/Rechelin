@@ -1,103 +1,195 @@
 <template>
-  <div>
-    <div class="card card--big">
+
+  <v-flex xs>
+  <v-container>
+
+    <v-container class="card card--big">
       <router-link :to="{name: 'userpage', params: {
                 id: reviewInfo.user.id
-            }}" style="color: #ff7f00 !important">
-        <v-chip class="ma-2" color="warning" outlined>
-          <v-icon>{{mdiLeadPencil}}</v-icon>
-          작성자
-        </v-chip> {{reviewInfo.user.nickname}}
+            }}" style="color: black !important">
+        <v-chip 
+        class="ma-2" 
+        color="black" 
+        
+        outlined
+        style="font-family: 'Nanum Gothic Coding', ;"
+        >
+        
+         <v-avatar 
+         left 
+         v-if="reviewInfo.user.profile">
+              <v-img 
+              :src="reviewInfo.user.profile"></v-img>
+        </v-avatar>
+        <v-icon 
+        
+        v-else>{{mdiLeadPencil}}</v-icon>
+        
+           {{reviewInfo.user.nickname}}
+        </v-chip>
       </router-link>
-      <b-row>
 
-        <b-col style="padding-bottom: 0px;">
-          <div v-if="reviewInfo.picture">
-            <img class="review-image" :src="reviewInfo.picture" alt="" style="width: 80%; height: 350px;">
-          </div>
-          <div v-else>
-            <img src="../../assets/images/default.jpg" alt="" style="width: 80%; height: 350px;">
-          </div>
+
+      <v-row>
+
+        <v-col 
+        style="padding-bottom: 0px;
+        text-align: center;">
+
+          <v-container
+          v-if="reviewInfo.picture">
+          <v-row
+          justify="center"
+          >
+            <v-img 
+            class="review-image" 
+            :src="reviewInfo.picture" 
+            alt="" 
+           
+            max-height="360"
+             style="border-radius: 5px; max-width: 70%;"
+            />
+            </v-row>
+          </v-container>
+          <v-container v-else>
+            <v-row>
+            <v-img 
+            src="../../assets/images/default.jpg" 
+            alt="" 
+            max-height="250"
+            max-width="300"
+            
+            />
+            </v-row>
+          </v-container>
+
           <!-- 좋아요 -->
-          <v-divider style="margin-top: 30px;"></v-divider>
-          <div style="margin-top: 10px;">
+          
 
-            <v-btn small fab class="mt-2 review-like" @click="reviewLike(reviewInfo.rnum, 1)" color="warning">
-              <vue-star animate="animated bounceIn" color="#F7D358">
+          <v-container
+          >
+
+            <v-btn 
+            small 
+            fab 
+            class="mt-2 review-like" 
+            @click="reviewLike(reviewInfo.rnum, 1)" 
+            color="#ff7f00"
+            >
+              <vue-star 
+              animate="animated bounceIn" 
+              color="#F7D358">
                 <i slot="icon" class="fas fa-thumbs-up fa-lg"></i>
               </vue-star>
             </v-btn>
 
-            <v-btn small fab class="mt-2 review-like" @click="reviewLike(reviewInfo.rnum, 0)" color="warning">
+            <v-btn 
+            small 
+            fab 
+            class="mt-2 review-like" 
+            @click="reviewLike(reviewInfo.rnum, 0)" 
+            color="#ff7f00">
               <vue-star animate="animated bounceIn" color="#F7D358">
-
                 <i slot="icon" class="fas fa-thumbs-down fa-lg"></i>
               </vue-star>
             </v-btn>
 
 
-            <v-btn fab small class="mt-2 review-like" color="warning" @click="reviewBookmark(reviewInfo.rnum)">
+            <v-btn 
+            fab 
+            small 
+            class="mt-2 review-like" 
+            color="#ff7f00" @click="reviewBookmark(reviewInfo.rnum)">
               <vue-star animate="animated bounceIn" color="#F7FE2E">
                 <i slot="icon" class="fas fa-bookmark fa-2x"></i>
               </vue-star>
             </v-btn>
 
-            <v-divider></v-divider>
 
-          </div>
+          </v-container>
 
-        </b-col>
-        <b-col style="padding-bottom: 0px;">
-          <h2 class="card__title"></h2>
-          <div>
-            <v-chip class="ma-2" color="warning" outlined>
-              <v-icon>{{mdiCalendarEdit}}</v-icon>
-              작성시간
+        </v-col>
+        <v-col
+
+        >
+          
+          <v-container
+          
+          >
+            <v-chip 
+            class="ma-2" 
+            color="#ff7f00" 
+            small
+            outlined>
+              <v-icon small>{{mdiCalendarEdit}}</v-icon>
             </v-chip>
-            <p class="card__text">{{reviewInfo.wdate}}</p>
-            <v-chip class="ma-2" color="warning" outlined>
-              <v-icon>{{mdiEye}}</v-icon>
-              조회수
-            </v-chip>
-            <p class="card__text">{{reviewInfo.views}}</p>
-            <v-chip class="ma-2" color="warning" outlined>
+            {{reviewInfo.wdate}}
+            
+            <v-chip 
+            class="ma-2" 
+            color="#ff7f00" 
+            small
+            outlined>
+              <v-icon small>{{mdiEye}}</v-icon>
+            </v-chip>{{reviewInfo.views}}
+
+
+            <v-btn v-if="samePerson(reviewInfo.user.id)" icon @click="deleteReview(reviewInfo.rnum)">
+              <v-icon color="#ff7f00">{{mdiDelete}}</v-icon>
+            </v-btn>
+
+            <v-container
+            style="width: 80%;"
+            >
+            <v-chip class="ma-2" color="#ff7f00" outlined>
               <v-icon>{{mdiEmoticonHappyOutline}}</v-icon>
               장점
             </v-chip>
 
-            <p class="card__text">{{reviewInfo.str}}</p>
-            <v-chip class="ma-2" color="warning" outlined>
+            <p class="text-center"
+            style="font-family: 'Nanum Gothic Coding', ;"
+            >{{reviewInfo.str}}</p>
+            <v-chip class="ma-2" color="#ff7f00" outlined>
               <v-icon>{{mdiEmoticonSadOutline}}</v-icon>
               단점
             </v-chip>
-            <p class="card__text">{{reviewInfo.weak}}</p>
-          </div>
-          <v-chip class="ma-2" color="warning" outlined>
+            <p class="text-center"
+            style="font-family: 'Nanum Gothic Coding', ;"
+            >{{reviewInfo.weak}}</p>
+            </v-container>
+          </v-container>
+          <v-chip 
+          class="ma-2" 
+          color="#ff7f00" 
+          outlined
+          style="font-family: 'Nanum Gothic Coding', ;"
+          >
             <v-icon>{{mdiPound}}</v-icon>
             해쉬태그
           </v-chip>
 
-          <p> #{{reviewInfo.hashtag.split(',').join('#')}}</p>
-          <div v-if="samePerson(reviewInfo.user.id)">
-            <v-btn icon @click="deleteReview(reviewInfo.rnum)">
-              <v-icon color="warning">{{mdiDelete}}</v-icon>
-            </v-btn>
-          </div>
-          <v-divider>공유하기</v-divider>
+          <p> #{{reviewInfo.hashtag.split(',').join(' #')}}</p>
+          
+         <v-container>
           <v-btn text icon fab @click="Nshare">
             <v-icon color="success" large>{{mdiAlphaNCircle}}</v-icon>
           </v-btn>
           <v-btn text icon fab @click="Fshare">
             <v-icon color="indigo" large>{{mdiFacebook }}</v-icon>
           </v-btn>
-          <v-divider></v-divider>
+        </v-container>
 
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col lg="6" style="padding-top: 0px;">
+        </v-col>
+      </v-row>
+      
+        <v-divider></v-divider>
+      <v-row
+      justify="center"
+      >
+    
+        <v-col lg="6" style="padding-top: 0px;">
 
-          <v-chip id="score" class="ma-2" color="warning" outlined>
+          <v-chip id="score" class="ma-2" color="#ff7f00" outlined>
             <v-icon>{{mdiSigma}}</v-icon>
             총점
           </v-chip>
@@ -108,10 +200,10 @@
             </svg>
           </figure>
 
-        </b-col>
-        <b-col lg="6" style="padding-top: 0px;">
+        </v-col>
+        <v-col lg="6">
 
-          <v-chip class="ma-2" color="warning" outlined>
+          <v-chip class="ma-2" color="#ff7f00" outlined>
             <v-icon>{{ mdiEmoticonTongueOutline}}</v-icon>
             맛
           </v-chip>
@@ -119,7 +211,7 @@
           </v-rating>
 
 
-          <v-chip class="ma-2" color="warning" outlined>
+          <v-chip class="ma-2" color="#ff7f00" outlined>
             <v-icon>{{mdiCurrencyUsd}}</v-icon>
             가격
           </v-chip>
@@ -127,23 +219,23 @@
           <v-rating background-color="orange lighten-3" color="orange" large readonly v-model="reviewInfo.price">
           </v-rating>
 
-          <v-chip class="ma-2" color="warning" outlined>
+          <v-chip class="ma-2" color="#ff7f00" outlined>
             <v-icon>{{mdiEmoticonOutline}}</v-icon>
             친절도
           </v-chip>
           <v-rating background-color="orange lighten-3" color="orange" large readonly v-model="reviewInfo.kindness">
           </v-rating>
 
-        </b-col>
-      </b-row>
+        </v-col>
+      </v-row>
 
-    </div>
+    </v-container>
 
 
-    <div class="card">
+    <v-container class="card">
       <v-text-field v-model="newComment" :counter="30" label="comments" required @keyup.enter="submitComment">
       </v-text-field>
-      <v-btn small color="warning" @click="submitComment" style="color: #ff7f00 !important">댓글등록</v-btn>
+      <v-btn small color="#ff7f00" @click="submitComment" style="color: #ff7f00 !important">댓글등록</v-btn>
 
 
       <b-list-group v-for="(comment, index) in comments" :key="index">
@@ -158,19 +250,20 @@
           <p style="text-align: right;"> <span class="written-time">작성시간 : {{comment.wdate}}</span>
 
             <v-btn icon v-if="samePerson(comment.user.id)" @click="commentDelete(comment)">
-              <v-icon color="warning">{{mdiDelete}}</v-icon>
+              <v-icon color="#ff7f00">{{mdiDelete}}</v-icon>
             </v-btn>
           </p>
 
         </b-list-group-item>
 
       </b-list-group>
-    </div>
+    </v-container>
 
 
 
 
-  </div>
+  </v-container>
+  </v-flex>
 </template>
 
 <script>
@@ -333,12 +426,15 @@
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap');
   #score {
     position: absolute;
     top: 40%;
     right: 42%;
   }
-
+  .v-btn {
+    margin-right: 3px;
+  }
   .card {
     padding: 16px;
     margin: 24px;
@@ -357,21 +453,12 @@
   }
 
   .written-time {
-    font-size: 13px;
+    font-size: 12px;
     text-align: right !important;
   }
 
-  p {
-    margin-top: 3px;
-    margin-bottom: 0px;
-  }
 
-  .review-image {
-    width: 350px;
-    height: 350px;
-    margin-top: 50px !important;
-    border-radius: 10px;
-  }
+
 
   .review-like {
     margin-right: 5px;
