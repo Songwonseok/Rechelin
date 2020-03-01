@@ -72,6 +72,7 @@ public class StoreServiceImpl implements StoreService {
 		list.addAll(storeTagsDao.withtags(num));
 		list.addAll(storeTagsDao.moodtags(num));
 		list.addAll(storeTagsDao.factags(num));
+		list.addAll(storeTagsDao.agetags(num));
 		
 		return list;
 	}

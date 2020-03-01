@@ -98,6 +98,14 @@ implements CustomRepository{
 				.orderBy(storetags.hashtag.keyword.count().desc())
 				.limit(2).fetch();
 	}
+	public List<Hashtag> agetags(long num){
+		return queryFactory.select(storetags.hashtag)
+				.from(storetags).groupBy(storetags.hashtag.keyword)
+				.where(storetags.hashtag.category.eq("age"),
+						storetags.review.store.num.eq(num))
+				.orderBy(storetags.hashtag.keyword.count().desc())
+				.limit(2).fetch();
+	}
 
 	@Override
 	public List<Store> random(long num) {

@@ -21,7 +21,6 @@ import com.web.curation.model.BasicResponse;
 import com.web.curation.model.DTO.Storelike;
 import com.web.curation.model.DTO.User;
 import com.web.curation.service.AcountService;
-import com.web.curation.service.JwtService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -57,7 +56,6 @@ public class AccountController {
     @ApiOperation(value = "수정하기")
     public Object update(@RequestBody User request) {
     	final BasicResponse result = new BasicResponse();
-    	
     	if(service.update(request)) {
     		result.status = true;
     		result.data = "업데이트 성공";

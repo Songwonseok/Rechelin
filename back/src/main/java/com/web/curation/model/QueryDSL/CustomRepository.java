@@ -18,6 +18,7 @@ public interface CustomRepository {
 	List<Hashtag> withtags(long num);
 	List<Hashtag> moodtags(long num);
 	List<Hashtag> factags(long num);
+	List<Hashtag> agetags(long num);
 	
 	List<Store> random(long num);
 	

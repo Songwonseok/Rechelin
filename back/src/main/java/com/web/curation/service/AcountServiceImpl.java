@@ -62,10 +62,10 @@ public class AcountServiceImpl implements AcountService {
 
 	public User signup(User request) {
 		if (userDao.findByEmail(request.getEmail()) != null) {
-			// �씠硫붿씪 以묐났
+			// 이메일 중복
 			request.setEmail("");
 		} else if (userDao.findByNickname(request.getNickname()) != null) {
-			// �땳�꽕�엫 以묐났
+			// 닉네임중복
 			request.setNickname("");
 		}
 		request.setPw(EncodePW(request.getPw())); // �븫�샇�솕
