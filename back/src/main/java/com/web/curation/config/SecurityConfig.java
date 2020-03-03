@@ -94,14 +94,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.jpg",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js",
-                        "/v2/api-docs", 
-                        "/configuration/ui", 
-                        "/swagger-resources/**", 
-                        "/configuration/**", 
-                        "/swagger-ui.html",
-                         "/webjars/**", 
-                        "/csrf", "/")
+                        "/**/*.js")
+//                        "/v2/api-docs", 
+//                        "/configuration/ui", 
+//                        "/swagger-resources/**", 
+//                        "/configuration/**", 
+//                        "/swagger-ui.html",
+//                         "/webjars/**", 
+//                        "/csrf", "/")
                         .permitAll() // 위 경로는 누구나 접근 가능
                         .antMatchers("/auth/**")
                         .permitAll() // 위 경로 누구나 접근가능
