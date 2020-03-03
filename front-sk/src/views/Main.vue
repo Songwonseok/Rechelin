@@ -445,7 +445,7 @@
           this.hashtags.ages = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
           this.hashtags.moods = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
           this.hashtags.facility =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-          this.newSearch = [];   
+          
           this.tagLocation = [];
           this.tagLocation_two = [],
           this.tagLocation_three = [],
@@ -511,6 +511,7 @@
            
           }
            this.$router.push({name : "storeSearch"})
+           this.newSearch = [];   
         }, error =>{
           this.isLoading =false;
           this.$alert("데이터를 불러오지 못헀습니다.","warning","warning");
