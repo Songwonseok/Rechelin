@@ -13,7 +13,7 @@
             <v-icon left>{{icons.ClipboardCheck}}</v-icon>
             Confirm SignUp
           </v-chip>
-
+        </v-row>
           <text-input 
           v-model="code" 
           class="form-input" 
@@ -30,7 +30,7 @@
             Have already an account ?
             <router-link :to="{name: 'login'}">login</router-link>
           </p>
-        </v-row>
+        
       </v-container>
     </section>
   </v-container>
@@ -92,8 +92,7 @@
                 alert("인증에 성공하셨습니다.");
               
               
-              console.log(this.$store.state.info)
-
+            
               UserApi.requestsignUp(this.$store.state.info, res => {
                 //여기다가 세션 넣어야함
               // sessionStorage.setItem("userToken", this.access_token);
@@ -104,7 +103,7 @@
               this.$router.push({
                  name: "login"
               })
-              console.log(res);
+              
               });
 
             }

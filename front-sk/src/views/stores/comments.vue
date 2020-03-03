@@ -1,12 +1,19 @@
 <template>
 
   <v-flex xs>
-  <v-container>
+  <v-container
+  >
 
-    <v-container class="card card--big">
-      <router-link :to="{name: 'userpage', params: {
+    <v-container 
+    class="card card--big">
+      <router-link 
+      :to="{name: 'userpage', params: {
                 id: reviewInfo.user.id
-            }}" style="color: black !important">
+            }}" 
+      style="color: black !important;
+      padding-top: 5px;
+      ">
+
         <v-chip 
         class="ma-2" 
         color="black" 
@@ -29,35 +36,37 @@
         </v-chip>
       </router-link>
 
-
-      <v-row>
+      <v-row
+      >
 
         <v-col 
+        cols="12"
+        lg="6"
+        md="6"
+        sm="12"
         style="padding-bottom: 0px;
         text-align: center;">
 
           <v-container
-          v-if="reviewInfo.picture">
+         >
           <v-row
           justify="center"
           >
             <v-img 
+            v-if="reviewInfo.picture"
             class="review-image" 
             :src="reviewInfo.picture" 
             alt="" 
-           
             max-height="360"
-             style="border-radius: 5px; max-width: 70%;"
+            style="border-radius: 5px; max-width: 70% !important;"
             />
-            </v-row>
-          </v-container>
-          <v-container v-else>
-            <v-row>
             <v-img 
-            src="../../assets/images/default.jpg" 
+            v-else
+            class="review-image" 
+            :src="require('../../assets/images/default.jpg')" 
             alt="" 
-            max-height="250"
-            max-width="300"
+            max-height="360"
+            style="border-radius: 5px; max-width: 70% !important;"
             
             />
             </v-row>
@@ -125,14 +134,23 @@
             </v-chip>
             {{reviewInfo.wdate}}
             
-            <v-chip 
+            <v-chip
             class="ma-2" 
             color="#ff7f00" 
             small
             outlined>
               <v-icon small>{{mdiEye}}</v-icon>
             </v-chip>{{reviewInfo.views}}
-
+            <v-btn
+             small
+             elevation="0"
+             text
+             @click="storeDetail"
+            >
+            <v-icon color="red">{{mdiArrowLeft}}</v-icon>
+            <span
+            style="color: red;"
+            >리뷰목록</span></v-btn>
 
             <v-btn v-if="samePerson(reviewInfo.user.id)" icon @click="deleteReview(reviewInfo.rnum)">
               <v-icon color="#ff7f00">{{mdiDelete}}</v-icon>
@@ -187,43 +205,74 @@
       justify="center"
       >
     
-        <v-col lg="6" style="padding-top: 0px;">
-
-          <v-chip id="score" class="ma-2" color="#ff7f00" outlined>
+        <v-col lg="6" 
+        style="padding-top: 0px;
+        " 
+        cols="12">
+          <v-container>
+               <v-chip 
+          class="ma-2"
+          color="#ff7f00" 
+          outlined>
             <v-icon>{{mdiSigma}}</v-icon>
             총점
           </v-chip>
-          <figure class="chart" :data-percent="String(reviewInfo.total*20)">
+
+
+          </v-container>
+       
+          <figure class="chart" :data-percent="String(reviewInfo.total*20)" >
             <img class="all">
-            <svg width="200" height="200">
+            <svg width="200" height="200" id="rating-circle">
               <circle class="outer" cx="95" cy="95" r="85" transform="rotate(-90, 95, 95)" />
             </svg>
           </figure>
 
         </v-col>
-        <v-col lg="6">
+        <v-col lg="6" cols="12">
 
           <v-chip class="ma-2" color="#ff7f00" outlined>
             <v-icon>{{ mdiEmoticonTongueOutline}}</v-icon>
             맛
           </v-chip>
-          <v-rating background-color="orange lighten-3" color="orange" large readonly v-model="reviewInfo.taste">
+          <v-rating 
+          id="rating-circle"
+          background-color="orange lighten-3" 
+          color="orange" 
+          large 
+          readonly 
+          v-model="reviewInfo.taste">
           </v-rating>
 
 
-          <v-chip class="ma-2" color="#ff7f00" outlined>
+          <v-chip 
+          class="ma-2" 
+          color="#ff7f00" 
+          outlined>
             <v-icon>{{mdiCurrencyUsd}}</v-icon>
             가격
           </v-chip>
 
-          <v-rating background-color="orange lighten-3" color="orange" large readonly v-model="reviewInfo.price">
+          <v-rating 
+          id="rating-circle"
+          background-color="orange lighten-3" 
+          color="orange" 
+          large 
+          readonly 
+          v-model="reviewInfo.price">
           </v-rating>
 
           <v-chip class="ma-2" color="#ff7f00" outlined>
             <v-icon>{{mdiEmoticonOutline}}</v-icon>
             친절도
           </v-chip>
-          <v-rating background-color="orange lighten-3" color="orange" large readonly v-model="reviewInfo.kindness">
+          <v-rating 
+          id="rating-circle"
+          background-color="orange lighten-3" 
+          color="orange" 
+          large 
+          readonly 
+          v-model="reviewInfo.kindness">
           </v-rating>
 
         </v-col>
@@ -281,7 +330,8 @@
     mdiFacebook,
     mdiAlphaNCircle,
     mdiCalendarEdit,
-    mdiEye
+    mdiEye,
+    mdiArrowLeft
   } from '@mdi/js';
   import Axios from 'axios'
 
@@ -308,6 +358,7 @@
         mdiAlphaNCircle,
         mdiCalendarEdit,
         mdiEye,
+        mdiArrowLeft,
 
         changeLike: true,
 
@@ -370,19 +421,19 @@
         var shareURL = "https://share.naver.com/web/shareView.nhn?url=" + url + "&title=" + title;
         Axios.get(shareURL)
           .then(res => {
-            console.log(res)
+
           })
         document.location = shareURL;
 
       },
       Fshare() {
-               var url = encodeURI(encodeURIComponent(window.location.href));
-        console.log(url)
+        var url = encodeURI(encodeURIComponent(window.location.href));
+        
         var title = encodeURI(this.reviewInfo.title);
         var shareURL = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F54.180.160.87%2F&amp;src=sdkpreparse";
         Axios.get(shareURL)
           .then(res => {
-            console.log(res)
+            
           })
         document.location = shareURL;
       },
@@ -410,7 +461,12 @@
       },
       deleteReview(num) {
         this.$store.dispatch('reviewDelete', num)
-      }
+      },
+      storeDetail(num) {
+          this.$router.replace({
+          name: "storeReviews"
+        });
+      },
 
 
     },
@@ -427,17 +483,16 @@
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap');
-  #score {
+  /* #score {
     position: absolute;
     top: 40%;
     right: 42%;
-  }
+  } */
   .v-btn {
     margin-right: 3px;
   }
   .card {
     padding: 16px;
-    margin: 24px;
     border-radius: 2px;
     background-color: #fff;
     color: rgba(0, 0, 0, 0.87);
@@ -690,4 +745,43 @@
       stroke-dashoffset: 537;
     }
   }
+
+
+  /* Tablet &amp; Desktop Device */
+  @media screen and (min-width: 300px) and (max-width: 599px) {
+      #rating-circle {
+      -webkit-transform:scale(0.5);
+      -moz-transform:scale(0.5);
+      -ms-transform:scale(0.5);   
+      -o-transform:scale(0.5);
+      transform:scale(0.5); 
+   }
+
+  }
+
+  /* Tablet Device */
+  @media  all and (min-width:768px) and (max-width:1024px) {
+    #rating-circle {
+      -webkit-transform:scale(0.6);
+      -moz-transform:scale(0.6);
+      -ms-transform:scale(0.6);   
+      -o-transform:scale(0.6);
+      transform:scale(0.6);
+      
+  }
+  }
+
+  /* Desktop Device */
+  @media all and (min-width:1025px)  {
+    #rating-circle {
+      -webkit-transform:scale(1);
+      -moz-transform:scale(1);
+      -ms-transform:scale(1);   
+      -o-transform:scale(1);
+      transform:scale(1);
+      
+  }
+
+  }    
+
 </style>

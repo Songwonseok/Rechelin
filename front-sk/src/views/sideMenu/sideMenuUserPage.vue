@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <v-container id="app">
     <b-row class="text-center">
       <b-col>
         <v-card class="mx-auto" max-width="300" tile>
@@ -30,11 +30,11 @@
           </v-list>
         </v-card>
       </b-col>
-      <b-col cols="10">
+      <b-col cols="12" xl="10" md="10" lg="10">
         <router-view></router-view>
       </b-col>
     </b-row>
-  </div>
+  </v-container>
 </template>
 <script>
   import {
@@ -48,7 +48,7 @@
   export default {
     created(){
       this.$store.state.data +=1;
-      console.log(this.userid)
+      
     },
     data() {
       return {

@@ -14,12 +14,10 @@ const auth = {
 
 export default {
     LOADING_USERDATA(context) {
-        console.log('LOADING_USERDATA');
+        
         Userapi.requestfetchUserList().then(
             response => {
-                console.log("LOADING_USERDATA response");
-                console.log(response);
-                console.log(response.data.object);
+               
                 var jbAry = [];
 
                 for(let i =0; i<response.data.object.length; i++){
@@ -35,7 +33,7 @@ export default {
                     JSON.stringify(item);
                     jbAry.push(item);
                 }
-                console.log(jbAry); 
+               
                 context.commit('SET_USER',jbAry);
                
             }).catch(error => {
@@ -45,16 +43,16 @@ export default {
     LOADING_RECENTUSERDATA({ commit }, id) {
         SearchApi.requestFetchUserData({ commit }, id).then(
             response => {
-                console.log("최근 검색 내용, action->LOADING_RECENTUSERDATA");
+               
             }).catch(error => {
-            console.log(error);
+          
         })
     },
     FETCH_ADR({ commit }, address) { //google 에서부터 음식점 주소를 FETCH 해옴
 
         SearchApi.requestFetchAdrData({ commit }, address).then(
             response => {
-                console.log('recent')
+              
                 var aJsonArray = new Array(); //선택된 데이터만 
 
                 var aJsonArray2 = new Array(); //전체 데이터 
@@ -80,8 +78,7 @@ export default {
                     aJsonArray.push(item);
                     aJsonArray2.push(item2);
                 }
-                console.log(aJsonArray); //표에 뿌려줄것
-                console.log(aJsonArray2); //db에 들어가는것
+              
                 commit('SET_GOOGLEMAP_TOTAL', aJsonArray2);
                 commit('SET_GOOGLEMAP', aJsonArray);
 
@@ -140,9 +137,9 @@ export default {
         Axios.post(URL + '/follow/starList', params, auth)
             .then(response => {
                 commit('userStars', response.data.object)
-                console.log(this.state.userPageInfo.stars, '스타스타스타')
+               
             }).catch(exp => {
-                console.log('실패')
+               
             })
 
     },
@@ -151,10 +148,10 @@ export default {
         params.append('id', payload)
         Axios.post(URL + '/follow/alarmList', params, auth)
             .then(res => {
-                console.log(res)
+               
                 commit('notificationGet', res.data.object)
             }).catch(exp => {
-                console.log('실패')
+             
             })
 
     },
@@ -164,9 +161,9 @@ export default {
         params.append('star', payload.star)
         Axios.post(URL + '/follow/request', params, auth)
             .then(res => {
-                console.log('요청 성공')
+             
             }).catch(exp => {
-                console.log('실패')
+            
             })
 
     },
@@ -174,25 +171,25 @@ export default {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
         params.append('star', payload.star)
-        console.log(payload.fan, payload.star)
+     
         Axios.post(URL + '/follow/accept', params, auth)
             .then(res => {
-                console.log('요청 성공')
+           
             }).catch(exp => {
-                console.log('실패')
+            
             })
     },
     followDecline({ commit }, payload) {
         const params = new URLSearchParams();
         params.append('fan', payload.fan)
         params.append('star', payload.star)
-        console.log(payload)
+     
         Axios.post(URL + '/follow/decline', params, auth)
             .then(res => {
-                console.log('요청 성공')
+               
             }).catch(exp => {
 
-                console.log('실패')
+              
             })
 
     },
@@ -203,27 +200,26 @@ export default {
             // console.log(payload, '???????????????????????')
         Axios.post(URL + "/store/checkBook", params, auth)
             .then(res => {
-                console.log('요청 성공')
-                console.log(res)
+               
                 if (res.data.status == false) {
-                    console.log('북마크 등록')
+                  
                     Axios.post(URL + "/store/addBook", params, auth)
                         .then(response => {
-                            console.log('북마크 등록 성공')
+                          
                         }).catch(exp => {
-                            console.log('북마크 등록 실패')
+                        
                         })
 
                 } else {
                     Axios.post(URL + "/store/removeBook", params, auth)
                         .then(response => {
-                            console.log('북마크 삭제')
+                         
                         }).catch(exp => {
-                            console.log('북마크 삭제 실패')
+                         
                         })
                 }
             }).catch(exp => {
-                console.log('실패')
+             
             })
 
     },
@@ -233,7 +229,7 @@ export default {
             .then(res => {
                 commit('storeAvg', res.data.object)
             }).catch(exp => {
-                console.log('평균점수 구하기 실패')
+              
             })
 
     },
@@ -241,7 +237,7 @@ export default {
 
     // 리뷰의 댓글 관련
     commentsOfreview({ commit }, review) {
-        console.log(review, "???")
+      
             //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
         Axios.get(URL + `/review/comment/${review}`, auth)
             .then(res => {
@@ -255,10 +251,32 @@ export default {
                         commit('reviewDetail', res.data.object)
                         router.push({ name: 'comments' })
                     })
-                console.log('요청 성공', res.data.object)
+               
 
             }).catch(exp => {
-                console.log('실패')
+               
+            })
+
+    },
+    commentsOfFeed({ commit }, review) {
+    
+            //리뷰 아이디 집어 넣으면, 해당 리뷰 아이디를 가진 댓글을 불러오겠지
+        Axios.get(URL + `/review/comment/${review}`, auth)
+            .then(res => {
+                var data = {
+                    reviewInfo: review,
+                    comments: res.data.object
+                }
+                commit('commentsOfreview', data)
+                Axios.get(URL + `/review/detail/${review}`, auth)
+                    .then(res => {
+                        commit('reviewDetail', res.data.object)
+                        router.replace({ name: 'comments' })
+                    })
+               
+
+            }).catch(exp => {
+               
             })
 
     },
@@ -266,10 +284,10 @@ export default {
 
         Axios.post(URL + `/review/comment`, newComment, auth)
             .then(res => {
-                console.log('요청 성공', res)
+              
                 commit('createComment', res.data)
             }).catch(exp => {
-                console.log('실패')
+              
             })
 
     },
@@ -277,18 +295,18 @@ export default {
 
         Axios.delete(URL + `/review/comment/${num}`, auth)
             .then(res => {
-                console.log('댓글 삭제 성공')
+              
             }).catch(exp => {
-                console.log('실패')
+              
             })
     },
     reviewDelete({ commit }, num) {
 
         Axios.delete(URL + `/review/delete/${num}`, auth)
             .then(res => {
-                console.log('리뷰 삭제 성공')
+               
             }).catch(exp => {
-                console.log('실패')
+              
             })
     },
     reviewLike({ commit }, payload) {
@@ -309,22 +327,22 @@ export default {
         }
         Axios(options)
             .then(res => {
-                console.log('요청 성공')
+             
             }).catch(exp => {
-                console.log('실패')
+              
             })
     },
     storeHashtags({ commit }, num) {
-        console.log('들어옴??')
+      
         const params = new URLSearchParams();
         params.append('num', num);
         Axios.post(URL + '/store/tags', params, auth)
             .then(res => {
-                console.log(res, 'hashtags')
+              
                 commit('storeHashtags', res.data.object)
                 Axios.post(URL + '/store/selectOne', params, auth)
                     .then(responseOne => {
-                        console.log(responseOne, 'storeInformation')
+                      
                         let data = {
                             resData: responseOne.data.object,
                             id: num
@@ -332,7 +350,7 @@ export default {
                         commit('storeinfoGet', data)
                         Axios.get(URL + `/review/${num}`, auth)
                             .then(resTwo => {
-                                console.log('성공', resTwo)
+                               
 
                                 commit('reviewsGet', resTwo.data.object)
                                 router.push({
@@ -344,11 +362,11 @@ export default {
 
                             })
                     }).catch(exp => {
-                        console.log('실패')
+                       
                     })
 
             }).catch(exp => {
-                console.log('해쉬태그 가져오기 실패')
+              
             })
 
     },
@@ -370,10 +388,10 @@ export default {
         }
         Axios(options)
             .then(res => {
-                console.log('북마크 등록 성공', res)
+               
 
             }).catch(exp => {
-                console.log('북마크 등록 실패')
+            
             })
 
 

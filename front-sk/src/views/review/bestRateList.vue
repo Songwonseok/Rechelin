@@ -63,8 +63,8 @@
             ReviewApi.requestfetchScoreList().then(
                 response => {
                     var rateList = new Array();
-                    console.log('Review');
-                    console.log(response);
+                    
+                    
                     for (let i = 0; i < response.data.object.length; i++) {
                         var item = {};
                         if (response.data.object[i].picture)
@@ -135,7 +135,7 @@
         },
         watch: {
             selection_card: function (v) {
-                console.log(v);
+                
 
             }
         }

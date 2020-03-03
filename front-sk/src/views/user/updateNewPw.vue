@@ -75,12 +75,11 @@
     methods: {
 
       confirm() {
-        console.log('hi');
+       
         // After retrieveing the confirmation code from the user
-        console.log(this.$store.state.searchEmail);
+  
        UserApi.requestEmail(this.$store.state.searchEmail, res=>{
-          console.log('userid 받아오기!');
-          console.log(res);
+      
         this.info.id = res.object.id;
         this.info.pw = this.pw;
           UserApi.requestUpdatePw(this.info, res => {

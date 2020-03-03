@@ -38,7 +38,7 @@
                 <v-combobox 
                 v-model="newSearch" 
                 chips="chips" 
-                
+                readonly
                 clearable="clearable"
                 @click:clear = onClearClicked 
                
@@ -55,6 +55,7 @@
 
                 <v-divider></v-divider>
                 <v-chip-group 
+                solo
                 active-class="orange accent-4 white--text" 
                 v-model = "tagLocation"
                 >
@@ -84,7 +85,7 @@
                 <v-chip draggable="draggable" @click="insertTags('locations', 13, '상수')">상수</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 14, '한남동')">한남동</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 15, '이태원')">이태원</v-chip>
-                <v-chip draggable="draggable" @click="insertTags('locations', 16, '홍대')">홍대</v-chip>
+               
                 <v-chip draggable="draggable" @click="insertTags('locations', 17, '광화문')">광화문</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 18, '여의도')">여의도</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 19, '연남동')">연남동</v-chip>
@@ -228,7 +229,7 @@
               리뷰
             </v-tab>
             <v-tab @click="valid('userFeed')" style="color: #ff7f00;">
-              피드 페이지
+              피드페이지
             </v-tab>
 
           </v-tabs>
@@ -307,18 +308,16 @@
         }
       },
       storeList : function(v){
-                console.log('storeList')
-                console.log(this.$store.state.storeList);
+               
                       
       },
       userid : function(v){
-         console.log('userid');
+        
           this.$router.go({
   name: 'main',
   force: true
 })  
-        console.log('watch-userid')
-        console.log(this.userid);
+       
         // this.userid = this.$store.state.userid;
       }
     },
@@ -438,14 +437,26 @@
         setTimeout(() => (this.loading = false), 2000)
       },
       searchBtnClick(){
-        console.log('Main-searchBtnClick :: Main에서 hashTag 로 검색한 결과')
+       
          this.isLoading = true;
         this.$store.state.storeFlag +=1;
-       
+       this.hashtags.locations = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          this.hashtags.withWho = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.ages = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.moods = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.facility =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.newSearch = [];   
+          this.tagLocation = [];
+          this.tagLocation_two = [],
+          this.tagLocation_three = [],
+          this.tagWith = [],
+          this.tagAge = [],
+          this.tagMood = [],
+          this.tagFacility = []
+
         StoreApi.requestStoreList().then(response=>{
          
-          console.log("Main")
-          console.log(response);
+         
           let searchList = new Array();
           for(let i =0; i<response.data.object.length; i++){
             //tags 합치기
@@ -453,7 +464,7 @@
             for(let j =0; j<response.data.object[i].tags.length; j++){
                   tagsString += response.data.object[i].tags[j].keyword;
             }//end of for loop
-            console.log(tagsString);
+           
             let find = true;
             for(let j=0; j<this.newSearch.length; j++){
               if(tagsString.includes(this.newSearch[j])){
@@ -557,7 +568,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+           
           } else {
             var pos = this.newSearch.indexOf(name)
             this.hashtags.locations[n] = !this.hashtags.locations[n]
@@ -573,7 +584,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+          
           } else {
             let pos = this.newSearch.indexOf(name)
             this.hashtags.withWho[n] = !this.hashtags.withWho[n]
@@ -588,7 +599,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+           
           } else {
             let pos = this.newSearch.indexOf(name)
             this.hashtags.ages[n] = !this.hashtags.ages[n]
@@ -602,7 +613,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+           
           } else {
             let pos = this.newSearch.indexOf(name)
             this.hashtags.moods[n] = !this.hashtags.moods[n]
@@ -616,7 +627,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+           
           } else {
             let pos = this.newSearch.indexOf(name)
             this.hashtags.facility[n] = !this.hashtags.facility[n]
@@ -633,11 +644,16 @@
 </script>
 
 <style scoped="scoped">
+    .v-chip--disabled {
+    opacity: 1 !important;
+  }
+
   .rootMain {
     height: 400px;
 
   }
-
+  
+  
   #inspire {
     width: 100%;
     right: 0;
@@ -719,5 +735,6 @@
     background-color: #fff!important;
     border-color: orange !important;
 }
+
 </style>
 

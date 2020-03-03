@@ -1,5 +1,6 @@
 <template>
-    <v-container>
+    <v-container
+    style="padding:0px;">
     <v-container
     style="padding-bottom: 0px;"
     >
@@ -120,8 +121,9 @@
         </b-card-text>
       </v-col>
 
-      <v-col cols="12" md="4">
-        <gmap-map
+      <v-col cols="12" md="4" >
+        <v-container>
+            <gmap-map
           :center="{lat: center.latitude, lng: center.longitude}"
           :zoom="15"
           style="width: 100%; height: 300px"
@@ -145,6 +147,10 @@
             v-bind:options="{ strokeColor:'#008000'}"
           ></gmap-polyline>
         </gmap-map>
+
+
+        </v-container>
+      
          
       </v-col>
     </v-row>
@@ -261,7 +267,7 @@ export default {
       navigator.geolocation.getCurrentPosition(pos => {
         this.recentlocation = pos.coords;
         this.center = pos.coords;
-        console.log(this.recentlocation);
+
         let temp_d = this.haversine_distance(
           this.recentlocation.latitude,
           this.recentlocation.longitude,
@@ -277,7 +283,7 @@ export default {
           d: temp_d,
           t: time
         };
-        console.log(this.distance);
+
       });
       // 거리 구하자
     },
@@ -317,7 +323,7 @@ export default {
           name: "storeReviews"
         });
     } else if (this.$store.state.detail != null) {
-      this.$store.dispatch('commentsOfreview', this.$store.state.detail)
+      this.$store.dispatch('commentsOfFeed', this.$store.state.detail)
     }
 
     this.center.latitude = parseFloat(this.$store.state.storeInfo.lat);
@@ -325,8 +331,7 @@ export default {
 
     this.$store.dispatch("scoreAvg", this.$store.state.storeInfo.num);
 
-    console.log("storeDatail!");
-    console.log(this.storeAvg);
+   
   }
 };
 </script>

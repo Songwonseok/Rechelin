@@ -37,7 +37,7 @@ const requestBookmarkList = (data, callback, errorCallback) => {
         })
 }
 const requestAddReview = async(data, callback, errorCallback) => {
-    console.log('review add');
+   
     let options = {
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sessionStorage.getItem("userToken") },
         url: URL + '/review/register',
@@ -47,12 +47,11 @@ const requestAddReview = async(data, callback, errorCallback) => {
 
     Axios(options)
         .then(response => {
-            console.log(response);
+        
             callback(response); //return type true/false 
-            console.log('review api 성공')
+      
         }).catch(exp => {
-            console.log(exp.response)
-            console.log('review api 실패')
+      
         })
 }
 

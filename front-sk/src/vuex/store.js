@@ -88,10 +88,11 @@ export default new Vuex.Store({
         //
         detail: null,
         feedUserList : [],
-
+        storeTweets : [],
     },
     // state가 아닌 부분
     mutations,
     getters,
     actions,
+   
 })

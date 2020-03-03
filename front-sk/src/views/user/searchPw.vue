@@ -70,6 +70,12 @@
       TextInput4,
 
     },
+    watch : {
+      email : function(v){
+        this.disabledEmail = true;
+        this.checkEmail = true;
+      }
+    },
     computed: {
       code: {
         get() {
@@ -86,7 +92,7 @@
         this.isEmailOk = status;
 
 
-        console.log(this.isEmailOk);
+       
 
         if (this.isEmailOk == true) {
           alert("존재하는 email 입니다.");
@@ -94,6 +100,7 @@
           this.disabledEmail = false;
         } else {
           alert('존재하지 않는 email 입니다.');
+
 
         }
       },
@@ -111,7 +118,7 @@
             validationData: [] // optional
           })
           .then(data => {
-            console.log(data)
+          
           })
 
           .catch(err => console.log(err));
@@ -125,7 +132,7 @@
           .then(
             data => {
               alert("인증에 성공하셨습니다.");
-              console.log(this.code);
+           
 
               // EventBus.$emit('eventName',this.email, this.code);
 
@@ -144,7 +151,7 @@
               alert("인증에 실패했습니다.");
             }
 
-            console.log(err);
+           
           });
       }
     }

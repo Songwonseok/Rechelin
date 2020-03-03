@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <v-container id="app">
     <b-row class="text-center" >
       <b-col lg="2" sm="12">
         <v-card class="mx-auto" max-width="300" tile>
@@ -54,7 +54,7 @@
         <router-view></router-view>
       </b-col>
     </b-row>
-  </div>
+  </v-container>
 </template>
 <script>
   import {

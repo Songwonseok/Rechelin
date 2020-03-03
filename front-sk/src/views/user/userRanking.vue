@@ -254,23 +254,22 @@ export default {
   methods : {
     userRank(){
        // eslint-disable-next-line no-console
-      console.log('clicked');
+   
       
       this.$router.push({path : '/userRankListDetail'})
     },
     async fetchUserReviewList(data){
         return UserApi.requestUserReviewCnt(data)
        .then(response =>{
-         console.log(this);
+      
         this.reviewLength =response.data.object.length;
-        console.log('data fetch');
-        console.log(this.reviewLength);
+   
     })
     },
     async init(){
  UserApi.requestUserRanking()
     .then(async response => {
-      console.log(response);
+    
       let topUserList = new Array();
       
       for(let i = 0; i<response.data.object.length; i++){
@@ -282,7 +281,7 @@ export default {
         
         await this.fetchUserReviewList(response.data.object[i].id);
         
-        console.log(this.reviewLength);
+      
         item['reviewLength'] = this.reviewLength;
         if(response.data.object[i].profile)
           item['profile'] = response.data.object[i].profile;
@@ -297,8 +296,7 @@ export default {
         return b['reviewLength'] - a['reviewLength'];
       })
       
-      console.log('top user 받아오기');
-      console.log(this.topUserInfo);
+ 
     })
     },
      UserLogout() {

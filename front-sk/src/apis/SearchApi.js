@@ -14,9 +14,7 @@ const searchUserHistory = (data, callback, errorCallback) => {
     //console.log(data.email + " " + data.nickname)
     // params.append('email', data.email);
     //params.append('searchname', data.nickname);
-    console.log('id입니다.');
-    console.log(data.id);
- 
+
     const params = new URLSearchParams();
     params.append('id', data.id);
     params.append('searchname', data.nickname);
@@ -24,13 +22,12 @@ const searchUserHistory = (data, callback, errorCallback) => {
 
     Axios.post(URL + '/search/user', params, auth)
         .then(response => {
-            console.log(response);
+          
             callback(response); //return type true/false 
-            console.log('성공')
+      
         }).catch(exp => {
             errorCallback(exp)
-            console.log(exp.response);
-            console.log('실패')
+          
         })
 }
 
@@ -43,20 +40,19 @@ function requestFetchUserData({ commit }, id) {
 
     Axios.post(URL + '/search/recentUser', params)
         .then(response => {
-            console.log('dd')
-            console.log(response);
+   
 
             var jcAry = new Array();
             for (var i = 0; i < response.data.object.length; i++) {
                 jcAry[i] = response.data.object[i].searchname;
-                console.log(jcAry[i]);
+              
 
             }
             commit('SET_RECENTUSER', jcAry);
-            console.log('성공')
+            
         }).catch(exp => {
 
-            console.log('실패')
+            
         })
 }
 

@@ -1,10 +1,10 @@
 <template>
     <v-container>
         <hr>
-        <h3>
+        <h4>
             <v-icon>{{mdiBookmarkMultiple}}</v-icon>
             리뷰 북마크
-        </h3>
+        </h4>
         <hr>
         <carousel-3d>
             <slide class="review-card" v-for="(bookmark, index) in UserBookmarks" :key="key-`${index}`" :index="index">
@@ -48,10 +48,10 @@
             </slide>
         </carousel-3d>
         <hr>
-        <h3>
+        <h4>
             <v-icon>{{mdiMessageDraw}}</v-icon>
             작성한 리뷰
-        </h3>
+        </h4>
         <hr>
 
         <carousel-3d>
@@ -149,13 +149,12 @@
         },
         methods: {
             storeDetail(num) {
-                console.log(num)
+               
                 this.$store.dispatch('storeHashtags', num)
             }
         },
         created() {
-            console.log('hh')
-            console.log(this.UserBookmarks, '북마크으으으')
+           
         }
     }
 </script>

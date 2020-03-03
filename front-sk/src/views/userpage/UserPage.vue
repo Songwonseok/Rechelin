@@ -172,7 +172,9 @@
     methods: {
       follow() {
         FollowApi.requestFollow(this.id, this.uid, res=>{
+         
           this.followstatus = 1;
+         
         }, error=>{
           alert('팔로우 요청 실패!')
         })
@@ -188,7 +190,8 @@
       getFanList(){
         FollowApi.requestFanList(this.uid, res=>{
           this.fanList = res;
-          console.log('fan 성공')
+          this.getStatus();
+         
         }, error=>{
           alert('FanList가져오기 실패')
         })
@@ -196,8 +199,7 @@
       getStarList(){
         FollowApi.requestStarList(this.uid, res=>{
           this.starList = res;
-          console.log('star 성공')
-          console.log(this.starList);
+         
         }, error=>{
           alert('StarList가져오기 실패')
         })
@@ -235,8 +237,11 @@
         },
         getStatus(){
           FollowApi.requestStatus(this.id, this.uid, res=>{
+             
             this.followstatus = res;
+          
           }, error =>{
+            
             alert('follow status 확인 실패!');
           })
         }

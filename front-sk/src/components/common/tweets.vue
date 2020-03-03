@@ -52,7 +52,11 @@
             class="media-content" 
             justify="center">
               <!--TODO : 별로 표시하기 -->
-
+            <v-container
+            class="text-center"
+            style="padding-top: 0px;
+            padding-bottom: 0px;
+            ">
               <v-chip 
               id="score" 
               class="ma-2 text-center" 
@@ -62,14 +66,19 @@
               <v-icon small>{{mdiSigma}}</v-icon>
                  총점
               </v-chip>
-
               <star-rating 
               read-only	
               star-size="23" 
+              inline
               @rating-selected="rating = $event" 
               :rating="tweet.review.total"
               ></star-rating>
+            </v-container>
 
+            <v-container
+            style="padding-top: 0px;
+            padding-bottom: 0px;"
+            >
               <v-chip 
               id="score" 
               class="ma-2" 
@@ -82,12 +91,19 @@
               
               <star-rating 
               read-only	
-              star-size="20" 
+              star-size="20"
+              inline 
               @rating-selected="rating = $event" 
               :rating="tweet.review.taste"
               ></star-rating>
       
-      
+            </v-container>
+
+            <v-container
+            style="
+            padding-top: 0px;
+            padding-bottom: 0px;"
+            >
               <v-chip 
               class="ma-2" 
               color="#ff7f00" 
@@ -99,11 +115,19 @@
                  
             <star-rating 
             read-only	
+            inline
             star-size="20" 
             @rating-selected="rating = $event" 
             :rating="tweet.review.price"
             ></star-rating>
-            
+          </v-container>
+
+          <v-container
+          style="padding-top: 0px;
+          padding-bottom: 0px;
+          "
+          
+          >
             <v-chip 
             class="ma-2" 
             color="#ff7f00" 
@@ -116,10 +140,13 @@
           <star-rating 
           read-only	
           star-size="20" 
+          inline
           @rating-selected="rating = $event" 
           :rating="tweet.review.kindness"
           ></star-rating>
-        
+
+        </v-container>  
+
          <v-chip 
             class="ma-2" 
             small
@@ -333,7 +360,6 @@ import {
 import StarRating from 'vue-star-rating'
 export default {
   created() {
-    console.log(this.tweet);
     this.tweet.review.wdate = this.tweet.review.wdate.substring(0, 10);
     this.tagList = this.tweet.review.hashtag.split(",");
   },
@@ -363,7 +389,6 @@ export default {
   methods:{
 
     storeDetail : function(num) {
-      console.log('store')
       this.$store.dispatch('storeHashtags', num)
 
     },
@@ -432,5 +457,6 @@ p {
 .subtitle-1:hover{
   color: #ff7f00;
 }
+
 
 </style>

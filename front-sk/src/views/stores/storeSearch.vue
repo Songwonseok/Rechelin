@@ -3,17 +3,23 @@
         <v-app id="inspire_store">
             <!--To do bar-->
             <b-container>
-                <v-toolbar dense floating>
+                <v-container
+                >
+                <v-row
+                justify="center">
                     <v-text-field 
                     hide-details 
-                    prepend-icon="search" 
+                    prepend-inner-icon="search" 
                     @keyup.enter="storeListSearch" 
                     single-line
+                    solo
                     v-model="ssearch" 
                     placeholder="음식점을 입력해주세요."
-                    
+                    style="max-width: 100%;
+                    text-align: center !important;"
                     ></v-text-field>
-                </v-toolbar>
+                </v-row>
+                </v-container>
               
                 <gmap-map :center="{lat: myLocation.latitude, lng: myLocation.longitude}" :zoom="16" style="height: 300px; min-width: 250px;">
                     <gmap-marker :position="{lat: myLocation.latitude, lng: myLocation.longitude}" 
@@ -146,14 +152,14 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 // this.data = [...list];
                 // this.$store.state.storeList = this.data;
                 //redering
-                console.log("watch");
+
                 // for(let i=0; i<6; i++){
                 //     this.storeRender.push(this.$store.state.storeList[i]);
                 // } 
-                console.log(this.storeRender);
+ 
             },
             fetchSearchStore: function (v) {
-                console.log("fetchSearchStore");
+            
                 let list = [...this.$store.state.storeList_paging];
                 // list = this.$store.state.storeList
                 // .filter(post => {
@@ -162,17 +168,16 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 //         .includes(this.search.toLowerCase())
                 // })
                 this.$store.state.storeList_paging = [];
-                console.log(this.$store.state.storeList);
+         
                 for (let i = 0; i < this.$store.state.storeList.length; i++) {
                     if (this.$store.state.storeList[i].sname.includes(this.ssearch)) {
-                        console.log('isExistValue');
+                
                         this.$store.state.storeList_paging.push(
                             this.$store.state.storeList[i]);
                     }
                 }
                 list = [...this.$store.state.storeList_paging];
-                console.log(list);
-                console.log('hi');
+          
                 if(this.$store.state.storeList_paging.length==0)
                         this.$store.state.isClickBtnStore = false;
                 else
@@ -184,7 +189,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
         },
         computed: {
             storeListwatch() {
-                console.log('computed');
+             
                 return this.$store.state.storeList
             },
             fetchSearchStore() {
@@ -224,8 +229,6 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 else
                     this.len = Math.ceil(this.$store.state.storeList.length / 6) - 1;
 
-                console.log('lenCalc');
-                console.log(this.len);
                 if (this.len == 0) //데이터를 6개씩 렌더링 하는데, 6개를 못채워주면 this.len이 0으로 렌더링됨
                     this.len = 1;
             },
@@ -235,11 +238,10 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 if(this.ssearch.length!=0){
                 this.isLoading_store = true;
                 this.$store.state.isClickBtnStore = false;
-                console.log(this.isLoading_store);
+              
                 let searchList = new Array();
                 StoreApi.requestStoreList().then(response=>{
-                    console.log('storeListSearch');
-                    console.log(response);
+                 
                     for(let i =0; i<response.data.object.length; i++){
                         let item = {};
                         item['num'] = response.data.object[i].store.num;
@@ -252,8 +254,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                         searchList.push(item);
 
                     }
-                    console.log('searchList');
-                    console.log(searchList.length);
+                   
                     if (searchList.length == 0)
                         this.$store.state.isClickBtnStore = false;
                     else
@@ -266,8 +267,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 }
             },
             storeDetail(num) {
-                console.log('storeDetail');
-                console.log(num);
+    
                 this.$store.dispatch('storeHashtags', num)
 
             },

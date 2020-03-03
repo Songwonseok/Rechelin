@@ -58,7 +58,7 @@ export default {
     this.naverLoginURL += '&client_id=' + `${this.CLIENT_ID}`
     this.naverLoginURL += '&redirect_uri=' + `${this.redirectURI}`
     this.naverLoginURL += '&state=' + `${this.state}`
-    console.log(this.naverLoginURL);
+    
 
   },
   methods:{

@@ -2,7 +2,7 @@
   <div id="app">
    <userSearch></userSearch>  
   <v-container v-if = "tweet.length !=0">
-  
+    
     <tweets
       v-for="(tweet, $index) in tweet"
       :key="$index+tweet"
@@ -11,7 +11,7 @@
   </v-container>
 
   <v-container v-else>
-   <kinesis-container>
+   <!-- <kinesis-container>
                     <kinesis-element :strength="10">
                         <h1 style="color : orange">Following 한 사람이 없습니다.</h1>
                     </kinesis-element>
@@ -19,7 +19,7 @@
                         <h1 style="color : orange">Following 부터 해주세요.</h1>
                     </kinesis-element>
                 </kinesis-container>
-                 <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p>
+                 <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p> -->
   </v-container>   
 
     <!-- <div v-for="(item, $index) in list" :key="$index">{{item}}</div> -->
@@ -117,7 +117,11 @@ ReviewApi.requestFeedList(this.userid, res=>{
       //     }
       //   });
        ReviewApi.requestFeedList(this.userid, res=>{
+               
+               
                this.tweet = res;
+               if(!this.$store.state.storeTweets.length!=0)
+                    this.$store.state.storeTweets = res;
                $state.loaded();
             }, error=>{
               alert('피드 리스트 가져오기 실패')

@@ -7,7 +7,7 @@ const ROOT_URL = 'https://api.imgur.com'
 // Axios.defaults.headers.post['Authorization'] = CLIENT_ID
 
 const uploadProfile = (data, callback, errorCallback) => {
-    console.log(data)
+    
 
     const fd = new FormData();
     fd.append('image', data);
@@ -20,8 +20,7 @@ const uploadProfile = (data, callback, errorCallback) => {
         })
         .then(response => {
             callback(response.data);
-            // console.log(response.data)
-            console.log('성공')
+  
         })
         .catch(exp => {
                 errorCallback(exp);

@@ -9,6 +9,7 @@
         <v-combobox
           v-model="keyword"
           chips
+          readonly
           clearable
           label="위치를 '하나만' 선택하세요"
           solo
@@ -288,13 +289,11 @@ export default {
       else this.keyword = name;
     },
     getRandom() {
-      console.log("getRandom()");
-      console.log(this.isLoading);
+
 
       if (this.keyword != "") {
         this.isLoading_random = true;
-        console.log(this.isLoading_random);
-        console.log("this.keyword inner");
+
         StoreApi.requestRandom(
           this.keyword,
           res => {
@@ -324,7 +323,7 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Noto+Serif+KR&display=swap');
 
-
+ 
 .v-application .primary {
   background-color: #ff7f00 !important;
   border-color: #ff7f00 !important;

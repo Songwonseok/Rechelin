@@ -52,7 +52,7 @@ export default {
         this.state.userEmail = payload.useremail
         this.state.userNickname = payload.usernickname
         this.state.accessToken = payload.token
-        console.log(this.state.userid, '?????????????????????')
+      
     },
     userpageGo(state, payload) {
         state.userPageInfo.nickname = payload.nickname
@@ -94,7 +94,7 @@ export default {
         list.push(payload)
         state.commentsOfreview = [...list]
         state.newReturnComment = payload
-        console.log(payload)
+       
 
     },
     commentDelete(state, comment) {
@@ -106,7 +106,7 @@ export default {
     // 리뷰 관련
     reviewsGet(state, payload) {
         state.reviewsOfstore = payload
-        console.log(state.reviewsOfstore, 'store============')
+        
 
     },
     reviewDetail(state, payload) {

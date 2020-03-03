@@ -125,7 +125,7 @@
         this.alarms.splice(index, 1)
       },
       checkLogin2() {
-        console.log(sessionStorage.getItem("userToken"))
+       
         if(sessionStorage.getItem("userToken")){
           this.checkLogin = false;
         }

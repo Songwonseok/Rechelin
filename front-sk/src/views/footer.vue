@@ -32,7 +32,7 @@
            <!-- <v-btn text icon fab @click="Nshare"> -->
              
             <v-icon @click="Nshare" color="white" large>
-                            {{mdiAlphaNCircle}}
+                {{mdiAlphaNCircle}}
               </v-icon>
          
           <!-- </v-btn> -->
@@ -91,24 +91,19 @@ export default {
   }),
   methods : {
     Nshare() {
-        var url = encodeURI(encodeURIComponent(window.location.href));
-        var title = encodeURI(this.reviewInfo.title);
+        var url = encodeURI(encodeURIComponent('http://i02a404.p.ssafy.io/'));
+        var title = encodeURI('리뷰 맛집은 리슐랭');
         var shareURL = "https://share.naver.com/web/shareView.nhn?url=" + url + "&title=" + title;
         Axios.get(shareURL)
           .then(res => {
-            console.log(res)
           })
         document.location = shareURL;
 
       },
       Fshare() {
-               var url = encodeURI(encodeURIComponent(window.location.href));
-        console.log(url)
-        var title = encodeURI(this.reviewInfo.title);
         var shareURL = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F54.180.160.87%2F&amp;src=sdkpreparse";
         Axios.get(shareURL)
           .then(res => {
-            console.log(res)
           })
         document.location = shareURL;
       },

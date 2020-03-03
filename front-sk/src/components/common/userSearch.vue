@@ -39,7 +39,7 @@
                 @keyup.enter = "feedUserSearch"
                 item-text="name"
                 item-value="name"
-                no-data-text="검색된 결과가 존재하지 않습니다."
+                no-data-text="팔로잉해주세요, 팔로잉 결과가 없습니다."
                
               >
                 <template  v-slot:selection="data">
@@ -79,19 +79,39 @@
 
 <script>
 import SearchApi from '../../apis/SearchApi';
+import ReviewApi from '../../apis/ReviewApi';
+import FollowApi from '../../apis/FollowApi';
 export default {
     created() {
-        this
-            .$store
-            .dispatch('LOADING_USERDATA');
+       
+  
+        FollowApi.requestStarList(this.$store.state.userid, res=>{
             
-         //this.$store.dispatch('LOADING_RECENTUSERDATA', 유저 email);
+            let jbAry = [];
+            
+            for(let i =0; i<res.length; i++){
+            let item = {};
+            item['name'] = res[i].nickname;
+            item['email'] = res[i].email;
+              if(res[i].profile == null){
+                item['avatar'] = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+              }
+              else{
+                  item['avatar'] = res[i].profile;
+              }
+              JSON.stringify(item);
+              jbAry.push(item);
+            }
+            this.$store.state.searchUser = jbAry;
+        }, error=>{
+          
+        });
     },
-    
-    
+ 
     data(){
        
          return{
+           searchUserid : 0,
            autoUpdate: true,
       friends: [],
       isUpdating: false,
@@ -108,7 +128,6 @@ export default {
         dataFlag : false, 
         }
     },
-    
     methods: {
         remove (item) {
             const index = this.friends.indexOf(item.name)
@@ -124,10 +143,10 @@ export default {
           .indexOf(query.toString().toLowerCase()) > -1
       },
       dataSelect(){
-          console.log(this.friends);
+
       },
       feedUserSearch(){
-        console.log('feedUser')
+        
          this.$store.state.feedUserList = this.friends;
       }
     }
