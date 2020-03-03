@@ -166,7 +166,7 @@ export default {
         sessionStorage.removeItem('userNickname');
         sessionStorage.removeItem('userid');
         this.$store.state.userid = 0; //화면  rerendering 하기 위한 방법
-        console.log(response);
+       
         this.$alert('회원정보 삭제',"success","success");
         this.$router.push({name : 'popular'});
       })

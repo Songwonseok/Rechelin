@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-container>
         <v-container>
             <v-row no-gutters>
                 <v-col cols="12" sm="6" md="6" lg="5" v-for="(review, i) in allReviews" :key="i" style="margin: 20px;">
@@ -116,16 +116,12 @@
             </v-row>
         </v-container>
 
-
-
-
         <!-- 
         <div v-infinite-scroll="reviewsScroll" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
             로딩중
         </div> -->
 
-
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -156,7 +152,7 @@
         },
         computed: {
             allReviews() {
-                console.log('??...')
+
                 return this.$store.state.reviewsOfstore
             },
             defaultImage() {
@@ -198,8 +194,7 @@
 
         },
         created() {
-            console.log("리뷰 가져오기 !!")
-            console.log(this.allReviews)
+
         },
         mounted() {
             // this.reviewsScroll();

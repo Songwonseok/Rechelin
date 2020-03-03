@@ -27,12 +27,10 @@ export default {
     updateIsSubmit(state, submit) {
         state.phone = submit;
     },
-    SET_USER(state, searchUser) {
-        state.searchUser.nickname = searchUser;
+    SET_USER(state, payload) {
+        state.searchUser = payload;
     },
-    SET_EMAIL(state, searchEmail) {
-        state.searchUser.email = searchEmail;
-    },
+    
     SET_RECENTUSER(state, recentUser) {
         state.recentUser = recentUser;
     },
@@ -54,7 +52,7 @@ export default {
         this.state.userEmail = payload.useremail
         this.state.userNickname = payload.usernickname
         this.state.accessToken = payload.token
-        console.log(this.state.userid, '?????????????????????')
+      
     },
     userpageGo(state, payload) {
         state.userPageInfo.nickname = payload.nickname
@@ -96,7 +94,7 @@ export default {
         list.push(payload)
         state.commentsOfreview = [...list]
         state.newReturnComment = payload
-        console.log(payload)
+       
 
     },
     commentDelete(state, comment) {
@@ -108,7 +106,7 @@ export default {
     // 리뷰 관련
     reviewsGet(state, payload) {
         state.reviewsOfstore = payload
-        console.log(state.reviewsOfstore, 'store============')
+        
 
     },
     reviewDetail(state, payload) {
@@ -120,6 +118,7 @@ export default {
         state.googleStorePlace = googlemap_total;
 
     },
+   
     SET_GOOGLEMAP(state, googlemap) {
         state.googleStorePlaceView = googlemap;
     }

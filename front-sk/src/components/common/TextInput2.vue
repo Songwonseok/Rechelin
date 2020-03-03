@@ -131,7 +131,6 @@ export default {
       let data = this.innerValue;
       
       UserApi.requestName(data, res=>{
-          console.log(res.status);
           this.$emit('statusName', res.status); 
       })
       

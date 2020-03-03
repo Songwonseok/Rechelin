@@ -1,18 +1,29 @@
 <template>
-    <v-container >
-    <div>
+    <v-container
+    style="padding:0px;">
+    <v-container
+    style="padding-bottom: 0px;"
+    >
       <v-alert
         border="bottom"
         colored-border
-        color="warning"
+        color="#ff7f00"
         elevation="2"
-        style="margin-top: 30px;"
       >
-        <h1>{{storeInfoSave.sname}}</h1>
-        <h4>
-          <v-icon color="warning">{{icons.mdiStarOutline}}</v-icon>
+        <p 
+        class="headline"
+        style="font-family: 'Nanum Gothic Coding', !important;">{{storeInfoSave.sname}}
+        
+        <span
+        class="subtitle-1"
+        >
+          <v-icon 
+          small
+          color="warning">{{icons.mdiStarOutline}}</v-icon>
           {{storeAvg.totalAvg}}
-        </h4>
+        </span>
+        </p>
+  
       </v-alert>
 
       <!-- <v-row> -->
@@ -24,29 +35,33 @@
         </v-col>
       </v-row>-->
       <!-- 식당 상세정보 -->
-    </div>
+    </v-container>
     <hr />
     <v-row no-gutters>
       <v-col>
         <b-card-text style="text-align: center; ">
-          <div style="margin-top: 30px;">
+          <v-container 
+          style="font-family: 'Nanum Gothic Coding', ;">
             <br />
             {{storeInfoSave.address}}
             <br />
 
-            <span v-for="(h, index) in Storehashtags" :key="index">
+            <span 
+            v-for="(h, index) in Storehashtags" :key="index">
               <v-chip
                 class="ma-2"
                 color="orange"
                 text-color="white"
-                style="margin-top: 20px !important;"
+                style="margin-top: 20px !important;
+                font-family: 'Nanum Gothic Coding', ;
+                "
               >
                 <v-icon>{{icons.mdiPoundBox}}</v-icon>
                 {{h.keyword}}
               </v-chip>
             </span>
-          </div>
-          <div>
+          </v-container>
+          <v-container>
             <v-btn
               class="ma-2"
               small
@@ -64,15 +79,20 @@
             <!-- <v-btn class="ma-2" outlined fab color="warning" @click="browserlocation">
               <v-icon color="warning">{{icons.mdiCrosshairsGps}}</v-icon>
             </v-btn>-->
-            <v-btn class="ma-2" small outlined fab color="warning" @click="getMylocation">
+            <v-btn class="ma-2" small outlined fab color="warning" :href="findRoad" >
               <v-icon color="warning">{{icons.mdiCrosshairsGps}}</v-icon>
             </v-btn>
-          </div>
-          <v-card class="mx-auto" outlined style="max-width: 344px;margin-top: 30px;">
+          </v-container>
+
+          <v-card 
+          class="mx-auto text-center" 
+          outlined 
+          style="max-width: 55%; margin-top: 30px;">
               <v-chip
                   class="ma-2"
                   color="warning"
                   outlined
+                  style="font-family: 'Nanum Gothic Coding', ;"
                 >
                 <v-icon color="warning">{{icons.mdiEmoticonTongueOutline}}</v-icon>
                   taste : {{storeAvg.tasteAvg}}
@@ -100,8 +120,10 @@
           <p>{{distance.t}}</p>
         </b-card-text>
       </v-col>
-      <v-col cols="6" md="4">
-        <gmap-map
+
+      <v-col cols="12" md="4" >
+        <v-container>
+            <gmap-map
           :center="{lat: center.latitude, lng: center.longitude}"
           :zoom="15"
           style="width: 100%; height: 300px"
@@ -125,15 +147,19 @@
             v-bind:options="{ strokeColor:'#008000'}"
           ></gmap-polyline>
         </gmap-map>
-         <b-badge :href="findRoad" variant="warning" style="color: white;">길찾기</b-badge>
+
+
+        </v-container>
+      
+         
       </v-col>
     </v-row>
     <!-- 그리드 구분 -->
     <hr />
 
-    <div>
+    <v-container>
       <router-view></router-view>
-    </div>
+    </v-container>
     </v-container >
 </template>
 
@@ -241,7 +267,7 @@ export default {
       navigator.geolocation.getCurrentPosition(pos => {
         this.recentlocation = pos.coords;
         this.center = pos.coords;
-        console.log(this.recentlocation);
+
         let temp_d = this.haversine_distance(
           this.recentlocation.latitude,
           this.recentlocation.longitude,
@@ -257,7 +283,7 @@ export default {
           d: temp_d,
           t: time
         };
-        console.log(this.distance);
+
       });
       // 거리 구하자
     },
@@ -290,16 +316,27 @@ export default {
   },
   created() {},
   mounted() {
-    this.$router.replace({
-      name: "storeReviews"
-    });
+    // this.$store.state.detail 이 null이면 comments 방문 목적이 아니기 때문에 review를 보여주고,
+    //  그렇지 않은경우, detail에 review num이 들어있으므로 review 상세페이지를 보고자하는 목적 이므로
+    if (this.$store.state.detail == null) {
+          this.$router.replace({
+          name: "storeReviews"
+        });
+    } else if (this.$store.state.detail != null) {
+      this.$store.dispatch('commentsOfFeed', this.$store.state.detail)
+    }
+
     this.center.latitude = parseFloat(this.$store.state.storeInfo.lat);
     this.center.longitude = parseFloat(this.$store.state.storeInfo.lng);
 
     this.$store.dispatch("scoreAvg", this.$store.state.storeInfo.num);
 
-    console.log("storeDatail!");
-    console.log(this.storeAvg);
+   
   }
 };
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Nanum+Myeongjo:700&display=swap');
+
+</style>

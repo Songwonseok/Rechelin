@@ -1,15 +1,19 @@
 <template>
-  <div>
-    <v-card style="min-height: 480px;">
+  <v-container>
+    <v-card 
+    style="
+    min-height: 480px;
+    height: 105% !important;">
       <v-card-title class="headline">
         <!-- <v-chip  @click:close="keyword = ''">{{keyword}}</v-chip> -->
         <v-combobox
           v-model="keyword"
           chips
+          readonly
           clearable
           label="위치를 '하나만' 선택하세요"
           solo
-          style="margin-top: 20px;"
+          style="margin-top: 20px; font-family: 'Nanum Gothic Coding'"
         ></v-combobox>
       </v-card-title>
 
@@ -18,14 +22,20 @@
         
         <v-chip
           class="ma-2"
-          color="orange"
+          color="#ff7f00"
           text-color="white"
-          style="margin-bottom: 10px !important;"
+          style="margin-bottom: 10px !important;
+          font-family: 'Nanum Gothic Coding'
+          "
         >
           강북
-          <v-icon right>mdi-star</v-icon>
+          <v-icon right>{{mdiCity}}</v-icon>
         </v-chip>
         <br />
+        <v-row
+        justify="center"
+        >
+        <v-col cols="8">
         <v-chip draggable="draggable" @click="insertTags('종로')">종로</v-chip>
         <v-chip draggable="draggable" @click="insertTags( '삼청동')">삼청동</v-chip>
         <v-chip draggable="draggable" @click="insertTags( '서촌')">서촌</v-chip>
@@ -53,18 +63,26 @@
         <v-chip draggable="draggable" @click="insertTags( '노원')">노원</v-chip>
         <v-chip draggable="draggable" @click="insertTags( '뚝섬')">뚝섬</v-chip>
         <v-chip draggable="draggable" @click="insertTags( '홍대')">홍대</v-chip>
+        </v-col>
+        </v-row>
       </v-card-text>
 
       <v-chip
           class="ma-2"
-          color="orange"
+          color="#ff7f00"
           text-color="white"
-          style="margin-bottom: 10px !important;"
+          style="margin-bottom: 10px !important;
+          font-family: 'Nanum Gothic Coding';
+          "
         >
           강남
-          <v-icon right>mdi-star</v-icon>
+          <v-icon right>{{mdiCity}}</v-icon>
         </v-chip>
         <br />
+        <v-row
+        justify="center"
+        >
+        <v-col cols="9">
         <v-chip draggable="draggable" @click="insertTags('강남')">강남</v-chip>
         <v-chip draggable="draggable" @click="insertTags('잠실')">잠실</v-chip>
         <v-chip draggable="draggable" @click="insertTags('사당')">사당</v-chip>
@@ -77,9 +95,10 @@
         <v-chip draggable="draggable" @click="insertTags('압구정')">압구정</v-chip>
         <v-chip draggable="draggable" @click="insertTags('신사')">신사</v-chip>
         <v-chip draggable="draggable" @click="insertTags('방배')">방배</v-chip>
-
+        </v-col>
+        </v-row>
         <v-divider></v-divider>
-        <v-divider></v-divider>
+       
       <random></random>
       <loading :active.sync="isLoading_random" :can-cancel="true">
         <iframe
@@ -96,24 +115,88 @@
           >음식점 가져오는 중 ...</a>
         </p>
       </loading>
-      <v-btn color="primary" @click="getRandom">랜덤 추천 시작</v-btn>
+      <v-btn 
+      color="primary" 
+      @click="getRandom"
+      rounded
+      style="font-family: 'Nanum Gothic Coding';"
+      >랜덤 추천 start</v-btn>
+       <v-divider></v-divider>
+      
+      <div 
+      v-if="randomList.length>=1">
+        <b-row 
+        v-for="item in randomList" 
+        :key="item.num"
+        align-h="start" 
+        style="margin-bottom: 30px;">
 
-      <div v-if="randomList.length>=1">
-        <b-row v-for="item in randomList" :key="item.num" style="margin-bottom: 30px;">
-          <v-card max-width="344" class="mx-auto" style="margin-top: 20px;">
+          <v-card 
+          max-width="344" 
+          class="mx-auto" 
+          style="margin-top: 20px;"
+          >
+            
             <v-list-item>
               <v-list-item-content>
-                <v-list-item-title class="headline" style="margin-top: 5px; margin-bottom: 10px;">
-                  <v-btn @click="storeDetail(item.num)" text color="warning">
-                    <v-icon style="color: #ff7f00">{{mdiCity}}</v-icon>
-                    <span style="color: #ff7f00">{{item.sname}}</span>
+                <v-list-item-title 
+                class="headline" 
+                style="margin-top: 5px; 
+                margin-bottom: 10px;
+
+                ">
+
+                  <v-btn 
+                  @click="storeDetail(item.num)" 
+                  text 
+                  color="warning"
+                  style="font-family: 'Noto Serif KR', ;"
+                  >
+
+                    <v-icon 
+                    style="color: #ff7f00">{{mdiCity}}</v-icon>
+                    <span 
+                    style="color: #ff7f00;
+                    font-family: 'Noto Serif KR';
+                    ">{{item.sname}}</span>
+
                   </v-btn>
+
                 </v-list-item-title>
-                <gmap-map
-                  :center="{lat: parseFloat(item.lat), lng:parseFloat(item.lng)}"
-                  :zoom="16"
-                  style="width: 300px; height: 194px"
+                <v-container 
+                v-if="item.img"
+                style="padding: 0px;"
                 >
+
+                <v-img
+                :src="`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${item.img}&sensor=true&key=AIzaSyDC4sonH281FHJ-YyPmeXLRdBYuqcjUkGE`"
+                max-height="200"
+                @click="storeDetail(item.num)" 
+                ></v-img>
+                </v-container>
+                <v-container 
+                v-else
+                style="padding: 0px;"
+                >
+
+                  <v-img
+                  src="https://cdn.pixabay.com/photo/2013/07/13/11/31/shop-158317_1280.png"
+                  max-height="200"
+                  @click="storeDetail(item.num)" 
+                  >
+                  </v-img>
+                </v-container>
+
+                <v-row>
+                  <v-col>
+                    <v-card-text>{{item.address}}</v-card-text>
+                  </v-col>
+                  <v-col>
+                  <gmap-map
+                  :center="{lat: parseFloat(item.lat), lng:parseFloat(item.lng)}"
+                  :zoom="12"
+                  style="width: 100%; height: 100%"
+                  >
                   <gmap-marker
                     :position="{lat: parseFloat(item.lat), lng:parseFloat(item.lng)}"
                     :clickable="true"
@@ -121,16 +204,19 @@
                     @click="center=m.position"
                   ></gmap-marker>
                 </gmap-map>
+                  </v-col>
+                </v-row>
+         
               </v-list-item-content>
             </v-list-item>
 
-            <v-card-text>{{item.address}}</v-card-text>
+            
 
-            <v-card-actions>
+            <!-- <v-card-actions>
               <v-btn icon>
                 <v-icon>{{mdiShareVariant}}</v-icon>
               </v-btn>
-            </v-card-actions>
+            </v-card-actions> -->
           </v-card>
         </b-row>
       </div>
@@ -139,26 +225,32 @@
         <br />
         <kinesis-container>
           <kinesis-element :strength="10">
-            <h1 style="color : orange">추천 랜덤 음식 결과값 입니다.</h1>
+            <p 
+            class="headline"
+            style="color : orange">추천 랜덤 음식 결과값 입니다.</p>
           </kinesis-element>
           <kinesis-element :strength="20">
-            <h1 style="color : orange">불러온 데이터가 없습니다.</h1>
+            <p 
+            class="headline"
+            style="color : orange">불러온 데이터가 없습니다.</p>
           </kinesis-element>
         </kinesis-container>
         <!-- https://giphy.com/embed/TI4Hsj7mNI27nn9I1P -->
         <iframe
           src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P"
           readonly
-          width="200"
-          height="200"
+          width="150"
+          height="150"
           frameborder="0"
           class="giphy-embed"
           allowfullscreen
         ></iframe>
-        <p></p>
+        
       </div>
+      <v-divider></v-divider>
     </v-card>
-  </div>
+    
+  </v-container>
 </template>
 
 <script>
@@ -197,13 +289,11 @@ export default {
       else this.keyword = name;
     },
     getRandom() {
-      console.log("getRandom()");
-      console.log(this.isLoading);
+
 
       if (this.keyword != "") {
         this.isLoading_random = true;
-        console.log(this.isLoading_random);
-        console.log("this.keyword inner");
+
         StoreApi.requestRandom(
           this.keyword,
           res => {
@@ -231,11 +321,18 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Noto+Serif+KR&display=swap');
+
+ 
 .v-application .primary {
   background-color: #ff7f00 !important;
   border-color: #ff7f00 !important;
 }
 iframe {
   pointer-events: none;
+}
+.v-chip {
+  margin-right: 0.5% !important;
+  margin-top: 0.3% !important;
 }
 </style>

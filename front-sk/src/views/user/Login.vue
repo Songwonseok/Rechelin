@@ -1,10 +1,10 @@
 <template>
-    <div class="user" id="app">
+    <v-container class="user" id="app">
         
-	<div id="wrapper">
+	<v-container id="wrapper">
         
 		<div id="table">
-			<h1 class="active" style="color: #ff7f00; text-align:left;">Login</h1>
+			<h1 class="active" style="color: #ff7f00; text-align:left;">LOGIN</h1>
 		</div>
 		<div id="signin">
 	
@@ -28,7 +28,7 @@
                     <v-btn block @click="login" color="#ff7f00" :disabled="!isSubmit" :class="{disabled : !isSubmit}">SignIn</v-btn>
                     <hr>
                     <div style="text-align: left">
-                    <h4 >Social Login</h4>
+                    <h5>SNS LOGIN</h5>
                      <NaverLogin :component="component" />
                     </div>
                     <hr>
@@ -37,8 +37,8 @@
 		
     </div>
 		
-	</div>
-    </div>
+	</v-container>
+    </v-container>
 </template>
 
 <script>
@@ -127,11 +127,10 @@
                     this.isSubmit = false;
                     UserApi.requestLogin(data, res => {
                         //통신을 통해 전달받은 값 콘솔에 출력
-                        console.log(res.data);
+                     
                         if (res.status === true) {
 
-                            console.log('login form 안 ' + res.object)
-                            console.log(res.object);
+                           
                           
                             this.$alert("로그인 성공하셨습니다.","success","success");
                            
@@ -183,7 +182,7 @@
                 })
             },
             upload() {
-                console.log('이미지 업로드 @@')
+               
                 // console.log(this.selectedImage)
 
 

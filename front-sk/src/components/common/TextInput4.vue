@@ -121,7 +121,6 @@ export default {
       let data = this.innerValue;
       
       UserApi.requestEmail(data, res=>{
-           console.log(res);
            
            this.$emit('statusEmail', res.status); 
       })

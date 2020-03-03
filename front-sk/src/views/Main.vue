@@ -1,20 +1,52 @@
 <template>
-  <v-container>
-    <div>
+  <v-container 
+  style="padding: 0px;">
+    <v-container 
+  style="padding: 0px;">
       <v-app id="inspire" class="rootMain">
         <!-- 네브바 -->
         <div v-if="checkLogin">
 
-          <div style="text-align: center !important;">
-            <v-btn color="white" id="find" dark="dark" style="position: relative; top: 250px; z-index:1; border-style: solid;
-    border-color: orange;"
-              @click="open"  @click.stop="openSearch = true"><font color="orange">Find Restaurant</font></v-btn>
-          </div>
+          <v-container 
+  
+          style=" padding: 0px; text-align: center !important;">
+            <v-btn 
+            color="white" 
+            id="find" 
+            style=
+            "position: relative; 
+            top: 250px; 
+            z-index:1;
+            "
+            @click="open" 
+            rounded 
+            @click.stop="openSearch = true"
+            >
+            <v-icon 
+              style="color:#ff7f00"
+              >{{mdiMagnify}}</v-icon>
+              
+            <font color="#ff7f00">
+              search restaurant</font>
+            
+              </v-btn>
+          </v-container>
           <v-dialog v-model="openSearch" max-width="600">
+           
             <v-card>
               <v-card-title class="headline">
-                <v-combobox v-model="newSearch" chips="chips" clearable="clearable" label="Your restaurant"
-                  multiple="multiple" solo="solo"></v-combobox>
+                <v-combobox 
+                v-model="newSearch" 
+                chips="chips" 
+                readonly
+                clearable="clearable"
+                @click:clear = onClearClicked 
+               
+                label="Your restaurant"
+                multiple="multiple" 
+                solo="solo"
+                @keyup.enter="searchBtnClick"
+                ></v-combobox>
               </v-card-title>
 
               <v-card-text>
@@ -22,7 +54,12 @@
                 음식종류
 
                 <v-divider></v-divider>
-                <v-chip draggable="draggable" @click="insertTags('locations',24, '한식')">한식</v-chip>
+                <v-chip-group 
+                solo
+                active-class="orange accent-4 white--text" 
+                v-model = "tagLocation"
+                >
+                <v-chip  draggable="draggable" @click="insertTags('locations',24, '한식')">한식</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',25, '양식')">양식</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',26, '중식')">중식</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',27, '일식')">일식</v-chip>
@@ -33,11 +70,14 @@
                 <v-chip draggable="draggable" @click="insertTags('locations',32, '아시안')">아시안</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',43, '퓨전')">퓨전</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',48, '디저트')">디저트</v-chip>
-
+                 </v-chip-group>
                 <v-divider></v-divider>
                 강북
                 <v-divider></v-divider>
-                <v-chip draggable="draggable" @click="insertTags('locations', 8, '종로')">종로</v-chip>
+                 <v-chip-group 
+                 v-model = "tagLocation_two"
+                            active-class="orange accent-4 white--text" >
+                <v-chip active-clas="orange accent-4 white--text" draggable="draggable" @click="insertTags('locations', 8, '종로')">종로</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 9, '삼청동')">삼청동</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 10, '서촌')">서촌</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 11, '왕십리')">왕십리</v-chip>
@@ -45,7 +85,7 @@
                 <v-chip draggable="draggable" @click="insertTags('locations', 13, '상수')">상수</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 14, '한남동')">한남동</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 15, '이태원')">이태원</v-chip>
-                <v-chip draggable="draggable" @click="insertTags('locations', 16, '홍대')">홍대</v-chip>
+               
                 <v-chip draggable="draggable" @click="insertTags('locations', 17, '광화문')">광화문</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 18, '여의도')">여의도</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 19, '연남동')">연남동</v-chip>
@@ -64,11 +104,14 @@
                 <v-chip draggable="draggable" @click="insertTags('locations', 41, '노원')">노원</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 42, '뚝섬')">뚝섬</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 45, '홍대')">홍대</v-chip>
-
+                 </v-chip-group>
 
                  <v-divider></v-divider>
                 강남
                 <v-divider></v-divider>
+                 <v-chip-group 
+                 v-model = "tagLocation_three"
+                            active-class="orange accent-4 white--text" >
                 <v-chip draggable="draggable" @click="insertTags('locations', 0, '강남')">강남</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 1, '잠실')">잠실</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations', 2, '사당')">사당</v-chip>
@@ -81,45 +124,57 @@
                 <v-chip draggable="draggable" @click="insertTags('locations',46, '압구정')">압구정</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',47, '신사')">신사</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('locations',49, '방배')">방배</v-chip>
+                 </v-chip-group>
                 <v-divider></v-divider>
                 누구와
                 <v-divider></v-divider>
 
+
+                 <v-chip-group 
+                 v-model = "tagWith"
+                            active-class="orange accent-4 white--text" >
                 <v-chip draggable="draggable" @click="insertTags('withWho', 0, '혼자')">혼자</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('withWho', 1, '친구')">친구</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('withWho', 2, '연인')">연인</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('withWho', 3, '직장동료')">직장동료</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('withWho', 4, '가족')">가족</v-chip>
-
+                 </v-chip-group>
                 <v-divider></v-divider>
                 연령별
                 <v-divider></v-divider>
 
+                 <v-chip-group 
+                 v-model = "tagAge"
+                            active-class="orange accent-4 white--text" >
                 <v-chip draggable="draggable" @click="insertTags('ages', 0, '10대')">10대</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('ages', 1, '20대')">20대</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('ages', 2, '30대')">30대</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('ages', 3, '40450대')">4050대</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('ages', 4, '그이상')">그이상</v-chip>
-
+                 </v-chip-group>
                 <v-divider></v-divider>
                 분위기
                 <v-divider></v-divider>
-
+                 <v-chip-group 
+                 v-model = "tagMood"
+                            active-class="orange accent-4 white--text" >
                 <v-chip draggable="draggable" @click="insertTags('moods', 0, '시끌벅적한')">시끌벅적한</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('moods', 1, '차분한')">차분한</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('moods', 2, '소소한')">소소한</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('moods', 3, '고급스러운')">고급스러운</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('moods', 4, '데이트')">데이트</v-chip>
-
+                 </v-chip-group>
                 <v-divider></v-divider>
                 편의시설
                 <v-divider></v-divider>
-
+                 <v-chip-group 
+                 v-model = "tagFacility"
+                            active-class="orange accent-4 white--text" >
                 <v-chip draggable="draggable" @click="insertTags('facility', 0, '단체석')">단체석</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('facility', 1, '주차장')">주차장</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('facility', 2, '개별룸')">개별룸</v-chip>
                 <v-chip draggable="draggable" @click="insertTags('facility', 50, '흡연실')">흡연실</v-chip> <!--마지막 -->
-
+                 </v-chip-group>
               </v-card-text>
               <div class="my-2 searchBtn" style="
     text-align: center;"> 
@@ -138,14 +193,24 @@
           </v-dialog>
 
             <UserRanking></UserRanking>
-          <div>
-            <v-carousel cycle="cycle" show-arrows-on-hover="show-arrows-on-hover" hide-delimiters="hide-delimiters"
-              v-ripple="true" class="text-center">
+          <v-flex
+          style="padding: 0px;"
+          >
+            <v-carousel 
+            cycle="cycle" 
+            show-arrows-on-hover="show-arrows-on-hover" 
+            hide-delimiters="hide-delimiters"
+            v-ripple="true"
+            height="450"
+            interval="10000"
+            class="text-center">
               <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" @click="$router.push({name: 'popular'})"></v-carousel-item>
             </v-carousel>
-          </div>
+
+          </v-flex>
 
           <!-- 탭부분  -->
+          <v-flex>
           <v-tabs fixed-tabs="fixed-tabs" background-color="transparent" color="#ff7f00">
             <v-tab @click="uservalid(userid)"  style="color: #ff7f00;">
                 <template v-if="userToken==null">
@@ -164,11 +229,11 @@
               리뷰
             </v-tab>
             <v-tab @click="valid('userFeed')" style="color: #ff7f00;">
-              피드 페이지
+              피드페이지
             </v-tab>
 
           </v-tabs>
-
+          </v-flex>
           <div>
             
             
@@ -187,7 +252,7 @@
 
       </v-app>
 
-    </div>
+    </v-container>
   </v-container>
 </template>
 
@@ -224,6 +289,17 @@
         
     },
     watch: {
+      openSearch : function(v){
+          
+          // this.hashtags.locations = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          // this.hashtags.withWho = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          // this.hashtags.ages = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          // this.hashtags.moods = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          // this.hashtags.facility =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          // let list = [...this.newSearch];
+          // list = [];
+          // this.newSearch = [...list];
+      },
       newSearch: function (v) {
         if (this.newSearch.length >= 1) {
           this.searchBtnActive = false;
@@ -232,23 +308,28 @@
         }
       },
       storeList : function(v){
-                console.log('storeList')
-                console.log(this.$store.state.storeList);
+               
                       
       },
       userid : function(v){
-         console.log('userid');
+        
           this.$router.go({
   name: 'main',
   force: true
 })  
-        console.log('watch-userid')
-        console.log(this.userid);
+       
         // this.userid = this.$store.state.userid;
       }
     },
     data() {
       return {
+        tagLocation : [],
+        tagLocation_two : [],
+        tagLocation_three : [],
+        tagWith : [],
+        tagAge : [],
+        tagMood : [],
+        tagFacility : [],
         loading: false,
         selection: 1,
         searchBtnActive: false,
@@ -269,7 +350,7 @@
           },
         ],
         hashtags: {
-          locations: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          locations: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           withWho: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           ages: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           moods: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -280,6 +361,7 @@
         dialog : false,
         isLoading: false,
         userid_list : [],
+        mdiMagnify
       }
     },
     computed: {
@@ -298,6 +380,7 @@
          return this.$store.state.userid
        //return sessionStorage.getItem("userid")
       },
+     
       
     },
     components : {
@@ -306,6 +389,24 @@
        UserRanking,
     },
     methods: {
+      onClearClicked(){
+          this.hashtags.locations = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          this.hashtags.withWho = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.ages = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.moods = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.facility =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          let list = [...this.newSearch];
+          list = [];
+          this.newSearch = [...list];   
+          this.tagLocation = [];
+          this.tagLocation_two = [],
+          this.tagLocation_three = [],
+          this.tagWith = [],
+          this.tagAge = [],
+          this.tagMood = [],
+          this.tagFacility = []
+
+      },
       valid(name){
         // session에 값이 있는지 확인해서 있으면 탭 이동
 //                   this.$router.go({
@@ -336,10 +437,23 @@
         setTimeout(() => (this.loading = false), 2000)
       },
       searchBtnClick(){
-        console.log('Main-searchBtnClick :: Main에서 hashTag 로 검색한 결과')
+       
          this.isLoading = true;
         this.$store.state.storeFlag +=1;
-       
+       this.hashtags.locations = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          this.hashtags.withWho = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.ages = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.moods = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.facility =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.newSearch = [];   
+          this.tagLocation = [];
+          this.tagLocation_two = [],
+          this.tagLocation_three = [],
+          this.tagWith = [],
+          this.tagAge = [],
+          this.tagMood = [],
+          this.tagFacility = []
+
         StoreApi.requestStoreList().then(response=>{
          
          
@@ -350,7 +464,7 @@
             for(let j =0; j<response.data.object[i].tags.length; j++){
                   tagsString += response.data.object[i].tags[j].keyword;
             }//end of for loop
-
+           
             let find = true;
             for(let j=0; j<this.newSearch.length; j++){
               if(tagsString.includes(this.newSearch[j])){
@@ -454,7 +568,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+           
           } else {
             var pos = this.newSearch.indexOf(name)
             this.hashtags.locations[n] = !this.hashtags.locations[n]
@@ -470,7 +584,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+          
           } else {
             let pos = this.newSearch.indexOf(name)
             this.hashtags.withWho[n] = !this.hashtags.withWho[n]
@@ -485,7 +599,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+           
           } else {
             let pos = this.newSearch.indexOf(name)
             this.hashtags.ages[n] = !this.hashtags.ages[n]
@@ -499,7 +613,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+           
           } else {
             let pos = this.newSearch.indexOf(name)
             this.hashtags.moods[n] = !this.hashtags.moods[n]
@@ -513,7 +627,7 @@
             let list = [...this.newSearch]
             list.push(name)
             this.newSearch = [...list]
-            console.log(this.newSearch)
+           
           } else {
             let pos = this.newSearch.indexOf(name)
             this.hashtags.facility[n] = !this.hashtags.facility[n]
@@ -530,11 +644,16 @@
 </script>
 
 <style scoped="scoped">
+    .v-chip--disabled {
+    opacity: 1 !important;
+  }
+
   .rootMain {
     height: 400px;
 
   }
-
+  
+  
   #inspire {
     width: 100%;
     right: 0;
@@ -579,7 +698,8 @@
     -ms-transition: 0.3s;
     -o-transition: 0.3s;
     transition: 0.3s;
-    background: #ff7f00;
+    
+  
 
   }
 
@@ -589,9 +709,14 @@
     -ms-transform: scale(1.5);
     -o-transform: scale(1.5);
     transform: scale(1.5);
-    background: white !important;
-    color: #ff7f00 !important;
-    outline-color: #ff7f00 !important;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    
+
+  
   }
 
   .mb-2 {
@@ -610,4 +735,6 @@
     background-color: #fff!important;
     border-color: orange !important;
 }
+
 </style>
+

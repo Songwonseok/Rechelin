@@ -55,9 +55,10 @@
          
           dark
           small
-          @click="userpageGo"
-          color="blue">
-          <v-icon>mdi-account</v-icon>
+          href="http://pf.kakao.com/_Qxexjxbxb/chat"
+          
+          color="#FFEA00">
+          <v-icon color="#3E2723">{{mdiAlphaKCircleOutline }}</v-icon>
         </v-btn>
         <v-btn
           fab
@@ -223,7 +224,9 @@ import { KinesisContainer, KinesisElement } from 'vue-kinesis'
 import UserApi from '../../apis/UserApi.js';
 import { 
   mdiBell,
+  mdiAlphaKCircleOutline 
   } from '@mdi/js';
+import Axios from 'axios';
 Vue.component('kinesis-container', KinesisContainer)
 Vue.component('kinesis-element', KinesisElement)
 export default {
@@ -245,28 +248,28 @@ export default {
    
     // icons
     mdiBell,
+    mdiAlphaKCircleOutline 
     
   }),
   methods : {
     userRank(){
        // eslint-disable-next-line no-console
-      console.log('clicked');
+   
       
       this.$router.push({path : '/userRankListDetail'})
     },
     async fetchUserReviewList(data){
         return UserApi.requestUserReviewCnt(data)
        .then(response =>{
-         console.log(this);
+      
         this.reviewLength =response.data.object.length;
-        console.log('data fetch');
-        console.log(this.reviewLength);
+   
     })
     },
     async init(){
  UserApi.requestUserRanking()
     .then(async response => {
-      console.log(response);
+    
       let topUserList = new Array();
       
       for(let i = 0; i<response.data.object.length; i++){
@@ -278,7 +281,7 @@ export default {
         
         await this.fetchUserReviewList(response.data.object[i].id);
         
-        console.log(this.reviewLength);
+      
         item['reviewLength'] = this.reviewLength;
         if(response.data.object[i].profile)
           item['profile'] = response.data.object[i].profile;
@@ -293,8 +296,7 @@ export default {
         return b['reviewLength'] - a['reviewLength'];
       })
       
-      console.log('top user 받아오기');
-      console.log(this.topUserInfo);
+ 
     })
     },
      UserLogout() {
@@ -309,11 +311,6 @@ export default {
         var payload = this.$store.state.userid
         this.$store.dispatch('notificationGet', payload)
         this.alarms = this.$store.state.notifications
-      },
-      userpageGo() {
-        this.$router.push({name: 'userpage', params: {
-            id: sessionStorage.getItem('userid')
-        }})
       },
       followAccept(f, index) {
 

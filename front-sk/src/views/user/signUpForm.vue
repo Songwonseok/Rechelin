@@ -155,12 +155,10 @@
     }
   };
   let onSuccess = data => {
-    console.log(data);
-    console.log("success");
+   
   };
   let onFailure = data => {
-    console.log(data);
-    console.log("failure");
+    
   };
 
   export default {
@@ -251,7 +249,7 @@
         alert("Form Submitted!");
       },
       changeName(status) {
-        console.log('changeName');
+       
         //this.isNameOk = status;
         // if (this.isNameOk === false && this.$store.state.name.length < 6 && this.$store.state.name.length > 0) {
           if (this.$store.state.name.length < 6 && this.$store.state.name.length > 0) { 
@@ -264,7 +262,7 @@
         }
       },
       changeEmail(status) {
-        console.log('changeName');
+       
         this.isEmailOk = status;
         let exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
         if (this.isEmailOk == false && exptext.test(this.$store.state.email) == true) {
@@ -292,7 +290,7 @@
             })
             .then(data =>  
             {
-              console.log('실행전!')
+             
          
             this.$router.push({
               name: "signupconfirm"

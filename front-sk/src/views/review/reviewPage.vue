@@ -1,14 +1,15 @@
 <template>
 
-    <div>
-        <div>
+    <v-container>
+        <v-container>
             <b-container>
                 <!-- 리뷰 제목 -->
                 <b-row style="text-align: left">
                     <b-col style="margin-right: 50px;">
                         <!-- 리뷰 제목 -->
-                        <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: left;">
-                            <v-icon>{{mdiFormatTitle}}</v-icon>itle
+                        <v-chip class="ma-2 text-left" outlined  color="#ff7f00" 
+                        style="text-align: left;">
+                            <v-icon left>{{mdiFormatTitle}}</v-icon>itle
                         </v-chip>
                         <v-text-field v-model="reviewTitle" label="Review Title" :counter="20"></v-text-field>
 
@@ -19,11 +20,16 @@
 
 
                         <!-- 음식점 주소 등록 -->
-                        <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: left">
-                            <v-icon>{{mdiPasta }}</v-icon>음식점이름
+                        <v-chip class="ma-2 text-left" outlined  color="#ff7f00" style="text-align: left">
+                            <v-icon left>{{mdiPasta }}</v-icon>음식점이름
                         </v-chip><span>
-                                <v-btn class="ma-2" id="show-btn" @click="$bvModal.show('bv-modal-example_adr')"
-                                    style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 이름/주소 등록
+                                <v-btn 
+                                class="ma-2" 
+                                id="show-btn" 
+                                @click="$bvModal.show('bv-modal-example_adr')"
+                                rounded
+                                small
+                                style="color: #ff7f00 !important; background:#ff7f00 ;">음식점 이름/주소 등록
                                 </v-btn>
                             </span>
                         <v-text-field v-model="store_name" label="store name" required>
@@ -31,7 +37,7 @@
                         </v-text-field>
 
                          <v-chip class="ma-2" outlined  color="#ff7f00" style="text-align: center;">
-                            <v-icon>{{mdiMapMarker}}</v-icon>음식점주소
+                            <v-icon left>{{mdiMapMarker}}</v-icon>음식점주소
                         </v-chip>
                         <v-text-field v-model="store_address" label="store address" required>
                             <!-- <v-text-field v-model="store_address" :rules="nameRules" label="store address" required> -->
@@ -59,16 +65,32 @@
                         <!-- 해시 태그 모달 -->
                         <div id="reviewHashtag">
                             
-                         <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{mdiPoundBoxOutline}}</v-icon>해쉬태그
+                         <v-chip 
+                         class="ma-2 text-left" 
+                         outlined  
+                         
+                         color="#ff7f00" >
+                            <v-icon left>{{mdiPoundBoxOutline}}</v-icon>해쉬태그
                         </v-chip><span>
-                                    <v-btn @click="$bvModal.show('bv-modal-example')" id="show-btn" class="ma-2" dark
+                                    <v-btn @click="$bvModal.show('bv-modal-example')" 
+                                    id="show-btn" 
+                                    class="ma-2"
+                                    small
+                                    dark
+                                    rounded
                                         style="color: #ff7f00 !important; background:#ff7f00 ;">
                                         <v-icon left>{{icons.pencil}}</v-icon> hashtag
                                     </v-btn>
                                 </span>
                             <span>
-                                <v-combobox v-model="allTags" chips clearable label="Your hashtags" multiple>
+                                <v-combobox 
+                                readonly
+                                v-model="allTags" 
+                                chips 
+                                clearable 
+                                label="Your hashtags" 
+                                multiple
+                                >
                                 </v-combobox>
                             </span>
 
@@ -77,13 +99,23 @@
                             <template v-slot:modal-title>HashTag</template>
                             <div class="d-block text-center">
                                 <span>
-                                    <v-combobox v-model="allTags" chips clearable label="Your hashtags" multiple solo>
+                                    <v-combobox 
+                                    v-model="allTags" 
+                                    chips 
+                                    clearable 
+                                    label="Your hashtags" 
+                                    multiple
+                                    readonly
+                                    solo
+                                    @click:clear = onClearClicked
+                                    >
                                     </v-combobox>
                                 </span>
 
                                 <v-divider></v-divider>
                                 음식종류
                                 <v-divider></v-divider>
+                                  <v-chip-group> 
                                 <v-chip draggable @click="check_area(24, '한식')">한식</v-chip>
                                 <v-chip draggable @click="check_area(25, '양식')">양식</v-chip>
                                 <v-chip draggable @click="check_area(26, '중식')">중식</v-chip>
@@ -95,13 +127,14 @@
                                 <v-chip draggable @click="check_area(32, '아시안')">아시안</v-chip>
                                 <v-chip draggable @click="check_area( 43, '퓨전')">퓨전</v-chip>
                                 <v-chip draggable @click="check_area( 48, '디저트')">디저트</v-chip>
-
+                                </v-chip-group>
                                 
 
 
                                 <v-divider></v-divider>
                                 위치(강북)
                                 <v-divider></v-divider>
+                                <v-chip-group>
                                 <v-chip draggable @click="check_area( 8, '종로')">종로</v-chip>
                                 <v-chip draggable @click="check_area( 9, '삼청동')">삼청동</v-chip>
                                 <v-chip draggable @click="check_area( 10, '서촌')">서촌</v-chip>
@@ -110,7 +143,7 @@
                                 <v-chip draggable @click="check_area(13, '상수')">상수</v-chip>
                                 <v-chip draggable @click="check_area( 14, '한남동')">한남동</v-chip>
                                 <v-chip draggable @click="check_area( 15, '이태원')">이태원</v-chip>
-                                <v-chip draggable @click="check_area( 16, '홍대')">홍대</v-chip>
+                                
                                 <v-chip draggable @click="check_area( 17, '광화문')">광화문</v-chip>
                                 <v-chip draggable @click="check_area( 18, '여의도')">여의도</v-chip>
                                 <v-chip draggable @click="check_area( 19, '연남동')">연남동</v-chip>
@@ -132,11 +165,12 @@
                                 <v-chip draggable @click="check_area(45, '홍대')">홍대</v-chip>
 
 
-
+                                </v-chip-group>
                                 <br>
                                 <v-divider></v-divider>
                                 위치 (강남)
                                 <v-divider></v-divider>
+                                <v-chip-group>
                                 <v-chip draggable @click="check_area(0, '강남')">강남</v-chip>
                                 <v-chip draggable @click="check_area( 1, '잠실')">잠실</v-chip>
                                 <v-chip draggable @click="check_area( 2, '사당')">사당</v-chip>
@@ -148,51 +182,52 @@
                                 <v-chip draggable @click="check_area( 46, '압구정')">압구정</v-chip>
                                 <v-chip draggable @click="check_area( 47, '신사')">신사</v-chip>
                                 <v-chip draggable @click="check_area( 49, '방배')">방배</v-chip>
-
+                                </v-chip-group>
                                 <v-divider></v-divider>
 
                                 누구와
                                 <v-divider></v-divider>
-
+                                <v-chip-group>
                                 <v-chip draggable @click="check_with( 0, '혼자')">혼자</v-chip>
                                 <v-chip draggable @click="check_with(1, '친구')">친구</v-chip>
                                 <v-chip draggable @click="check_with(2, '연인')">연인</v-chip>
                                 <v-chip draggable @click="check_with( 3, '직장동료')">직장동료</v-chip>
                                 <v-chip draggable @click="check_with(4, '가족')">가족</v-chip>
-
+                                </v-chip-group>
                                 <v-divider></v-divider>
                                 연령별
                                 <v-divider></v-divider>
-
+                                <v-chip-group>
                                 <v-chip draggable @click="check_age(0, '10대')">10대</v-chip>
                                 <v-chip draggable @click="check_age( 1, '20대')">20대</v-chip>
                                 <v-chip draggable @click="check_age( 2, '30대')">30대</v-chip>
                                 <v-chip draggable @click="check_age( 3, '40450대')">4050대</v-chip>
                                 <v-chip draggable @click="check_age(4, '그이상')">그이상</v-chip>
-
+                                </v-chip-group>
 
                                 <v-divider></v-divider>
                                 분위기
                                 <v-divider></v-divider>
 
+                                <v-chip-group>
                                 <v-chip draggable @click="check_atmosphere( 0, '시끌벅적한')">시끌벅적한</v-chip>
                                 <v-chip draggable @click="check_atmosphere( 1, '차분한')">차분한</v-chip>
                                 <v-chip draggable @click="check_atmosphere( 2, '소소한')">소소한</v-chip>
                                 <v-chip draggable @click="check_atmosphere( 3, '고급스러운')">고급스러운</v-chip>
                                 <v-chip draggable @click="check_atmosphere( 4, '데이트')">데이트</v-chip>
-
+                                </v-chip-group>
 
 
 
                                 <v-divider></v-divider>
                                 편의시설
                                 <v-divider></v-divider>
-
+                                <v-chip-group>
                                 <v-chip draggable @click="check_facility( 0, '단체석')">단체석</v-chip>
                                 <v-chip draggable @click="check_facility( 1, '주차장')">주차장</v-chip>
                                 <v-chip draggable @click="check_facility( 2, '개별룸')">개별룸</v-chip>
                                 <v-chip draggable @click="check_facility( 50, '흡연실')">흡연실</v-chip>
-
+                                </v-chip-group>
 
                             </div>
                             <hr>
@@ -202,7 +237,7 @@
                         </b-modal> <br>
 
                           <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{ mdiContentSaveAll}}</v-icon>사진업로드
+                            <v-icon left>{{ mdiContentSaveAll}}</v-icon>사진업로드
                         </v-chip>
                         <div class="uploadProfile">
                             <v-file-input @change="getProfileForm" label="File input" filled
@@ -221,40 +256,60 @@
                     <b-col style="text-align: left">
  
                          <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{mdiEmoticonTongueOutline}}</v-icon>taste
+                            <v-icon left>{{mdiEmoticonTongueOutline}}</v-icon>taste
                         </v-chip>
-                        <star-rating v-model="flavor" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
+                        <star-rating 
+                        v-model="flavor" 
+                        :border-width="4" 
+                        star-size="30" 
+                        border-color="#d8d8d8" 
+                        :rounded-corners="true"
                             style="text-align: center !important;"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
                             <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{mdiCurrencyUsd}}</v-icon>price
+                            <v-icon left>{{mdiCurrencyUsd}}</v-icon>price
                         </v-chip>
-                        <star-rating v-model="price" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
+
+                        <star-rating 
+                        v-model="price" 
+                        :border-width="4" 
+                        star-size="30" 
+                        border-color="#d8d8d8" 
+                        :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
                             <v-chip class="ma-2" outlined  color="#ff7f00" >
-                            <v-icon>{{mdiEmoticonWinkOutline}}</v-icon>kind
+                            <v-icon left>{{mdiEmoticonWinkOutline}}</v-icon>kind
                         </v-chip>
-                        <star-rating v-model="kindness" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
+                        <star-rating 
+                        v-model="kindness" 
+                        :border-width="4" 
+                        star-size="30" 
+                        border-color="#d8d8d8" 
+                        :rounded-corners="true"
                             :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]">
                         </star-rating> <br>
-                          <h4>장점</h4>
+                          <h5
+                          style="font-family: 'Nanum Gothic Coding', ;"
+                          >장점</h5>
                          <v-textarea
-          label="장점 300자 이내"
-          auto-grow
-          outlined
-          :counter="300"
-          rows="3"
-          v-model = "props"
-          row-height="30"
-          shaped
-        ></v-textarea>
+                            label="장점 300자 이내"
+                            auto-grow
+                            outlined
+                            :counter="300"
+                            rows="3"
+                            v-model = "props"
+                            row-height="30"
+                            shaped
+                            ></v-textarea>
                          
             <div class="error-text" v-if="error.props">
                         {{error.props}}
             </div>
-            <h4>단점</h4>
+            <h5
+            style="font-family: 'Nanum Gothic Coding', ;"
+            >단점</h5>
                                <v-textarea
           label="단점 300자 이내"
           auto-grow
@@ -269,19 +324,38 @@
             <div class="error-text" v-if="error.cons">
                         {{error.cons}}
             </div>
-            <h5>그래서 이 음식점의 총평을 평점으로 매긴다면?</h5>
-             <star-rating v-model="rating" :border-width="4" border-color="#d8d8d8" :rounded-corners="true"
+
+            <h6
+            style="font-family: 'Nanum Gothic Coding', ;"
+            >그래서 이 음식점의 총평을 평점으로 매긴다면?</h6>
+
+
+             <star-rating 
+             v-model="rating" 
+             :border-width="4" 
+             border-color="#d8d8d8" 
+             :rounded-corners="true"
+             star-size="35" 
                     :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
            
-              <div ref="finalSubmit">
-              <v-btn depressed large name="submit" id="submit" @click="reviewConfirm(store_num)" style="color: #ff7f00 !important; background:#ff7f00 ;"
+              <v-container 
+              ref="finalSubmit"
+              style="text-align: right;">
+              <v-btn 
+              depressed 
+              large 
+              rounded
+              name="submit" 
+              id="submit" 
+              @click="reviewConfirm(store_num)" 
+              style="color: #ff7f00 !important; background:#ff7f00 ;"
               value="review 등록" >리뷰 등록</v-btn>
-              </div>
+              </v-container>
               </b-col>
                </b-row>
             </b-container>
-        </div>
-    </div>
+        </v-container>
+        </v-container>
 </template>
 
 <script>
@@ -291,6 +365,7 @@
     import PV from 'password-validator'
     import ImgurApi from '../../apis/ImgurApi'
     import StarRating from 'vue-star-rating'
+    
     import {
         mdiPencil,
         mdiCamera,
@@ -348,7 +423,7 @@
                 let list = [...this.maps]
                 list = [...this.$store.state.googleStorePlaceView]
                 this.maps = [...list]
-                console.log('har')
+                
 
 
             }
@@ -362,9 +437,22 @@
 
 
         components: {
-            StarRating
+            StarRating,
+            
         },
         methods: {
+            onClearClicked(){
+          this.hashtags.locations = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          this.hashtags.withWho = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.ages = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.moods = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.hashtags.facility =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          let list = [...this.allTags];
+          list = [];
+          this.allTags = [...list];   
+          
+
+      },
             check_area(n, name) {
 
                 if (!this.hashtags.locations[n]) {
@@ -376,8 +464,8 @@
                     let list2 = [...this.allTags]
                     list2.push(name)
                     this.allTags = [...list2]
-                    console.log('area!!!!!!!!!!!!!!')
-                    console.log(this.area)
+                    
+                    
                 } else {
                     var pos = this.area.indexOf(name)
                     this.hashtags.locations[n] = !this.hashtags.locations[n]
@@ -477,7 +565,7 @@
             upload() {
                 ImgurApi.uploadProfile(this.selectedImage, res => {
                     this.imageUrl = res.data.link
-                    console.log(this.imageUrl)
+                    
 
                 }, error => {
                     alert('Imgur 업로드 실패!')
@@ -495,7 +583,7 @@
             //     console.log(this.rating);
             // },
             fetchAdr() {
-                console.log(this.address);
+                
                 //검색시
                 this
                     .$store
@@ -503,8 +591,8 @@
 
 
 
-                console.log(this.$store.state.googleStorePlace);
-                console.log(this.$store.state.googleStorePlaceView);
+                
+                
                 // if (this.eye == false) this.eye = true;
                 // else this.eye = false
 
@@ -512,14 +600,14 @@
                 this.map = this.$store.state.googleStorePlaceView
 
 
-                console.log(this.$store.state.googleStorePlace);
+                
 
 
             },
             reviewConfirm(num) {
                 let hashtag = this.area.toString();
                 if (this.isSubmit) {
-                    console.log(this.store_num);
+                    
                      this.$store.dispatch('storeHashtags', num)
                     var data = {
                         'hashtag': hashtag,
@@ -538,17 +626,17 @@
                         },
                         'weak': this.cons,
                     }
-                    console.log(data);
+                    
                     ReviewApi.requestAddReview(data, res => {
                         this.$alert("리뷰 등록 되셨습니다.", "success", "success", );
 
-                        console.log("reviewPage 등록 성공");
+                        
 
                         this.$store.state.directiveStoreDetail = this.store_num;
                         
                         // this.$router.push({name : "storeDetail", params : {id  : this.store_num}})
                     })
-                    console.log('all complete');
+                    
 
                 } else {
                     this.$alert("리뷰를 작성해주세요.", "Warning", "warning", );
@@ -575,8 +663,8 @@
 
                     this.store_num = res.data.object.num;
                     this.store_pic = res.data.object.img;
-                    console.log('res 위');
-                    console.log(res);
+                    
+                    
 
 
                 })
@@ -633,9 +721,7 @@
             consSchema: new PV(),
             propsSchema: new PV(),
             hashtags: {
-                locations: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0
-                ],
+                locations: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 withWho: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0
                 ],
@@ -678,6 +764,10 @@
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap');
+  .v-chip--disabled {
+    opacity: 1 !important;
+  }
     h4 {
         padding-bottom: 20px;
         margin-top: 10px;
@@ -690,19 +780,17 @@
     }
 
     #show-btn:hover {
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        -o-transform: scale(1.2);
-        transform: scale(1.2);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        transform: scale(1.1);
         -webkit-transition: .3s;
         -moz-transition: .3s;
         -ms-transition: .3s;
         -o-transition: .3s;
         transition: .3s;
-        background: white !important;
-        color: #ff7f00 !important;
-        outline-color: #ff7f00 !important;
+        
     }
 
     v-chip:hover {
@@ -717,7 +805,5 @@
         -o-transition: .3s;
         transition: .3s;
     }
-    v-chip {
-        margin-bottom: 10px !important;
-    }
+  
 </style>

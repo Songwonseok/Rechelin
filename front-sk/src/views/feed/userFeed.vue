@@ -1,28 +1,17 @@
 <template>
   <div id="app">
-    <!-- <div class="view">
-      {{user_type}}
-      <button
-        :class="[ user_type === 'all' ? 'selected' : '']"
-        @click="update_source('all')"
-      >All Posts</button>
-      <button
-        :class="[ user_type === 'friend' ? 'selected' : '']"
-        @click="update_source('friend')"
-      >Friends' Posts</button>
-    </div> -->
-    <!-- <div v-if="((tweet.user_type === user_type) || (user_type === 'all'))"> -->
-    <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-  <div v-if = "tweet.length !=0">
+   <userSearch></userSearch>  
+  <v-container v-if = "tweet.length !=0">
+    
     <tweets
       v-for="(tweet, $index) in tweet"
       :key="$index+tweet"
       :tweet="tweet"
     />
-  </div>
+  </v-container>
 
-  <div v-else>
-   <kinesis-container>
+  <v-container v-else>
+   <!-- <kinesis-container>
                     <kinesis-element :strength="10">
                         <h1 style="color : orange">Following 한 사람이 없습니다.</h1>
                     </kinesis-element>
@@ -30,45 +19,25 @@
                         <h1 style="color : orange">Following 부터 해주세요.</h1>
                     </kinesis-element>
                 </kinesis-container>
-                 <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p>
-  </div>   
+                 <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p> -->
+  </v-container>   
 
     <!-- <div v-for="(item, $index) in list" :key="$index">{{item}}</div> -->
     <infinite-loading spinner="bubbles" :identifier="infiniteId" @infinite="infiniteHandler">
     </infinite-loading>
  
   </div>
-  <!-- <div>
-
-      <div>
-    <h4>Top and Bottom</h4>
-    <b-card-group deck>
-    <b-card img-src="https://placekitten.com/300/300" img-alt="Card image" img-left class="mb-3">
-      <b-card-text>
-        Some quick example text to build on the card and make up the bulk of the card's content.
-      </b-card-text>
-    <br>
-</b-card>
-    <b-card img-src="https://placekitten.com/300/300" img-alt="Card image" img-left class="mb-3">
-      <b-card-text>
-        Some quick example text to build on the card and make up the bulk of the card's content.
-      </b-card-text>
-    
-    </b-card>
-
-    </b-card-group>
-</div>
-  </div>-->
 </template>
 
 <script> 
- import Vue from 'vue'
+import Vue from 'vue'
 import tweets from '../../components/common/tweets.vue';
 import InfiniteLoading from "vue-infinite-loading";
+import userSearch from "../../components/common/userSearch.vue";
 const api = "//hn.algolia.com/api/v1/search_by_date?tags=story";
 import axios from "axios";
 import ReviewApi from '../../apis/ReviewApi'
-  import {KinesisContainer, KinesisElement} from 'vue-kinesis';
+import {KinesisContainer, KinesisElement} from 'vue-kinesis';
   
     Vue.component('kinesis-container', KinesisContainer);
     Vue.component('kinesis-element', KinesisElement);
@@ -76,7 +45,7 @@ export default {
   components: {
     tweets,
     InfiniteLoading,
-  
+    userSearch,
   },
   data() {
     return {
@@ -88,10 +57,32 @@ export default {
       tweet: []
     };
   },
+  watch : {
+    feedList : function(v){
+
+ReviewApi.requestFeedList(this.userid, res=>{
+               let jary = [];
+               if(this.$store.state.feedUserList.length !=0){
+                  for(let i=0; i<res.length; i++){
+                      if(this.$store.state.feedUserList==res[i].review.user.nickname){
+                          jary.push(res[i]);
+                      }
+                  }
+                
+                this.tweet = jary;
+               }
+            }, error=>{
+              alert('피드 리스트 가져오기 실패')
+            })
+    }
+  },
   computed :{
     userid(){
         return this.$store.state.userid
       },
+    feedList(){
+      return this.$store.state.feedUserList;
+    }
   },
   methods: {
     update_source: function(user_type) {
@@ -126,9 +117,12 @@ export default {
       //     }
       //   });
        ReviewApi.requestFeedList(this.userid, res=>{
-              this.tweet = res;
-               $state.loaded();
                
+               
+               this.tweet = res;
+               if(!this.$store.state.storeTweets.length!=0)
+                    this.$store.state.storeTweets = res;
+               $state.loaded();
             }, error=>{
               alert('피드 리스트 가져오기 실패')
             })
@@ -171,7 +165,7 @@ button {
   }
 }
 #app {
-  max-width: 600px;
+  max-width: 800px;
   margin: 30px auto;
 }
 .view {

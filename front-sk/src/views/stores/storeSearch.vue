@@ -1,27 +1,33 @@
 <template>
-    <div id="app">
+    <v-container id="app">
         <v-app id="inspire_store">
             <!--To do bar-->
-            <v-card class="pa-4" flat >
-
-                <v-toolbar dense floating>
+            <b-container>
+                <v-container
+                >
+                <v-row
+                justify="center">
+                    <v-text-field 
+                    hide-details 
+                    prepend-inner-icon="search" 
+                    @keyup.enter="storeListSearch" 
+                    single-line
+                    solo
+                    v-model="ssearch" 
+                    placeholder="음식점을 입력해주세요."
+                    style="max-width: 100%;
+                    text-align: center !important;"
+                    ></v-text-field>
+                </v-row>
+                </v-container>
               
-                    <v-text-field hide-details prepend-icon="search" @keyup.enter="storeListSearch" single-line
-                        v-model="ssearch" placeholder="음식점을 입력해주세요."></v-text-field>
-                    <v-btn color="warning" icon @click="getMylocation">
-                        <v-icon color="warning">my_location</v-icon>
-                    </v-btn>
-                </v-toolbar>
-                <br>
-                <span style="color : orange">현재 위치 정보를 받아올려면 상단의 아이콘을 클릭해주세요!</span>
-                <br>
-                <gmap-map :center="{lat: myLocation.latitude, lng: myLocation.longitude}" :zoom="16" style="height: 300px">
+                <gmap-map :center="{lat: myLocation.latitude, lng: myLocation.longitude}" :zoom="16" style="height: 300px; min-width: 250px;">
                     <gmap-marker :position="{lat: myLocation.latitude, lng: myLocation.longitude}" 
                     :clickable="true" :draggable="true" :icon="{ url: require('../../assets/images/recent.png')}"
                         @click="center=m.position">
                     </gmap-marker>
                 </gmap-map>
-            </v-card>
+           </b-container>
                    <loading :active.sync="isLoading_store" 
             :can-cancel="true" 
             
@@ -30,9 +36,8 @@
             </loading>
             <hr>
             
-            <div v-if="this.$store.state.isClickBtnStore == true">
-                <b-container class="bv-example-row">
-                    <b-row >
+            <b-container v-if="this.$store.state.isClickBtnStore == true" class="bv-example-row">
+                    <b-row align-h="start">
                         <b-col v-for="(store, i) in this.$store.state.storeList_paging" v-bind:key="i+store" style="text-align: center !important;">
                             <v-hover v-slot:default="{ hover }">
                                 <v-card class="mx-auto mr-15 mb-2" max-width="500" width = "300" height="300" @click="storeDetail(store.num)">
@@ -74,22 +79,15 @@
                                     <v-card-text class="text--primary">
                                         <div>{{store.address}}</div>
                                     </v-card-text>
-                                    <v-card-actions>
-                                        <v-btn color="orange" text="text">
-                                            Share
-                                        </v-btn>
-                                        <v-btn color="orange" text="text">
-                                            Explore
-                                        </v-btn>
-                                    </v-card-actions>
+                                   
                                 </v-card>
                             </v-hover>
                         </b-col>
                     </b-row>
-                </b-container>
+
                 <div class="text-center">
                     <div v-if="this.$store.state.pageStatus">
-                        <v-pagination v-model=page :length=this.len @input="next"></v-pagination>
+                        <v-pagination v-model=page :length=len @input="next"></v-pagination>
                         <!-- 현재 Main 상단바에서 HashTag 검색 시에만 pagination을 처리하려 합니다 ㅠㅠ router로 page 2개 만들면 될것같긴한데 다른 우선순위 부터 진행하고 하겠습니다. -->
                     </div>
 
@@ -97,8 +95,8 @@
 
                     </div>
                 </div>
-            </div>
-            <div v-else>
+            </b-container>
+            <b-container v-else>
                 <kinesis-container>
                     <kinesis-element :strength="10">
                         <h1 style="color : orange">상단 메뉴에서 검색 해주세요!</h1>
@@ -108,9 +106,9 @@
                     </kinesis-element>
                 </kinesis-container>
                  <iframe src="https://giphy.com/embed/TI4Hsj7mNI27nn9I1P" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href=""></a></p>
-            </div>
+            </b-container>
         </v-app>
-    </div>
+    </v-container>
 </template>
 <script>
     import Vue from 'vue'
@@ -141,6 +139,12 @@ import 'vue-loading-overlay/dist/vue-loading.css'
              Loading,
         },
         watch: {
+            
+            changeLen : function(v){
+                let list = 0;
+                list = this.len;
+                this.len = list;
+            },
             storeListwatch: function (v) {
                 // this.data = this.$store.state.storeList;
                 // let list = [...this.data];
@@ -148,14 +152,14 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 // this.data = [...list];
                 // this.$store.state.storeList = this.data;
                 //redering
-                console.log("watch");
+
                 // for(let i=0; i<6; i++){
                 //     this.storeRender.push(this.$store.state.storeList[i]);
                 // } 
-                console.log(this.storeRender);
+ 
             },
             fetchSearchStore: function (v) {
-                console.log("fetchSearchStore");
+            
                 let list = [...this.$store.state.storeList_paging];
                 // list = this.$store.state.storeList
                 // .filter(post => {
@@ -164,17 +168,16 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 //         .includes(this.search.toLowerCase())
                 // })
                 this.$store.state.storeList_paging = [];
-                console.log(this.$store.state.storeList);
+         
                 for (let i = 0; i < this.$store.state.storeList.length; i++) {
                     if (this.$store.state.storeList[i].sname.includes(this.ssearch)) {
-                        console.log('isExistValue');
+                
                         this.$store.state.storeList_paging.push(
                             this.$store.state.storeList[i]);
                     }
                 }
                 list = [...this.$store.state.storeList_paging];
-                console.log(list);
-                console.log('hi');
+          
                 if(this.$store.state.storeList_paging.length==0)
                         this.$store.state.isClickBtnStore = false;
                 else
@@ -186,11 +189,14 @@ import 'vue-loading-overlay/dist/vue-loading.css'
         },
         computed: {
             storeListwatch() {
-                console.log('computed');
+             
                 return this.$store.state.storeList
             },
             fetchSearchStore() {
                 return this.enterKey;
+            },
+            changeLen(){
+                return this.len;
             }
         },
         data() {
@@ -223,8 +229,6 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 else
                     this.len = Math.ceil(this.$store.state.storeList.length / 6) - 1;
 
-                console.log('lenCalc');
-                console.log(this.len);
                 if (this.len == 0) //데이터를 6개씩 렌더링 하는데, 6개를 못채워주면 this.len이 0으로 렌더링됨
                     this.len = 1;
             },
@@ -234,11 +238,10 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 if(this.ssearch.length!=0){
                 this.isLoading_store = true;
                 this.$store.state.isClickBtnStore = false;
-                console.log(this.isLoading_store);
+              
                 let searchList = new Array();
                 StoreApi.requestStoreList().then(response=>{
-                    console.log('storeListSearch');
-                    console.log(response);
+                 
                     for(let i =0; i<response.data.object.length; i++){
                         let item = {};
                         item['num'] = response.data.object[i].store.num;
@@ -251,8 +254,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                         searchList.push(item);
 
                     }
-                    console.log('searchList');
-                    console.log(searchList.length);
+                   
                     if (searchList.length == 0)
                         this.$store.state.isClickBtnStore = false;
                     else
@@ -265,19 +267,10 @@ import 'vue-loading-overlay/dist/vue-loading.css'
                 }
             },
             storeDetail(num) {
-                console.log('storeDetail');
-                console.log(num);
+    
                 this.$store.dispatch('storeHashtags', num)
 
             },
-            getMylocation() {
-                navigator.geolocation.getCurrentPosition(pos => {
-                    this.myLocation = pos.coords
-                    console.log(this.myLocation.latitude, this.myLocation)
-                    return pos
-                })
-                    this.isLoading_store = false;
-              }
                  
           },
         
