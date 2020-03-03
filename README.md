@@ -30,7 +30,7 @@
 ```
 ssafy
 |-- s02p12a404
-|     `-- back-sk
+|     `-- back
 |		`-- bin
 |		`-- Servers
 |		`-- src
