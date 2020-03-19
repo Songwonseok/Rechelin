@@ -15,7 +15,7 @@
   - [!aws-rds](#aws-rds)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
-  - [Stack](#stack)
+  - [사용기술](#사용기술)
   - [Prerequisite](#prerequisite)
   - [Development](#development)
     - [Install](#install)
@@ -42,7 +42,7 @@ ssafy
 |--
 ```
 
-## Stack
+## 사용기술
 aws cognito API : 회원 가입에 필요한 이메일 인증 
 
 Naver Login API : 간편 로그인 
