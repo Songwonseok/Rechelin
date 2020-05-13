@@ -3,8 +3,7 @@
 
 ---
 
-# 식당 리뷰 SNS
-[사용자 참여형 맛집리뷰 큐레이션 SNS, 리슐랭]
+# 사용자 참여형 맛집리뷰 큐레이션 SNS, 리슐랭
 ![version](https://img.shields.io/badge/version-0.0.1-orange?)
 ![vue](https://img.shields.io/badge/vue-3.0.0-blue?logo=Vue.js)
 ![spring](https://img.shields.io/badge/spring-4.0.0-yellow?logo=spring)
