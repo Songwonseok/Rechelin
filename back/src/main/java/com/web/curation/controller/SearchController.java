@@ -42,7 +42,6 @@ public class SearchController{
     public Object searchUser(@RequestParam(required = true) final long id,
 			@RequestParam(required = true) final String searchname) {
     	
-    	System.out.println(id + " "+ searchname);
     	final BasicResponse result = new BasicResponse();
     	if(service.addUser(id, searchname)) {
     		result.status = true;
@@ -57,9 +56,6 @@ public class SearchController{
     @PostMapping("/search/recentUser")
     @ApiOperation(value = "최근 유저 검색 리스트")
     public Object userList(@RequestParam(required = true) final long id) {
-    	System.out.println(id);
-    	System.out.println(id);
-    	System.out.println(id);
     	final BasicResponse result = new BasicResponse();
     	result.status = true;
 		result.data = "성공"; 
@@ -99,8 +95,6 @@ public class SearchController{
 	public Object test() {
 		final BasicResponse result = new BasicResponse();
 		List<TagsResponse> list = service.tagSearch();
-		System.out.println(list.size());
-		System.out.println("들어옴");
 		if (list != null) {
 			result.status = true;
 			result.data = "성공";
